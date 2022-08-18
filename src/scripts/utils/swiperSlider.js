@@ -29,11 +29,6 @@ const initSwiper = (slider) => {
     paginationArray = paginationText.split('/')
   }
 
-  // const renderPaginations = function(){
-  //   (index, className) {
-  //     return '<span class="' + className + '">' + (menu[index]) + '</span>';
-  //   }
-  // }
 
   //parent slider
   const parentSlider = sliderThumbs && document.querySelector("["+sliderThumbs+"]")
@@ -77,7 +72,6 @@ const initSwiper = (slider) => {
       type: paginationType ? paginationType  : 'fraction',
       clickable: true,
       renderBullet: paginationArray.length > 0 ? function (index, className) {
-        console.log(className)
         let paginationConent = '<span class="' + className + '">' + (paginationArray[index]) + '</span>';
         if(index > 0){
           paginationConent = '/<span class="' + className + '">' + (paginationArray[index]) + '</span>';
