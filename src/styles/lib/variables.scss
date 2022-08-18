@@ -1,0 +1,98 @@
+// ----------------------------
+// Colors
+// ----------------------------
+
+$color-black: #000000;
+$color-grey-300: #dadcd6;
+$color-grey-200: #eaefec;
+$color-grey-100: #fcfbf9;
+$color-off-white: #f9f9f9;
+$color-white: #ffffff;
+
+$color-primary: #205c40;
+$primary-dark-green: $color-primary;
+$primary-green: $color-primary;
+$color-error-red: #cb4334;
+
+$color-secondary: #f3efea;
+$color-deep-green: #16402d;
+$color-blazin-green: #183028;
+
+$color-lime-green-500: #64a70b;
+$color-lime-green: #8dd32f;
+
+$color-dust-orange-700: #995333;
+$color-dust-orange-500: #b0603b;
+$color-dust-orange-300: #bf7f62;
+$color-dust-orange-100: #c27142;
+
+$color-brick-700: #883230;
+$color-brick-500: #ab3f3c;
+$color-brick-300: #bb6563;
+
+$color-yellow-700: #eba937;
+$color-yellow-500: #f7d294;
+$color-yellow-300: #fae4be;
+
+$color-teal-700: #006155;
+$color-teal-500: #017a6c;
+$color-teal-300: #409b90;
+
+// ----------------------------
+// Fonts
+// ----------------------------
+
+$ff-primary: MarkPro, Helvetica, Arial, sans-serif;
+$ff-header: "kepler-std";
+
+// ----------------------------
+// Breakpoints
+// ----------------------------
+
+$small: 31.25rem;
+
+$bp-medium: 46.85rem;
+$medium: $bp-medium;
+
+$bp-large: 64.85rem;
+$large: $bp-large;
+
+$bp-widescreen: 87.5rem;
+$widescreen: $bp-widescreen;
+
+$gutter: 1rem;
+$spacing-xs: 0.125rem;
+$spacing-s: 0.25rem;
+$spacing-m: 0.5rem;
+$spacing-l: 1rem;
+$spacing-xl: 1.5rem;
+
+// ----------------------------
+//
+//  Added from GAIA Production
+//
+// ----------------------------
+
+// Spacing
+$spacing-gutter: 1.25rem;
+
+// Breakpoints
+$spacing-xxl: 6.25rem;
+
+// Grid
+$grid-large: 61.85em;
+$grid-widescreen-large: 87.5em;
+
+// Breakpoints and mixins
+$medium-up: "medium-up";
+$large-up: "(min-width: 61.85em)";
+
+// color
+$tertiary-light-grey: #d8d8d8;
+
+// Font
+$font-xs: 0.875rem;
+$font-body: 1rem;
+
+// Grid
+$grid-max-width: 78em;

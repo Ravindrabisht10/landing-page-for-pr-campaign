@@ -1,0 +1,74 @@
+<div class="ccontain rebuy-full-recommendations">
+  <div class="flex-box flex-box--vertical flex-box--centered">
+    <p class="sub-title color-deep-green">
+      {{- settings.rebuy_full_product_upsell_subtitle -}}
+    </p>
+    <h2>
+      {{- settings.rebuy_full_product_upsell_title -}}
+    </h2>
+  </div>
+  <div data-slides-loop="false"
+       data-slides-group="true"
+       data-slides-per-view-mobile="1"
+       data-slides-per-view-tablet="2"
+       data-slides-per-view="4"
+       data-slides-speed="700"
+       data-swiper-slider
+       class="nooverflow rebuy-product-recomendations">
+
+    <div class="swiper-wrapper">
+      <article class="swiper-slide product-tile"
+               v-for="product in products"
+               v-bind:rebuy-product-tile="product.handle">
+        <a v-bind:href="learnMoreURL(product)">
+          <div class="product-tile__image-wrap">
+            <img v-bind:src="itemImage(product, product.selected_variant, '195x195')"
+                 v-bind:alt="product.title"
+                 class="product-tile__image">
+            <img class="product-tile__image-alt"
+                 :src="product.images[1].src.replace('.png', '_290x290.png')"
+                 :alt="product.title" />
+          </div>
+
+          <h3 class="product-tile__title"
+              v-html="product.title"></h3>
+
+          <div class="yotpo bottomLine"
+               :data-product-id="product.id"></div>
+
+          <div class="product-tile__content"
+               v-html="product.body_html"></div>
+
+          <div v-if="variantOnSale(product, product.selected_variant)"
+               class="product-tile__price">
+            <span class="rebuy-money sale"
+                  v-html="formatMoney(variantPrice(product, product.selected_variant))"></span>
+            <span class="rebuy-money compare-at"
+                  v-html="formatMoney(variantCompareAtPrice(product, product.selected_variant))"></span>
+          </div>
+          <div v-if="!(variantOnSale(product, product.selected_variant))">
+            <span class="rebuy-money"
+                  v-html="formatMoney(variantPrice(product, product.selected_variant))"></span>
+          </div>
+        </a>
+      </article>
+    </div>
+    <div class="swiper-scrollbar"></div>
+
+    <!-- If we need pagination -->
+    <div class="swiper-pagination"></div>
+
+    <div class="swiper-button-prev">
+      {%- render 'icon-chevron-left' -%}
+    </div>
+    <div class="swiper-button-next">
+      {%- render 'icon-chevron-right' -%}
+    </div>
+  </div>
+
+  <div class="flex-box flex-box--centered">
+    <a href="/collections/all" class="button button--primary">
+      Shop All Products
+    </a>
+  </div>
+</div>

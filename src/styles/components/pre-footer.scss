@@ -1,0 +1,38 @@
+.pre-footer {
+  padding: rem(40) 0;
+  background-color: $color-grey-100;
+}
+
+.pre-footer__icons {
+  @include maxed;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-column-gap: rem(12);
+  grid-row-gap: rem(24);
+
+  @include mq($large) {
+    grid-template-columns: repeat(4, 1fr);
+    grid-column-gap: rem(46);
+  }
+}
+
+.pre-footer__icon {
+  margin: 0 auto;
+  max-width: rem(265);
+  text-align: center;
+}
+
+.pre-footer__icon-title {
+  @include font(16, 19, 400);
+
+  margin-top: 1.5 * $gutter;
+  font-family: $ff-header;
+  color: $color-deep-green;
+}
+
+.pre-footer__icon-content {
+  @include font(14, 19, 300);
+
+  margin-top: rem(12);
+  color: $color-black;
+}

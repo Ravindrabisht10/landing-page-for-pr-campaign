@@ -1,0 +1,92 @@
+<section class="orders-addresses-template ccontain">
+  <div class="template__inner">
+    <div class="account-navigation__container">
+      {% include 'account-navigation' %}
+    </div>
+
+    <div class="template__content {% if customer.orders.size == 0 %}no-orders{% endif %}">
+      <h1 class="template-title h3">Order History</h1>
+      {% paginate customer.orders by 8 %}
+      {% if customer.orders.size != 0 %}
+        <table class="responsive-table">
+          <thead>
+            <tr>
+              <th>Order</th>
+              <th>Date</th>
+              <th>Status</th>
+              <th>Total</th>
+              <th>Item(s)</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for order in customer.orders %}
+            <tr class="responsive-table-row">
+              <td data-label="{{ 'customer.orders.order_number' | t }}">
+                <a href="{{ order.order_status_url }}">
+                  {{ order.name | linkto}}
+                </a>
+              </td>
+              <td data-label="{{ 'customer.orders.date' | t }}">
+                {{ order.created_at | date: format: 'abbreviated_date' }}
+              </td>
+              <td data-label="status">
+                {%- capture order_tracking_numbers -%}
+                  {%- for line_item in order.line_items -%}
+                      {%- if line_item.fulfillment -%}
+                          {%- if line_item.fulfillment.tracking_numbers.size > 0 -%}
+                            {%- if line_item.fulfillment.tracking_numbers.size == 1 and line_item.fulfillment.tracking_company and line_item.fulfillment.tracking_url -%}
+                              {{- line_item.fulfillment.tracking_numbers.first -}}
+                            {%- elsif line_item.tracking_numbers.size == 1 -%}
+                              {{- line_item.fulfillment.tracking_numbers.first -}}
+                            {%- endif -%}
+                          {%- endif -%}
+                      {%- endif -%}
+                      {%- if forloop.last == false -%}::{%- endif -%}
+                  {%- endfor -%}
+                {%- endcapture -%}
+
+                {% assign order_tracking_numbers_arr = order_tracking_numbers | remove: " " | split: '::' | uniq %}
+
+                {% if order_tracking_numbers_arr.size == 1 %}
+                  <a href="https://gaiaherbs.narvar.com/gaiaherbs/tracking/ups?tracking_numbers={{order_tracking_numbers_arr[0]}}&order_number={{order.name | remove: '#'}}">{{ order.fulfillment_status_label }}</a>
+                {% else %}
+                  {{ order.fulfillment_status_label }}
+                {% endif %}
+              </td>
+              <td data-label="{{ 'customer.orders.total' | t }}">{{ order.total_price | money }}</td>
+              <td data-label="Image">
+                <div class="item-images">
+                  {% for item in order.line_items %}
+                    {% if forloop.length > 4 %}
+                    <div class="item-image__wrapper" {% if forloop.index > 3 %}hidden{% endif %}>
+                      <img class="item-image" src="{{ item | img_url: '84x' }}">
+                    </div>
+                    {% if forloop.index == 3 %}
+                    <div class="item-image__more">
+                      <span>+ {{ forloop.length | minus:3 }} more</span>
+                    </div>
+                    {% endif %}
+                    {% else %}
+                    <div class="item-image__wrapper">
+                      <img class="item-image" src="{{ item | img_url: '84x' }}">
+                    </div>
+                    {% endif %}
+                  {% endfor %}
+                </div>
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+          </table>
+      {% else %}
+          <p>{{ 'customer.orders.none' | t }}</p>
+          <a href="/collections/all" class="button-primary">Shop Now</a>
+      {% endif %}
+
+      {% if paginate.pages > 1 %}
+        {% include 'pagination' %}
+      {% endif %}
+      {% endpaginate %}
+    </div>
+  </div>
+</section>

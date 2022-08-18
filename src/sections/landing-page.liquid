@@ -1,0 +1,2075 @@
+{% for block in section.blocks %}
+
+    {% unless block.settings.page_handle != page.handle %}
+
+        {% case block.type %}
+        
+        {% when 'callout' %}
+          {% assign callout_settings = block.settings %}
+          {% include 'component-callout-secondary' with callout_settings %}
+
+        {% when 'calloutfull' %}
+          {% assign component_settings = block.settings %}
+          {% include 'component-callout' with component_settings %}
+
+        {% when 'calloutsecondary' %}
+          {% assign callout_settings = block.settings %}
+          {% include 'component-callout-secondary' with callout_settings %}
+    
+        {% when 'columncontent' %}
+          {% assign component_settings = block.settings %}
+          {% include 'component-column-content' with component_settings %}
+    
+        {% when 'columncontentaccordian' %}
+          {% assign component_settings = block.settings %}
+          {% include 'component-column-content-accordian' with component_settings %}
+    
+        {% when 'columncontentfull' %}
+          {% assign component_settings = block.settings %}
+          {% include 'component-column-content-full' with component_settings %}
+    
+        {% when 'columncontenticons' %}
+          {% assign component_settings = block.settings %}
+          {% include 'component-column-content-icons' with component_settings %}
+    
+        {% when 'disclaimer' %}
+          {% assign disclaimer_settings = block.settings %}
+          {% include 'component-disclaimer' with disclaimer_settings %}
+
+        {% when 'gaiamap' %}
+          {% assign mapsettings = block.settings %}
+          {% include 'component-gaia-map' with mapsettings %}
+    
+        {% when 'guidingtruths' %}
+          {% assign truths = block.settings %}
+          {% include 'component-guiding-truths' with truths %}
+          {% comment %}
+            this page uses custom JS, might need to convert that over as well
+            uses: component-guiding-truths.js
+          {% endcomment%}
+
+        {% when 'herbguide' %}
+          {% assign herbssettings = block.settings %}
+          {% include 'component-herb-guide' with herbssettings%}
+    
+        {% when 'hero' %}
+          {% assign herosettings = block.settings %}
+          {% include 'component-hero' with herosettings %}
+    
+        {% when 'influencer' %}
+          {% assign influencersettings = block.settings %}
+          {% include 'component-influencer' with influencersettings %}
+    
+        {% when 'multicolumncontent' %}
+          {% assign multicolumncontent_settings = block.settings %}
+          {% include 'component-multi-column-content' with multicolumncontent_settings %}
+    
+        {% when 'ourpeople' %}
+          {% assign peoplesettings = block.settings %}
+          {% include 'component-our-people' with peoplesettings %}
+    
+        {% when 'promotioncallout' %}
+          {% assign promosettings = block.settings %}
+          {% include 'component-promotion-callout' with promosettings %}
+    
+        {% when 'featured_blogs' %}
+          {% include 'section-featured-blogs', _section: block %}
+        
+        {% when 'quote' %}
+          {% include 'block-blockquote', _section: block %}
+
+          {% when 'relatedblog' %}
+          {% assign relatedblogsettings = block.settings %}
+          {% include 'component-related-blog' with relatedblogsettings %}
+    
+        {% when 'relatedblogs' %}
+          {% assign relatedblogssettings = block.settings %}
+          {% include 'component-relatedblogs' with relatedblogssettings %}
+    
+        {% when 'testimonials' %}
+          {% assign testimonialsettings = block.settings %}
+          {% include 'component-testimonials' with testimonialsettings %}
+          {% comment %}
+            this page uses custom JS, might need to convert that over as well
+            uses: component-testimonials.js
+          {% endcomment%}
+    
+        {% when 'video' %}
+          {% assign videosettings = block.settings %}
+          {% include 'component-video' with videosettings %}
+
+        {% when 'videohero' %}
+          {% assign herosettings = block.settings %}
+          {% include 'component-video-hero' with herosettings %}
+
+        {% when 'calloutvideo' %}
+          {% assign callout_settings = block.settings %}
+          {% include 'component-callout-video' with callout_settings %}
+
+        {% when 'imagecallout' %}
+          {% assign component_settings = block.settings %}
+          {% include 'component-image-callout' with component_settings %}
+
+        {% when 'popularherbs' %}
+          {% assign herbssettings = block.settings %}
+          {% include 'component-herb-guide' with herbssettings %}
+    
+        {% when 'herbslist' %}
+          {% assign herbssettings = block.settings %}
+          {% include 'component-herb-list' with herbssettings %}
+
+      {% endcase %}
+        
+    {% endunless %}
+
+   
+
+{% endfor %}
+
+{% schema %}
+{
+    "name": "Content Page Master",
+    "settings": [],
+    "blocks": [
+    {
+    "type": "callout",
+    "name": "Callout",
+    "settings": [
+          {
+            "type": "page",
+            "id": "page_handle",
+            "label": "Page Handle Section Belongs To",
+            "info": "This is use to match pages with their sections"
+          },
+          {
+            "type": "header",
+            "content": "Section Settings"
+          },
+          {
+            "type": "checkbox",
+            "id": "add_section_divider",
+            "label": "Add Bottom Section Divider"
+          },
+          {
+            "type": "checkbox",
+            "id": "no_pt",
+            "label": "Remove Top Space"
+          },
+          {
+            "type": "checkbox",
+            "id": "no_pb",
+            "label": "Remove Bottom Space"
+          },
+          {
+            "type": "text",
+            "id": "title",
+            "label": "Heading",
+            "default": "Callout"
+          },
+          {
+            "label": "Callout Image",
+            "id": "callout_image",
+            "type": "image_picker"
+          },
+          {
+            "label": "Callout Background Color",
+            "id": "callout_color",
+            "type": "color",
+            "default": "#183028"
+          },
+          {
+            "type": "text",
+            "id": "callout_title",
+            "label": "Callout Title",
+            "default": "Callout Title"
+          },
+          {
+            "type": "textarea",
+            "id": "callout_copy",
+            "label": "Callout Copy",
+            "default": "Callout Copy"
+          },
+          {
+            "type": "url",
+            "id": "callout_cta_link",
+            "label": "Callout CTA Link"
+          },
+          {
+            "type": "text",
+            "id": "callout_cta_copy",
+            "label": "Callout CTA Copy",
+            "default": "Callout CTA Copy"
+          },
+          {
+           "type": "select",
+           "id": "callout_alignment",
+           "label": "Alignment",
+           "options": [
+             {
+               "value": "left",
+               "label": "Left"
+             },
+             {
+               "value": "right",
+               "label": "Right"
+             }
+           ],
+           "default": "right"
+          },
+          {
+           "type": "select",
+           "id": "callout_copy_color",
+           "label": "Color",
+           "options": [
+             {
+               "value": "light",
+               "label": "Light"
+             },
+             {
+               "value": "dark",
+               "label": "Dark"
+             }
+           ],
+           "default": "light"
+          }
+        ]
+      },
+      {
+        "type": "calloutfull",
+        "name": "Callout - Full",
+        "settings": [
+          {
+            "type": "page",
+            "id": "page_handle",
+            "label": "Page Handle Section Belongs To",
+            "info": "This is use to match pages with their sections"
+          },
+          {
+            "type": "text",
+            "id": "title",
+            "label": "Heading",
+            "default": "Callout"
+          },
+          {
+            "label": "Callout Background Image",
+            "id": "callout_image",
+            "type": "image_picker"
+          },
+          {
+            "label": "Callout Background Color",
+            "id": "callout_color",
+            "type": "color",
+            "default": "#183028"
+          },
+          {
+            "type": "text",
+            "id": "callout_title",
+            "label": "Callout Title",
+            "default": "Callout Title"
+          },
+          {
+            "type": "textarea",
+            "id": "callout_copy",
+            "label": "Callout Copy",
+            "default": "Callout Copy"
+          },
+          {
+            "type": "url",
+            "id": "callout_cta_link",
+            "label": "Callout CTA Link"
+          },
+          {
+            "type": "text",
+            "id": "callout_cta_copy",
+            "label": "Callout CTA Copy",
+            "default": "Callout CTA Copy"
+          },
+          {
+           "type": "select",
+           "id": "callout_copy_color",
+           "label": "Color",
+           "options": [
+             {
+               "value": "light",
+               "label": "Light"
+             },
+             {
+               "value": "dark",
+               "label": "Dark"
+             }
+           ],
+           "default": "light"
+          }
+        ]
+      },
+      {
+        "type": "columncontent",
+        "name": "2 Column Content",
+        "settings": [
+          {
+            "type": "page",
+            "id": "page_handle",
+            "label": "Page Handle Section Belongs To",
+            "info": "This is use to match pages with their sections"
+          },
+          {
+            "type": "header",
+            "content": "Section Settings"
+          },
+          {
+            "type": "checkbox",
+            "id": "add_section_divider",
+            "label": "Add Bottom Section Divider"
+          },
+          {
+            "type": "checkbox",
+            "id": "no_pt",
+            "label": "Remove Top Space"
+          },
+          {
+            "type": "checkbox",
+            "id": "no_pb",
+            "label": "Remove Bottom Space"
+          },
+          {
+            "label": "Content Background Color",
+            "id": "column_color",
+            "type": "color",
+            "default": "#ffffff"
+          },
+          {
+            "label": "Column 1 Image",
+            "id": "content_1_image",
+            "type": "image_picker"
+          },
+          {
+            "type": "text",
+            "id": "content_1_title",
+            "label": "Column 1 Title"
+          },
+          {
+            "type": "textarea",
+            "id": "content_1_copy",
+            "label": "Column 1 Copy"
+          },
+          {
+            "type": "url",
+            "id": "content_1_cta_link",
+            "label": "Column 1 CTA Link"
+          },
+          {
+            "type": "text",
+            "id": "content_1_cta_copy",
+            "label": "Content CTA Copy"
+          },
+          {
+           "type": "select",
+           "id": "content_1_width",
+           "label": "Column 1 Width",
+           "options": [
+             {
+               "value": " ",
+               "label": "Normal"
+             },
+             {
+               "value": "wide",
+               "label": "Wide"
+             }
+           ]
+          },
+          {
+            "label": "Column 2 Image",
+            "id": "content_2_image",
+            "type": "image_picker"
+          },
+          {
+            "type": "text",
+            "id": "content_2_title",
+            "label": "Column 2 Title"
+          },
+          {
+            "type": "textarea",
+            "id": "content_2_copy",
+            "label": "Column 2 Copy"
+          },
+          {
+            "type": "url",
+            "id": "content_2_cta_link",
+            "label": "Column 2 CTA Link"
+          },
+          {
+            "type": "text",
+            "id": "content_2_cta_copy",
+            "label": "Column 2 Copy"
+          },
+          {
+           "type": "select",
+           "id": "content_2_width",
+           "label": "Column 2 Width",
+           "options": [
+             {
+               "value": " ",
+               "label": "Normal"
+             },
+             {
+               "value": "wide",
+               "label": "Wide"
+             }
+           ]
+          },
+          {
+           "type": "select",
+           "id": "content_1_alignment",
+           "label": "Column 1 Alignment",
+           "options": [
+             {
+               "value": "1",
+               "label": "Top"
+             },
+             {
+               "value": "2",
+               "label": "Bottom"
+             }
+           ],
+           "default": "1"
+          }
+        ]
+      },
+      {
+        "type": "columncontentfull",
+        "name": "2 Column Content - Full",
+        "settings": [
+          {
+            "type": "page",
+            "id": "page_handle",
+            "label": "Page Handle Section Belongs To",
+            "info": "This is use to match pages with their sections"
+          },
+          {
+            "type": "header",
+            "content": "Section Settings"
+          },
+          {
+            "type": "checkbox",
+            "id": "add_section_divider",
+            "label": "Add Bottom Section Divider"
+          },
+          {
+            "type": "checkbox",
+            "id": "no_pt",
+            "label": "Remove Top Space"
+          },
+          {
+            "type": "checkbox",
+            "id": "no_pb",
+            "label": "Remove Bottom Space"
+          },
+          {
+            "label": "Column 1 Background Color",
+            "id": "content_1_color",
+            "type": "color",
+            "default": "#ffffff"
+          },
+          {
+            "label": "Column 1 Image",
+            "id": "content_1_image",
+            "type": "image_picker"
+          },
+          {
+            "type": "textarea",
+            "id": "content_1_copy",
+            "label": "Column 1 Copy"
+          },
+          {
+           "type": "select",
+           "id": "content_1_copy_color",
+           "label": "Column 1 Copy Color",
+           "options": [
+             {
+               "value": "light",
+               "label": "Light"
+             },
+             {
+               "value": "dark",
+               "label": "Dark"
+             }
+           ],
+           "default": "dark"
+          },
+          {
+            "label": "Column 2 Background Color",
+            "id": "content_2_color",
+            "type": "color",
+            "default": "#ffffff"
+          },
+          {
+            "label": "Column 2 Image",
+            "id": "content_2_image",
+            "type": "image_picker"
+          },
+          {
+            "type": "textarea",
+            "id": "content_2_copy",
+            "label": "Column 2 Copy"
+          },
+          {
+           "type": "select",
+           "id": "content_2_copy_color",
+           "label": "Column 2 Copy Color",
+           "options": [
+             {
+               "value": "light",
+               "label": "Light"
+             },
+             {
+               "value": "dark",
+               "label": "Dark"
+             }
+           ],
+           "default": "dark"
+          }
+        ]
+      },
+      {
+        "type": "columncontenticons",
+        "name": "2 Column Content - Icons",
+        "settings": [
+          {
+            "type": "page",
+            "id": "page_handle",
+            "label": "Page Handle Section Belongs To",
+            "info": "This is use to match pages with their sections"
+          },
+          {
+            "type": "header",
+            "content": "Section Settings"
+          },
+          {
+            "type": "checkbox",
+            "id": "add_section_divider",
+            "label": "Add Bottom Section Divider"
+          },
+          {
+            "type": "checkbox",
+            "id": "no_pt",
+            "label": "Remove Top Space"
+          },
+          {
+            "type": "checkbox",
+            "id": "no_pb",
+            "label": "Remove Bottom Space"
+          },
+          {
+            "label": "Content Background Color",
+            "id": "column_color",
+            "type": "color",
+            "default": "#ffffff"
+          },
+          {
+            "label": "Column 1 Image",
+            "id": "content_1_image",
+            "type": "image_picker"
+          },
+          {
+            "type": "text",
+            "id": "content_1_title",
+            "label": "Column 1 Title"
+          },
+          {
+            "type": "textarea",
+            "id": "content_1_copy",
+            "label": "Column 1 Copy"
+          },
+          {
+            "type": "url",
+            "id": "content_1_cta_link",
+            "label": "Column 1 CTA Link"
+          },
+          {
+            "type": "text",
+            "id": "content_1_cta_copy",
+            "label": "Column 1 CTA Copy"
+          },
+          {
+           "type": "select",
+           "id": "content_1_cta_color",
+           "label": "Column 1 CTA Color",
+           "options": [
+             {
+               "value": "green",
+               "label": "Outline"
+             },
+             {
+               "value": "primary",
+               "label": "Green"
+             }
+           ],
+           "default": "green"
+          },
+          {
+           "type": "select",
+           "id": "content_2_icon_type",
+           "label": "Column 2 Icon Type",
+           "options": [
+             {
+               "value": "icons",
+               "label": "Icons"
+             },
+             {
+               "value": "images",
+               "label": "Images"
+             }
+           ],
+           "default": "icons"
+          },
+          {
+            "label": "Column 2 Icon 1",
+            "id": "content_2_image_1",
+            "type": "image_picker"
+          },
+          {
+            "type": "text",
+            "id": "content_2_image_1_title",
+            "label": "Column 2 Icon 1 Title"
+          },
+          {
+            "type": "text",
+            "id": "content_2_image_1_copy",
+            "label": "Column 2 Icon 1 Copy"
+          },
+          {
+            "label": "Column 2 Icon 2",
+            "id": "content_2_image_2",
+            "type": "image_picker"
+          },
+          {
+            "type": "text",
+            "id": "content_2_image_2_title",
+            "label": "Column 2 Icon 2 Title"
+          },
+          {
+            "type": "text",
+            "id": "content_2_image_2_copy",
+            "label": "Column 2 Icon 2 Copy"
+          },
+          {
+            "label": "Column 2 Icon 3",
+            "id": "content_2_image_3",
+            "type": "image_picker"
+          },
+          {
+            "type": "text",
+            "id": "content_2_image_3_title",
+            "label": "Column 2 Icon 3 Title"
+          },
+          {
+            "type": "text",
+            "id": "content_2_image_3_copy",
+            "label": "Column 2 Icon 3 Copy"
+          },
+          {
+            "label": "Column 2 Icon 4",
+            "id": "content_2_image_4",
+            "type": "image_picker"
+          },
+          {
+            "type": "text",
+            "id": "content_2_image_4_title",
+            "label": "Column 2 Icon 4 Title"
+          },
+          {
+            "type": "text",
+            "id": "content_2_image_4_copy",
+            "label": "Column 2 Icon 4 Copy"
+          },
+          {
+            "label": "Column 2 Icon 5",
+            "id": "content_2_image_5",
+            "type": "image_picker"
+          },
+          {
+            "type": "text",
+            "id": "content_2_image_5_title",
+            "label": "Column 2 Icon 5 Title"
+          },
+          {
+            "type": "text",
+            "id": "content_2_image_5_copy",
+            "label": "Column 2 Icon 5 Copy"
+          }
+        ]
+      },
+      {
+        "type": "disclaimer",
+        "name": "Disclaimer",
+        "settings": [
+          {
+            "type": "page",
+            "id": "page_handle",
+            "label": "Page Handle Section Belongs To",
+            "info": "This is use to match pages with their sections"
+          },
+          {
+            "type": "header",
+            "content": "Section Settings"
+          },
+          {
+            "type": "checkbox",
+            "id": "add_section_divider",
+            "label": "Add Bottom Section Divider"
+          },
+          {
+            "type": "checkbox",
+            "id": "no_pt",
+            "label": "Remove Top Space"
+          },
+          {
+            "type": "checkbox",
+            "id": "no_pb",
+            "label": "Remove Bottom Space"
+          },
+          {
+            "type": "text",
+            "id": "disclaimer_title",
+            "label": "Disclaimer Title",
+            "default": "Disclaimer Title"
+          },
+          {
+            "type": "textarea",
+            "id": "disclaimer_copy",
+            "label": "Disclaimer Copy",
+            "default": "Disclaimer Copy"
+          }
+        ]
+      },
+      {
+        "type": "gaiamap",
+        "name": "Gaia Map",
+        "settings": [
+          {
+            "type": "page",
+            "id": "page_handle",
+            "label": "Page Handle Section Belongs To",
+            "info": "This is use to match pages with their sections"
+          },
+          {
+            "type": "header",
+            "content": "Section Settings"
+          },
+          {
+            "type": "checkbox",
+            "id": "add_section_divider",
+            "label": "Add Bottom Section Divider"
+          },
+          {
+            "type": "checkbox",
+            "id": "no_pt",
+            "label": "Remove Top Space"
+          },
+          {
+            "type": "checkbox",
+            "id": "no_pb",
+            "label": "Remove Bottom Space"
+          },
+          {
+            "type": "text",
+            "id": "map_location",
+            "label": "Map Location",
+            "default": "Gaia Location"
+          },
+          {
+            "type": "text",
+            "id": "map_title",
+            "label": "Map Heading",
+            "default": "Gaia Map"
+          },
+          {
+            "type": "textarea",
+            "id": "map_copy",
+            "label": "Map Copy",
+            "default": "Gaia Map"
+          },
+          {
+            "type": "textarea",
+            "id": "map_copy_mobile",
+            "label": "Map Copy Mobile"
+          },
+          {
+            "type": "image_picker",
+            "id": "map_image",
+            "label": "Map Image"
+          }
+        ]
+      },
+      {
+        "type": "guidingtruths",
+        "name": "Guiding Truths",
+        "settings": [
+          {
+            "type": "page",
+            "id": "page_handle",
+            "label": "Page Handle Section Belongs To",
+            "info": "This is use to match pages with their sections"
+          },
+          {
+            "type": "header",
+            "content": "Section Settings"
+          },
+          {
+            "type": "checkbox",
+            "id": "add_section_divider",
+            "label": "Add Bottom Section Divider"
+          },
+          {
+            "type": "checkbox",
+            "id": "no_pt",
+            "label": "Remove Top Space"
+          },
+          {
+            "type": "checkbox",
+            "id": "no_pb",
+            "label": "Remove Bottom Space"
+          },
+          {
+            "type": "text",
+            "id": "heading",
+            "label": "Heading",
+            "default": "Guiding Truths"
+          },
+          {
+            "type": "image_picker",
+            "id": "truth_image",
+            "label": "Guiding Truths Background Image"
+          },
+          {
+            "type": "image_picker",
+            "id": "truth_icon",
+            "label": "Guiding Truths Icon"
+          },
+          {
+            "type": "text",
+            "id": "title",
+            "label": "Guiding Truths Title",
+            "default": "Guiding Truths Title"
+          },
+          {
+            "type": "textarea",
+            "id": "copy",
+            "label": "Guiding Truths Copy",
+            "default": "Guiding Truths Copy"
+          },
+          {
+            "type": "url",
+            "id": "callout_cta_link",
+            "label": "Guiding Truths CTA Link"
+          },
+          {
+            "type": "text",
+            "id": "callout_cta_copy",
+            "label": "Guiding Truths CTA Copy",
+            "default": "Guiding Truths CTA Copy"
+          }
+        ]
+      },
+      {
+        "type": "herbguide",
+        "name": "Herb Reference Guide",
+        "settings": [
+          {
+            "type": "page",
+            "id": "page_handle",
+            "label": "Page Handle Section Belongs To",
+            "info": "This is use to match pages with their sections"
+          },
+          {
+            "type": "header",
+            "content": "Section Settings"
+          },
+          {
+            "type": "checkbox",
+            "id": "add_section_divider",
+            "label": "Add Bottom Section Divider"
+          },
+          {
+            "type": "checkbox",
+            "id": "no_pt",
+            "label": "Remove Top Space"
+          },
+          {
+            "type": "checkbox",
+            "id": "no_pb",
+            "label": "Remove Bottom Space"
+          },
+          {
+            "type": "text",
+            "id": "heading",
+            "label": "Heading",
+            "default": "Herb Reference Guide"
+          },
+          {
+            "type": "text",
+            "id": "title",
+            "label": "Herb Reference Guide Title",
+            "default": "Herb Reference Guide Title"
+          },
+          {
+            "type": "textarea",
+            "id": "copy",
+            "label": "Herb Reference Guide Copy",
+            "default": "Herb Reference Guide Copy"
+          },
+          {
+            "type": "url",
+            "id": "callout_cta_link",
+            "label": "Callout CTA Link"
+          },
+          {
+            "type": "text",
+            "id": "callout_cta_copy",
+            "label": "Callout CTA Copy",
+            "default": "Callout CTA Copy"
+          }
+        ]
+      },
+      {
+        "name": "Hero Image",
+        "type": "hero",
+        "settings": [
+          {
+            "type": "page",
+            "id": "page_handle",
+            "label": "Page Handle Section Belongs To",
+            "info": "This is use to match pages with their sections"
+          },
+          {
+            "type": "image_picker",
+            "id": "hero_image",
+            "label": "Hero Image"
+          },
+          {
+            "type": "range",
+            "id": "content_max_width",
+            "min": 300,
+            "max": 700,
+            "step": 5,
+            "unit": "px",
+            "label": "Content Max width",
+            "default": 475
+          },
+          {
+            "type": "text",
+            "id": "hero_subtitle",
+            "label": "Sub Heading",
+            "default": "Sub Heading"
+          },
+          {
+            "type": "text",
+            "id": "title",
+            "label": "Heading",
+            "default": "Hero Image"
+          },
+          {
+            "type": "richtext",
+            "id": "hero_copy",
+            "label": "Hero Copy",
+            "default": "<p>Hero Image</p>"
+          },
+          {
+            "type": "select",
+            "id": "hero_copy_color",
+            "label": "Color",
+            "options": [
+              {
+                "value": "light",
+                "label": "Light"
+              },
+              {
+                "value": "dark",
+                "label": "Dark"
+              }
+            ],
+            "default": "light"
+          },
+          {
+            "type": "text",
+            "id": "button_label",
+            "label": "Button Label",
+            "default": "Shop Now"
+          },
+          {
+            "type": "url",
+            "id": "button_link",
+            "label": "Button Link"
+          },
+          {
+            "type": "select",
+            "id": "button_type",
+            "options": [
+               { "value": "primary", "label": "Primary" },
+               { "value": "secondary", "label": "Secondary" },
+               { "value": "tertiary", "label": "Tertiary Outline" },
+               { "value": "tertiary-dark", "label": "Tertiary Dark" }
+            ],
+            "label": "Button Type",
+            "default": "primary"
+          }
+        ]
+      },
+      {
+        "type": "influencer",
+        "name": "Influencer",
+        "settings": [
+          {
+            "type": "page",
+            "id": "page_handle",
+            "label": "Page Handle Section Belongs To",
+            "info": "This is use to match pages with their sections"
+          },
+          {
+            "type": "header",
+            "content": "Section Settings"
+          },
+          {
+            "type": "checkbox",
+            "id": "add_section_divider",
+            "label": "Add Bottom Section Divider"
+          },
+          {
+            "type": "checkbox",
+            "id": "no_pt",
+            "label": "Remove Top Space"
+          },
+          {
+            "type": "checkbox",
+            "id": "no_pb",
+            "label": "Remove Bottom Space"
+          },
+          {
+            "type": "text",
+            "id": "title",
+            "label": "Heading",
+            "default": "Influencer"
+          },
+          {
+            "label": "Influencer Image",
+            "id": "influencer_image",
+            "type": "image_picker"
+          },
+          {
+            "type": "text",
+            "id": "influencer_name",
+            "label": "Influencer Name",
+            "default": "Influencer Name"
+          },
+          {
+            "type": "text",
+            "id": "influencer_title",
+            "label": "Influencer Title",
+            "default": "Influencer Title"
+          },
+          {
+            "type": "textarea",
+            "id": "influencer_copy",
+            "label": "Influencer Copy",
+            "default": "Influencer Copy"
+          },
+          {
+            "type": "url",
+            "id": "influencer_cta_link",
+            "label": "Influencer CTA Link"
+          },
+          {
+            "type": "text",
+            "id": "influencer_cta_copy",
+            "label": "Influencer CTA Copy",
+            "default": "Influencer CTA Copy"
+          },
+          {
+           "type": "select",
+           "id": "influencer_copy_color",
+           "label": "Color",
+           "options": [
+             {
+               "value": "light",
+               "label": "Light"
+             },
+             {
+               "value": "dark",
+               "label": "Dark"
+             }
+           ],
+           "default": "light",
+           "info": "Text"
+          }
+        ]
+      },
+      {
+        "type": "ourpeople",
+        "name": "Our People",
+        "settings": [
+          {
+            "type": "page",
+            "id": "page_handle",
+            "label": "Page Handle Section Belongs To",
+            "info": "This is use to match pages with their sections"
+          },
+          {
+            "type": "header",
+            "content": "Section Settings"
+          },
+          {
+            "type": "checkbox",
+            "id": "add_section_divider",
+            "label": "Add Bottom Section Divider"
+          },
+          {
+            "type": "checkbox",
+            "id": "no_pt",
+            "label": "Remove Top Space"
+          },
+          {
+            "type": "checkbox",
+            "id": "no_pb",
+            "label": "Remove Bottom Space"
+          },
+          {
+            "type": "text",
+            "id": "heading",
+            "label": "Heading",
+            "default": "Our People"
+          },
+          {
+            "type": "text",
+            "id": "people_title",
+            "label": "Our People Title",
+            "default": "Our People Title"
+          },
+          {
+            "type": "textarea",
+            "id": "people_copy",
+            "label": "Our People Copy",
+            "default": "Our People Copy"
+          },
+          {
+           "type": "select",
+           "id": "people_category",
+           "label": "Our People Category",
+           "options": [
+             {
+               "value": "all",
+               "label": "All"
+             },
+             {
+               "value": "people-main",
+               "label": "People - Main"
+             },
+             {
+               "value": "people-sab",
+               "label": "People - Sab"
+             },
+             {
+               "value": "people-farm",
+               "label": "People - Farm"
+             }
+           ],
+           "default": "all"
+          }
+        ]
+      },
+      {
+        "type": "promotioncallout",
+        "name": "Promotional Callout",
+        "settings": [
+          {
+            "type": "page",
+            "id": "page_handle",
+            "label": "Page Handle Section Belongs To",
+            "info": "This is use to match pages with their sections"
+          },
+          {
+            "type": "header",
+            "content": "Section Settings"
+          },
+          {
+            "type": "checkbox",
+            "id": "add_section_divider",
+            "label": "Add Bottom Section Divider"
+          },
+          {
+            "type": "checkbox",
+            "id": "no_pt",
+            "label": "Remove Top Space"
+          },
+          {
+            "type": "checkbox",
+            "id": "no_pb",
+            "label": "Remove Bottom Space"
+          },
+          {
+            "type": "product",
+            "id": "product_data",
+            "label": "Product"
+          },
+          {
+            "type": "image_picker",
+            "id": "product_image",
+            "label": "Product Image"
+          },
+          {
+            "id": "callout_title",
+            "type": "text",
+            "label": "Callout Title"
+          },
+          {
+            "id": "callout_copy",
+            "type": "text",
+            "label": "Callout Copy",
+            "default": "Callout Copy"
+          },
+          {
+            "id": "callout_cta_link",
+            "type": "url",
+            "label": "Callout CTA Link"
+          },
+          {
+            "id": "callout_cta_copy",
+            "type": "text",
+            "label": "Callout CTA Copy",
+            "default": "Callout CTA Copy"
+          }
+        ]
+      },
+      {
+        "type": "featured_blogs",
+        "name": "Featured Blogs",
+        "settings": [
+          {
+            "type": "page",
+            "id": "page_handle",
+            "label": "Page Handle Section Belongs To",
+            "info": "This is use to match pages with their sections"
+          },
+          {
+            "type": "header",
+            "content": "Section Settings"
+          },
+          {
+            "type": "checkbox",
+            "id": "add_section_divider",
+            "label": "Add Bottom Section Divider"
+          },
+          {
+            "type": "checkbox",
+            "id": "no_pt",
+            "label": "Remove Top Space"
+          },
+          {
+            "type": "checkbox",
+            "id": "no_pb",
+            "label": "Remove Bottom Space"
+          },
+          {
+            "type": "header",
+            "content": "Settings"
+          },
+          {
+            "type": "text",
+            "id": "sub_title",
+            "label": "Sub Title",
+            "default": "Our Blog"
+          },
+          {
+            "type": "text",
+            "id": "title",
+            "label": "Title"
+          },
+          {
+            "type": "select",
+            "id": "button_type",
+            "options": [
+              { "value": "primary", "label": "Primary" },
+              { "value": "secondary", "label": "Secondary" },
+              { "value": "tertiary", "label": "Tertiary Outline" },
+              { "value": "tertiary-dark", "label": "Tertiary Dark" }
+            ],
+            "label": "Button Type",
+            "default": "tertiary"
+          },
+          {
+            "type": "url",
+            "id": "blog_url",
+            "label": "Blog URL"
+          },
+          {
+            "type": "article",
+            "id": "article_handle_1",
+            "label": "Article To Display"
+          },
+          {
+            "type": "article",
+            "id": "article_handle_2",
+            "label": "Article To Display"
+          }
+        ]
+      },
+      {
+        "type": "relatedblogs",
+        "name": "Related Blogs",
+        "settings": [
+          {
+            "type": "page",
+            "id": "page_handle",
+            "label": "Page Handle Section Belongs To",
+            "info": "This is use to match pages with their sections"
+          },
+          {
+            "type": "header",
+            "content": "Section Settings"
+          },
+          {
+            "type": "checkbox",
+            "id": "add_section_divider",
+            "label": "Add Bottom Section Divider"
+          },
+          {
+            "type": "checkbox",
+            "id": "no_pt",
+            "label": "Remove Top Space"
+          },
+          {
+            "type": "checkbox",
+            "id": "no_pb",
+            "label": "Remove Bottom Space"
+          },
+          {
+            "type": "checkbox",
+            "id": "show_related_blogs",
+            "label": "Show Related Blogs",
+            "default": false
+          },
+          {
+            "id": "related_title",
+            "type": "text",
+            "label": "Section title",
+            "default": "Related Blogs"
+          },
+          {
+            "id": "related_category",
+            "type": "text",
+            "label": "Related Blogs Category"
+          }
+        ]
+      },
+      {
+        "type": "relatedblog",
+        "name": "Related Blog",
+        "settings": [
+          {
+            "type": "page",
+            "id": "page_handle",
+            "label": "Page Handle Section Belongs To",
+            "info": "This is use to match pages with their sections"
+          },
+          {
+            "type": "header",
+            "content": "Section Settings"
+          },
+          {
+            "type": "checkbox",
+            "id": "add_section_divider",
+            "label": "Add Bottom Section Divider"
+          },
+          {
+            "type": "checkbox",
+            "id": "no_pt",
+            "label": "Remove Top Space"
+          },
+          {
+            "type": "checkbox",
+            "id": "no_pb",
+            "label": "Remove Bottom Space"
+          },
+          {
+            "id": "blog",
+            "type": "article",
+            "label": "Related Article"
+          }
+        ]
+      },
+      {
+        "type": "testimonials",
+        "name": "Testimonials",
+        "settings": [
+          {
+            "type": "page",
+            "id": "page_handle",
+            "label": "Page Handle Section Belongs To",
+            "info": "This is use to match pages with their sections"
+          },
+          {
+            "type": "header",
+            "content": "Section Settings"
+          },
+          {
+            "type": "checkbox",
+            "id": "add_section_divider",
+            "label": "Add Bottom Section Divider"
+          },
+          {
+            "type": "checkbox",
+            "id": "no_pt",
+            "label": "Remove Top Space"
+          },
+          {
+            "type": "checkbox",
+            "id": "no_pb",
+            "label": "Remove Bottom Space"
+          },
+          {
+            "type": "text",
+            "id": "testimonial_title",
+            "label": "Testimonial Title",
+            "default": "FROM OUR CUSTOMERS"
+          },
+          {
+            "label": "Testimonial Image 1",
+            "id": "slide_image_1",
+            "type": "image_picker"
+          },
+          {
+            "type": "textarea",
+            "id": "slide_testimonial_1",
+            "label": "Testimonial 1"
+          },
+          {
+            "type": "text",
+            "id": "slide_testimonial_name_1",
+            "label": "Testimonial Name 1",
+            "default": "Testimonial Name 1"
+          },
+          {
+            "type": "text",
+            "id": "slide_testimonial_title_1",
+            "label": "Testimonial Title 1",
+            "default": "Testimonial Title 1"
+          },
+          {
+            "label": "Testimonial Image 2",
+            "id": "slide_image_2",
+            "type": "image_picker"
+          },
+          {
+            "type": "textarea",
+            "id": "slide_testimonial_2",
+            "label": "Testimonial 2"
+          },
+          {
+            "type": "text",
+            "id": "slide_testimonial_name_2",
+            "label": "Testimonial Name 2",
+            "default": "Testimonial Name 2"
+          },
+          {
+            "type": "text",
+            "id": "slide_testimonial_title_2",
+            "label": "Testimonial Title 2",
+            "default": "Testimonial Title 2"
+          },
+          {
+            "label": "Testimonial Image 3",
+            "id": "slide_image_3",
+            "type": "image_picker"
+          },
+          {
+            "type": "textarea",
+            "id": "slide_testimonial_3",
+            "label": "Testimonial 3"
+          },
+          {
+            "type": "text",
+            "id": "slide_testimonial_name_3",
+            "label": "Testimonial Name 3",
+            "default": "Testimonial Name 3"
+          },
+          {
+            "type": "text",
+            "id": "slide_testimonial_title_3",
+            "label": "Testimonial Title 3",
+            "default": "Testimonial Title 3"
+          },
+          {
+            "label": "Testimonial Image 4",
+            "id": "slide_image_4",
+            "type": "image_picker"
+          },
+          {
+            "type": "textarea",
+            "id": "slide_testimonial_4",
+            "label": "Testimonial 4"
+          },
+          {
+            "type": "text",
+            "id": "slide_testimonial_name_4",
+            "label": "Testimonial Name 4",
+            "default": "Testimonial Name 4"
+          },
+          {
+            "type": "text",
+            "id": "slide_testimonial_title_4",
+            "label": "Testimonial Title 4",
+            "default": "Testimonial Title 4"
+          },
+          {
+            "label": "Testimonial Image 5",
+            "id": "slide_image_5",
+            "type": "image_picker"
+          },
+          {
+            "type": "textarea",
+            "id": "slide_testimonial_5",
+            "label": "Testimonial 5"
+          },
+          {
+            "type": "text",
+            "id": "slide_testimonial_name_5",
+            "label": "Testimonial Name 5",
+            "default": "Testimonial Name 5"
+          },
+          {
+            "type": "text",
+            "id": "slide_testimonial_title_5",
+            "label": "Testimonial Title 5",
+            "default": "Testimonial Title 5"
+          },
+          {
+            "label": "Testimonial Image 6",
+            "id": "slide_image_6",
+            "type": "image_picker"
+          },
+          {
+            "type": "textarea",
+            "id": "slide_testimonial_6",
+            "label": "Testimonial 6"
+          },
+          {
+            "type": "text",
+            "id": "slide_testimonial_name_6",
+            "label": "Testimonial Name 6",
+            "default": "Testimonial Name 6"
+          },
+          {
+            "type": "text",
+            "id": "slide_testimonial_title_6",
+            "label": "Testimonial Title 6",
+            "default": "Testimonial Title 6"
+          },
+          {
+            "label": "Testimonial Image 7",
+            "id": "slide_image_7",
+            "type": "image_picker"
+          },
+          {
+            "type": "textarea",
+            "id": "slide_testimonial_7",
+            "label": "Testimonial 7"
+          },
+          {
+            "type": "text",
+            "id": "slide_testimonial_name_7",
+            "label": "Testimonial Name 7",
+            "default": "Testimonial Name 7"
+          },
+          {
+            "type": "text",
+            "id": "slide_testimonial_title_7",
+            "label": "Testimonial Title 7",
+            "default": "Testimonial Title 7"
+          },
+          {
+            "label": "Testimonial Image 8",
+            "id": "slide_image_8",
+            "type": "image_picker"
+          },
+          {
+            "type": "textarea",
+            "id": "slide_testimonial_8",
+            "label": "Testimonial 8"
+          },
+          {
+            "type": "text",
+            "id": "slide_testimonial_name_8",
+            "label": "Testimonial Name 8",
+            "default": "Testimonial Name 8"
+          },
+          {
+            "type": "text",
+            "id": "slide_testimonial_title_8",
+            "label": "Testimonial Title 8",
+            "default": "Testimonial Title 8"
+          },
+          {
+            "label": "Testimonial Image 9",
+            "id": "slide_image_9",
+            "type": "image_picker"
+          },
+          {
+            "type": "textarea",
+            "id": "slide_testimonial_9",
+            "label": "Testimonial 9"
+          },
+          {
+            "type": "text",
+            "id": "slide_testimonial_name_9",
+            "label": "Testimonial Name 9",
+            "default": "Testimonial Name 9"
+          },
+          {
+            "type": "text",
+            "id": "slide_testimonial_title_9",
+            "label": "Testimonial Title 9",
+            "default": "Testimonial Title 9"
+          },
+          {
+            "label": "Testimonial Image 10",
+            "id": "slide_image_10",
+            "type": "image_picker"
+          },
+          {
+            "type": "textarea",
+            "id": "slide_testimonial_10",
+            "label": "Testimonial 10"
+          },
+          {
+            "type": "text",
+            "id": "slide_testimonial_name_10",
+            "label": "Testimonial Name 10",
+            "default": "Testimonial Name 10"
+          },
+          {
+            "type": "text",
+            "id": "slide_testimonial_title_10",
+            "label": "Testimonial Title 10",
+            "default": "Testimonial Title 10"
+          }
+        ]
+      },
+      {
+        "type": "quote",
+        "name": "Quote",
+        "settings": [
+          {
+            "type": "page",
+            "id": "page_handle",
+            "label": "Page Handle Section Belongs To",
+            "info": "This is use to match pages with their sections"
+          },
+          {
+            "type": "header",
+            "content": "Section Settings"
+          },
+          {
+            "type": "checkbox",
+            "id": "add_section_divider",
+            "label": "Add Bottom Section Divider"
+          },
+          {
+            "type": "checkbox",
+            "id": "no_pt",
+            "label": "Remove Top Space"
+          },
+          {
+            "type": "checkbox",
+            "id": "no_pb",
+            "label": "Remove Bottom Space"
+          },
+          {
+            "type": "header",
+            "content": "Settings"
+          },
+          {
+            "type": "richtext",
+            "id": "copy",
+            "label": "Copy",
+            "default": "<p>Dictum at tempor commodo ullamcorper a lacus vestibulum sed arcu. Varius morbi enim nunc faucibus a. Elementum nisi quis eleifend quam adipiscing vitae proin sagittis. Tincidunt lobortis feugiat vivamus at augue. Bibendum ut tristique et egestas quis ipsum suspendisse. Quis risus sed vulputate odio ut. Pulvinar neque laoreet suspendisse interdum consectetur libero id faucibus nisl.</p>"
+          },
+          {
+            "type": "image_picker",
+            "id": "image",
+            "label": "Image"
+          },
+          {
+            "type": "text",
+            "id": "title",
+            "label": "Title"
+          },
+          {
+            "type": "text",
+            "id": "info",
+            "label": "Info"
+          }
+        ]
+      },
+      {
+        "type": "video",
+        "name": "Video",
+        "settings": [
+          {
+            "type": "page",
+            "id": "page_handle",
+            "label": "Page Handle Section Belongs To",
+            "info": "This is use to match pages with their sections"
+          },
+          {
+            "type": "header",
+            "content": "Section Settings"
+          },
+          {
+            "type": "checkbox",
+            "id": "add_section_divider",
+            "label": "Add Bottom Section Divider"
+          },
+          {
+            "type": "checkbox",
+            "id": "no_pt",
+            "label": "Remove Top Space"
+          },
+          {
+            "type": "checkbox",
+            "id": "no_pb",
+            "label": "Remove Bottom Space"
+          },
+          {
+            "type": "image_picker",
+            "id": "video_image",
+            "label": "Video Image"
+          },
+          {
+            "id": "video_link",
+            "type": "text",
+            "label": "Video Link"
+          },
+          {
+            "id": "video_clip",
+            "type": "text",
+            "label": "Video Background"
+          }
+        ]
+      },
+      {
+        "type": "imagecallout",
+        "name": "Image Callout",
+        "settings": [
+          {
+            "type": "text",
+            "id": "page_handle",
+            "label": "Page Handle Section Belongs To",
+            "info": "This is use to match pages with their sections"
+          },
+          {
+            "label": "Callout Image",
+            "id": "callout_image",
+            "type": "image_picker"
+          },
+          {
+            "type": "header",
+            "content": "Section Settings"
+          },
+          {
+            "type": "checkbox",
+            "id": "add_section_divider",
+            "label": "Add Bottom Section Divider"
+          },
+          {
+            "type": "checkbox",
+            "id": "no_pt",
+            "label": "Remove Top Space"
+          },
+          {
+            "type": "checkbox",
+            "id": "no_pb",
+            "label": "Remove Bottom Space"
+          },
+          {
+            "type": "url",
+            "id": "callout_image_link",
+            "label": "Callout Link"
+          },
+          {
+           "type": "select",
+           "id": "callout_image_width",
+           "label": "Callout Width",
+           "options": [
+             {
+               "value": " ",
+               "label": "Full"
+             },
+             {
+               "value": "contain",
+               "label": "Clipped"
+             }
+           ],
+           "default": " "
+          }
+        ]
+      },
+      {
+        "type": "popularherbs",
+        "name": "Popular Herbs",
+        "settings": [
+          {
+            "type": "page",
+            "id": "page_handle",
+            "label": "Page Handle Section Belongs To",
+            "info": "This is use to match pages with their sections"
+          },
+          {
+            "type": "header",
+            "content": "Section Settings"
+          },
+          {
+            "type": "checkbox",
+            "id": "add_section_divider",
+            "label": "Add Bottom Section Divider"
+          },
+          {
+            "type": "checkbox",
+            "id": "no_pt",
+            "label": "Remove Top Space"
+          },
+          {
+            "type": "checkbox",
+            "id": "no_pb",
+            "label": "Remove Bottom Space"
+          },
+          {
+            "type": "text",
+            "id": "heading",
+            "label": "Heading",
+            "default": "Popular Herbs"
+          },
+          {
+            "type": "text",
+            "id": "title",
+            "label": "Herb Reference Guide Title",
+            "default": "Herb Reference Guide Title"
+          },
+          {
+            "type": "textarea",
+            "id": "copy",
+            "label": "Herb Reference Guide Copy",
+            "default": "Herb Reference Guide Copy"
+          },
+          {
+            "type": "url",
+            "id": "callout_cta_link",
+            "label": "Callout CTA Link"
+          },
+          {
+            "type": "text",
+            "id": "callout_cta_copy",
+            "label": "Callout CTA Copy",
+            "default": "Callout CTA Copy"
+          }
+        ]
+      },
+      {
+        "type": "herbslist",
+        "name": "Herbs List",
+        "settings": [
+          {
+            "type": "page",
+            "id": "page_handle",
+            "label": "Page Handle Section Belongs To",
+            "info": "This is use to match pages with their sections"
+          },
+          {
+            "type": "header",
+            "content": "Section Settings"
+          },
+          {
+            "type": "checkbox",
+            "id": "add_section_divider",
+            "label": "Add Bottom Section Divider"
+          },
+          {
+            "type": "checkbox",
+            "id": "no_pt",
+            "label": "Remove Top Space"
+          },
+          {
+            "type": "checkbox",
+            "id": "no_pb",
+            "label": "Remove Bottom Space"
+          },
+          {
+            "type": "text",
+            "id": "heading",
+            "label": "Heading",
+            "default": "Popular Herbs"
+          },
+          {
+            "type": "text",
+            "id": "title",
+            "label": "Herbs List Title",
+            "default": "Herbs List Title"
+          },
+          {
+            "type": "textarea",
+            "id": "copy",
+            "label": "Herbs List Copy",
+            "default": "Herbs List Copy"
+          }
+        ]
+      },
+      {
+        "type": "videohero",
+        "name": "Video Hero",
+        "settings": [
+          {
+            "type": "page",
+            "id": "page_handle",
+            "label": "Page Handle Section Belongs To",
+            "info": "This is use to match pages with their sections"
+          },
+          {
+            "type": "text",
+            "id": "title",
+            "label": "Heading",
+            "default": "Video Hero"
+          },
+          {
+            "type": "image_picker",
+            "id": "hero_image",
+            "label": "Hero Image"
+          },
+          {
+            "type": "text",
+            "id": "video_clip",
+            "label": "Background Video"
+          },
+          {
+            "type": "text",
+            "id": "hero_title",
+            "label": "Hero Title",
+            "default": "Hero Image"
+          },
+          {
+            "type": "textarea",
+            "id": "hero_copy",
+            "label": "Hero Copy",
+            "default": "Hero Image"
+          },
+          {
+            "id": "video_link",
+            "type": "text",
+            "label": "Video Link"
+          },
+          {
+            "type": "text",
+            "id": "video_copy",
+            "label": "Video Copy",
+            "default": "Watch Video"
+          }
+        ]
+      },
+      {
+        "type": "calloutvideo",
+        "name": "Callout - Video",
+        "settings": [
+          {
+            "type": "page",
+            "id": "page_handle",
+            "label": "Page Handle Section Belongs To",
+            "info": "This is use to match pages with their sections"
+          },
+          {
+            "type": "header",
+            "content": "Section Settings"
+          },
+          {
+            "type": "checkbox",
+            "id": "add_section_divider",
+            "label": "Add Bottom Section Divider"
+          },
+          {
+            "type": "checkbox",
+            "id": "no_pt",
+            "label": "Remove Top Space"
+          },
+          {
+            "type": "checkbox",
+            "id": "no_pb",
+            "label": "Remove Bottom Space"
+          },
+          {
+            "type": "text",
+            "id": "title",
+            "label": "Heading",
+            "default": "Callout Video"
+          },
+          {
+            "label": "Callout Image",
+            "id": "callout_image",
+            "type": "image_picker"
+          },
+          {
+            "label": "Callout Background Color",
+            "id": "callout_color",
+            "type": "color",
+            "default": "#183028"
+          },
+          {
+            "type": "text",
+            "id": "callout_title",
+            "label": "Callout Title",
+            "default": "Callout Title"
+          },
+          {
+            "type": "textarea",
+            "id": "callout_copy",
+            "label": "Callout Copy",
+            "default": "Callout Copy"
+          },
+          {
+            "type": "url",
+            "id": "callout_cta_link",
+            "label": "Callout CTA Link"
+          },
+          {
+            "type": "text",
+            "id": "callout_cta_copy",
+            "label": "Callout CTA Copy",
+            "default": "Callout CTA Copy"
+          },
+          {
+            "id": "video_link",
+            "type": "text",
+            "label": "Video Link"
+          },
+          {
+            "type": "text",
+            "id": "video_copy",
+            "label": "Video Copy",
+            "default": "Watch Video"
+          },
+          {
+           "type": "select",
+           "id": "callout_copy_color",
+           "label": "Color",
+           "options": [
+             {
+               "value": "light",
+               "label": "Light"
+             },
+             {
+               "value": "dark",
+               "label": "Dark"
+             }
+           ],
+           "default": "light"
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}

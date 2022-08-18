@@ -1,0 +1,495 @@
+.hide-tab {
+  display: none;
+}
+
+.hide-result {
+  display: none;
+}
+
+.collection-wrapper.suggestion-wrapper.page-view-enabled {
+  display: flex;
+}
+
+.type-selector-wrapper {
+  margin: auto;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+  max-width: 78rem;
+  display: flex;
+  justify-content: center;
+  text-transform: uppercase;
+  font-size: 14px;
+  letter-spacing: 0.5px;
+
+  .selector {
+    font-weight: 500;
+    line-height: normal;
+    margin-bottom: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    display: block;
+    text-transform: uppercase;
+    padding: 0px 10px 20px 10px;
+    margin: 0px 25px;
+
+    &:hover {
+      cursor: pointer;
+      color: $color-teal-500;
+    }
+
+    &.active {
+      border-bottom: 4px solid $color-dust-orange-500;
+    }
+  }
+}
+
+.user-input-wrapper {
+  font-family: $ff-header;
+  text-align: center;
+  font-size: 50px;
+  padding: 50px 0px;
+
+  p {
+    color: $color-deep-green;
+    font-family: $ff-header;
+  }
+
+  span {
+    color: $color-primary;
+    font-family: $ff-header;
+  }
+}
+
+.page-result-wrapper {
+  width: 100%;
+
+  .page-element-wrapper {
+    display: flex;
+    width: 100%;
+    margin-bottom: 15px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid $color-grey-300;
+  }
+
+  .page-result-title {
+    font-family: $ff-header;
+    font-size: 28px;
+    color: $color-deep-green;
+
+    &:hover {
+      color: $color-teal-500;
+    }
+  }
+
+  .page-image-wrapper {
+    height: 100px;
+    width: 100px;
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+  }
+
+  .page-result-link:hover + .page-text-wrapper a {
+    color: $color-teal-500;
+  }
+
+  .page-text-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-left: 35px;
+  }
+
+  .page-read-more {
+    font-size: 14px;
+    color: $color-deep-green;
+    letter-spacing: 1px;
+    align-self: baseline;
+    padding-bottom: 3px;
+    border-bottom: 2px solid $color-dust-orange-100;
+  }
+}
+
+@media only screen and (max-width: 1025px) {
+  .search-filter-nav {
+    .boost-pfs-filter-mobile-toolbar-top .boost-pfs-filter-close {
+      display: none;
+    }
+  }
+
+  .search-filter-nav {
+    position: fixed;
+    left: -100vw;
+    top: 0;
+    bottom: 0;
+    padding-bottom: rem(60);
+    padding-left: rem(20);
+    padding-right: rem(20);
+    width: 100vw;
+    background-color: $color-white;
+    z-index: 1000;
+    overflow-y: scroll;
+
+    &.open {
+      left: 0;
+      overflow-x: hidden;
+
+      .boost-pfs-filter-tree-v {
+        display: block;
+      }
+    }
+
+    @include mq($large) {
+      position: sticky;
+      top: rem(150);
+      padding-bottom: 0;
+      width: auto;
+      overflow-y: visible;
+      z-index: 100;
+    }
+  }
+
+  // overwriting boost conflicting styling
+  .boost-pfs-filter-close,
+  .boost-pfs-filter-mobile-toolbar,
+  .boost-pfs-filter-selected-items-mobile,
+  .boost-pfs-filter-button:after {
+    display: none !important;
+  }
+
+  .boost-pfs-filter-tree-v .boost-pfs-filter-option {
+    padding: 0px !important;
+  }
+
+  .boost-pfs-filter-tree-mobile-style3.boost-pfs-filter-tree-v
+    .boost-pfs-filter-options-wrapper {
+    top: 0px !important;
+    position: relative !important;
+    overflow-x: unset !important;
+    overflow-y: unset !important;
+    width: 100% !important;
+    bottom: unset !important;
+    right: unset !important;
+  }
+
+  .filter-nav.open .boost-pfs-filter-tree-v {
+    width: 100% !important;
+    right: unset !important;
+    left: unset !important;
+  }
+
+  .filter-nav__title {
+    list-style-type: none;
+    max-height: 200vh;
+    overflow: hidden;
+    transition: max-height 0.3s;
+
+    li:last-of-type .filter-nav__link {
+      margin-bottom: $gutter;
+    }
+
+    &.closed {
+      max-height: 0;
+    }
+  }
+
+  .filter-nav__link {
+    @include font(14, 24, 500);
+    margin-bottom: rem(12);
+    display: flex;
+    align-items: center;
+    color: $color-deep-green;
+
+    svg {
+      margin-right: rem(8);
+      width: rem(26);
+    }
+
+    &:hover svg path {
+      fill: $color-teal-500;
+    }
+  }
+
+  .filter-nav__link--active {
+    color: $color-dust-orange-500;
+
+    svg,
+    path {
+      fill: $color-dust-orange-500;
+    }
+
+    svg:last-of-type {
+      margin-top: rem(2);
+      margin-left: rem(12);
+      width: rem(8);
+    }
+
+    &:hover svg {
+      fill: $color-teal-500;
+    }
+  }
+
+  .filter-nav__icon {
+    margin-right: rem(14);
+    width: rem(21);
+  }
+
+  .filter-nav__toggle {
+    @include font(16, 24, 400);
+    position: relative;
+    margin-top: 0;
+    border-top: rem(1) solid $color-grey-300;
+    padding: $gutter 0 !important;
+    font-family: $ff-header;
+    color: $color-deep-green;
+    cursor: pointer;
+  }
+
+  .filter-nav__toggle--first {
+    @include mq($large) {
+      border-top: 0;
+    }
+  }
+
+  .boost-pfs-filter-option-title {
+    position: relative;
+  }
+
+  .filter-nav__toggle::after,
+  .filter-nav .boost-pfs-filter-option-title::after {
+    @include font(36, 20);
+    content: "-";
+    position: absolute;
+    top: 50%;
+    right: 0;
+    transform: translateY(calc(-50% - 3px));
+    touch-action: none;
+    pointer-events: none;
+  }
+
+  .filter-nav .filter-nav__toggle.closed::after,
+  .filter-nav
+    .boost-pfs-filter-tree-v
+    .boost-pfs-filter-option.boost-pfs-filter-option-collapsed
+    .boost-pfs-filter-option-title::after,
+  .filter-nav
+    .boost-pfs-filter-option-collapsed
+    .boost-pfs-filter-option-title::after {
+    content: "+";
+    @include font(30, 20);
+  }
+
+  .filter-nav
+    .boost-pfs-filter-option.boost-pfs-filter-option-range:not(.boost-pfs-filter-option-collapsed) {
+    padding-bottom: $gutter;
+  }
+
+  .filter-nav .boost-pfs-filter-tree-v .boost-pfs-filter-option:last-of-type {
+    border-bottom: rem(1) solid $color-grey-300;
+  }
+
+  .boost-pfs-filter-button:hover {
+    span.boost-pfs-filter-option-value {
+      color: $color-teal-500;
+    }
+  }
+
+  .filter-nav.open .filter-apply-button {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    margin-top: rem(24);
+    border-radius: 0;
+    width: 100vw;
+  }
+
+  @include mq($bp-large) {
+    .filter-apply-button {
+      display: none;
+    }
+  }
+}
+
+.search-filter-custom-sorting {
+  a {
+    text-decoration: none !important;
+    transition: color 0.3s !important;
+  }
+
+  a:hover {
+    color: $color-teal-500 !important;
+  }
+
+  .boost-pfs-filter-sort-item-active:hover {
+    color: #fff !important;
+  }
+
+  .boost-pfs-filter-filter-dropdown li.active,
+  .select__list li.filter-nav__link--active {
+    background-color: $color-deep-green !important;
+  }
+
+  .boost-pfs-filter-sort-item-active {
+    background-color: #16402d !important;
+    color: #fff;
+
+    &:hover {
+      color: #fff;
+    }
+  }
+
+  .select--button {
+    position: relative;
+    padding: 0 1.5rem;
+    border-width: 1px;
+    height: 2.8125rem;
+    min-width: 12.5rem;
+    line-height: 0;
+    font-weight: 400;
+    text-align: left;
+    cursor: pointer;
+    text-transform: capitalize;
+    border: 1px solid $color-deep-green;
+    color: $color-primary;
+  }
+
+  .boost-pfs-filter-sort-active {
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+
+    .select {
+      border-bottom-right-radius: 0 !important;
+      border-bottom-left-radius: 0 !important;
+    }
+  }
+
+  .boost-pfs-filter-filter-dropdown {
+    border-bottom-right-radius: 0.25rem;
+    border-bottom-left-radius: 0.25rem;
+    border: 1px solid #dadcd6;
+    border-top-width: 0;
+    width: 100% !important;
+    list-style-type: none;
+    background-color: #fff;
+    z-index: 1;
+    border: 1px solid $color-deep-green !important;
+  }
+
+  .boost-pfs-filter-filter-dropdown li,
+  .select__list li {
+    padding: 0 !important;
+    line-height: 3.125rem !important;
+    cursor: pointer !important;
+    color: #16402d !important;
+  }
+
+  .boost-pfs-filter-filter-dropdown a,
+  .select__list a {
+    font-size: 0.875rem !important;
+    line-height: 3.125rem !important;
+    font-weight: 400 !important;
+    letter-spacing: 0 !important;
+    display: block !important;
+    padding: 0 1.5rem !important;
+    text-transform: capitalize !important;
+  }
+}
+
+@media only screen and (min-width: 1038px) {
+  .product-controls--mobile {
+    display: none !important;
+  }
+}
+
+@media only screen and (max-width: 500px) {
+  .page-result-wrapper {
+    // margin-top: 50px;
+
+    .page-result-title {
+      font-size: 20px;
+    }
+
+    .page-element-wrapper {
+      margin-bottom: 15px;
+    }
+
+    .page-image-wrapper {
+      height: 75px;
+      width: 75px;
+    }
+  }
+
+  .user-input-wrapper p {
+    font-size: 32px;
+  }
+
+  .type-selector-wrapper {
+    justify-content: unset;
+    padding: 0;
+
+    .selector {
+      margin: 0px;
+      width: 50%;
+      text-align: center;
+    }
+
+    &.page-active {
+      border-bottom: rem(1) solid $color-grey-300;
+      margin-bottom: 40px;
+    }
+  }
+
+  .search-controls--mobile {
+    display: flex;
+
+    &.hide-result {
+      display: none;
+    }
+
+    .search-controls__filter-toggle,
+    .boost-pfs-filter-custom-sorting {
+      width: 50% !important;
+    }
+
+    .search-controls__filter-toggle {
+      border-right: 1px solid $color-grey-300;
+    }
+  }
+
+  .search-filter-custom-sorting {
+    .select--button {
+      border: 0px !important;
+      text-transform: uppercase;
+      text-align: center;
+      font-weight: 500;
+    }
+
+    .boost-pfs-filter-filter-dropdown {
+      border: 1px solid $color-grey-300 !important;
+      border-top: 0.0625rem solid $color-grey-300 !important;
+    }
+
+    .boost-pfs-filter-top-sorting-wrapper {
+      min-width: auto !important;
+    }
+
+    .boost-pfs-filter-filter-dropdown li.active a,
+    .select__list li.active a {
+      color: #fff !important;
+    }
+  }
+
+  .page-full-width {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    height: 2.8125rem;
+  }
+}
+
+@media only screen and (min-width: 1038px) {
+  .boost-pfs-filter-sort-active .boost-pfs-filter-filter-dropdown {
+    border-top-width: 0px !important;
+  }
+}

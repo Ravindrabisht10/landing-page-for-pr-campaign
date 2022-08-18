@@ -1,0 +1,27 @@
+.disclaimer-callout {
+  background: $color-off-white;
+  padding: $spacing-l $spacing-gutter;
+  text-align: left;
+
+  @include mq($large-up) {
+    padding: $spacing-xxl $spacing-s;
+  }
+
+  .content {
+    margin: 0 auto;
+    max-width: 48.75rem;
+  }
+
+  h5 {
+    margin: 0 0 $spacing-gutter;
+  }
+
+  p {
+    font-size: $font-xs;
+    margin: 0;
+  }
+
+  & + .callout {
+    margin-top: 0;
+  }
+}

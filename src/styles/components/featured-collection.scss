@@ -1,0 +1,48 @@
+.featured-collection {
+  padding: $spacing-xl 0 5rem;
+  text-align: center;
+
+  @include mq($large-up) {
+    padding: $spacing-xxl $spacing-s $spacing-xxl;
+    text-align: left;
+  }
+  & > [class^="col-"] {
+    padding: 0;
+  }
+  .row {
+    margin-top: (-$spacing-xs);
+    margin-bottom: (-$spacing-xs);
+    [class^="col-"] {
+      padding: $spacing-xs 0;
+      position: relative;
+
+      @include mq($large-up) {
+        padding: 0 $spacing-gutter;
+      }
+    }
+  }
+
+  h2 {
+    @include mq($large-up) {
+      margin: 0 0 $spacing-xl;
+    }
+  }
+
+  &-item {
+    // @extend .card-product;
+  }
+
+  &-callout {
+    padding: 0 $spacing-s !important;
+    text-align: center;
+    a {
+      margin: $spacing-s 0 0;
+      width: 100%;
+
+      @include mq($large-up) {
+        margin: $spacing-xl 0 0;
+        width: auto;
+      }
+    }
+  }
+}

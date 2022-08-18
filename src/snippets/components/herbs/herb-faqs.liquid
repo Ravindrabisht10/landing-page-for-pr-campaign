@@ -1,0 +1,31 @@
+<div class="herb-faqs" id="additionalInformation">
+  {%- assign active_title = 'Active Constituents of ' | append: article.title -%}
+  {%- render 'block-accordion',
+      summary: active_title,
+      content: article.metafields.Additional.ActiveConstituents,
+      content_classes: 'weight-300' -%}
+
+  {%- render 'block-accordion',
+      summary: 'Parts Used',
+      content: article.metafields.Additional.Parts,
+      content_classes: 'weight-300' -%}
+
+  {%- render 'block-accordion',
+      summary: 'Additional Resources',
+      content: article.metafields.Additional.AdditionalResources,
+      content_classes: 'weight-300' -%}
+
+  {%- render 'block-accordion',
+      summary: 'Important Precautions',
+      content: article.metafields.Additional.Precautions,
+      content_classes: 'weight-300',
+      open: 'true' -%}
+
+  {%- render 'block-accordion',
+      summary: 'Disclaimer',
+      content: settings.herb_disclaimer,
+      content_classes: 'weight-300',
+      open: 'true' -%}
+</div>
+
+<div class="ccontain tablet-up"><hr></div>

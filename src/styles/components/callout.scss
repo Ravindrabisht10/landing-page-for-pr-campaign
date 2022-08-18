@@ -1,0 +1,170 @@
+.callout {
+  background: {
+    size: cover !important;
+    repeat: no-repeat !important;
+    position: right center !important;
+  }
+  margin: $spacing-xl 0 0;
+
+  background-position: center center !important;
+  margin: $spacing-xxl 0 0;
+
+  @include mq($large) {
+    background-position: center center !important;
+    margin: $spacing-xxl 0 0;
+  }
+
+  &-content {
+    left: 50%;
+    max-width: $grid-max-width;
+    padding: 10rem $spacing-s;
+    position: relative;
+    transform: translateX(-50%);
+    width: 100%;
+
+    @include mq($large) {
+      padding: ($spacing-xxl * 2) $spacing-s;
+    }
+
+    h2,
+    .callout-content-title {
+      //   @extend .heading-2-secondary;
+      color: #ffffff;
+      margin: 0 0 $spacing-gutter;
+      max-width: 43.75rem;
+      text-align: left;
+
+      @include mq($large) {
+        margin: 0 0 $spacing-s;
+      }
+    }
+
+    p {
+      color: #ffffff;
+      margin: 0 0 $spacing-l;
+      max-width: 26rem;
+    }
+  }
+
+  &-secondary {
+    overflow: hidden;
+    padding: rem(60) 0;
+    position: relative;
+    text-align: center;
+
+    @include mq($large) {
+      padding: rem(75) 0;
+    }
+
+    &.align-right {
+      @include mq($large) {
+        .content {
+          grid-template-columns: 1fr rem(125);
+
+          img {
+            order: 1;
+          }
+        }
+      }
+    }
+
+    .content {
+      display: grid;
+      grid-gap: rem(40);
+      max-width: rem(720);
+      margin-left: auto;
+      margin-right: auto;
+
+      @include mq($large) {
+        grid-template-columns: rem(125) 1fr;
+        grid-gap: rem(80);
+        align-items: center;
+
+        > div {
+          text-align: left;
+        }
+      }
+    }
+
+    img {
+      margin: 0 auto;
+      max-width: rem(75);
+
+      @include mq($large) {
+        margin: 0 auto $spacing-s;
+        max-width: rem(125);
+      }
+    }
+
+    h3,
+    h2,
+    p {
+      color: #ffffff;
+      margin: 0 auto;
+      max-width: 38.75rem;
+
+      a {
+        color: #ffffff !important;
+      }
+    }
+
+    h2,
+    h3 {
+      margin-bottom: $spacing-gutter;
+      padding: 0;
+
+      @include mq($large) {
+        margin-bottom: $spacing-s;
+      }
+    }
+
+    p + a {
+      margin-top: $spacing-l;
+    }
+
+    h2 {
+      line-height: 1.5;
+    }
+
+    a.video {
+      color: #ffffff;
+      text-decoration: none;
+      display: inline-block;
+      margin: 2.25rem auto 0;
+
+      svg {
+        display: inline-block !important;
+        margin: 0 1.25rem 0 0;
+        vertical-align: middle;
+      }
+    }
+
+    &.dark {
+      h2 {
+        color: $color-deep-green;
+
+        a {
+          color: $color-deep-green !important;
+        }
+      }
+
+      p {
+        color: $color-black;
+      }
+
+      .button-secondary {
+        @extend .button-green;
+      }
+    }
+
+    & + .guiding-truths,
+    & + .callout-secondary {
+      margin-top: 0;
+    }
+  }
+
+  & + .guiding-truths,
+  & + .callout-secondary {
+    margin-top: 0;
+  }
+}

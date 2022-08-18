@@ -1,0 +1,80 @@
+{% paginate blogs['our-people'].articles by 1000 %}
+  {% assign people = blogs['our-people'].articles %}
+{% endpaginate %}
+
+
+{% if people != blank %}
+
+  {% assign peopleCategory = '' %}
+  {% if peoplesettings.people_category != 'all' %}
+    {% assign peopleCategory = peoplesettings.people_category %}
+  {% endif %}
+
+  <section class="our-people">
+    <div class="our-people-content">
+      <h2>{{ peoplesettings.people_title }}</h2>
+      <p>{{ peoplesettings.people_copy }}</p>
+    </div>
+    <ul class="our-people-list owl-carousel">
+      {% assign active = '' %}
+      {% assign firstLoop = 'true' %}
+
+      {% for person in people %}
+
+        {% if person.tags contains peopleCategory or peopleCategory == blank %}
+          
+          {% if firstLoop != blank %}
+            {% assign active = 'active' %}
+          {% else %}
+            {% assign active = '' %}
+          {% endif %}
+          {% assign firstLoop = '' %}
+
+          {% assign firstLoop = '' %}
+
+          {% assign contentImage = person.image.src | img_url:'300x' %}
+          <li class="toggle-tab {{active}}" data-toggle="person-{{ forloop.index }}">
+              <a href="#">
+              <img loading="lazy" src="{{ contentImage }}" alt="">
+              <p>{{ person.title}}</p>
+              </a>
+          </li>
+        {% endif %}
+      {% endfor %}
+    </ul>
+
+      <div class="row contain people">
+        <div class="col-12">
+        {% assign active = '' %}
+        {% assign firstLoop = 'true' %}
+
+        {% for person in people %}
+
+          {% if person.tags contains peopleCategory or peopleCategory == blank %}
+            
+            {% if firstLoop != blank %}
+              {% assign active = 'active' %}
+            {% else %}
+              {% assign active = '' %}
+            {% endif %}
+            {% assign firstLoop = '' %}
+            
+            <div class="person person-{{forloop.index}} {{ active}}">
+              <div class="row">
+                <div class="col-12 col-lg-6">
+                  <h3>{{ person.title}}</h3>
+                  {{ person.content }}
+                </div>
+                <div class="col-12 col-lg-6">
+                  {% assign contentImage = person.image.src | img_url:'700x' %}
+                  <img loading="lazy" src="{{ contentImage }}" alt="">
+                </div>
+              </div>
+            </div>
+          {% endif %}
+        {% endfor %}
+        </div>
+      </div>
+  </section>
+
+{% endif %}

@@ -1,0 +1,62 @@
+<button class="link buybox__supplement-trigger"
+        data-supplement-trigger>
+  View Supplement Facts
+</button>
+<div class="buybox__supplements"
+     data-supplement-modal>
+  <div class="buybox__supplements-backdrop">
+    <button class="icon-button buybox__supplements-close"
+            data-supplement-trigger>
+      {%- render 'icon-close' -%}
+    </button>
+    {% if product.metafields.bundle.bundle_supplement_labels != {} %}
+    <div id='bundle-supplement-container'>
+      <select id='bundle-supplement-titles' class='select selectpicker' onchange="handleChange()">
+      </select>
+      <div id='bundle-supplement-image'>
+          <img id="bundle-supplement-img" class="bundle__supplement-image"
+          src=""
+          alt="product supplemental facts" />
+      </div>
+    </div>
+    {% else %}
+    <img class="buybox__supplement-image"
+         src="{{- product.metafields.additional.SupplementLabel -}}"
+         alt="product supplemental facts" />
+    {% endif %}
+  </div>
+</div>
+<script>
+  const bundleLabels = {{product.metafields.bundle.bundle_supplement_labels | json}}
+  const downArrowSelect = document.querySelector('#select-arrow')
+  const selectMenu = document.querySelector('#bundle-supplement-titles')
+  
+
+  let supplementTitles = document.querySelector('#bundle-supplement-titles')
+  for(let product in bundleLabels){
+    let b = document.createElement("option")
+    b.setAttribute('class', 'bundle-supplement-btn')
+    b.setAttribute('value', bundleLabels[product].img_url)
+    b.innerText = bundleLabels[product].display_name
+    supplementTitles.append(b)
+  }
+  let titleButtons = document.querySelectorAll('.bundle-supplement-btn')
+  let labelImage = document.querySelector('#bundle-supplement-img')
+  labelImage.src = bundleLabels['1'].img_url
+
+  let downArrow = document.createElement('div')
+  downArrow.setAttribute('id', 'down-arrow-select')
+  downArrow.innerHTML = ' &#9660;'
+
+  selectMenu.after(downArrow)
+  //supplementTitles.options[0].append(downArrow)
+
+  const handleChange = () => {
+    let selected = supplementTitles.value
+    let selectedEl = supplementTitles.options[supplementTitles.selectedIndex]
+    //selectedEl.append(downArrow)
+ 
+    labelImage.src = selected
+
+  }
+</script>

@@ -1,0 +1,29 @@
+<div class="product-search-grid">
+    {%- paginate search.results by 15 -%}
+      <div class="product-controls">
+
+        <div data-product-count
+             class="product-controls__count">
+          <!-- {{- search.products | size }} products -->
+        </div>
+
+
+  
+        <div class="boost-pfs-filter-top-sorting boost-pfs-filter-custom-sorting search-filter-custom-sorting desktop-only" data-sorting>[[sortingItems]]</div>
+      </div>
+  
+      <div class="product-grid boost-pfs-filter-products">
+        {%- for item in search.results -%}
+
+        {% if item.object_type != "article" %}
+
+          {%- render 'product-tile', _product: item -%}
+
+        {% endif %}
+        {%- endfor -%}
+      </div>
+  
+  
+      <div class="boost-pfs-filter-load-more"></div>
+    {%- endpaginate -%}
+</div>

@@ -1,0 +1,15 @@
+{% capture freebies_list %}
+    {% for product in collections["freebies"].products %}
+        {% for variant in product.variants %}
+            {% if variant.price == 0 %}
+                { "id": {{ variant.id }}, "item_price":0.00, "quantity": "1" },
+            {% endif %}
+        {% endfor %}
+    {% endfor %}
+{% endcapture %}
+<script>
+    const freebiesList = [ {{ freebies_list }} ];
+    const minPurchase = 65.00; // minimum needed for free gift
+</script>
+
+

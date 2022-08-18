@@ -1,0 +1,70 @@
+{%- assign letters = 'abcdefghijklmnopqrstuvwxyz' | split: '' -%}
+
+<section class="herb-guide ccontain flex-box flex-box--vertical">
+  <h2>{{- section.settings.title -}}</h2>
+  <p class="herb-guide__description">
+    {{- section.settings.description -}}
+  </p>
+
+  <div class="herb-guide__letters flex-box">
+    <button class="herb-guide__letter active"
+         data-letter="">
+      All
+    </button>
+    {%- for letter in letters -%}
+      <button class="herb-guide__letter"
+           data-letter="{{- letter -}}">
+        {{- letter -}}
+      </button>
+    {%- endfor -%}
+  </div>
+
+  <div class="herb-guide__herbs">
+    {%- paginate blogs['herbs'].articles by 1000 -%}
+      {% assign herbs = blogs['herbs'].articles | sort: 'title' %}
+      {%- for herb in herbs -%}
+        <a class="herb-tile"
+           href="{{- herb.url -}}"
+           data-first-letter="{{- herb.title | slice: 0 | downcase -}}">
+          <div class="herb-tile__image-wrap">
+            <img io-img-src="{{- herb.image | img_url: '372x' -}}"
+                 alt="{{- herb.title -}}" />
+          </div>
+          <h3 class="herb-tile__title">{{- herb.title -}}</h3>
+        </a>
+      {%- endfor -%}
+    {%- endpaginate -%}
+  </div>
+</section>
+
+<div class="disclaimer">
+  <p class="ccontain">
+    {{- section.settings.disclaimer -}}
+  </p>
+</div>
+
+{% schema %}
+  {
+    "name": "All Herbs",
+    "settings": [
+      {
+        "type": "text",
+        "id": "title",
+        "label": "Title",
+        "default": "All Herbs & Ingredients"
+      },
+      {
+        "type": "text",
+        "id": "description",
+        "label": "Description",
+        "default": "Jump to a section by clicking a letter. Explore products by selecting an Herb or Ingredient below."
+      },
+      {
+        "type": "text",
+        "id": "disclaimer",
+        "label": "Disclaimer Text",
+        "default": "Disclaimer: This information in our Herbal Reference Guide is intended only as a general reference for further exploration, and is not a replacement for professional health advice. This content does not provide dosage information, format recommendations, toxicity levels, or possible interactions with prescription drugs. Accordingly, this information should be used only under the direct supervision of a qualified health practitioner such as a naturopathic physician."
+      }
+    ]
+  }
+{% endschema %}

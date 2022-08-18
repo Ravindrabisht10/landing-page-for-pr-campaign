@@ -1,0 +1,76 @@
+{%- assign keys = "one,two,three,four,five,six" | split: ',' -%}
+
+<section class="section {% if _section.settings.no_pt != blank %}pt-0{% endif %} {% if _section.settings.no_pb != blank %}pb-0{% endif %} myh-results-ingredients product-ingredients">
+
+  <div class="flex-box flex-box--vertical">
+    <h2>{{ _section.settings.title }}</h2>
+    <p class="herblist__description">{{- _section.settings.description -}}</p>
+  </div>
+
+  <div data-swiper-slider=""
+       data-slides-speed="300"
+       data-slides-per-view="6"
+       data-slides-per-view-tablet="3"
+       data-slides-per-view-mobile="2"
+       data-slides-group="true"
+       data-slides-loop="false"
+       data-space-between="16"
+       class="herblist">
+
+    <div class="swiper-wrapper {% unless _section.settings.person_six_name != blank -%}feature-herbs-carousel--desktop-centered{%- endunless -%}">
+      {%- for key in keys -%}
+        {%- assign img_name = 'person_' | append: key | append: '_image' -%}
+        {%- assign person_name = 'person_' | append: key | append: '_name' -%}
+        {%- if _section.settings[person_name] == blank -%}
+          {%- continue -%}
+        {%- endif -%}
+
+        <div class="select-carousel__slide swiper-slide people-carousel">
+          <button data-trigger-person="{{- key -}}"
+                  class="select-carousel__trigger {% if forloop.index0 == 0 -%}active{%- endif -%}">
+            <img src="{{- _section.settings[img_name] | img_url: '300x300' -}}"
+                 alt="{{- _section.settings[person_name] -}}"
+                 class="select-carousel__trigger-image"/>
+            <p class="select-carousel__trigger-text">
+              {{- _section.settings[person_name] -}}
+            </p>
+          </button>
+        </div>
+      {%- endfor -%}
+    </div>
+    <div class="swiper-button-prev mobile-only">
+      {%- render 'icon-chevron-left' -%}
+    </div>
+    <div class="swiper-button-next mobile-only">
+      {%- render 'icon-chevron-right' -%}
+    </div>
+    <div class="swiper-scrollbar"></div>
+  </div>
+  <div class="ccontain details myh-results-details myh-results-details--grid">
+    {%- for key in keys -%}
+      {%- assign img_name = 'person_' | append: key | append: '_image' -%}
+      {%- assign person_name = 'person_' | append: key | append: '_name' -%}
+      {%- assign content_name = 'person_' | append: key | append: '_left_content' -%}
+      {%- assign role = 'person_' | append: key | append: '_role' -%}
+      {%- if _section.settings[person_name] == blank -%}
+        {%- continue -%}
+      {%- endif -%}
+
+      <div class="left-side {% unless forloop.index == 1 -%}hidden{%- endunless -%}"
+           data-carousel-trigger="{{- key -}}">
+        {%- if _section.settings[role] != blank -%}
+          <div class="info-part--role sub-title">
+            {{- _section.settings[role] -}}
+          </div>
+        {%- endif -%}
+        <h3 class="info-part info-part--title">{{- _section.settings[person_name] -}}</h3>
+        <div class="info-part-content">{{- _section.settings[content_name] -}}</div>
+      </div>
+      <div class="right-side {% unless forloop.index == 1 -%}hidden{%- endunless -%}"
+           data-carousel-trigger="{{- key -}}">
+        <img src="{{- _section.settings[img_name] | img_url: '400x' -}}"
+             alt="{{- _section.settings[person_name] -}}" />
+      </div>
+    {%- endfor -%}
+  </div>
+</section>

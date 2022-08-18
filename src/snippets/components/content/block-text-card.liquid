@@ -1,0 +1,31 @@
+{%- if title != blank and description != blank -%}
+<div class="text-card {% if no_padding == "true" -%}text-card--no-padding{%- endif -%}" {%- if background_color != blank -%}style="background-color: {{ background_color }};"{%- endif -%}>
+  <div class="text-card__inner">
+    {%- if sub_title != blank -%}
+      <span class="text-card__sub-title sub-title">{{ sub_title }}</span>
+    {%- endif -%}
+
+    {%- if title != blank -%}
+      <h2 class="text-card__title">{{ title }}</h2>
+    {%- endif -%}
+
+    {%- if description != blank -%}
+      <div class="text-card__description"
+        {%- if description_color != blank -%}
+          style="color: {{ description_color }};"
+        {%- endif -%} >{{ description }}</div>
+    {%- endif -%}
+
+    {%- if button_link != blank and button_label != blank -%}
+      {%- unless button_type == 'link' -%}
+        {%- assign button_class = 'button button--' | append: button_type -%}
+      {%- else -%}
+        {%- assign button_class = 'link' -%}
+      {%- endunless -%}
+      <a href="{{ button_link }}" class="text-card__button {{ button_class }}">
+        {{ button_label }}
+      </a>
+    {%- endif -%}
+  </div>
+</div>
+{%- endif -%}

@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "AAAA,AACE,mBADiB,CACjB,UAAU,CAAC;EACT,UAAU,EAAE,IAAI;CACjB",
+    "sources": [
+        "accordion.scss"
+    ],
+    "names": [],
+    "file": "accordion.css"
+}

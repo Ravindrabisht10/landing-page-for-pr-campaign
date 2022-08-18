@@ -1,0 +1,41 @@
+<section class="content-columns row contain">
+    <div class="col-12">
+      {% assign img_url_1 = '' %}
+      {% assign img_url_2 = '' %}
+      {% if component_settings.content_1_image %}
+        {%- assign img_url_1 = component_settings.content_1_image | img_url:'1080x' -%}
+      {% endif %}
+      <section class="content-column row accordian {{ component_settings.content_2_icon_type }} {{ component_settings.content_copy_color }} {{ background }}">
+          <div class="col-12 col-md-6 order-{{component_settings.content_1_alignment}}">
+            {% if img_url_1 != blank %}
+              <img loading="lazy" src="{{ img_url_1 }}" alt="">
+            {% endif %}
+            <div class="content {{ component_settings.content_1_width }}">
+              {% if component_settings.content_1_title != blank %}
+                <h2>{{component_settings.content_1_title }}</h2>
+              {% endif %}
+  
+              {% if component_settings.content_1_copy != blank %}
+                <p>{{ component_settings.content_1_copy }}</p>
+              {% endif %}
+  
+              {% if component_settings.content_1_cta_link != blank %}
+                <p class="d-none d-lg-block"><a class="button-{{ component_settings.content_1_cta_color }}" href="{{ component_settings.content_1_cta_link}}">{{ component_settings.content_1_cta_copy}}</a></p>
+              {% endif %}
+            </div>
+          </div>
+          <div class="col-12 col-md-6">
+            <div class="content">
+              {% if component_settings.content_2_title != blank %}
+                <h2>{{component_settings.content_2_title }}</h2>
+              {% endif %}
+              {% if component_settings.content_2_copy != blank %}
+                {{ component_settings.content_2_copy }}
+              {% endif %}
+              {% if component_settings.content_1_cta_link != blank %}
+                <p class="d-block d-lg-none"><a class="button-{{ component_settings.content_1_cta_color }}" href="{{ component_settings.content_1_cta_link}}">{{ component_settings.content_1_cta_copy}}</a></p>
+              {% endif %}
+            </div>
+      </section>
+    </div>
+  </section>

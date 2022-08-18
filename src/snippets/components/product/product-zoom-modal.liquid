@@ -1,0 +1,29 @@
+{%- capture images -%}
+  {%- for image in product.images -%}
+    {{- image | img_url: '1060x' -}}
+    {%- unless forloop.last -%},{%- endunless -%}
+  {%- endfor -%}
+{%- endcapture -%}
+
+<div class="product-image-modal"
+     data-product-image-modal
+     data-product-image-trigger>
+  <div class="product-image-modal__backdrop">
+    <button class="icon-button product-image-modal-close"
+            data-product-image-trigger>
+      {%- render 'icon-close' -%}
+    </button>
+    <button class="icon-button product-image-move-left"
+            data-move-left>
+      {%- render 'icon-arrow-left-green' -%}
+    </button>
+    <button class="icon-button product-image-move-right"
+            data-move-right>
+      {%- render 'icon-arrow-left-green' -%}
+    </button>
+    <img class="product-image-modal__image"
+         src="{{- product.featured_image | image_url: '700x' -}}"
+         alt="product supplemental facts"
+         data-all-images="{{- images -}}" />
+  </div>
+</div>

@@ -1,0 +1,121 @@
+{%- if component_settings.column_color != '#ffffff' and component_settings.column_color != blank -%}
+  {%- assign background = 'background' -%}
+{%- endif -%}
+
+<section class="section content-columns row {% if background == 'background' %}content-background{% else %}contain{% endif %}
+{% if component_settings.no_pt != blank %}pt-0{% endif %} {% if component_settings.no_pb != blank %}pb-0{% endif %}"
+
+{%- if background == 'background' -%}
+  style="background-color: {{ component_settings.column_color }};"
+{%- endif -%}>
+
+<div class="col-12">
+  {% assign img_url_1 = '' %}
+  {% assign img_url_2 = '' %}
+  {% if component_settings.content_1_image %}
+    {%- assign img_url_1 = component_settings.content_1_image | img_url:'1080x' -%}
+  {% endif %}
+  {% if component_settings.content_2_image %}
+    {%- assign img_url_2 = component_settings.content_2_image | img_url:'1080x' -%}
+  {% endif %}
+
+  <section class="content-column row {{ component_settings.content_copy_color }} {{ background }}">
+      <div class="col-12 col-md-6 order-{{component_settings.content_1_alignment}}">
+        {% if img_url_1 != blank %}
+          <img loading="lazy" src="{{ img_url_1 }}" alt="">
+        {% endif %}
+        <div class="content {{ component_settings.content_1_width }}">
+          {% if component_settings.content_1_title != blank %}
+            <h2>{{component_settings.content_1_title }}</h2>
+          {% endif %}
+
+          {% if component_settings.content_1_copy != blank %}
+            <p>{{ component_settings.content_1_copy }}</p>
+          {% endif %}
+
+          {% if component_settings.content_1_cta_link != blank %}
+            {% if component_settings.content_1_cta_link_new_window == true %}
+              {% assign url_target_1 = ' target="_blank"' %}
+            {% else %}
+              {% assign url_target_1 = '' %}
+            {% endif %}
+            <p><a class="button-green" href="{{ component_settings.content_1_cta_link}}"{{ url_target_1 }}>{{ component_settings.content_1_cta_copy}}</a></p>
+          {% endif %}
+            {% if component_settings.show_atc_one == true %}
+            {% for product in component_settings.product %}
+             <button id="atc-btn-one" class="atc-grabber widget-atc button button--secondary button--wide" data-product_id="{{ product.first_available_variant.id }}">Add To Cart</button>
+            {% endfor %}
+            {% endif %}
+        </div>
+      </div>
+      <div class="col-12 col-md-6">
+        {% if img_url_2 != blank %}
+          <img loading="lazy" src="{{ img_url_2 }}" alt="">
+        {% endif %}
+        <div class="content {{ component_settings.content_2_width }}">
+          {% if component_settings.content_2_title != blank %}
+            <h2>{{component_settings.content_2_title }}</h2>
+          {% endif %}
+
+          {% if component_settings.content_2_copy != blank %}
+            {% unless component_settings.content_2_copy contains '<' %}
+              <p>{{ component_settings.content_2_copy }}</p>
+            {% else %}
+              {{ component_settings.content_2_copy }}
+            {% endunless %}
+          {% endif %}
+
+          {% if component_settings.content_2_cta_link != blank %}
+            {% if component_settings.content_2_cta_link_new_window == true %}
+              {% assign url_target_2 = ' target="_blank"' %}
+            {% else %}
+              {% assign url_target_2 = '' %}
+            {% endif %}
+            <p><a class="button-green" href="{{ component_settings.content_2_cta_link}}"{{ url_target_2 }}>{{ component_settings.content_2_cta_copy}}</a></p>
+          {% endif %}
+            {% if component_settings.show_atc_two == true %}
+            {% for product in component_settings.product %}
+             <button id="atc-btn-two" class="widget-atc button button--secondary button--wide" data-product_id="{{ product.first_available_variant.id }}">Add To Cart</button>
+            {% endfor %}
+            {% endif %}
+        </div>
+      </div>
+  </section>
+</div>
+</section>
+
+{%- if component_settings.add_section_divider != blank -%}
+  <div class="ccontain"><hr></div>
+{%- endif -%}
+
+
+<script>
+window.onload = () => {
+let atcBtns = document.querySelectorAll('.widget-atc')
+atcBtns.forEach((btn) => {
+  let productID = btn.dataset.product_id
+  btn.addEventListener('click', () => {
+    let formData = {
+      'items': [{
+        'id': productID,
+        'quantity': 1
+        }]
+      };
+    fetch(window.Shopify.routes.root + 'cart/add.js', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(formData)
+    })
+    .then(response => {
+      window.toggleInlineCart(true)
+    })
+    .catch((error) => {
+      console.error('Error:', error);
+    });
+    
+  })
+})
+}
+</script>

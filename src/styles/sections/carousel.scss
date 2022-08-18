@@ -1,0 +1,79 @@
+
+.section--carousel {
+  background-color: $color-grey-100;
+  text-align: center;
+
+  .swiper-container-initialized {
+    .swiper-wrapper {
+      display: flex;
+      grid-gap: 0;
+    }
+  }
+
+  .swiper-wrapper {
+    position: relative;
+    display: grid;
+    grid-gap: rem(16);
+  }
+
+  @include mq($medium) {
+    .swiper-wrapper {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr; //repeat(3, 1fr): doesn't work in IE.
+      grid-gap: rem(20);
+    }
+
+    @for $i from 1 through 8 {
+      &--#{$i} {
+        .swiper-wrapper {
+          grid-template-columns: repeat(#{$i}, 1fr);
+        }
+      }
+    }
+  }
+}
+
+// Carousel Card
+.carousel-card {
+  background-color: $color-white;
+  border-radius: rem(6);
+  padding: rem(32);
+  
+  &__image-wrapper {
+    margin-bottom: rem(16);
+  }
+
+  &__sub-title {
+    color: $color-deep-green;
+
+    & + .carousel-card__title {
+      margin-top: rem(4);
+    }
+  }
+
+  &__title {
+    color: $color-deep-green;
+    font-size: rem(16);
+    line-height: rem(19);
+    margin-top: rem(8);
+
+    a {
+      color: inherit;
+      font-family: inherit;
+    }
+  }
+
+  &__description {
+    font-weight: 300;
+    font-size: rem(14);
+    margin-top: rem(12); 
+    margin-bottom: rem(12);
+  }
+
+  @include mq($medium) {
+    padding: rem(40) rem(32);
+
+    &__title {
+    }
+  }
+}

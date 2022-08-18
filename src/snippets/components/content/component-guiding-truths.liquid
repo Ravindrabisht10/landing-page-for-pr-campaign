@@ -1,0 +1,57 @@
+<section class="guiding-truths">
+    <div class="guiding-truths-images">
+      {% if truths.truth_image != blank %}
+        <div class="image truth-1 active">
+          {%- assign img_url = truths.truth_image | img_url:'1440x830' -%}
+          <img loading="lazy" src="{{ img_url }}" alt="">
+        </div>
+      {% endif %}
+    </div>
+    <div class="guiding-truths-slides owl-carousel">
+      <div class="content active truth-1">
+        {% if truths.truth_image != blank %}
+          <div class="image">
+            {%- assign img_url = truths.truth_image | img_url:'1440x830' -%}
+            <img loading="lazy" src="{{ img_url }}" alt="">
+          </div>
+        {% endif %}
+        <div class="truth-title">{{ truths.title }}</div>
+        <p>{{ truths.copy }}</p>
+        <a class="button-secondary callout image" href="{{ truths.callout_cta_link }}">{{ truths.callout_cta_copy }}</a>
+      </div>
+    </div>
+    <div class="guiding-truths-content">
+        <div class="content active truth-1">
+          <div class="truth-title">{{ truths.title }}</div>
+          <p>{{ truths.copy }}</p>
+        </div>
+    </div>
+    <div class="guiding-truths-navigation">
+      <div class="guiding-truths-navigation-container">
+        <div>
+          <div class="prev nav">
+            {% include 'icon-arrow-left-green' %}
+          </div>
+          <div class="next nav">
+            {% include 'icon-arrow-right-green-simple' %}
+          </div>
+        </div>
+      </div>
+      <div class="guiding-truths-navigation-carousel">
+        <div class="owl-carousel">
+          <div data-toggle="truth-1" class="truth active">
+            {%- assign truth_img = truths.truth_icon | img_url:'large' -%}
+            <img loading="lazy" src="{{ truth_img }}" alt="Icon of a compass">
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="guiding-truths-callout">
+      <div>
+        {% if truths.callout_cta_link != blank %}
+          <a class="button-secondary" id="guiding-truths" href="{{ truths.callout_cta_link }}">{{ truths.callout_cta_copy }}</a>
+        {% endif %}
+      </div>
+    </div>
+  </section>
+  

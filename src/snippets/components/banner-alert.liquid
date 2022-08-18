@@ -1,0 +1,103 @@
+{% comment %}
+
+  Alert Banner Component
+
+{% endcomment %}
+
+{% assign currentDate = "now" | date: "%Y%m%d" %}
+{% assign currentTime = "now" | date: "%H%M" %}
+{%- assign number_promos = 0 -%}
+
+{% comment %} Check if Enabled {% endcomment %}
+{%- if alertSettings.announcement_bar_enabled -%}
+
+    {% comment %} Check if home page only {% endcomment %}
+    {%- if alertSettings.announcement_bar_home_page_only == false or template.name == 'index' -%}
+
+      {% comment %} Check if Link Exists and Show Bar {% endcomment %}
+      {%- if alerts.count != 0 -%}
+        <div class="banner-alert" data-start="{{ scheduledTime }}" data-now="{{currentDate}} {{ currentTime }}" data-end="{{ scheduledTimeEnd }}" data-start-date="{{ scheduledDate }}" data-end-date="{{ scheduledDateEnd }}" style="background-color: {{- alertSettings.announcement_bar_color -}};">
+          {%- for alert in alerts -%}
+            {%- if alert.type != 'promo' -%}
+              {%- continue -%}
+            {%- endif -%}
+
+            {%- assign alertDateTS = alert.settings.announcement_bar_start_date | replace: "-", "" -%}
+            {%- assign alertTimeTS = alert.settings.announcement_bar_start_time | replace: ":", "" -%}
+            {%- assign alertDateEndTS = alert.settings.announcement_bar_end_date | replace: "-", "" -%}
+            {%- assign alertTimeEndTS = alert.settings.announcement_bar_end_time | replace: ":", "" -%}
+
+            {%- if alertDateTS > currentDate or alertDateTS == currentDate and currentTime < alertTimeTS -%}
+              {%- continue -%}
+            {%- elsif alertDateEndTS < currentDate or alertDateEndTS == currentDate and currentTime > alertTimeEndTS -%}
+              {%- continue -%}
+            {%- endif -%}
+
+            {%- assign number_promos = number_promos | plus: 1 -%}
+
+            {% comment %} Assign Variables {% endcomment %}
+            {% assign alertText = alert.settings.announcement_bar_text | escape %}
+            {% assign alertLink = alert.settings.announcement_bar_link %}
+            {% assign alertLinkText = alert.settings.announcement_bar_link_text %}
+
+            <p style="color: {{- alertSettings.announcement_bar_text_color -}};">
+              <span id="announcement-banner">{{ alertText }}</span>
+              {% if alertLink != blank %}
+                <a href="{{ alertLink }}" style="color: {{- alertSettings.announcement_bar_text_color -}}; text-decoration: underline;">
+                  {{ alertLinkText }}
+                </a>
+              {% endif %}
+            </p>
+          {%- endfor -%}
+        </div>
+      {%- endif -%}
+
+      {% if scheduledDate != '' and scheduledDateEnd != '' and scheduledTime != '' and scheduledTimeEnd != '' %}
+        <script>
+          const body = document.querySelector('body');
+          body.classList.add('has-promo');
+
+
+          {%- if number_promos > 0 -%}
+            document.addEventListener('DOMContentLoaded', () => {
+              var slider = tns({
+                container: '.banner-alert',
+                items: 1,
+                slideBy: 'page',
+                autoplay: true,
+                prevButton: false,
+                nextButton: false,
+                nav: false,
+                controls: false,
+                autoplayButton: false,
+                autoplayTimeout: {{- alertSettings.announcement_bar_enable | times: 1000 -}}
+              });
+            });
+          {%- else -%}
+            document.body.classList.remove('has-promo');
+            const banner = document.querySelector('.banner-alert');
+            banner.parentNode.removeChild(banner);
+            const header = document.querySelector('.page-header.default-header');
+            header.classList.remove('show-promo');
+          {%- endif -%}
+
+          var startDateParts = '{{scheduledDate}}'.split('-').map( p => parseInt(p)),
+          endDateParts = '{{scheduledDateEnd}}'.split('-').map( p => parseInt(p)),
+          startTimeParts = '{{scheduledTime}}'.split(':').map( p => parseInt(p)),
+          endTimeParts = '{{scheduledTimeEnd}}'.split(':').map( p => parseInt(p)),
+          currentDateTime = new Date(),
+          // months are zero indexed
+          startDateTime = new Date(startDateParts[0], (startDateParts[1] - 1), startDateParts[2], startTimeParts[0], startTimeParts[1]),
+          endDateTime = new Date(endDateParts[0], (endDateParts[1] - 1), endDateParts[2], endTimeParts[0], endTimeParts[1]);
+          // console.log(startDateParts, startTimeParts, endDateParts, endTimeParts, currentDateTime, startDateTime, endDateTime)
+          if (currentDateTime >= startDateTime && currentDateTime <= endDateTime) {
+            document.querySelector('.banner-alert span').innerHTML = '{{ alertSettings.announcement_bar_text_alt | escape }}';
+            if (document.querySelector('.banner-alert a')) {
+              document.querySelector('.banner-alert a').innerHTML = '{{ alertSettings.announcement_bar_link_text_alt | escape }}';
+              document.querySelector('.banner-alert a').href = '{{ alertSettings.announcement_bar_link_alt | escape }}';
+            }
+          }
+        </script>
+      {% endif %}
+    {%- endif -%}
+{%- endif -%}

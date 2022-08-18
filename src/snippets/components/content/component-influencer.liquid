@@ -1,0 +1,10 @@
+<section class="influencer {{ influencersettings.influencer_copy_color }}">
+    {%- assign img_url = influencersettings.influencer_image | img_url:'1920x1280' -%}
+    <img loading="lazy" src="{{ img_url }}" alt="">
+    <div class="influencer-content">
+      <h2>{{ influencersettings.influencer_name}}</h2>
+      <h3>{{ influencersettings.influencer_title}}</h3>
+      <p>{{ influencersettings.influencer_copy}}</p>
+      <a class="button-primary image" id="learn-more-testimonial" href="{{ influencersettings.influencer_cta_link}}">{{ influencersettings.influencer_cta_copy}}</a>
+    </div>
+  </section>

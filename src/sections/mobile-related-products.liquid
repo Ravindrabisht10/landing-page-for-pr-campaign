@@ -1,0 +1,25 @@
+
+<div class="mobile-product-recommendations mobile-only">
+  {% assign relatedproductsettings = section.settings %}
+  {% render 'recommended-blog-products',  relatedproductsettings: relatedproductsettings %}
+</div>
+
+{% schema %} 
+  {
+    "name": "Mobile Related Products",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "show_related_products",
+        "label": "Show Related Products",
+        "default": false
+      },
+      {
+        "id": "related_title",
+        "type": "text",
+        "label": "Section title",
+        "default": "Featured Products"
+      }
+    ]
+  }
+{% endschema %}

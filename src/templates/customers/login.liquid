@@ -1,0 +1,114 @@
+<section class="ccontain flex-box flex-box--vertical account-template">
+
+  <div id="CustomerLoginForm">
+    {% form 'customer_login', class: 'flex-box flex-box--vertical account-form' %}
+      <h1 class="template-title">{{ 'customer.login.title' | t }}</h1>
+
+      <div class="new-account-link__container centered flex-box flex-box--split">
+        <p>Don't yet have an account? </p>
+        <a href="/account/register">
+          {{ 'layout.customer.create_account' | t }}
+        </a>
+      </div>
+
+      {{ form.errors | default_errors }}
+      <div class="form-elements">
+        <div class="text-input__wrap">
+          <input type="email"
+                name="customer[email]"
+                id="CustomerEmail"
+                class="{% if form.errors contains 'email' %}input-error{% endif %} text-input"
+                placeholder=" "
+                spellcheck="false"
+                autocomplete="off"
+                autocapitalize="off"
+                autofocus>
+          <label for="CustomerEmail" class="">
+            {{ 'customer.login.email' | t }}
+          </label>
+        </div>
+
+        {% if form.password_needed %}
+          <div class="text-input__wrap">
+            <input type="password"
+                  name="customer[password]"
+                  id="CustomerPassword"
+                  class="{% if form.errors contains 'password' %}input-error{% endif %} text-input"
+                  placeholder=" ">
+            <label for="CustomerPassword" class="">
+              {{ 'customer.login.password' | t }}
+            </label>
+          </div>
+        {% endif %}
+
+        <input type="submit" class="sign-in-button button button--primary" value="{{ 'customer.login.sign_in' | t }}">
+
+        <div class="forgot-password__link centered">
+          <div class="form-success hidden" id="ResetSuccess">
+            {{ 'customer.recover_password.success' | t }}
+          </div>
+
+        {% if form.password_needed %}
+          <a href="#recover" id="RecoverPassword" class="forgot-password">{{ 'customer.login.forgot_password' | t }}</a>
+        {% endif %}
+      </div>
+      </div>
+    {% endform %}
+
+  </div>
+
+  <div id="RecoverPasswordForm" class="hidden modal modal__recover-password" data-close-modal>
+    <div class="modal__content">
+      <h1 class="template-title">{{ 'customer.recover_password.title' | t }}</h1>
+      <div class="new-account-link__container centered flex-box">
+        <p>{{ 'customer.recover_password.subtext' | t }}</p>
+      </div>
+
+      <div class="recover-password__inner">
+        {% form 'recover_customer_password' %}
+          {{ form.errors | default_errors }}
+
+          {% if form.posted_successfully? %}
+            <span class="hidden reset-password-success"></span>
+            <script>
+              const successMessage = document.querySelector('#ResetSuccess') || false;
+              successMessage && successMessage.classList.remove('hidden');
+            </script>
+          {% endif %}
+
+          <div class="form-elements">
+            <div class="text-input__wrap">
+              <input type="email"
+                    name="email"
+                    class="text-input"
+                    id="RecoverEmail"
+                    placeholder=" "
+                    spellcheck="false"
+                    autocomplete="off"
+                    autocapitalize="off">
+              <label for="RecoverEmail" class="">
+                {{ 'customer.recover_password.email' | t }}
+              </label>
+            </div>
+
+            <div class="account-form__buttons">
+              <input type="submit" class="button button--primary" value="{{ 'customer.recover_password.submit' | t }}">
+
+              <button id="HideRecoverPasswordLink" class="button button--tertiary" data-close-modal>
+                {{ 'customer.recover_password.cancel' | t }}
+              </button>
+            </div>
+          </div>
+        {% endform %}
+      </div>
+    </div>
+  </div>
+
+  {% if shop.checkout.guest_login %}
+    <h2>{{ 'customer.login.guest_title' | t }}</h2>
+
+    {% form 'guest_login' %}
+      <input type="submit" class="button button--primary" value="{{ 'customer.login.guest_continue' | t }}">
+    {% endform %}
+  {% endif %}
+</section>

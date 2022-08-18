@@ -1,0 +1,41 @@
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+th {
+  @include font(16, 18, 500, 0.67);
+
+  border-bottom: 1px solid $color-grey-300;
+  text-align: left;
+}
+
+th,
+td {
+  padding: rem(21) rem(16);
+  white-space: nowrap;
+
+  @include mq($large) {
+    &:not(:first-of-type) {
+      padding-left: rem(24);
+    }
+  }
+}
+
+td:last-of-type {
+  text-align: right;
+}
+
+tr {
+  &:nth-child(2n + 3) {
+    background-color: $color-grey-100;
+  }
+}
+
+.table-wrap {
+  @extend .scrollbar;
+
+  padding-bottom: rem(10);
+  width: 100%;
+  overflow-x: auto;
+}

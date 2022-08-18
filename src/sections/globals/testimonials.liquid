@@ -1,0 +1,188 @@
+{%- comment -%}
+  This is a required section for the Shopify Theme Store.
+  It is available when you add "Testimonials" section in the Theme Editor.
+
+  Theme Store required settings
+  - Sub Heading
+  - Heading
+  - Testimonials
+{%- endcomment -%}
+<section class="section section--testimonials"
+  data-section-id="{{ section.id }}" data-section-type="{{ section.type }}">
+  <div class="section__inner ccontain">
+    {%- if section.settings.sub_title != blank -%}
+      <span class="section__sub-title sub-title">{{ section.settings.sub_title }}</span>
+    {%- endif -%}
+
+    {%- if section.settings.title != blank -%}
+      <h2 class="section__title">{{ section.settings.title }}</h2>
+    {%- endif -%}
+
+    <div class="section__grid"
+      {%- if section.blocks.size > 3 -%}
+        data-swiper-slider
+        data-slides-speed="{{ section.settings.slides_speed | default: 300 }}"
+        data-slides-per-view="{{ section.settings.slides_per_view | default: 3 }}"
+        data-slides-per-view-tablet="{{ section.settings.slides_per_view | minus: 1 }}"
+        data-slides-group="{{ section.settings.slides_group | default: 'false' }}"
+        data-slides-loop="{{ section.settings.slides_loop | default: 'false' }}"
+      {%- endif -%} >
+      <div class="swiper-wrapper">
+      {%- for block in section.blocks -%}
+        <div class="testimonial-card swiper-slide">
+          {%- if block.settings.image != blank -%}
+            <img class="testimonial-card__image" src="{{ block.settings.image | img_url: '200x'}}" alt="{{ block.settings.testimonial_name }}">
+          {%- endif -%}
+          
+          {%- if block.settings.testimonial != blank -%}
+            <div class="testimonial-card__description">{{ block.settings.testimonial }}</div>
+          {%- endif -%}
+
+          {%- if block.settings.title != blank -%}
+            <div class="testimonial-card__name">{{ block.settings.title }}</div>
+          {%- endif -%}
+
+          {%- if block.settings.testimonial_info != blank -%}
+            <div class="testimonial-card__info">{{ block.settings.testimonial_info }}</div>
+          {%- endif -%}
+        </div>
+      {%- endfor -%}
+      </div>
+
+      {%- if section.blocks.size > 3 -%}
+        <!-- If we need pagination -->
+        <div class="swiper-pagination"></div>
+
+        <!-- If we need navigation buttons -->
+        <div class="swiper-button-prev">
+          {%- render 'icon-chevron-left' -%}
+        </div>
+        <div class="swiper-button-next">
+          {%- render 'icon-chevron-right' -%}
+        </div>
+
+        <!-- If we need scrollbar -->
+        <div class="swiper-scrollbar"></div>
+      {%- endif -%}
+    </div>
+
+    {%- if section.settings.button_label != blank and section.settings.button_link != blank -%}
+      <a href="{{ section.settings.button_link }}" class="button button--{{ section.settings.button_type }} section__button">{{ section.settings.button_label }}</a>
+    {%- endif -%}
+  </div>
+
+</section>
+
+{% schema %}
+  {
+    "name": "Testimonials",
+    "max_blocks": 6,
+    "settings": [
+      {
+        "type": "text",
+        "id": "sub_title",
+        "label": "Sub Title",
+        "default": "Customer testimonials"
+      },
+      {
+        "type": "text",
+        "id": "title",
+        "label": "Title",
+        "default": "What Our Customers Are Saying"
+      },
+      {
+        "type": "header",
+        "content": "Section Button"
+      },
+      {
+        "type": "text",
+        "id": "button_label",
+        "label": "Button Label",
+        "default": "Read All Reviews"
+      },
+      {
+        "type": "url",
+        "id": "button_link",
+        "label": "Button Link"
+      },
+      {
+        "type": "select",
+        "id": "button_type",
+        "options": [
+           { "value": "primary", "label": "Primary" },
+           { "value": "secondary", "label": "Secondary" },
+           { "value": "tertiary", "label": "Tertiary Outline" },
+           { "value": "tertiary-dark", "label": "Tertiary Dark" }
+        ],
+        "label": "Button Type",
+        "default": "primary"
+      },
+      {
+        "type": "header",
+        "content": "Slides Settings"
+      },
+      {
+        "type": "number",
+        "id": "slides_speed",
+        "label": "Slides Speed",
+        "default": 300,
+        "info": "ms"
+      },
+      {
+        "type": "number",
+        "id": "slides_per_view",
+        "label": "Slides Per view",
+        "default": 3
+      },
+      {
+        "type": "checkbox",
+        "id": "slides_group",
+        "label": "Group Slides",
+        "default": false
+      },
+      {
+        "type": "checkbox",
+        "id": "slides_loop",
+        "label": "Loop Slides",
+        "default": false
+      }
+    ],
+    "blocks": [
+      {
+        "type": "testimonial",
+        "name": "Testimonial",
+        "settings": [
+          {
+            "label": "Testimonial Image",
+            "id": "image",
+            "type": "image_picker"
+          },
+          {
+            "type": "richtext",
+            "id": "testimonial",
+            "label": "Testimonial",
+            "default": "<p>Testimonial</p>"
+          },
+          {
+            "type": "text",
+            "id": "title",
+            "label": "Testimonial Name",
+            "default": "Customer Name"
+          },
+          {
+            "type": "text",
+            "id": "testimonial_info",
+            "label": "Customer Info",
+            "default": "Customer Info"
+          }
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "name": "Testimonials",
+        "category": "Social"
+      }
+    ]
+  }
+{% endschema %}

@@ -1,0 +1,122 @@
+{% assign img_url_1 = '' %}
+{% assign img_url_2 = '' %}
+{% assign img_url_3 = '' %}
+{% assign count = '' %}
+{% if multicolumncontent_settings.column_1_image %}
+  {%- assign img_url_1 = multicolumncontent_settings.column_1_image | img_url:'1080x' -%}
+  {% assign count = count | plus: 1 %}
+{% endif %}
+{% if multicolumncontent_settings.column_2_image %}
+  {%- assign img_url_2 = multicolumncontent_settings.column_2_image | img_url:'1080x' -%}
+  {% assign count = count | plus: 1 %}
+{% endif %}
+{% if multicolumncontent_settings.column_3_image %}
+  {%- assign img_url_3 = multicolumncontent_settings.column_3_image | img_url:'1080x' -%}
+  {% assign count = count | plus: 1 %}
+{% endif %}
+<section class="content-multi-column {{ multicolumncontent_settings.column_images_shape }}" >
+  <div class="row contain">
+    {% if img_url_1 != blank %}
+      <div class="col-12 col-md-{{ 12 | divided_by: count }}">
+        {% if multicolumncontent_settings.column_1_link != blank %}
+          {% if multicolumncontent_settings.column_1_link contains 'vimeo.com'%}
+            <a href="{{ multicolumncontent_settings.column_1_link }}" class="data-lightbox">
+          {% else %}
+            <a href="{{ multicolumncontent_settings.column_1_link }}">
+          {% endif %}
+        {% endif %}
+        <img loading="lazy" src="{{ img_url_1 }}" alt="">
+        {% if multicolumncontent_settings.column_1_link != blank %}
+          </a>
+        {% endif %}
+        <div class="content">
+          {% if multicolumncontent_settings.column_1_title != blank %}
+            {% if multicolumncontent_settings.column_1_link != blank %}
+              {% if multicolumncontent_settings.column_1_link contains 'vimeo.com'%}
+                <a href="{{ multicolumncontent_settings.column_1_link }}" class="data-lightbox">
+              {% else %}
+                <a href="{{ multicolumncontent_settings.column_1_link }}">
+              {% endif %}
+            {% endif %}
+              <h3>{{multicolumncontent_settings.column_1_title }}</h3>
+            {% if multicolumncontent_settings.column_1_link != blank %}
+              </a>
+            {% endif %}
+          {% endif %}
+
+          {% if multicolumncontent_settings.column_1_copy != blank %}
+            <p>{{ multicolumncontent_settings.column_1_copy }}</p>
+          {% endif %}
+        </div>
+      </div>
+    {% endif %}
+    {% if img_url_2 != blank %}
+      <div class="col-12 col-md-{{ 12 | divided_by: count }}">
+        {% if multicolumncontent_settings.column_2_link != blank %}
+          {% if multicolumncontent_settings.column_2_link contains 'vimeo.com'%}
+            <a href="{{ multicolumncontent_settings.column_2_link }}" class="data-lightbox">
+          {% else %}
+            <a href="{{ multicolumncontent_settings.column_2_link }}">
+          {% endif %}
+        {% endif %}
+        <img loading="lazy" src="{{ img_url_2 }}" alt="">
+        {% if multicolumncontent_settings.column_2_link != blank %}
+          </a>
+        {% endif %}
+        <div class="content">
+          {% if multicolumncontent_settings.column_2_title != blank %}
+            {% if multicolumncontent_settings.column_2_link != blank %}
+              {% if multicolumncontent_settings.column_2_link contains 'vimeo.com'%}
+                <a href="{{ multicolumncontent_settings.column_2_link }}" class="data-lightbox">
+              {% else %}
+                <a href="{{ multicolumncontent_settings.column_2_link }}">
+              {% endif %}
+            {% endif %}
+            <h3>{{multicolumncontent_settings.column_2_title }}</h3>
+            {% if multicolumncontent_settings.column_2_link != blank %}
+              </a>
+            {% endif %}
+          {% endif %}
+
+          {% if multicolumncontent_settings.column_2_copy != blank %}
+            <p>{{ multicolumncontent_settings.column_2_copy }}</p>
+          {% endif %}
+        </div>
+      </div>
+    {% endif %}
+    {% if img_url_3 != blank %}
+      <div class="col-12 col-md-{{ 12 | divided_by: count }}">
+        {% if multicolumncontent_settings.column_3_link != blank %}
+          {% if multicolumncontent_settings.column_3_link contains 'vimeo.com'%}
+            <a href="{{ multicolumncontent_settings.column_3_link }}" class="data-lightbox">
+          {% else %}
+            <a href="{{ multicolumncontent_settings.column_3_link }}">
+          {% endif %}
+        {% endif %}
+        <img loading="lazy" src="{{ img_url_3 }}" alt="">
+        {% if multicolumncontent_settings.column_3_link != blank %}
+          </a>
+        {% endif %}
+        <div class="content">
+          {% if multicolumncontent_settings.column_3_title != blank %}
+            {% if multicolumncontent_settings.column_3_link != blank %}
+              {% if multicolumncontent_settings.column_3_link contains 'vimeo.com'%}
+                <a href="{{ multicolumncontent_settings.column_3_link }}" class="data-lightbox">
+              {% else %}
+                <a href="{{ multicolumncontent_settings.column_3_link }}">
+              {% endif %}
+            {% endif %}
+            <h3>{{multicolumncontent_settings.column_3_title }}</h3>
+            {% if multicolumncontent_settings.column_3_link != blank %}
+              </a>
+            {% endif %}
+          {% endif %}
+
+          {% if multicolumncontent_settings.column_3_copy != blank %}
+            <p>{{ multicolumncontent_settings.column_3_copy }}</p>
+          {% endif %}
+        </div>
+      </div>
+    {% endif %}
+  </div>
+</section>

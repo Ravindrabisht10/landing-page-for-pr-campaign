@@ -1,0 +1,18 @@
+.scrollbar {
+  &::-webkit-scrollbar {
+    width: 4px;
+    height: 4px;
+  }
+
+  &::-webkit-scrollbar-track {
+    margin: 0;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: $color-dust-orange-500;
+  }
+
+  &::-webkit-scrollbar-track-piece {
+    background-color: $color-secondary;
+  }
+}

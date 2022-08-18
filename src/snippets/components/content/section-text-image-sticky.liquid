@@ -1,0 +1,81 @@
+{%- assign indecies = 'one,two,three' | split: ',' -%}
+
+{%- for index in indecies -%}
+  {%- assign image_name = 'image_' | append: index -%}
+  {%- assign title_name = 'title_' | append: index -%}
+  {%- assign sub_title = 'sub_title_' | append: index -%}
+  {%- assign description = 'description_' | append: index -%}
+  {%- assign button_label = 'button_label_' | append: index -%}
+  {%- assign button_link = 'button_link_' | append: index -%}
+  {%- assign button_type = 'button_type_' | append: index -%}
+
+
+  {%- if _section.settings[title_name] == blank -%}
+    {%- continue -%}
+  {%- endif -%}
+
+  {%- capture text_content -%}
+    {{- text_content -}}
+    <div class="highlights__highlight"
+         data-highlight-content
+         data-img-to-use="{{- _section.settings[image_name] | img_url: '500x' -}}">
+      {%-
+        render 'block-text-card',
+        sub_title: _section.settings[sub_title],
+        title: _section.settings[title_name],
+        description: _section.settings[description],
+        background_color: '#FFFFFF',
+        description_color: '#000000',
+        button_label: _section.settings[button_label],
+        button_link: _section.settings[button_link],
+        button_type: _section.settings[button_type],
+        no_padding: "true"
+      -%}
+    </div>
+  {%- endcapture -%}
+
+  {%- capture mobile_content -%}
+    {{- mobile_content -}}
+    <img class="highlights__mobile-image"
+         src="{{- _section.settings[image_name] | img_url: '500x' -}}" />
+    <div class="highlights__mobile-highlight">
+      {%-
+        render 'block-text-card',
+        sub_title: _section.settings[sub_title],
+        title: _section.settings[title_name],
+        description: _section.settings[description],
+        background_color: '#FFFFFF',
+        description_color: '#000000',
+        button_label: _section.settings[button_label],
+        button_link: _section.settings[button_link],
+        button_type: _section.settings[button_type],
+        no_padding: "true"
+      -%}
+    </div>
+  {%- endcapture -%}
+{%- endfor -%}
+
+<div class="section ccontain mobile-only {% if _section.settings.no_pt != blank %}pt-0{% endif %} {% if _section.settings.no_pb != blank %}pb-0{% endif %}">
+  <div class="highlights">
+    {{- mobile_content -}}
+  </div>
+</div>
+
+<div class="section ccontain highlights desktop-only {% if _section.settings.no_pt != blank %}pt-0{% endif %} {% if _section.settings.no_pb != blank %}pb-0{% endif %}">
+  <div class="highlights__images" {% if _section.settings.layout != 'left' -%}style="order: 1;"{%- endif -%}>
+    <div class="highlights__image-wrap">
+      <img class="highlights__image"
+           src="{{- _section.settings.image_one | img_url: '500x' -}}"
+           alt="Highlights"
+           data-image-sources="{{- images -}}"
+           data-image-index="0" />
+    </div>
+  </div>
+  <div class="highlights__content">
+    {{- text_content -}}
+  </div>
+</div>
+
+{%- if _section.settings.add_section_divider != blank -%}
+  <div class="ccontain"><hr></div>
+{%- endif -%}

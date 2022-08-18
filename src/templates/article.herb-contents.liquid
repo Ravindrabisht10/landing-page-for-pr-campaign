@@ -1,0 +1,33 @@
+{%- layout none -%}
+
+<button class="icon-slider__button" data-trigger-for-content="{{- article.handle -}}">
+  <img src="{{- article.image | img_url: '185x' -}}"
+       alt="{{- article.title }} feature image" />
+  <h3 class="icon-slider__button-name"
+      data-ingredient-button-title>
+    {{- article.title -}}
+  </h3>
+</button>
+
+
+{%- capture left_side -%}
+  <h2 class="icon-slider__content-title">{{- article.title -}}</h2>
+  <div>
+    {{- article.excerpt_or_content -}}
+  </div>
+  <a href="{{- article.url -}}" class="link">
+    Learn More
+  </a>
+{%- endcapture -%}
+
+{%- capture right_side -%}
+  <select data-ingredient-select></select>
+  <table data-ingredient-table></table>
+{%- endcapture -%}
+
+<div data-slide-for="{{- article.handle -}}">
+  {%- render 'fifty-fifty',
+      left_side: left_side,
+      right_side: right_side,
+      classes: 'icon-slider__fiftyfifty' -%}
+</div>

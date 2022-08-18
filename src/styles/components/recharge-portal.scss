@@ -1,0 +1,1031 @@
+#ReCharge {
+  fieldset {
+    border-width: 0;
+  }
+
+  &.page-width.subscription {
+    @extend .orders-addresses-template;
+    @extend .ccontain;
+  }
+
+  .account-detail h4,
+  .subs--title {
+    @extend h3;
+  }
+
+  .subs--title {
+    text-align: center;
+
+    @include mq($large) {
+      margin-bottom: rem(30);
+      text-align: left;
+    }
+  }
+
+  .account-detail {
+    @extend .account-navigation__header;
+    text-align: center;
+
+    @include mq($large) {
+      text-align: left;
+    }
+  }
+
+  .signout-link {
+    @extend .link;
+  }
+
+  & > .grid {
+    @extend .template__inner;
+    margin-left: 0;
+  }
+
+  .btn {
+    @extend .button;
+    @extend .button--secondary;
+  }
+
+  .account-sidenav {
+    display: none;
+
+    @include mq($large) {
+      display: block;
+    }
+  }
+
+  .add-new--subs {
+    margin-bottom: rem(60);
+    text-align: center;
+
+    .no-subs {
+      margin-bottom: rem(16);
+    }
+
+    .btn {
+      @extend .button--primary;
+    }
+
+    &.mobile {
+      @extend .mobile-only;
+      margin-bottom: rem(60);
+    }
+
+    &.desktop {
+      @extend .desktop-only;
+    }
+  }
+
+  .subscripton-main,
+  .subscription-sidebar {
+    width: 100%;
+    float: none;
+    padding-left: 0;
+  }
+
+  .active-subs {
+    margin-bottom: rem(20);
+    padding: rem(40) 0;
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+    flex-direction: column;
+    background-color: $color-grey-100;
+
+    @include mq($large) {
+      border: rem(1) solid $color-grey-200;
+      flex-direction: row;
+      background-color: $color-white;
+    }
+  }
+
+  .active-subs .image {
+    padding: 0 rem(40);
+    display: flex;
+    -webkit-box-flex: 30%;
+    flex: 30%;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    flex-direction: column;
+    -webkit-box-align: center;
+    align-items: center;
+
+    @include mq($large) {
+      border-right: rem(1) solid $color-grey-200;
+    }
+
+    img {
+      margin-bottom: rem(10);
+    }
+
+    h4 {
+      @include font(18, 20, 500);
+      margin-bottom: rem(10);
+      font-family: $ff-header;
+      text-align: center;
+    }
+
+    .qty {
+      @include font(14, 20, 500);
+      color: $color-black;
+      opacity: 0.5;
+    }
+  }
+
+  .active-subs .info {
+    display: -webkit-box;
+    display: flex;
+    width: 100%;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    flex-direction: column;
+    padding: rem(20) rem(40);
+    -webkit-box-align: center;
+    align-items: center;
+
+    @include mq($large) {
+      border-right: rem(1) solid $color-grey-200;
+      -webkit-box-flex: 43%;
+      flex: 43%;
+      width: auto;
+    }
+  }
+
+  .active-subs h4 {
+    font-family: $ff-header;
+  }
+
+  .active-subs .inner {
+    width: 100%;
+    display: -webkit-box;
+    display: flex;
+  }
+
+  .active-subs .inner .label,
+  .active-subs .inner .text {
+    @include font(14, 20);
+    margin-bottom: rem(10);
+    flex-grow: 1;
+    flex-basis: 50%;
+  }
+
+  .active-subs .inner .label {
+    @include font(14, 20, 500, 0.75);
+    text-transform: uppercase;
+    color: $color-deep-green;
+  }
+  .active-subs .inner .text {
+    text-align: right;
+
+    @include mq($large) {
+      text-align: left;
+    }
+  }
+
+  .active-subs .actions {
+    -webkit-box-flex: 18%;
+    flex: 18%;
+    -webkit-box-align: center;
+    align-items: center;
+    display: -webkit-box;
+    display: flex;
+    -webkit-box-direction: normal;
+    -webkit-box-pack: center;
+    justify-content: center;
+
+    @include mq($large) {
+      flex-direction: column;
+      -webkit-box-orient: vertical;
+    }
+
+    a {
+      @extend .link;
+      margin: 0 rem(25);
+
+      @include mq($large) {
+        margin: 0 0 rem(12);
+      }
+    }
+  }
+
+  .subs-header {
+    margin-bottom: rem(30);
+    display: flex;
+    flex-direction: column;
+
+    @include mq($large) {
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+    }
+  }
+
+  .edit-subs {
+    display: flex;
+    flex-direction: column;
+
+    .image {
+      flex-shrink: 0;
+      margin-bottom: rem(24);
+      text-align: center;
+    }
+
+    @include mq($large) {
+      flex-direction: row;
+
+      .image {
+        width: rem(240);
+      }
+
+      #ReChargeForm_date .mb-subs input[type="date"] {
+        width: rem(200);
+      }
+    }
+  }
+
+  @include mq($large) {
+    .edit-subs--content {
+      flex-grow: 1;
+      padding-left: rem(40);
+    }
+  }
+
+  .edit-subs--content {
+    h4 {
+      @include font(14, 22, 700, 0.75);
+      text-transform: uppercase;
+      color: $color-deep-green;
+      font-family: $ff-primary;
+    }
+
+    & > .info {
+      margin-bottom: rem(30);
+    }
+
+    p {
+      font-weight: 300;
+    }
+
+    form {
+      margin-top: rem(6);
+    }
+
+    form .btn--secondary {
+      @extend .button--tertiary;
+      margin-left: rem(7);
+    }
+  }
+
+  .edit-subs--content fieldset {
+    position: relative;
+    border-width: rem(1) 0 0;
+    border-color: $color-grey-300;
+    border-style: solid;
+    padding: rem(20) 0;
+
+    & > p a {
+      @extend .link;
+      position: absolute;
+      top: 50%;
+      right: 0;
+      transform: translateY(-50%);
+    }
+
+    &.active > p a {
+      display: none;
+    }
+
+    &.active > p:first-of-type {
+      display: none;
+    }
+
+    .desktop_btn {
+      @extend .button--primary;
+    }
+
+    button {
+      margin-right: rem(5);
+    }
+
+    .mb-subs {
+      margin-top: rem(6);
+      margin-bottom: rem(12);
+
+      @include mq($large) {
+        margin-top: rem(0);
+        margin-bottom: rem(0);
+        margin-right: rem(12);
+      }
+
+      p:first-child {
+        @extend .text-input__wrap;
+
+        input {
+          @extend .text-input;
+        }
+      }
+
+      select {
+        border-radius: rem(4);
+      }
+    }
+
+    form,
+    form p {
+      display: flex;
+      align-items: flex-start;
+      flex-direction: column;
+
+      @include mq($large) {
+        align-items: center;
+        flex-direction: row;
+      }
+    }
+
+    form p {
+      align-items: center;
+      flex-direction: row;
+    }
+  }
+
+  .edit-subs-sipping fieldset:nth-child(2) a {
+    display: inline-block;
+    margin-top: rem(20);
+    color: $color-error-red;
+  }
+
+  .edit-subs--content fieldset form .mb-subs p:last-child {
+    display: none;
+  }
+
+  .grid {
+    margin-left: 0;
+  }
+
+  .billing-info-container {
+    & > fieldset {
+      border: 0;
+    }
+
+    .subs--title {
+      text-align: left;
+    }
+
+    .billing-detail {
+      display: grid;
+      grid-column-gap: rem(10);
+      grid-row-gap: rem(10);
+
+      @include mq($large) {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    .card-detail,
+    .customer-detail {
+      border: rem(1) solid $color-grey-200;
+      padding: rem(40);
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+
+      & > a {
+        @extend .link;
+        margin-top: auto;
+      }
+
+      & > p {
+        margin-bottom: rem(12);
+      }
+
+      h4 {
+        @extend .h5;
+        letter-spacing: 0;
+        text-transform: capitalize;
+        font-size: rem(18);
+      }
+    }
+  }
+
+  .c-account__form-list {
+    margin: rem(10) rem(-10) 0;
+    display: flex;
+    flex-direction: column;
+
+    @include mq($large) {
+      flex-direction: row;
+    }
+  }
+
+  #ReChargeForm_address {
+    flex-direction: column;
+
+    .edit-subs--link {
+      width: 100%;
+    }
+
+    .o-button {
+      @extend .button--primary;
+    }
+  }
+
+  .select-option-row {
+    @extend .select-wrap;
+  }
+
+  .edit__address {
+    h2 {
+      @extend .h3;
+      margin-bottom: rem(30);
+    }
+  }
+
+  .cancle-subscription {
+    margin-top: rem(60);
+
+    @include mq($large) {
+      margin-top: 0;
+    }
+  }
+
+  .cancle-subscription p:first-child {
+    @extend .sub-title;
+    color: #16402D;
+  }
+
+  #ReChargeForm_address .c-account__form-list {
+    margin-left: 0;
+    margin-right: 0;
+    margin-bottom: rem(24);
+    display: grid;
+    width: 100%;
+    grid-template-columns: repeat(1, 1fr);
+    grid-column-gap: 24px;
+    grid-row-gap: 24px;
+    list-style: none;
+
+    @include mq($large) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .c-account__form-row {
+      margin: 0;
+      max-width: 100%;
+    }
+  }
+
+  #ReChargeForm_address .edit-subs--link {
+    button,
+    a {
+      flex-basis: 50%;
+    }
+
+    a {
+      margin-left: rem(20);
+    }
+  }
+
+  .c-account__form-row {
+    @extend .text-input__wrap;
+    flex-grow: 1;
+    margin: 0 rem(10);
+
+    @include mq($large) {
+      max-width: calc(50% - 20px);
+    }
+
+    input[type="text"] {
+      @extend .text-input;
+    }
+  }
+
+  @include mq-max($large) {
+    .c-account__form-row + .c-account__form-row {
+      margin-top: rem(20);
+    }
+  }
+
+  .search-subs .subs--title {
+    margin-bottom: 0;
+  }
+
+  .main-outer--subs > .subs--title {
+    @include mq-max($large) {
+      margin-top: rem(60);
+    }
+  }
+
+  .inactive-subs {
+    .image,
+    .info {
+      opacity: 0.5;
+    }
+  }
+
+  .swap-product-heading {
+    @include font(14, 10, 500, 0.17);
+    margin-bottom: rem(32);
+    padding: rem(15);
+    background-color: $color-grey-100;
+    color: $color-deep-green;
+    font-family: $ff-primary;
+    text-transform: uppercase;
+  }
+
+  .swap-qty-price {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    @include mq($large) {
+      min-width: rem(300);
+    }
+  }
+
+  .swap-product-qty {
+    font-weight: 300;
+  }
+
+  .swap-product-title h5 {
+    font-size: rem(18);
+    font-family: $ff-header;
+    text-transform: none;
+  }
+
+  .swap-product-price span {
+    color: $color-brick-500 !important;
+  }
+
+  .swap-product-price s {
+    color: $color-deep-green !important;
+  }
+
+  .swap-product-info {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    @include mq($large) {
+      flex-direction: row;
+      align-items: center;
+    }
+  }
+
+  .swap-product-heading {
+    margin-top: rem(20);
+  }
+
+  .swap-product {
+    display: flex;
+    align-items: center;
+  }
+
+  .grid-view-item__price span {
+    color: $color-brick-500 !important;
+  }
+
+  .current-product {
+    margin-bottom: rem(40);
+    border-bottom: rem(1) solid $color-grey-200;
+    padding-bottom: rem(32);
+  }
+
+  #rc_product_search {
+    margin: rem(10) 0 rem(32);
+    display: flex;
+
+    #product_search {
+      @extend .text-input;
+      margin-right: rem(8);
+    }
+    #trigger_search {
+      @extend .button--primary;
+      padding-left: rem(19);
+      padding-right: rem(19);
+      min-width: 0;
+      line-height: 0;
+
+      svg {
+        max-width: rem(15);
+      }
+    }
+  }
+
+  #rc_product_search + .grid {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    grid-column-gap: rem(30);
+    grid-row-gap: rem(30);
+
+    @include mq($medium) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    @include mq($large) {
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    .grid-view-item {
+      margin-bottom: 0;
+      height: 100%;
+    }
+
+    .grid-view-item__title,
+    .grid-view-item__price {
+      margin-bottom: rem(10);
+    }
+
+    .grid-view-item__title {
+      font-size: rem(18);
+      font-family: $ff-header;
+      color: $color-deep-green;
+    }
+
+    .grid-view-item__price {
+      font-weight: 400;
+    }
+
+    .grid__item {
+      padding: rem(40);
+      width: 100% !important;
+      text-align: center;
+      background-color: $color-grey-100;
+
+      a {
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .grid-view-item__image-wrapper {
+        margin-top: auto;
+      }
+    }
+  }
+
+  .recharge-pagination {
+    margin-top: rem(40);
+    padding: 0;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    a {
+      padding: rem(12);
+    }
+
+    span {
+      padding: 0 rem(4);
+    }
+  }
+
+  .subs-link--all {
+    margin-top: rem(16);
+
+    a {
+      display: flex;
+      align-items: center;
+
+      @include mq-max($large) {
+        justify-content: center;
+      }
+    }
+
+    span {
+      line-height: 0;
+    }
+
+    svg {
+      margin-right: rem(10);
+    }
+  }
+
+
+
+  .address-edit-toggle {
+    margin-right: rem(12);
+  }
+
+  .cancle-link {
+    margin: rem(16) 0 rem(40);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+
+    a + a {
+      margin-top: rem(8);
+    }
+
+    .link {
+      padding-top: rem(14);
+      padding-left: rem(30);
+      padding-bottom: rem(14);
+      position: relative;
+      min-width: rem(270);
+      font-weight: 400;
+    }
+
+    .link + .link {
+      margin-top: 0;
+      border-top: rem(1) solid $color-grey-300;
+    }
+
+    .link:not(.active){
+      &::after {
+        display: none;
+      }
+
+      &::before {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 0;
+        transform: translate(0, -50%);
+        background-color: $color-white;
+        border: rem(1) solid $color-deep-green;
+        border-radius: 100%;
+        width: rem(20);
+        height: rem(20);
+      }
+    }
+
+    .link.active {
+      &::before,
+      &::after {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 0;
+        transform: translate(0, -50%);
+        background-color: $color-white;
+        border: rem(1) solid $color-deep-green;
+        border-radius: 100%;
+      }
+
+      &::before {
+        border-width: rem(4);
+        width: rem(20);
+        height: rem(20);
+      }
+
+      &::after {
+        border-width: rem(2);
+        width: rem(8);
+        height: rem(8);
+        left: rem(6);
+      }
+    }
+  }
+
+  .product-action-btn {
+    a {
+      @extend .button;
+      @extend .button--tertiary;
+      margin-left: rem(12);
+    }
+
+    @include mq-max($large) {
+      button,
+      a {
+        margin-left: 0;
+        width: 100%;
+      }
+
+      a {
+        margin-top: rem(16);
+      }
+    }
+  }
+
+  .o-button {
+    @extend .button;
+  }
+  .o-button--secondary {
+    @extend .button--secondary;
+  }
+
+
+  .edit-product {
+    display: flex;
+    flex-direction: column;
+
+    @include mq($large) {
+      flex-direction: row;
+
+      .product-image-container {
+        margin-right: rem(24);
+        width: 35%;
+      }
+    }
+
+    .product-price {
+      margin-bottom: rem(30);
+      border-bottom: rem(1) solid $color-grey-300;
+      padding-bottom: rem(30);
+      display: flex;
+      align-items: center;
+
+      h4 {
+        margin-right: rem(24);
+        font-size: rem(16);
+
+        span {
+          color: $color-brick-500 !important;
+        }
+      }
+    }
+
+    #ReChargeForm_subscriptionNew {
+      .rc_form__group {
+        margin: 0 0 rem(24);
+
+        &:nth-child(2) {
+          @extend .select-wrap;
+
+          label {
+            @extend .select-label;
+          }
+        }
+
+        &:last-child {
+          @extend .text-input__wrap;
+        }
+
+        &:nth-child(3) {
+          @extend .text-input__wrap;
+
+          #product_options_container {
+            @include font(11, 14);
+            position: absolute;
+            top: 0;
+            left: rem(24);
+            padding: 0 rem(3);
+            transform: translateY(-50%);
+            background-color: $color-white;
+            transition: top .2s, left .2s, padding .2s;
+          }
+        }
+      }
+
+      [type='number'] {
+        @extend .text-input;
+      }
+
+      .product_schedule_container,
+      .form__control,
+      #product_schedule_container {
+        @extend .select-wrap;
+
+        label {
+          @extend .select-label;
+        }
+
+        select {
+          border-radius: rem(4);
+        }
+      }
+
+      .product-action-btn {
+        margin-top: rem(24);
+
+        button {
+          @extend .button--primary;
+        }
+
+        button,
+        a {
+          @include mq-max($large) {
+            margin: rem(8) 0;
+            width: 100%;
+          }
+        }
+      }
+    }
+  }
+
+  .recharge-customer-link {
+    display: flex;
+    flex-direction: column;
+
+    @include mq($large) {
+      flex-direction: row;
+    }
+
+    button,
+    a {
+      flex-basis: 50%;
+    }
+
+    button {
+      @extend .button--primary;
+    }
+
+    a {
+      @extend .button;
+      @extend .button--tertiary;
+      margin-top: rem(20);
+
+      @include mq($large) {
+        margin-top: 0;
+        margin-left: rem(20);
+      }
+    }
+  }
+
+  form .c-account__form-list {
+    margin-top: rem(20);
+  }
+
+  select {
+    border-radius: rem(4);
+  }
+
+  .grid iframe#customer-card-form {
+    min-height: rem(600);
+  }
+
+  .bottom-link {
+    @extend .button;
+    @extend .button--tertiary;
+  }
+
+  .account-detail {
+    text-align: left;
+  }
+
+  #product_dates_container {
+    @extend .text-input__wrap;
+  }
+
+  #product_dates_container [name="next_charge_scheduled_at"] {
+    @extend .text-input;
+  }
+
+  #address_charge_dates,
+  #next_charge_date_container br {
+    display: none;
+  }
+
+  #cancel-subs {
+    @extend .button--primary;
+  }
+
+  #ReChargeForm_cancel .rc-form-input {
+    @extend .text-input__wrap;
+    margin: rem(16) 0 rem(30);
+
+    #cancellation_reason_comments {
+      @extend .text-input;
+    }
+  }
+
+  .product-action-btn.rentention-subs {
+    button[type="submit"] {
+      @extend .button--primary;
+      min-width: rem(285);
+    }
+  }
+
+  #content__customers__request-invite {
+    padding: rem(40) 0;
+
+    @include mq($large) {
+      padding: rem(80) 0;
+    }
+
+    .row.grid {
+      justify-content: center;
+    }
+
+    .rc_title-bar__title h2 {
+      font-size: rem(28);
+    }
+
+    .rc_header-settings__description {
+      display: block;
+      margin: rem(24) auto rem(34);
+      max-width: rem(400);
+    }
+
+    #customer_email {
+      @extend .text-input;
+      max-width: rem(400);
+    }
+
+    .btn--primary {
+      @extend .button--primary;
+      margin-top: rem(16);
+      width: 100%;
+      max-width: rem(400);
+    }
+  }
+
+  .grid__item.grid__item--collections {
+    box-shadow: 0 0 0 rgb(255,255,255);
+    transition: box-shadow 0.2s;
+  }
+  .grid__item.grid__item--collections:hover {
+    box-shadow: 0 5px 15px rgba(0, 0, 0, .1);
+  }
+}

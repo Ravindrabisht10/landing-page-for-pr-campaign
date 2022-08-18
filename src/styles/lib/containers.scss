@@ -1,0 +1,61 @@
+.flex-box {
+  display: flex;
+  align-items: center;
+}
+
+.flex-box--vertical {
+  flex-direction: column;
+}
+
+.flex-box--split {
+  flex-direction: column;
+
+  @include mq($large) {
+    flex-direction: row;
+  }
+}
+
+.flex-box--split-reverse {
+  flex-direction: column-reverse;
+
+  @include mq($large) {
+    flex-direction: row;
+  }
+}
+
+.flex-box--streched {
+  align-items: stretch;
+}
+
+.flex-box--spaced {
+  justify-content: space-between;
+}
+
+.flex-box--centered {
+  justify-content: center;
+}
+
+.flex-box--aligned {
+  align-items: center;
+}
+
+.centered {
+  text-align: center;
+}
+
+.no-scroll {
+  height: 100%;
+  overflow: hidden;
+}
+
+.nooverflow {
+  overflow: hidden;
+}
+
+.relative {
+  position: relative;
+}
+
+.nopadding.nopadding {
+  padding: 0;
+}

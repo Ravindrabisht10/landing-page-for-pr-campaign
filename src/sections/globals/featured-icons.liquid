@@ -1,0 +1,189 @@
+{% comment %}
+  Featured Icons Section
+  - Sub Title
+  - Title
+  - Icon Blocks
+    - List view in Mobile
+    - Carousel in Desktop
+{% endcomment %}
+
+{%- if section.settings.linklist != blank -%}
+  {%- assign featured_linklist = linklists[section.settings.linklist] -%}
+{%- endif -%}
+
+{%- if featured_linklist.links or section.blocks.size > 0 -%}
+  <section id="feature-icons_{{ section.id }}"
+    class="featured-icons"
+    data-section-id="{{ section.id }}" data-section-type="{{ section.type }}" data-featured-icons>
+
+    <div class="featured-icons__inner ccontain">
+      {%- if section.settings.sub_title != blank -%}
+        <span class="featured-icons__sub-title sub-title">{{ section.settings.sub_title }}</span>
+      {%- endif -%}
+
+      {%- if section.settings.title != blank -%}
+        <h2 class="featured-icons__title">{{ section.settings.title }}</h2>
+      {%- endif -%}
+
+      <div class="featured-icons__grid"
+        {%- if featured_linklist.links[0].links.size > 5 or section.blocks.size > 5 -%}
+          data-swiper-slider data-swiper-destroy="mobile-down"
+          data-slides-speed="{{ section.settings.slides_speed | default: 2000 }}"
+          data-slides-per-view="{{ section.settings.slides_per_view | default: 5 }}"
+          data-slides-per-view-tablet="{{ section.settings.slides_per_view | minus: 1 }}"
+          data-slides-group="{{ section.settings.slides_group | default: 'true' }}"
+          data-slides-loop="{{ section.settings.slides_loop | default: 'false' }}"
+        {%- endif -%}>
+        <div class="swiper-wrapper">
+          {%- if featured_linklist.links -%}
+            {%- for link in featured_linklist.links -%}
+              {%- for childlink in link.links -%}
+                {%- assign asset_name = childlink.title | split: '-' -%}
+                {%- assign file_name = asset_name[1] | downcase -%}
+                {%- assign new_badge = asset_name[2] | downcase | append: '.svg' -%}
+                {%- assign image_name = file_name | append: '.svg' -%}
+                {%- assign snippet_name = file_name -%}
+
+                <a href="{{ childlink.url }}" class="featured-icon swiper-slide">
+                  <div class="featured-icon__image">
+                    <div class="featured-icon__overlay"></div>
+                    {%- include file_name -%}
+                  </div>
+                  <span class="featured-icon__title">{{ childlink.title | split: '-' | first }}</span>
+                </a>
+              {%- endfor -%}
+            {%- endfor -%}
+          {%- else -%}
+            {%- for block in section.blocks -%}
+              {%- if block.settings.icon_url != blank -%}
+                <a href="{{ block.settings.icon_url }}" class="featured-icon swiper-slide">
+                  <div class="featured-icon__image">
+                    <div class="featured-icon__overlay"></div>
+                    <img src="{{ block.settings.icon | img_url: '96x' }}" alt="{{ block.settings.title }}">
+                  </div>
+                  <span class="featured-icon__title">{{ block.settings.title }}</span>
+                </a>
+              {%- endif -%}
+            {%- endfor -%}
+          {%- endif -%}
+        </div>
+
+        {%- if featured_linklist.links[0].links.size > 5 or section.blocks.size > 5 -%}
+          <!-- If we need pagination -->
+          <div class="swiper-pagination swiper-component-{{ section.id }}"></div>
+
+          <!-- If we need navigation buttons -->
+          <div class="swiper-button-prev swiper-component-{{ section.id }}">
+            {%- render 'icon-chevron-left' -%}
+          </div>
+          <div class="swiper-button-next swiper-component-{{ section.id }}">
+            {%- render 'icon-chevron-right' -%}
+          </div>
+          <!-- If we need scrollbar -->
+          <div class="swiper-scrollbar"></div>
+        {%- endif -%}
+      </div>
+
+      {%- if featured_linklist.links[0].links.size > 5 or section.blocks.size > 5 -%}
+        <a href="javascript:void(0);" class="featured-icons__view link" data-featured-icons-toggle>View All</a>
+      {%- endif -%}
+    </div>
+  </section>
+  <style>
+    @media (min-width: 1038px) {
+      .swiper-component-{{ section.id }} {
+        top: {{ section.settings.position | default: 50 }}px !important;
+      }
+    }
+  </style>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Featured Icons",
+  "settings": [
+    {
+      "type": "number",
+      "id": "position",
+      "label": "Position",
+      "default": 50
+    },
+    {
+      "type": "text",
+      "id": "sub_title",
+      "label": "Sub Title",
+      "default": "Shop by"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "Health Interest"
+    },
+    {
+      "type": "link_list",
+      "id": "linklist",
+      "label": "Featured Icons linklist",
+      "info": "Please not the icons block you choose will not be applied if this linklist is set."
+    },
+    {
+      "type": "header",
+      "content": "Slides Settings"
+    },
+    {
+      "type": "number",
+      "id": "slides_speed",
+      "label": "Slides Speed",
+      "default": 2000,
+      "info": "ms"
+    },
+    {
+      "type": "number",
+      "id": "slides_per_view",
+      "label": "Slides Per view",
+      "default": 5
+    },
+    {
+      "type": "checkbox",
+      "id": "slides_group",
+      "label": "Group Slides",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "slides_loop",
+      "label": "Loop Slides",
+      "default": false
+    }
+  ],
+  "blocks": [
+    {
+      "name": "Icon",
+      "type": "icon",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "icon",
+          "label": "Icon"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Icon Title"
+        },
+        {
+          "type": "url",
+          "id": "icon_url",
+          "label": "Icon Url"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "category": "Icons",
+      "name":"Featured Icons"
+    }
+  ]
+}
+{% endschema %}

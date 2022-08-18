@@ -1,0 +1,69 @@
+{%- assign herb_articles = article.metafields.accentuate.herb_related_articles | split: ',' -%}
+
+{%- if herb_articles.size > 0 and herb_articles != blank -%}
+  <section class="feature-herb-posts">
+    <div class="ccontain flex-box flex-box--vertical nooverflow">
+      <p class="sub-title">From Our Blog</p>
+      <h2 class="feature-herb-posts__title">Cooking with {{ article.title }}</h2>
+
+      <div data-swiper-slider
+           data-slides-per-view="2"
+           data-slides-per-view-tablet="1"
+           data-slides-per-view-mobile="1"
+           data-slides-group="true"
+           class="slider-wrap">
+
+        <div class="swiper-wrapper">
+          {%- for article in herb_articles | limit: 2 -%}
+            {%- assign handle = 'seeds-of-knowledge/' | append: article -%}
+            {%- assign article_object = articles[handle] -%}
+            <figure class="article swiper-slide">
+              <a href="{{- article_object.url -}}">
+                <div class="article__image-wrap">
+                  <img class="article__image"
+                     io-img-src="{{- article_object.image | img_url: '700x' -}}"
+                     alt="{{- article_object.image.alt -}}" />
+                </div>
+                <figcaption class="article__caption">
+                  {%- if article_object.tags.size > 0 -%}
+                    <div class="article__tags">
+                      {%- for tag in article_object.tags -%}
+                        {%- unless tag contains 'category-' -%}
+                          <span class="badge badge--tag">
+                            {{- tag -}}
+                          </span>
+                        {%- endunless -%}
+                      {%- endfor -%}
+                    </div>
+                  {%- endif -%}
+                  <h3 class="article__title">
+                    {{- article_object.title -}}
+                  </h3>
+                  <div class="article__description">
+                    {{- article_object.excerpt | default: article_object.content | strip_html | truncate: 180 -}}
+                  </div>
+                  <span class="link">
+                    Read More
+                  </span>
+                </figcaption>
+              </a>
+            </figure>
+          {%- endfor -%}
+        </div>
+
+        <div class="swiper-button-prev">
+          {%- render 'icon-chevron-left' -%}
+        </div>
+        <div class="swiper-button-next">
+          {%- render 'icon-chevron-right' -%}
+        </div>
+        <div class="swiper-scrollbar"></div>
+      </div>
+
+      <a href="/blogs/seeds-of-knowledge/"
+         class="button button--tertiary feature-herb-posts__cta">
+        View All
+      </a>
+    </div>
+  </section>
+{%- endif -%}

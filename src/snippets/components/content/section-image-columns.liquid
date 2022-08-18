@@ -1,0 +1,88 @@
+{% comment %}
+  Image columns
+  - Image Card
+    - Title
+    - Description
+    - Action
+{% endcomment %}
+
+{%- assign layout = _section.settings.layout | default: layout -%}
+{%- assign column_count = column_count | plus: 0 -%}
+{%- if column_count == blank or column_count == 0 -%}
+  {%- assign column_count = 2 -%}
+{%- endif -%}
+
+<section class="section image-columns image-columns--{{ column_count }} image-columns--{{ layout }} text-{{ _section.settings.text_alignment }}
+  {% if _section.settings.no_pt != blank %}pt-0{% endif %} {% if _section.settings.no_pb != blank %}pb-0{% endif %}"
+  data-section-id="{{ _section.id }}" data-section-type="{{ _section.type }}"
+  {%- if _section.settings.section_background_color != blank -%}
+    style="background-color: {{ _section.settings.section_background_color }};"
+  {%- endif -%} >
+
+  {%- if layout == 'default' -%}
+    <div class="ccontain">
+  {%- endif -%}
+
+  {%- if column_count == 3 and _section.settings.title != blank -%}
+    <h2 class="image-columns__title">{{ _section.settings.title }}</h2>
+  {%- endif -%}
+
+  <div class="image-columns__grid">
+    {%- for i in (1 .. column_count) -%}
+      {%- if column_count == 1 -%}
+        {%- assign suffix = '' -%}
+        {%- assign image_width = '1200x' -%}
+      {%- else -%}
+        {%- assign suffix = '_' | append: i -%}
+        {%- assign image_width = '720x' -%}
+      {%- endif -%}
+
+      {%- assign image = 'image' | append: suffix -%}
+      {%- assign image_secondary = 'image_secondary' | append: suffix -%}
+      {%- assign sub_title = 'sub_title' | append: suffix -%}
+      {%- assign title = 'title' | append: suffix -%}
+      {%- assign description = 'description' | append: suffix -%}
+
+      {%- assign text_color = 'text_color' | append: suffix -%}
+      {%- assign background_color = 'background_color' | append: suffix -%}
+      {%- assign description_color = 'description_color' | append: suffix -%}
+
+      {%- assign button_label = 'button_label' | append: suffix -%}
+      {%- assign button_link = 'button_link' | append: suffix -%}
+      {%- assign button_type = 'button_type' | append: suffix -%}
+      {%- assign opacity = 'opacity' | append: suffix -%}
+
+      {%- assign opacity = _section.settings[opacity] | divided_by: 100.0 -%}
+      {%- assign text_alignment = 'text_alignment' | append: suffix -%}
+      {%- assign text_alignment_class = _section.settings[text_alignment] | prepend: 'text-' -%}
+      {%-
+        render 'block-image-card',
+        layout: layout,
+        image: _section.settings[image],
+        image_width: image_width,
+        image_secondary: _section.settings[image_secondary],
+        sub_title: _section.settings[sub_title],
+        title: _section.settings[title],
+        description: _section.settings[description],
+        text_color: _section.settings[text_color],
+        title_color: _section.settings.title_color,
+        background_color: _section.settings[background_color],
+        description_color: _section.settings[description_color],
+        button_label: _section.settings[button_label],
+        button_link: _section.settings[button_link],
+        button_type: _section.settings[button_type],
+        opacity: opacity,
+        text_alignment_class: text_alignment_class
+      -%}
+
+    {%- endfor -%}
+  </div>
+
+  {%- if layout == 'default' -%}
+    </div>
+  {%- endif -%}
+</section>
+
+{%- if _section.settings.add_section_divider != blank -%}
+  <div class="ccontain"><hr></div>
+{%- endif -%}

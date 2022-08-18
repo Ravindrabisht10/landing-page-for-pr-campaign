@@ -1,0 +1,412 @@
+.content {
+  &-column {
+    align-items: center;
+    @include mq($bp-large) {
+      padding: 0 $spacing-xs;
+    }
+
+    & > div {
+      order: 1;
+
+      @include mq($bp-large) {
+        padding: 0;
+      }
+
+      &.order-2 {
+        order: 2;
+
+        @include mq($bp-large) {
+          order: 1;
+        }
+
+        img {
+          margin: $spacing-l 0;
+
+          @include mq($bp-large) {
+            margin: 0;
+          }
+        }
+      }
+
+      .content {
+        font-weight: 300;
+        line-height: 1.75;
+        margin: 0 auto;
+        max-width: 28.75rem;
+
+        @include mq($large) {
+          max-width: none;
+          padding: 0 4.5rem;
+        }
+
+        &.wide {
+          @include mq($large) {
+            max-width: none;
+            padding: 0;
+          }
+        }
+      }
+
+      p {
+        font-weight: 300;
+        margin: 0 0 $spacing-m;
+
+        @include mq($bp-large) {
+          margin: 0 0 $spacing-l;
+        }
+
+        &:last-of-type {
+          margin: 0;
+        }
+      }
+
+      h2 {
+        line-height: 1.25;
+        margin: $spacing-gutter 0;
+        text-align: left;
+
+        @include mq($bp-large) {
+          margin: 0 0 $spacing-l;
+        }
+      }
+
+      img {
+        margin: 0;
+
+        @include mq($bp-large) {
+          margin: 0;
+        }
+      }
+
+      ol {
+        font-size: 14px;
+        @extend .list-link;
+      }
+
+      ul {
+        @extend .list-bullet;
+        margin: $spacing-l 0 0;
+
+        @include mq($bp-large) {
+          margin: 0;
+          padding: 0;
+        }
+      }
+    }
+
+    &.background {
+      @extend .row.contain;
+      padding: rem(60) 0;
+
+      @include mq($bp-large) {
+        padding: $spacing-xxl $spacing-xs;
+      }
+    }
+
+    &.icons,
+    &.images {
+      & > div {
+        p {
+          margin: $spacing-l 0 0;
+
+          @include mq($bp-large) {
+            margin: 0 0 $spacing-l;
+          }
+        }
+      }
+
+      h2 {
+        margin: 0 0 $spacing-gutter;
+
+        @include mq($bp-large) {
+          margin: 0 0 $spacing-l;
+        }
+      }
+
+      ul {
+        margin: $spacing-l 0;
+        padding: 0;
+
+        @include mq($bp-large) {
+          margin: 0;
+        }
+
+        li {
+          align-items: center;
+          display: flex;
+          padding: 0;
+
+          & + li {
+            margin-top: rem(20);
+            padding: 0;
+
+            @include mq($bp-large) {
+              margin-top: rem(28);
+            }
+          }
+
+          &:before {
+            display: none;
+          }
+
+          img {
+            display: inline-block;
+            min-height: rem(16);
+            margin: 0 rem(16) 0 0;
+            object-fit: contain;
+            vertical-align: middle;
+            min-width: rem(16);
+
+            @include mq($bp-large) {
+              margin: 0 rem(16) 0 0;
+            }
+          }
+
+          div {
+            display: inline-block;
+            vertical-align: middle;
+          }
+
+          h5 {
+            margin: 0;
+            white-space: normal;
+
+            & + p {
+              margin-top: $spacing-xs !important;
+            }
+          }
+        }
+      }
+    }
+
+    &.images {
+      ul {
+        li {
+          & + li {
+            margin-top: rem(20);
+
+            @include mq($bp-large) {
+              margin-top: rem(28);
+            }
+          }
+
+          img {
+            height: 5rem;
+            margin: 0 rem(16) 0 0;
+            width: 5rem;
+
+            @include mq($bp-large) {
+              margin: 0 rem(30) 0 0;
+            }
+          }
+        }
+      }
+    }
+
+    &.accordian {
+        // @extend .accordian-list;
+    }
+    & + [class*="callout"] {
+      margin-top: 0;
+    }
+
+    &-full {
+      margin: 0;
+
+      & > div {
+        background: {
+          position: center center !important;
+          repeat: no-repeat !important;
+          size: cover !important;
+        }
+        min-height: 20rem;
+        padding: $spacing-xl $spacing-gutter;
+
+        @include mq($bp-large) {
+          padding: $spacing-xxl $spacing-gutter;
+        }
+      }
+      .content {
+        color: $color-black;
+        margin: 0 auto;
+        max-width: 23rem;
+
+        h5 {
+          color: $color-deep-green;
+          margin: 0 0 $spacing-gutter;
+        }
+
+        a {
+          color: $color-deep-green;
+        }
+
+        p {
+          color: $color-black;
+          margin: 0 0 $spacing-l;
+
+          &:last-of-type {
+            margin: 0;
+          }
+
+          a {
+            display: block;
+            margin: 0 0 $spacing-gutter;
+            text-decoration: underline;
+            color: $color-deep-green;
+
+            &:last-of-type {
+              margin: 0;
+            }
+          }
+        }
+
+        a {
+          color: inherit;
+
+          &:hover {
+            color: $color-teal-500;
+          }
+        }
+
+        div {
+          display: flex;
+          flex-direction: row;
+          flex-wrap: wrap;
+          margin: 1.25rem 0 0;
+
+          * {
+            margin: $spacing-gutter 0 0 !important;
+            width: 50%;
+          }
+
+          a {
+            text-align: right;
+            color: $color-primary;
+          }
+        }
+
+        &.light {
+          color: $color-white;
+
+          h5,
+          p,
+          a {
+            color: $color-white;
+          }
+
+          &:hover {
+            color: $color-white;
+          }
+        }
+      }
+      & + [class*="callout"] {
+        margin-top: 0;
+      }
+    }
+  }
+  &-multi-column {
+    margin: $spacing-xl 0 0;
+    @include mq($bp-large) {
+      margin: $spacing-xxl 0 0;
+      padding: 0;
+    }
+
+    &.wide {
+      .row {
+        & > div {
+          img {
+            max-width: 18.75rem;
+            width: 100%;
+          }
+        }
+      }
+    }
+
+    .row {
+      // ToDo: Change GLobal Row and Div Padding
+      @include mq($bp-large) {
+        padding: 0 $spacing-xs;
+      }
+      & > div {
+        margin: 0 0 $spacing-l;
+        padding: 0 $spacing-gutter;
+
+        &:last-of-type {
+          margin: 0;
+        }
+
+        @include mq($bp-large) {
+          margin: 0;
+          padding: 0 $spacing-xs;
+        }
+
+        .content {
+          margin: 0 auto;
+          max-width: 28.75rem;
+
+          @include mq($large) {
+            max-width: none;
+            padding: 0 $spacing-gutter;
+          }
+        }
+
+        img {
+          display: block;
+          margin: 0 auto $spacing-gutter;
+          max-width: 8.75rem;
+          @include mq($large) {
+            margin: 0 auto $spacing-l;
+          }
+        }
+
+        p {
+          margin: 0;
+          text-align: center;
+        }
+
+        h3 {
+          color: $primary-dark-green;
+          margin: 0 0 $spacing-gutter;
+          text-align: center;
+        }
+
+        a {
+          text-decoration: none;
+        }
+      }
+    }
+
+    & + .callout-secondary,
+    & + .callout {
+      margin: $spacing-xl 0 0;
+      @include mq($bp-large) {
+        margin: $spacing-xxl 0 0;
+      }
+    }
+  }
+
+  &-background {
+    & + [class*="callout"] {
+      margin-top: 0;
+    }
+  }
+}
+
+/* Page specific overrides */
+#shopify-section-page-careers {
+  .content-columns {
+    &.content-background {
+      margin-top: 0;
+    }
+  }
+}
+
+.form2 {
+  ul {
+    padding-left: rem(32);
+  }
+
+  li {
+    padding: rem(8) 0;
+  }
+}

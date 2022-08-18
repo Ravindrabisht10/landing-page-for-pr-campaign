@@ -1,0 +1,43 @@
+
+
+
+<div class="user-input-wrapper">
+  <p>Search Results For <span>"{{ search.terms }}"</span></p>
+</div>
+
+<div class="type-selector-wrapper">
+  <span class="selector product-selector boost-pfs-filter-total-product active">
+  </span>
+  <span class="selector page-selector boost-pfs-filter-total-page">
+  </span>
+</div>
+
+<div class="product-controls--mobile search-controls--mobile mobile-only" data-mobile-controls>
+  <button class="product-controls__filter-toggle search-controls__filter-toggle"
+          data-mobile-filter-trigger>
+    Filter
+  </button>
+  <div class="boost-pfs-filter-top-sorting boost-pfs-filter-custom-sorting search-filter-custom-sorting" data-sorting>
+    [[sortingItems]]
+  </div>
+</div>
+
+<div class="collection-wrapper suggestion-wrapper">
+
+  {%- section 'search-filtering' -%}
+  {%- render 'search-grid' -%}
+
+  <div class="page-result-wrapper hide-result">
+    <div class="page-search-grid contain">
+    </div>
+    <!-- <div class="boost-pfs-filter-bottom-pagination"></div>
+    <div class="boost-pfs-filter-load-more"></div> -->
+    <div class="page-load-more-btn-container">
+      <button class="page-load-more-btn">LOAD MORE</button>
+    </div>
+  </div>
+</div>
+
+
+
+

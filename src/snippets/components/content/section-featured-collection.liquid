@@ -1,0 +1,67 @@
+{%- assign featured_collection = collections[_section.settings.collection] -%}
+
+<section class="section section--featured-collection text-center {% if _section.settings.no_pt != blank %}pt-0{% endif %} {% if _section.settings.no_pb != blank %}pb-0{% endif %}"
+  data-section-id="{{ section.id }}" data-section-type="{{ section.type }}">
+  <div class="section__inner ccontain">
+    {%- if _section.settings.sub_title != blank -%}
+      <span class="section__sub-title sub-title">{{ _section.settings.sub_title }}</span>
+    {%- endif -%}
+
+    {%- if _section.settings.title != blank -%}
+      <h2 class="section__title">{{ _section.settings.title }}</h2>
+    {%- endif -%}
+
+    <div class="section__grid text-left"
+      {%- if featured_collection.products.size > 4 -%}
+        data-swiper-slider
+        data-slides-speed="{{ _section.settings.slides_speed | default: 300 }}"
+        data-slides-speed-mobile="500"
+        data-slides-per-view="4"
+        data-slides-per-view-tablet="2"
+        data-slides-per-view-mobile="1"
+        data-slides-group="{{ _section.settings.slides_group | default: 'false' }}"
+        data-slides-loop="{{ _section.settings.slides_loop | default: 'false' }}"
+      {%- endif -%} >
+      <div class="swiper-wrapper">
+        {%- for product in featured_collection.products limit: _section.settings.slides_limit -%}
+          <div class="swiper-slide">
+            {%- render 'product-tile', _product: product -%}
+          </div>
+        {%- endfor -%}
+      </div>
+
+      {%- if featured_collection.products.size > 3 -%}
+        <!-- If we need pagination -->
+        <div class="swiper-pagination swiper-component-{{ _section.id }}"></div>
+
+        <!-- If we need navigation buttons -->
+        <div class="swiper-button-prev swiper-component-{{ _section.id }}">
+          {%- render 'icon-chevron-left' -%}
+        </div>
+        <div class="swiper-button-next swiper-component-{{ _section.id }}">
+          {%- render 'icon-chevron-right' -%}
+        </div>
+
+        <!-- If we need scrollbar -->
+        <div class="swiper-scrollbar"></div>
+      {%- endif -%}
+    </div>
+
+    <style>
+      @media (min-width: 1038px) {
+        .swiper-component-{{ _section.id }} {
+          top: {{ _section.settings.position | default: 50 }}px !important;
+        }
+      }
+    </style>
+
+    {%- if _section.settings.button_label != blank and _section.settings.button_link != blank -%}
+      <a href="{{ _section.settings.button_link }}" class="button button--{{ _section.settings.button_type }} section__button">{{ _section.settings.button_label }}</a>
+    {%- endif -%}
+  </div>
+
+</section>
+
+{%- if _section.settings.add_section_divider != blank -%}
+  <div class="ccontain"><hr></div>
+{%- endif -%}

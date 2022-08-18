@@ -1,0 +1,57 @@
+{% assign herbs = blogs['herbs'].articles %}
+
+{% if herbs != blank %}
+  <section class="herb-guide ccontain">
+    <div data-swiper-slider
+         data-slides-per-view="6"
+         data-slides-per-view-tablet="2"
+         data-slides-per-view-mobile="2"
+         data-slides-group="true"
+         class="slider-wrap flex-box flex-box--vertical flex-box--aligned">
+      <h2>More Herbs to Discover</h2>
+      <p class="herb-guide__description herb-guide__description--padded">
+        Our Herbal Reference Guide lets you enhance your relationship with herbs by giving you a comprehensive profile of each plant.
+      </p>
+
+      <div class="swiper-button-prev mobile-only">
+        {%- render 'icon-chevron-left' -%}
+      </div>
+      <div class="swiper-button-next mobile-only">
+        {%- render 'icon-chevron-right' -%}
+      </div>
+
+      <div class="popular-herbs__pagination related-herb__pagination">
+        <div class="swiper-pagination"></div>
+        <div class="swiper-button-prev">
+          {%- render 'icon-chevron-left' -%}
+        </div>
+        <div class="swiper-button-next">
+          {%- render 'icon-chevron-right' -%}
+        </div>
+      </div>
+
+      <div class="herb-guide__herb-slider swiper-wrapper">
+        {% for herb in herbs limit:24 %}
+          {% assign contentImage = herb.image.src | img_url:'300x' %}
+          {% unless herb.title == article.title %}
+            <a class="herb-tile swiper-slide"
+               href="{{- herb.url -}}"
+               data-first-letter="{{- herb.title | slice: 0 | downcase -}}">
+              <div class="herb-tile__image-wrap">
+                <img io-img-src="{{- herb.image | img_url: '372x' -}}"
+                     alt="{{- herb.title -}}" />
+              </div>
+              <h3 class="herb-tile__title">{{- herb.title -}}</h3>
+            </a>
+          {% endunless %}
+        {% endfor %}
+      </div>
+
+      <div class="swiper-scrollbar"></div>
+
+      <a class="button button--primary herb-guide__related-cta" href="/pages/herb-reference-guide">
+        View All Herbs
+      </a>
+    </div>
+  </section>
+{% endif %}

@@ -1,0 +1,70 @@
+{%- assign healthBenefits = article.metafields.Additional.HealthBenefits | split: ', ' -%}
+
+
+{%- capture left_side_one -%}
+  <div class="highlights__highlight highlights__highlight--padded"
+       data-img-to-use="{{- article.metafields.Additional.ContentImage -}}"
+       data-highlight-content>
+    <h2>What is {{ article.title }} Used For?</h2>
+    <div class="herb-uses__content weight-300">
+      {{- article.metafields.Additional.Uses -}}
+    </div>
+    <p><a href="#additionalInformation" scrollto="additionalInformation" class="link link--padded">View Important Precautions</a></p>
+  </div>
+{%- endcapture -%}
+
+
+{%- capture left_side_two -%}
+  <div class="highlights__highlight highlights__highlight--padded herb-benefits"
+       data-img-to-use="{{- article.metafields.Additional.herb_content_ingredient_image -}}"
+       data-highlight-content>
+    <h2 class="herb-benefits__title">Traditional Health Benefits of {{ article.title }}</h2>
+    <div class="herb-benefits__wrapper">
+      {%- for benefit in healthBenefits -%}
+        {%- assign asset_name = benefit | split: ' ' -%}
+        {%- assign file_name = asset_name[0] | downcase | append: '.svg' -%}
+
+        <a href="/collections/{{- benefit | replace: '&', 'and' | handleize -}}"
+           class="benefit-button">
+          <img src="{{ file_name | asset_url }}"
+               alt="{{- benefit -}}"
+               class="benefit-button__icon" />
+          <span>{{- benefit -}}</span>
+        </a>
+      {%- endfor -%}
+    </div>
+  </div>
+{%- endcapture -%}
+
+<div class="mobile-only">
+  <div class="highlights highlights--no-border">
+    <img src="{{- article.metafields.Additional.ContentImage -}}"
+         alt="Product Image" />
+    <div class="ccontain">
+      {{- left_side_one -}}
+    </div>
+
+    <img src="{{- article.metafields.Additional.herb_content_ingredient_image -}}"
+         alt="Product Image"
+         class="highlight__mobile-image" />
+    <div class="ccontain">
+      {{- left_side_two -}}
+    </div>
+  </div>
+</div>
+
+<div class="ccontain highlights desktop-only">
+  <div class="highlights__images" {% if _section.settings.layout != 'left' -%}style="order: 1;"{%- endif -%}>
+    <div class="highlights__image-wrap">
+      <img class="highlights__image"
+           src="{{- article.metafields.Additional.ContentImage -}}"
+           alt="Highlights"
+           data-image-sources
+           data-image-index="0" />
+    </div>
+  </div>
+  <div class="highlights__content">
+    {{- left_side_one -}}
+    {{- left_side_two -}}
+  </div>
+</div>

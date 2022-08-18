@@ -1,0 +1,56 @@
+@font-face {
+  font-family: MarkPro;
+  src: url(../assets/MarkPro-Bold.otf);
+  font-weight: 700;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: MarkPro;
+  src: url(../assets/MarkPro-BoldItalic.otf);
+  font-weight: 700;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: MarkPro;
+  src: url(../assets/MarkPro-Medium.otf);
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: MarkPro;
+  src: url(../assets/MarkPro-MediumItalic.otf);
+  font-weight: 500;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: MarkPro;
+  src: url(../assets/MarkPro.otf);
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: MarkPro;
+  src: url(../assets/MarkPro-Italic.otf);
+  font-weight: 400;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: MarkPro;
+  src: url(../assets/MarkPro-Light.otf);
+  font-weight: 300;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: MarkPro;
+  src: url(../assets/MarkPro-LightItalic.otf);
+  font-weight: 300;
+  font-style: italic;
+}
+/*# sourceMappingURL=fonts.css.map */

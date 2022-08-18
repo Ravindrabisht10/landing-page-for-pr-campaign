@@ -1,0 +1,367 @@
+{%- comment -%}
+  In order to avoid showing "success" message when we post comments
+  with invalid format (eg. blank fields), we added logic to make sure it doesn't show.
+
+  Comment help page:
+  http://docs.shopify.com/themes/liquid-variables/comment
+{%- endcomment -%}
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+{%- assign new_comment = false -%}
+{%- assign number_of_comments = article.comments_count -%}
+{% assign article_recommended_products = article.metafields.Additional['RelatedProducts'] | split: ',' %}
+{% assign recommendation_count = article_recommended_products | size %}
+
+{%- if comment and comment.created_at -%}
+  {%- assign new_comment = true -%}
+  {%- assign new_comment_id = comment.id -%}
+{%- endif -%}
+
+{%- if new_comment -%}
+  {%- comment -%}
+    When you refresh the page with submitted comment, the comment is duplicated
+    so we added a flag to avoid this situation.
+  {%- endcomment -%}
+  {%- assign duplicate_comment = false -%}
+  {%- for comment in article.comments -%}
+    {%- if comment.id == new_comment_id -%}
+      {%- assign duplicate_comment = true -%}
+      {%- break -%}
+    {%- endif -%}
+  {%- endfor -%}
+
+  {%- unless duplicate_comment -%}
+    {%- assign number_of_comments = article.comments_count | plus: 1 -%}
+  {%- endunless -%}
+{%- endif -%}
+
+
+{% assign blog_category = '' %}
+
+{% for category in article.tags %}
+  {% if category contains 'category' %}
+    {% assign blog_category = category %}
+  {% endif %}
+{% endfor %}
+
+<article role="article">
+
+  {% assign presslink = article.metafields.Additional['PressLink'] %}
+  {% if presslink != blank %}
+    {% assign external = 'external' %}
+  {% endif %}
+
+  <section class="article-navigation row contain mobile">
+    {% if blog.next_article %}
+      <a href="{{ blog.next_article }}" class="prev">
+        {% include 'icon-chevron-left'%}
+        Previous Article
+      </a>
+    {% else %}
+      <a href="{{ blog.url }}" class="prev">
+        {% include 'icon-chevron-left'%}
+        {{ blog.title }}
+      </a>
+    {% endif %}
+    {% if blog.previous_article %}
+      <a href="{{ blog.previous_article }}" class="next">
+        Next Article
+        {% include 'icon-chevron-right'%}
+      </a>
+    {% endif %}
+  </section>
+
+
+  <section class="article-title">
+
+    <section class="article-navigation row contain desktop">
+      {% if blog.next_article %}
+        <a href="{{ blog.next_article }}" class="prev">
+          {% include 'icon-chevron-left'%}
+          Previous Article
+        </a>
+      {% else %}
+        <a href="{{ blog.url }}" class="prev">
+          {% include 'icon-chevron-left'%}
+          {{ blog.title }} Home
+        </a>
+      {% endif %}
+      {% if blog.previous_article %}
+        <a href="{{ blog.previous_article }}" class="next">
+          Next Article
+          {% include 'icon-chevron-right'%}
+        </a>
+      {% endif %}
+    </section>
+
+    <div class="row contain-strict">
+      <div class="col-12">
+
+        {% if blog_category != blank %}
+          <h5 class="badge badge--tag">{{ blog_category | remove: 'category-' | replace: '-', ' '}}</h5>
+        {% endif %}
+
+        <h1 {% if blog_category == blank %}style="margin-top: 2rem;"{%- endif -%}>{{ article.title }}</h1>
+        {% comment %}
+        <div class="article-author">
+          <p>{{ article.author }}&nbsp;&nbsp;&bull;&nbsp;&nbsp;{{ article.published_at | date: '%B %e, %Y' }}</p>
+        </div>
+        {% endcomment %}
+      </div>
+    </div>
+  </section>
+  <section class="article-content external">
+
+        {% if article.image %}
+          <div class="article-image-wrapper mobile-only">
+            <div class="article-image">
+              <img io-img-src="{{ article.image | img_url: '1920x'}}" alt="{{ article.title }}">
+            </div>
+          </div>
+        {% endif %}
+
+        {% comment %} <script>
+          console.log("Toggle: ", "{{ section.settings.show_related_products }}");
+        </script> {% endcomment %}
+
+        <div class="article-content-container row {% if recommendation_count < 1 %}contain-strict{% else %}ccontain{% endif %}">
+
+          <div class="{% if recommendation_count < 1 %}content{% else %}article-content-wrapper{% endif %}">
+            {% if article.image %}
+            <div class="article-image-wrapper desktop-only">
+              <div class="article-image">
+                <img io-img-src="{{ article.image | img_url: '1920x'}}" alt="{{ article.title }}">
+              </div>
+            </div>
+          {% endif %}
+
+            {{ article.content }}
+
+            {% if presslink != blank %}
+              <a href="{{ presslink }}" class="article-continue" target="_blank">Read Full Article</a>
+            {% endif %}
+          </div>
+
+          {% if recommendation_count > 0 %}
+            <div class="product-side-bar-content-wrapper desktop-only">
+              {% section 'related-products' %}
+            </div>
+          {% endif %}
+        </div>
+
+    <div class="row contain-strict">
+        {% if settings.social_sharing_blog %}
+          <div class="col-12 social-sharing-wrapper">
+            {% include 'social-sharing', share_title: article.title, share_permalink: article.url, share_image: article.image %}
+          </div>
+        {% endif %}
+        <!-- <div class="col-12 col-lg-5 article-category">
+          {% if blog_category != blank %}
+            {% assign category = blog_category | remove: 'category-' | replace: '-', ' ' %}
+            <p>Posted in</p><h5>{{ category | link_to_tag: category }}</h5>
+          {% endif %}
+        </div> -->
+      </div>
+  </section>
+
+
+
+  {% if blog.comments_enabled? %}
+    <h3>{{ 'blogs.comments.with_count' | t: count: number_of_comments }}</h3>
+
+    {% paginate article.comments by 5 %}
+
+    <div id="comments">
+      {% if comment and comment.status and comment.id != blank and paginate.current_page == 1 %}
+        <p class="form-success">
+          {% if blog.moderated? and comment.status != 'published' %}
+            {{ 'blogs.comments.success_moderated' | t }}
+          {% else %}
+            {{ 'blogs.comments.success' | t }}
+          {% endif %}
+        </p>
+      {% endif %}
+
+      {% if number_of_comments > 0 %}
+        <ul>
+          {% comment %}
+            Display comment from URL parameters if it is waiting moderation
+            We added "comment.id" check to make sure we don't display markup if there are form errors
+          {% endcomment %}
+          {% if comment and comment.status != 'published' and comment.id != blank %}
+            <li id="{{ comment.id }}">
+              <div class="rte">
+                {{ comment.content }}
+              </div>
+              {% capture date %}{{ comment.created_at | time_tag: format: 'month_day_year' }}{% endcapture %}
+              <p>{{ 'blogs.article.comment_meta_html' | t: author: comment.author, date: date }}</p>
+            </li>
+          {% endif %}
+
+          {% for comment in article.comments %}
+            <li id="{{ comment.id }}">
+              <div class="rte">
+                {{ comment.content }}
+              </div>
+              {% capture date %}{{ comment.created_at | time_tag: format: 'month_day_year' }}{% endcapture %}
+              <p>{{ 'blogs.article.comment_meta_html' | t: author: comment.author, date: date }}</p>
+            </li>
+          {% endfor %}
+        </ul>
+
+        {% if paginate.pages > 1 %}
+          {% include 'pagination' %}
+        {% endif %}
+      {% endif %}
+    </div>
+
+    {% endpaginate %}
+
+    {% form 'new_comment', article %}
+      <h3>{{ 'blogs.comments.title' | t }}</h3>
+
+      {{ form.errors | default_errors }}
+
+      <label for="CommentAuthor" class="label-hidden">
+        {{ 'blogs.comments.name' | t }}
+      </label>
+      <input type="text"
+             name="comment[author]"
+             id="CommentAuthor"
+             class="{% if form.errors contains 'author' %}input-error{% endif %}"
+             placeholder="{{ 'blogs.comments.name' | t }}"
+             value="{{ form.author }}"
+             autocapitalize="words">
+
+      <label for="CommentEmail" class="label-hidden">
+        {{ 'blogs.comments.email' | t }}
+      </label>
+      <input type="email"
+             name="comment[email]"
+             id="CommentEmail"
+             class="{% if form.errors contains 'email' %}input-error{% endif %}"
+             placeholder="{{ 'blogs.comments.email' | t }}"
+             value="{{ form.email }}"
+             spellcheck="false"
+             autocomplete="off"
+             autocapitalize="off">
+
+      <label for="CommentBody" class="label-hidden">
+        {{ 'blogs.comments.message' | t }}
+      </label>
+      <textarea
+        name="comment[body]"
+        id="CommentBody"
+        class="{% if form.errors contains 'body' %}input-error{% endif %}"
+        placeholder="{{ 'blogs.comments.message' | t }}">
+        {{- form.body -}}
+      </textarea>
+
+      {% if blog.moderated? %}
+        <p>{{ 'blogs.comments.moderated' | t }}</p>
+      {% endif %}
+
+      <input type="submit" class="button" value="{{ 'blogs.comments.post' | t }}">
+    {% endform %}
+
+  {% endif %}
+
+</article>
+
+
+{% section 'mobile-related-products' %}
+
+
+{% section 'related-blogs' %}
+
+<script>
+// // Initialize Slick Slider
+$(document).ready(function() {
+
+function stickySidebar(){
+  // if ( !$('.blog-detail-sidebar .recommend-articles').length && !$('#blog-detail').length ) {
+  //   return;
+  // }
+  var sticky_el = $('.product-recommended-wrapper');
+  var offsetTop = parseInt($('article[role="article"]').offset().top) + 150;
+  var scrollPos = $(window).scrollTop();
+  var limit = parseInt($('.blog-related-blog-container').offset().top) - parseInt($(sticky_el).outerHeight());
+
+  $(window).on('scroll', function(){
+    scrollPos = $(window).scrollTop();
+    if( (scrollPos >= offsetTop) && (scrollPos <= limit) ){
+      $(sticky_el).removeClass('bottom').addClass('sticky');
+    }else if( scrollPos > limit - 50){
+      $(sticky_el).addClass('bottom');
+    }else{
+      $(sticky_el).removeClass('sticky').removeClass('bottom');
+    }
+  });
+
+  $(window).on('load', function() {
+    scrollPos = $(window).scrollTop();
+    if( (scrollPos >= offsetTop) && (scrollPos <= limit) ){
+      $(sticky_el).removeClass('bottom').addClass('sticky');
+    }else if( scrollPos > limit - 50){
+      $(sticky_el).addClass('bottom');
+    }else{
+      $(sticky_el).removeClass('sticky').removeClass('bottom');
+    }
+  })
+}
+    stickySidebar();
+});
+
+
+</script>
+
+
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "Article",
+  "articleBody": "{{ article.content | strip_html | escape }}",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "{{ shop.url }}{{ page.url }}"
+  },
+  "headline": "{{ article.title }}",
+  {% if article.excerpt != blank %}
+    "description": "{{ article.excerpt | strip_html }}",
+  {% endif %}
+  {% if article.image %}
+    {% assign image_size = article.image.width | append: 'x' %}
+    "image": [
+      "https:{{ article | img_url: image_size }}"
+    ],
+  {% endif %}
+  "datePublished": "{{ article.published_at | date: '%Y-%m-%dT%H:%M:%SZ' }}",
+  "dateCreated": "{{ article.created_at | date: '%Y-%m-%dT%H:%M:%SZ' }}",
+  "author": {
+    "@type": "Person",
+    "name": "{{ article.author }}"
+  },
+  "publisher": {
+    "@type": "Organization",
+    {% if settings.share_image %}
+      {% assign image_size = settings.share_image.width | append: 'x' %}
+      "logo": {
+        "@type": "ImageObject",
+        "height": "{{ settings.share_image.height }}",
+        "url": "https:{{ settings.share_image | img_url: image_size }}",
+        "width": "{{ settings.share_image.width }}"
+      },
+    {% elsif article.image %}
+      {% assign image_size = article.image.width | append: 'x' %}
+      "logo": {
+        "@type": "ImageObject",
+        "height": "{{ article.image.height }}",
+        "url": "https:{{ article.image | img_url: image_size }}",
+        "width": "{{ article.image.width }}"
+      },
+    {% endif %}
+    "name": "{{ shop.name }}"
+  }
+}
+</script>

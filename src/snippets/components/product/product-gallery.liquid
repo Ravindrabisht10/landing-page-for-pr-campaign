@@ -1,0 +1,36 @@
+{%- if template == 'product' -%}
+  <div class="product-gallery__content-wrap">
+{%- endif -%}
+
+<div class="product-gallery {% if classes_mod != blank -%}product-gallery--{{ classes_mod }}{%- endif -%}">
+  {%- if display_badges == true -%}
+    {%- render 'product-badges':
+          _product: product,
+          _classes: 'product-gallery__badges' -%}
+  {%- endif -%}
+
+  {%- if template == 'product' -%}
+    <div class="product-gallery__zoomzoom mobile-only">
+      {%- render 'icon-zoom' -%}
+    </div>
+  {%- endif -%}
+
+  <ul class="product-gallery__thumbnails scrollbar {% if classes_mod != blank -%}product-gallery__thumbnails--{{ classes_mod }}{%- endif -%}">
+    {%- for image in product.images -%}
+      <li class="product-gallery__thumbnail {% if forloop.index == 1 -%}product-gallery__thumbnail--selected{%- endif %} {% if classes_mod != blank -%}product-gallery__thumbnail--{{ classes_mod }}{%- endif -%}">
+        <img src="{{- image | img_url: '200x' -}}"
+             alt="{{- image.alt -}}"
+             data-product-image-thumbnail="{{- image | img_url: '1060x' -}}" />
+      </li>
+    {%- endfor -%}
+  </ul>
+
+  <img class="product-gallery__main-image {% if classes_mod != blank -%}product-gallery__main-image--{{ classes_mod }}{%- endif -%}"
+       alt="{{- product.featured_image.alt -}}"
+       src="{{- product.featured_image | img_url: '1060x' -}}"
+       data-product-image />
+</div>
+
+{%- if template == 'product' -%}
+  </div>
+{%- endif -%}

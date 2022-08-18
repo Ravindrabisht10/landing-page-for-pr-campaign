@@ -1,0 +1,43 @@
+{%- assign herbslug = article.title | replace: ' ', '-' | replace: '.', '' | prepend: 'herb-' -%}
+
+<div class="ccontain">
+<section class="herb-related herb-featuring nooverflow flex-box flex-box--vertical"
+         data-swiper-slider
+         data-slides-per-view="4"
+         data-slides-per-view-tablet="2"
+         data-slides-per-view-mobile="1"
+         data-slides-group="true">
+
+  <h2 class="herb-featuring__title">
+    Products Featuring {{ article.title }}
+  </h2>
+
+  <div class="swiper-pagination tablet-up"></div>
+  <div class="swiper-button-prev tablet-up">
+    {%- render 'icon-chevron-left' -%}
+  </div>
+  <div class="swiper-button-next tablet-up">
+    {%- render 'icon-chevron-right' -%}
+  </div>
+
+  <div class="swiper-wrapper">
+    {%- paginate collections.all.products by 1000 -%}
+      {%- for product in collections.all.products -%}
+        {%- unless product.tags contains 'badge-discontinued' -%}
+          {%- if product.tags contains herbslug -%}
+            <div class="swiper-slide">
+              {%- render 'product-tile', _product: product -%}
+            </div>
+          {%- endif -%}
+        {%- endunless -%}
+      {%- endfor -%}
+    {%- endpaginate -%}
+  </div>
+
+  <div class="swiper-scrollbar"></div>
+
+  <a href="/collections/all" class="button button--primary feature-herb-posts__cta">
+    Shop All Products
+  </a>
+</section>
+</div>

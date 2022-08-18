@@ -1,0 +1,158 @@
+.product-herbs {
+  @include maxed(1190);
+  margin-bottom: rem(100);
+}
+
+.feature-herbs-carousel {
+  position: relative;
+  overflow: hidden;
+
+  .swiper-pagination,
+  .swiper-button-prev,
+  .swiper-button-next {
+    top: 0;
+    transform: translateY(#{rem(-18)});
+  }
+
+  .swiper-wrapper {
+    margin-top: rem(40);
+    margin-bottom: rem(36);
+  }
+
+  .swiper-scrollbar {
+    margin-bottom: rem(40)
+  }
+
+  .sub-title {
+    color: $color-deep-green;
+  }
+
+  .badge-count {
+    @include font(10, 13, 400);
+    color: $color-black;
+  }
+}
+
+.feature-herbs-carousel--tablet-centered {
+  @include mq($medium) {
+    justify-content: center;
+
+    & + .swiper-scrollbar {
+      display: none;
+    }
+  }
+}
+
+.feature-herbs-carousel--desktop-centered {
+  @include mq($large) {
+    justify-content: center;
+
+    & + .swiper-scrollbar {
+      display: none;
+    }
+  }
+}
+
+.feature-herbs-carousel__intro {
+  margin: rem(16) 0;
+  font-weight: 300;
+}
+
+div.feature-herbs-carousel.swiper-container-initialized {
+  text-align: center;
+
+  @include mq-max($medium) {
+    @include maxed(500);
+    .swiper-button-prev,
+    .swiper-button-next {
+      top: 65%;
+    }
+  }
+}
+
+.feature-herbs-carousel__controls {
+  position: relative;
+  display: none;
+
+  @include mq($large) {
+    display: block;
+  }
+}
+
+.feature-herbs-carousel__controls--desktop-hidden {
+  @include mq($large) {
+    display: none;
+  }
+}
+
+.feature-herbs-carousel__controls--tablet-hidden {
+  @include mq($medium) {
+    display: none;
+  }
+}
+
+.feature-herbs__slide {
+  border-radius: rem(6);
+  padding: rem(30) rem(22);
+  height: rem(380);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: $color-grey-100;
+  box-shadow: 0 0 0 0 rgba($color-white, 0);
+  transition: box-shadow .5s;
+
+  @include mq($large) {
+    max-width: rem(275);
+  }
+
+  &:hover {
+    box-shadow: 0 2px 10px 0 rgba(218,220,214,0.6);
+  }
+}
+
+.feature-herbs__slide-excerpt {
+  @include font(14, 18, 300);
+  margin: rem(12) 0 rem(16);
+  flex-grow: 1;
+  text-align: center;
+  color: $color-black;
+
+  &:hover {
+    color: $color-black;
+  }
+}
+
+.feature-herbs__slide-image {
+  width: rem(100);
+}
+
+.feature-herbs__slide-title {
+  @include font(16, 19);
+  margin: rem(24) 0 rem(12);
+  font-family: $ff-header;
+}
+
+.feature-herbs__description {
+  flex-grow: 1;
+}
+
+.feature-herbs__other-ingredients {
+  margin-bottom: rem(12);
+}
+
+.feature-herbs__other-ingredients--tablet-center {
+  @include mq($medium) {
+    text-align: center;
+  }
+}
+
+.feature-herbs__other-ingredients--desktop-center {
+  @include mq($large) {
+    text-align: center;
+  }
+}
+.feature-herbs__other-ingredients,
+.feature-herbs__non-ingredients {
+  font-weight: 300;
+}

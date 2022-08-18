@@ -1,0 +1,31 @@
+<figure class="article {{ card_class }}">
+  <a href="{{- article_object.url -}}">
+    <div class="article__image-wrap">
+      <img class="article__image"
+         io-img-src="{{- article_object.image | img_url: '700x' -}}"
+         alt="{{- article_object.image.alt -}}" />
+    </div>
+    <figcaption class="article__caption">
+      {%- if article_object.tags.size > 0 -%}
+        <div class="article__tags">
+          {%- for tag in article_object.tags -%}
+            {%- unless tag contains 'category-' or tag contains 'related-' -%}
+              <span class="badge badge--tag">
+                {{- tag -}}
+              </span>
+            {%- endunless -%}
+          {%- endfor -%}
+        </div>
+      {%- endif -%}
+      <h3 class="article__title">
+        {{- article_object.title -}}
+      </h3>
+      <div class="article__description">
+        {{- article_object.excerpt | default: article_object.content | strip_html | truncate: 180 -}}
+      </div>
+      <span class="link">
+        Read More
+      </span>
+    </figcaption>
+  </a>
+</figure>

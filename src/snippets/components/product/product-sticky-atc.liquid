@@ -1,0 +1,25 @@
+<aside class="sticky-atc"
+       data-sticky-atc-wrapper
+       data-sticky-atc-in-stock="true">
+  <div class="ccontain flex-box sticky-atc__content">
+    <a href="/"
+       class="sticky-atc__logo-wrap"
+       aria-label="home page">
+      <img src="{{- settings.site_logo | img_url: '85x' -}}"
+           alt="Gaia logo" />
+    </a>
+    <img src="{{- product.featured_image | img_url: '50x' -}}"
+         class="sticky-atc__product-image"
+         alt="{{- product.title -}}"
+         data-sticky-atc />
+    <h2 class="h4 sticky-atc__title"
+        data-sticky-atc>
+      {{- product.title -}}
+    </h2>
+    <p class="sticky-atc__price">{%- render 'product-price' -%}</p>
+    <button class="button button--secondary button--sticky-atc"
+            data-sticky-atc>
+      Add to Cart
+    </button>
+  </div>
+</aside>

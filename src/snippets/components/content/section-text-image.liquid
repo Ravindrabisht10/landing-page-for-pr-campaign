@@ -1,0 +1,49 @@
+{% comment %}
+  Two Columns (Text/Image)
+  - Image Card
+  - Content Card
+    - Sub Title
+    - Title
+    - Description
+    - Action
+{% endcomment %}
+
+{%- assign column_count = 3 -%}
+
+<section class="section section--text-image section--text-image--{{ _section.settings.layout }} text-{{ _section.settings.text_alignment }}
+  {% if _section.settings.enable_sticky %}section--text-image--sticky-enabled{%- endif -%}
+  {% if _section.settings.no_pt != blank %}pt-0{% endif %} {% if _section.settings.no_pb != blank %}pb-0{% endif %}"
+  data-section-id="{{ _section.id }}" data-section-type="{{ _section.type }}">
+
+  <div class="section__inner">
+    <div class="ccontain">
+      <div class="image-card">
+        {%- if _section.settings.button_link != blank -%}
+          <a href="{{ _section.settings.button_link }}" class="image-card__link"></a>
+        {%- endif -%}
+      
+        <div class="image-card__image-wrapper">
+          <img class="image-card__image" src="{{ _section.settings.image | img_url: '720x' }}" srcset="{{ _section.settings.image | img_url: '720x', scale: 2 }} 2x"
+            alt="{{ _section.settings.image.alt | default: _section.settings.title }}">
+        </div>
+      </div>
+
+      <div class="text-card-wrapper" style="color: {{ _section.settings.heading_color }}; background-color: {{ _section.settings.background_color }}">
+          {%-
+            render 'block-text-card',
+            sub_title: _section.settings.sub_title,
+            title: _section.settings.title,
+            description: _section.settings.description,
+            description_color: _section.settings.description_color,
+            button_label: _section.settings.button_label,
+            button_link: _section.settings.button_link,
+            button_type: _section.settings.button_type,
+          -%}
+      </div>
+    </div>
+  </div>
+</section>
+
+{%- if _section.settings.add_section_divider != blank -%}
+  <div class="ccontain"><hr></div>
+{%- endif -%}

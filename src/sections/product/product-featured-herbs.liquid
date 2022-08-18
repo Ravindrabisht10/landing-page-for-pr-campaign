@@ -1,0 +1,108 @@
+{%- assign herbs = '' -%}
+{%- for tag in product.tags -%}
+  {%- if tag contains 'herb-' -%}
+    {%- assign herbs = herbs | append: tag | append: ',' -%}
+  {%- endif -%}
+{%- endfor -%}
+
+{%- assign herb_array = herbs | replace: 'herb-', '' | split: ',' -%}
+{%- assign desktop_slides = herb_array.size | at_most: 4 -%}
+{%- assign tablet_slides = herb_array.size | at_most: 2 -%}
+
+{% unless product.metafields.accentuate.hide_featured_herbs_module == 'true' %}
+<div class="feature-herbs-carousel"
+     data-herbs-carousel
+     data-swiper-slider
+     data-slides-speed="300"
+     data-slides-per-view="{{- desktop_slides -}}"
+     data-slides-per-view-tablet="{{- tablet_slides -}}"
+     data-slides-per-view-mobile="1"
+     data-slides-group="true"
+     data-slides-loop="false">
+
+  <div class="feature-herbs-carousel__content flex-box flex-box--vertical">
+    <p class="sub-title">Featured Herbs & Ingredients</p>
+    <h2>{{- section.settings.title -}}</h2>
+    <p class="feature-herbs-carousel__intro">{{- product.metafields.Additional.Concentration -}}</p>
+    <button class="link icon-button supplement-button" data-supplement-trigger>View Supplement Facts</button>
+  </div>
+
+  {%- unless herb_array.size == 1 -%}
+    <div class="swiper-button-prev">
+      {%- render 'icon-chevron-left' -%}
+    </div>
+    <div class="swiper-button-next">
+      {%- render 'icon-chevron-right' -%}
+    </div>
+  {%- endunless -%}
+
+  <div class="feature-herbs-carousel__controls {% if desktop_slides < 4 %}feature-herbs-carousel__controls--desktop-hidden{%- endif %} {% if tablet_slides < 2 %}feature-herbs-carousel__controls--tablet-hidden{%- endif %}">
+    <div class="swiper-pagination"></div>
+    <div class="swiper-button-prev" data-product-herbs-previous>
+      {%- render 'icon-chevron-left' -%}
+    </div>
+    <div class="swiper-button-next" data-product-herbs-next>
+      {%- render 'icon-chevron-right' -%}
+    </div>
+  </div>
+
+  <div class="swiper-wrapper {% if desktop_slides < 4 %}feature-herbs-carousel--desktop-centered{%- endif %} {% if tablet_slides < 2 %}feature-herbs-carousel--tablet-centered{%- endif %}">
+    {%- for herb in herb_array -%}
+      {%- assign herb_handle = "herbs/" | append: herb | downcase -%}
+      {%- assign herb_article = articles[herb_handle] -%}
+      {%- assign herb_benefits = herb_article.metafields.Additional.HealthBenefits | split: ',' -%}
+      <a class="feature-herbs__slide swiper-slide"
+         href="{{- herb_article.url -}}">
+        <img io-img-src="{{- herb_article.image | img_url: '100x' -}}"
+             alt="{{- herb_article.image.alt -}}"
+             class="feature-herbs__slide-image" />
+        <h3 class="feature-herbs__slide-title">{{- herb_article.title -}}</h3>
+        <div class="feature-herbs__badges badges">
+          <div class="badge badge--tag">
+            {%- if herb_benefits[0].size > 20 and herb_benefits.size > 1 -%}
+              {{- herb_benefits[1] -}}
+            {%- else -%}
+              {{- herb_benefits[0] -}}
+            {%- endif -%}
+          </div>
+          {%- if herb_benefits.size > 1 -%}
+            <span class="badge-count">
+              +{{- herb_benefits | size | minus: 1 }} more
+            </span>
+          {%- endif -%}
+        </div>
+        <div class="feature-herbs__slide-excerpt">
+          {{- herb_article.excerpt_or_content | strip_html | truncate: 110 -}}
+        </div>
+        <span class="link">Learn More</span>
+      </a>
+    {%- endfor -%}
+  </div>
+  <div class="swiper-scrollbar"></div>
+</div>
+
+
+<p class="feature-herbs__other-ingredients {% if desktop_slides < 4 %}feature-herbs__other-ingredients--desktop-center{%- endif %} {% if tablet_slides < 2 %}feature-herbs__other-ingredients--tablet-center{%- endif %}">
+  <b>Other Ingredients:</b>
+  {{ product.metafields.Additional.OtherIngredients }}
+</p>
+<p class="feature-herbs__non-ingredients {% if desktop_slides < 4 %}feature-herbs__other-ingredients--desktop-center{%- endif %} {% if tablet_slides < 2 %}feature-herbs__other-ingredients--tablet-center{%- endif %}">
+  <b>Does not contain:</b>
+  {{ product.metafields.Additional.DoesNotContain }}
+</p>
+{% endunless %}
+{% schema %}
+  {
+    "name": "Product Featured Herbs",
+    "class": "product-herbs",
+    "tag": "section",
+    "settings": [
+      {
+        "type": "text",
+        "id": "title",
+        "label": "Title",
+        "default": "Great herbal supplements start with quality ingredients"
+      }
+    ]
+  }
+{% endschema %}

@@ -1,0 +1,69 @@
+.testimonials {
+  margin: 0 auto;
+  max-width: 55rem;
+
+  .slide-content {
+    padding: 5rem 0rem $spacing-xl;
+    text-align: center;
+
+    @include mq($large-up) {
+      margin: 0 0 $spacing-xl;
+      padding: $spacing-xxl $spacing-s 0;
+    }
+
+    img {
+      border-radius: 20rem;
+      margin: 0 auto $spacing-l;
+      max-width: 8.75rem;
+      overflow: hidden;
+    }
+
+    h5,
+    h2,
+    .testimonial-title {
+      //   @extend .heading-eyebrow;
+    }
+
+    h3,
+    .testimonial-quote {
+      //   @extend .heading-3-secondary;
+      margin: 0 0 $spacing-l;
+
+      @include mq($large-up) {
+        margin: $spacing-l 0;
+      }
+    }
+
+    h5,
+    p,
+    h2,
+    .testimonial-title {
+      margin: 0;
+    }
+    p {
+      line-height: 2.5rem;
+    }
+
+    .testimonial {
+      padding: $spacing-s $spacing-s 0;
+      position: relative;
+
+      @include mq($large-up) {
+        padding: 0 $spacing-l;
+      }
+
+      svg {
+        left: 1rem;
+        position: absolute;
+        top: 0rem;
+        width: 2.5rem;
+        z-index: -1;
+
+        @include mq($large-up) {
+          top: -1rem;
+          width: 5rem;
+        }
+      }
+    }
+  }
+}

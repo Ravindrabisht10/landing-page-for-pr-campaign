@@ -1,0 +1,72 @@
+.herb-search-form {
+  margin-top: rem(60);
+}
+
+.myh-help-page {
+  margin-top: rem(40);
+  margin-bottom: rem(60);
+
+  .myh-help__title {
+    margin-top: rem(12);
+
+    @include mq($large) {
+      margin-top: 0;
+    }
+  }
+
+  .myh-help__content,
+  .myh-help__additional,
+  .myh-help__title {
+    text-align: left;
+  }
+
+  .myh-help__content,
+  .myh-help__additional {
+    line-height: rem(24);
+  }
+
+  .myh-help__additional {
+    padding: rem(16) rem(33) 0;
+    display: inline-block;
+    font-size: rem(14);
+
+    @include mq($large) {
+      padding: 0;
+    }
+  }
+}
+
+.herb-search-form__input-wrap {
+  margin-right: rem(12);
+  width: 100%;
+}
+
+.herb-search-form__input.input {
+  border: rem(1) solid $color-deep-green;
+  height: rem(48);
+  font-size: rem(16);
+  font-weight: 300;
+  background-color: $color-white;
+  color: $color-black;
+}
+
+.myh-help__content {
+  @include font(14, 24, 300);
+  margin-top: rem(8);
+
+  @include mq($large) {
+    margin-top: 0;
+  }
+}
+
+.myh-help__additional {
+  font-weight: 300;
+}
+
+.clear-search {
+  position: absolute;
+  top: 50%;
+  right: rem(20);
+  transform: translateY(-50%);
+  width: rem(10);
+}

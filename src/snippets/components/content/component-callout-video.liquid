@@ -1,0 +1,40 @@
+<section class="callout-secondary {{ callout_settings.callout_copy_color }} align-{{ callout_settings.callout_alignment }}" style="background: {{ callout_settings.callout_color }};">
+    {% if callout_settings.callout_alignment == 'left' %}
+      <div class="content">
+    {% endif %}
+    {% if callout_settings.callout_image != blank %}
+      {%- assign img_url = callout_settings.callout_image | img_url:'400x400' -%}
+      <img loading="lazy" src="{{ img_url }}" alt="">
+    {% endif %}
+  
+    {% if callout_settings.callout_alignment == 'left' %}
+      <div>
+    {% endif %}
+  
+    {% if callout_settings.callout_title != blank %}
+      <h2>{{callout_settings.callout_title }}</h2>
+    {% endif %}
+  
+    {% if callout_settings.callout_copy != blank %}
+      <p>{{ callout_settings.callout_copy }}</p>
+    {% endif %}
+  
+    {% if callout_settings.callout_cta_link != blank %}
+      <a class="button-secondary" id="what-we-believe" href="{{ callout_settings.callout_cta_link}}">{{ callout_settings.callout_cta_copy}}</a>
+    {% endif %}
+  
+    {% if callout_settings.video_link != blank %}
+      <a href="{{ callout_settings.video_link }}" data-lity class="video">
+        {% include 'icon-video'  %}
+        {% if callout_settings.video_copy != blank %}
+            {{ callout_settings.video_copy }}
+        {% endif %}
+      </a>
+    {% endif %}
+  
+    {% if callout_settings.callout_alignment == 'left' %}
+        </div>
+      </div>
+    {% endif %}
+  </section>
+  

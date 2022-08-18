@@ -1,0 +1,15 @@
+{%- comment -%}
+
+  Required:
+    left_side
+    right_side
+
+  Optional:
+    classes
+
+{%- endcomment -%}
+
+<div class="fifty-fifty ccontain flex-box flex-box--split-reverse flex-box--spaced {{ classes }}">
+  <div class="fifty-fifty__content">{{- left_side -}}</div>
+  <div class="fifty-fifty__content">{{- right_side -}}</div>
+</div>

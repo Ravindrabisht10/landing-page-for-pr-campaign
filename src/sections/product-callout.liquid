@@ -1,0 +1,43 @@
+
+{% assign promosettings = section.settings %}
+{% include 'component-promotion-callout' with promosettings %}
+
+{% schema %}
+  {
+    "name": "Promotional Callout",
+    "settings": [
+      {
+        "type": "product",
+        "id": "product_data",
+        "label": "Product"
+      },
+      {
+        "type": "image_picker",
+        "id": "product_image",
+        "label": "Product Image"
+      },
+      {
+        "id": "callout_title",
+        "type": "text",
+        "label": "Callout Title"
+      },
+      {
+        "id": "callout_copy",
+        "type": "text",
+        "label": "Callout Copy",
+        "default": "Callout Copy"
+      },
+      {
+        "id": "callout_cta_link",
+        "type": "url",
+        "label": "Callout CTA Link"
+      },
+      {
+        "id": "callout_cta_copy",
+        "type": "text",
+        "label": "Callout CTA Copy",
+        "default": "Callout CTA Copy"
+      }
+    ]
+  }
+{% endschema %}

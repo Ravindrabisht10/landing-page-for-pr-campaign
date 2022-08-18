@@ -1,0 +1,48 @@
+{%- if multiplier == blank -%}
+  {%- assign multiplier = 1 -%}
+{%- endif -%}
+
+{%- assign current_variant = product.selected_or_first_available_variant -%}
+{%- assign selected_variant = false -%}
+{%- assign first_oos_variant = false -%}
+
+{%- for variant in product.variants -%}
+  {%- if first_oos_variant == false and variant.metafields.accentuate.variant_hideshow != 'true' -%}
+    {%- assign first_oos_variant = variant -%}
+  {%- endif -%}
+  {%- if variant.available and variant.metafields.accentuate.variant_hideshow != 'true' -%}
+    {%- assign selected_variant = variant -%}
+    {%- break -%}
+  {%- endif -%}
+{%- endfor -%}
+
+{%- if selected_variant == false -%}
+  {%- assign selected_variant = first_oos_variant -%}
+{%- endif -%}
+
+{%- if current_variant != null-%}
+  {%- assign selected_variant = current_variant -%}
+{%- endif -%}
+
+{%- assign sub_map = product.metafields.subscriptions.original_to_hidden_variant_map | default: false -%}
+{%- capture selected_string_id -%}{{- selected_variant.id -}}{%- endcapture -%}
+{%- assign variant_map = sub_map[selected_string_id] -%}
+
+{%- if product.compare_at_price -%}
+  <span class="price price--sale">
+    {%- if is_sub == 'true' -%}
+      ${{- variant_map.discount_variant_price -}}
+    {%- else -%}
+      {{- selected_variant.price | money -}}
+    {%- endif -%}
+  </span>
+  <span class="price price--old">
+    {{- selected_variant.compare_at_price | money -}}
+  </span>
+{%- else -%}
+  {%- if is_sub == 'true' -%}
+    ${{- variant_map.discount_variant_price -}}
+  {%- else -%}
+    {{- selected_variant.price | money -}}
+  {%- endif -%}
+{%- endif -%}

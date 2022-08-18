@@ -1,0 +1,25 @@
+{%- render 'product-breadcrumbs' -%}
+{%- render 'product-sticky-atc' -%}
+<div id='outlet-modal-container'></div>
+<div class="product-main-grid">
+  {%- render 'product-gallery', classes_mod: 'main' -%}
+  {%- render 'product-buy-box' -%}
+</div>
+
+{%- section 'product-description' -%}
+{%- section 'product-certifications' -%}
+{%- section 'product-highlights' -%}
+{%- section 'product-featured-herbs' -%}
+{%- section 'yotpo-review-widget' -%}
+{%- section 'product-meet-your-herbs' -%}
+{%- render 'product-full-recs' -%}
+{%- section 'product-featured-blog' -%}
+
+{%- render 'product-zoom-modal' -%}
+
+<script type="text/javascript">
+
+  window.productSku = {{- product.first_available_variant.sku | json -}};
+  window.currentProduct = {{- product.handle | json -}};
+
+</script>

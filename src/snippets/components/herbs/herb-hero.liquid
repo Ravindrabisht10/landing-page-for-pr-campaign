@@ -1,0 +1,45 @@
+{%- paginate blog.articles by 1000 -%}
+    {%- assign article_list = blog.articles | sort: "title" -%}
+{%- endpaginate -%}
+{%- assign article_current = 0 -%}
+{%- for article_item in article_list -%}
+    {%- if article_item.title == article.title -%}
+        {%- assign article_current = forloop.index0 -%}
+        {%- break -%}
+    {%- endif -%}
+{%- endfor -%}
+{%- assign article_next = article_current | plus: 1 -%}
+{%- assign article_prev = article_current | minus: 1 -%}
+{%- assign herbnamescientific = article.metafields.Additional.NameScientific -%}
+
+<section class="herb-hero">
+  <ul class="herb-hero__pagination ccontain">
+    {%- if article_list[article_prev].url and article_prev != -1 -%}
+      <li>
+        <a href="{{ article_list[article_prev].url }}" class="prev flex-box">
+          {%- render 'icon-chevron-left' -%}
+          {{- article_list[article_prev].title -}}
+        </a>
+      </li>
+    {%- endif -%}
+    {%- if article_list[article_next].url -%}
+      <li>
+        <a href="{{ article_list[article_next].url }}" class="next flex-box">
+          {{- article_list[article_next].title -}}
+          {%- render 'icon-chevron-right' -%}
+        </a>
+      </li>
+    {%- endif -%}
+  </ul>
+  <div class="herb-hero__image"
+       io-bg-src="{{- article.image | img_url: '900x' -}}"></div>
+  <div class="herb-hero__content flex-box flex-box--vertical flex-box--centered">
+    <div class="herb-hero__content-wrap">
+      <p class="herb-hero__sciname">{{- article.metafields.Additional.NameScientific -}}</p>
+      <h1 class="herb-hero__name">{{- article.title -}}</h1>
+      <div class="herb-hero__description">
+        {{- article.content -}}
+      </div>
+    </div>
+  </div>
+</section>

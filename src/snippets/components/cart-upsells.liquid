@@ -1,0 +1,20 @@
+<div data-cart-upsells class="hidden">
+  <div data-rebuy-id="{{- settings.rebuy_cart_upsell_id -}}"></div>
+</div>
+
+<script id="rebuy-recommended-template" type="text/template">
+  <div class="rebuy-cross-sells"
+    v-cloak
+    v-on:click="stopPropagation($event)"
+    v-bind:id="'rebuy-widget-' + id"
+    v-bind:class="[id == {{ settings.rebuy_cart_upsell_id }} ? 'rebuy-cross-sells--no-border' : '']">
+
+    <div
+      class="rebuy-widget-container is-visible"
+      v-cloak>
+
+      {%- render 'cart-upsells-template' -%}
+
+    </div>
+  </div>
+</script>

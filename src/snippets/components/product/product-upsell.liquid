@@ -1,0 +1,97 @@
+<div data-rebuy-id="{{- settings.rebuy_product_upsell_id -}}"></div>
+<script id="rebuy-recommended-template" type="text/template">
+  <div class="rebuy-cross-sells"
+    v-cloak
+    v-on:click="stopPropagation($event)"
+    v-bind:id="'rebuy-widget-' + id"
+    v-bind:class="[id == {{ settings.rebuy_cart_upsell_id }} ? 'rebuy-cross-sells--no-border' : '', id == {{ settings.rebuy_full_product_upsell_id }} ? 'rebuy-cross-sells--our-favorites' : '' ]">
+
+    <div
+      class="rebuy-widget-container is-visible"
+      v-cloak>
+
+      <div v-if="{{- settings.rebuy_product_upsell_id -}} == id">
+        <div class="rebuy-widget-content">
+          <h2 class="rebuy-cross-sells__title">{{- settings.rebuy_product_upsell_title -}}</h2>
+
+          <div class="flex-box flex-box--vertical">
+
+            <div class="rebuy-tile"
+                 v-bind:updated="window.rebuyLastUpdated"
+                 v-for="product in window.getRebuyProducts(products)"
+                 v-bind:rebuy-product-tile="product.handle">
+              <div class="flex-box">
+                <div class="rebuy-tile__image">
+                  <a class="rebuy-product-image" v-bind:href="learnMoreURL(product)" v-bind:style="imageStyles" v-on:click="learnMore(product);" v-bind:class="[hasLearnMore() ? 'clickable' : '']">
+                    <img v-bind:src="itemImage(product, product.selected_variant, '195x195')" v-bind:alt="product.title">
+                  </a>
+                </div>
+
+                <div class="rebuy-tile__info">
+                  <a class="rebuy-tile__title"
+                      v-bind:href="learnMoreURL(product)"
+                      v-on:click="learnMore(product);"
+                      v-html="product.title"
+                      v-bind:class="[hasLearnMore() ? 'clickable' : '']"></a>
+                  <div class="rebuy-variant-title"
+                       v-if="showVariantTitle(product)"
+                       v-html="product.selected_variant.title"></div>
+
+
+                  <div class="rebuy-tile__price">
+                    <div v-if="variantOnSale(product, product.selected_variant)">
+                      <span class="rebuy-money sale"
+                            v-html="formatMoney(variantPrice(product, product.selected_variant))"></span>
+                      <span class="rebuy-money compare-at"
+                            v-html="formatMoney(variantCompareAtPrice(product, product.selected_variant))"></span>
+                    </div>
+                    <div v-if="!(variantOnSale(product, product.selected_variant))">
+                      <span class="rebuy-money" v-html="formatMoney(variantPrice(product, product.selected_variant))"></span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="rebuy-product-actions">
+                  <button v-show="product.status != 'selecting'"
+                          v-if="product.variants.length > 1"
+                          class="button button--secondary button--narrow rebuy-tile__button"
+                          v-on:click="product.status = 'selecting'">
+                    Size
+                  </button>
+                  <button
+                    v-show="product.status == 'selecting' || product.variants.length == 1"
+                    class="button button--secondary button--narrow rebuy-tile__button"
+                    v-bind:class="{ working: (product.status != 'ready' && product.status != 'selecting') }"
+                    v-bind:disabled="!(variantAvailable(product.selected_variant)) || (product.status != 'ready' && product.status != 'selecting')"
+                    v-on:click="window.quickAddToCart('data-buybox-upsell-variant', product);window.hideRebuyTile(product);"
+                    type="button">
+                      Add
+                  </button>
+                </div>
+              </div>
+              <div class="select-wrap upsell-variant-select"
+                   v-show="product.status == 'selecting'">
+                <select :data-buybox-upsell-variant="product.handle"
+                        v-on:change="product.selected_variant = product.variants.find((variant) => variant.id === parseInt($event.target.value, 10))">
+                  <option v-for="variant in product.variants"
+                          v-if="variant.metafields.accentuate.variant_hideshow != 'true'"
+                          :value="variant.id"
+                          v-html="variant.title">
+                  </option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div v-if="{{- settings.rebuy_cart_upsell_id }} == id">
+        {%- render 'cart-upsells-template' -%}
+      </div>
+
+      <div v-if="{{- settings.rebuy_full_product_upsell_id }} == id">
+        {%- render 'product-full-rec-tile' -%}
+      </div>
+    </div>
+  </div>
+</script>

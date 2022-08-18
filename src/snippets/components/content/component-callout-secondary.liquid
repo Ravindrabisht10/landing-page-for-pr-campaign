@@ -1,0 +1,30 @@
+<section class="section {% if callout_settings.no_pt != blank %}pt-0{% endif %} {% if callout_settings.no_pb != blank %}pb-0{% endif %}">
+  <div class="callout-secondary {{ callout_settings.callout_copy_color }} align-{{ callout_settings.callout_alignment }}" style="background: {{ callout_settings.callout_color }};">
+    <div class="content">
+
+      {% if callout_settings.callout_image != blank %}
+        {%- assign img_url = callout_settings.callout_image | img_url:'400x400' -%}
+        <img loading="lazy" src="{{ img_url }}" alt="">
+      {% endif %}
+
+      <div class="ccontain">
+        {% if callout_settings.callout_title != blank %}
+          <h2>{{callout_settings.callout_title }}</h2>
+        {% endif %}
+
+        {% if callout_settings.callout_copy != blank %}
+          <p>{{ callout_settings.callout_copy }}</p>
+        {% endif %}
+
+        {% if callout_settings.callout_cta_link != blank %}
+          <a class="button button--secondary" id="what-we-believe" href="{{ callout_settings.callout_cta_link}}">{{ callout_settings.callout_cta_copy}}</a>
+        {% endif %}
+      </div>
+
+    </div>
+  </div>
+</section>
+
+{%- if callout_settings.add_section_divider != blank -%}
+  <div class="ccontain"><hr></div>
+{%- endif -%}

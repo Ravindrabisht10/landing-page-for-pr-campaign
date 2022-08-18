@@ -1,0 +1,6 @@
+{%- if summary != blank and content != blank -%}
+  <details class="accordion" {% if open == 'true' -%}open{%- endif -%}>
+    <summary class="accordion__summary {{ summary_classes }}">{{ summary }}</summary>
+    <div class="accordion__content {{ content_classes }}">{{ content }}</summary>
+  </details>
+{%- endif -%}

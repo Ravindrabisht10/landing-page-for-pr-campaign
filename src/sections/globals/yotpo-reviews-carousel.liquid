@@ -1,0 +1,87 @@
+{%- comment -%}
+  This is a required section for the Shopify Theme Store.
+  It is available when you add "Testimonials" section in the Theme Editor.
+
+  Theme Store required settings
+  - Sub Heading
+  - Heading
+  - Testimonials
+{%- endcomment -%}
+<section class="section section--testimonials"
+  data-section-id="{{ section.id }}" data-section-type="{{ section.type }}">
+  <div class="section__inner ccontain">
+    {%- if section.settings.sub_title != blank -%}
+      <span class="section__sub-title sub-title">{{ section.settings.sub_title }}</span>
+    {%- endif -%}
+
+    {%- if section.settings.title != blank -%}
+      <h2 class="section__title">{{ section.settings.title }}</h2>
+    {%- endif -%}
+
+    <div class="yotpo yotpo-reviews-carousel" 
+      data-background-color="transparent" 
+      data-mode="top_rated"
+      data-type="both"
+      data-count="9"
+      data-show-bottomline="1" 
+      data-show-navigation="1">&nbsp;</div>
+
+    {%- if section.settings.button_label != blank and section.settings.button_url != blank -%}
+      <a href="{{ section.settings.button_url }}" class="button button--{{ section.settings.button_type }} section__button">{{ section.settings.button_label }}</a>
+    {%- endif -%}
+  </div>
+
+</section>
+
+{% schema %}
+  {
+    "name": "Yotpo Reviews",
+    "settings": [
+      {
+        "type": "text",
+        "id": "sub_title",
+        "label": "Sub Title",
+        "default": "Customer testimonials"
+      },
+      {
+        "type": "text",
+        "id": "title",
+        "label": "Title",
+        "default": "What Our Customers Are Saying"
+      },
+      {
+        "type": "header",
+        "content": "Section Button"
+      },
+      {
+        "type": "text",
+        "id": "button_label",
+        "label": "Button Label",
+        "default": "Read All Reviews"
+      },
+      {
+        "type": "url",
+        "id": "button_url",
+        "label": "Button Url"
+      },
+      {
+        "type": "select",
+        "id": "button_type",
+        "options": [
+           { "value": "primary", "label": "Primary" },
+           { "value": "secondary", "label": "Secondary" },
+           { "value": "tertiary", "label": "Tertiary Outline" },
+           { "value": "tertiary-dark", "label": "Tertiary Dark" }
+        ],
+        "label": "Button Type",
+        "default": "primary"
+      }
+    ],
+    "presets": [
+      {
+        "name": "Yotpo Reviews",
+        "category": "Social"
+      }
+    ]
+  }
+{% endschema %}

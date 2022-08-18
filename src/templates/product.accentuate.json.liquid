@@ -1,0 +1,8 @@
+{% layout none %}
+{% capture product_variants_metafields %}
+    {% for variant in product.variants %}
+        {"variant_id": {{ variant.id }}, "metafields": {{ variant.metafields.accentuate | json }}}{% unless forloop.last %},{% endunless %}
+    {% endfor %}
+{% endcapture %}
+
+[ {{ product_variants_metafields }} ]

@@ -1,0 +1,24 @@
+{%- comment -%}
+
+  Displays HTML content filtered to display shortcodes
+
+  Required:
+    _content: the HTML content to display
+
+{%- endcomment -%}
+
+
+{%- comment -%} lazy loading {%- endcomment -%}
+{%- assign _content = _content | replace: '<img src="', '<img io-img-src="' -%}
+
+
+{%- comment -%} accordions {%- endcomment -%}
+{%- assign _content = _content | replace: '[accordion]', '<details class="accordion">' | replace: '[/accordion]', '</details>' -%}
+
+{%- assign _content = _content | replace: '[accordion-title]', '<summary class="accordion__summary">' | replace: '[/accordion-title]', '</summary>' -%}
+
+{%- assign _content = _content | replace: '[accordion-text]', '<div class="accordion__content">' | replace: '[/accordion-text]', '</div>' -%}
+
+
+
+{{- _content -}}

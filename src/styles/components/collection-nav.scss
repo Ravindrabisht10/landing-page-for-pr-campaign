@@ -1,0 +1,152 @@
+.filter-nav {
+  position: fixed;
+  left: -100vw;
+  top: 0;
+  bottom: 0;
+  padding-bottom: rem(60);
+  padding-left: rem(20);
+  padding-right: rem(20);
+  width: 100vw;
+  background-color: $color-white;
+  z-index: 1000;
+  overflow-y: scroll;
+
+  &.open {
+    left: 0;
+    overflow-x: hidden;
+
+    .boost-pfs-filter-tree-v {
+      display: block;
+    }
+  }
+
+  @include mq($large) {
+    position: sticky;
+    top: rem(150);
+    padding-bottom: 0;
+    width: auto;
+    overflow-y: visible;
+    z-index: 100;
+  }
+}
+
+.filter-nav__title {
+  list-style-type: none;
+  max-height: 200vh;
+  overflow: hidden;
+  transition: max-height .3s;
+
+  li:last-of-type .filter-nav__link {
+    margin-bottom: $gutter;
+  }
+
+  &.closed {
+    max-height: 0;
+  }
+}
+
+.filter-nav__link {
+  @include font(14, 24, 500);
+  margin-bottom: rem(12);
+  display: flex;
+  align-items: center;
+  color: $color-deep-green;
+
+  svg {
+    margin-right: rem(8);
+    width: rem(34);
+  }
+}
+
+.filter-nav__link--active {
+  color: $color-dust-orange-500;
+
+  svg,
+  path {
+    fill: $color-dust-orange-500;
+  }
+
+  svg:last-of-type {
+    margin-top: rem(2);
+    margin-left: rem(12);
+    width: rem(8);
+  }
+
+  &:hover svg {
+    fill: $color-teal-500;
+  }
+}
+
+.filter-nav__icon {
+  margin-right: rem(14);
+  width: rem(21);
+}
+
+.filter-nav__toggle {
+  @include font(16, 24, 400);
+  position: relative;
+  margin-top: 0;
+  border-top: rem(1) solid $color-grey-300;
+  padding: $gutter 0;
+  font-family: $ff-header;
+  color: $color-deep-green;
+  cursor: pointer;
+}
+
+.filter-nav__toggle--first {
+  @include mq($large) {
+    border-top: 0;
+  }
+}
+
+.boost-pfs-filter-option-title {
+  position: relative;
+}
+
+.filter-nav__toggle::after,
+.filter-nav .boost-pfs-filter-option-title::after {
+  @include font(36, 20);
+  content: '-';
+  position: absolute;
+  top: 50%;
+  right: 0;
+  transform: translateY(calc(-50% - 3px));
+  touch-action: none;
+  pointer-events: none;
+}
+
+.filter-nav .filter-nav__toggle.closed::after,
+.filter-nav .boost-pfs-filter-tree-v .boost-pfs-filter-option.boost-pfs-filter-option-collapsed .boost-pfs-filter-option-title::after,
+.filter-nav .boost-pfs-filter-option-collapsed .boost-pfs-filter-option-title::after {
+  content: '+';
+  @include font(30, 20);
+}
+
+.filter-nav .boost-pfs-filter-option.boost-pfs-filter-option-range:not(.boost-pfs-filter-option-collapsed) {
+  padding-bottom: $gutter;
+}
+
+.filter-nav .boost-pfs-filter-tree-v .boost-pfs-filter-option:last-of-type {
+  border-bottom: rem(1) solid $color-grey-300;
+}
+
+.boost-pfs-filter-button:hover {
+  span.boost-pfs-filter-option-value {
+    color: $color-teal-500;
+  }
+}
+
+.filter-nav.open .filter-apply-button {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  margin-top: rem(24);
+  border-radius: 0;
+  width: 100vw;
+}
+
+@include mq($bp-large) {
+  .filter-apply-button {
+    display: none;
+  }
+}

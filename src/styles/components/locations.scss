@@ -1,0 +1,225 @@
+.locations {
+  &-list {
+    margin: $spacing-l auto $spacing-l 0;
+    @include mq(61.85em) {
+      margin: $spacing-xxl auto $spacing-xxl 0;
+    }
+
+    .row {
+      padding: 0;
+
+      @include mq(61.85em) {
+        padding: 0 $spacing-xs;
+      }
+
+      & > div {
+        padding: 0 $spacing-gutter;
+        div,
+        iframe {
+          max-height: 41.25rem;
+        }
+
+        #store_map {
+          margin: 0 0 $spacing-l;
+          min-height: 20rem;
+          width: 100%;
+
+          @include mq(61.85em) {
+            margin: 0;
+            min-height: 30rem;
+          }
+        }
+      }
+
+      &.search-container {
+        display: block;
+        margin: 0 auto 4rem;
+
+        .search-bar {
+          align-items: flex-end;
+          display: flex;
+          flex-wrap: wrap;
+          //   margin: 0 -$spacing-gutter;
+
+          .search_limit {
+            display: none;
+            @include mq(61.85em) {
+              display: block;
+            }
+          }
+
+          & > * {
+            flex: 1 0 100%;
+            padding: 0.625rem 0;
+            width: 100%;
+
+            @include mq(61.85em) {
+              flex: 1 0 22.222%;
+              padding: 0 1rem;
+              width: 22.222%;
+
+              &:first-of-type {
+                flex: 1 0 33.333%;
+                padding-right: $spacing-m;
+                padding-left: 0px;
+                width: 33.333%;
+              }
+
+              &:last-child {
+                padding-right: 0px;
+              }
+            }
+
+            input {
+              width: 100%;
+              padding: 12px 15px;
+              font-size: 16px;
+              border-radius: 4px;
+              border: 1px solid #16402d;
+              color: #16402d;
+              background-color: #ffffff;
+              -webkit-appearance: textfield;
+            }
+
+            input,
+            button {
+              width: 100%;
+              &::-webkit-input-placeholder {
+                color: $tertiary-light-grey;
+                letter-spacing: 0;
+              }
+            }
+          }
+        }
+      }
+
+      .header_html,
+      .footer_html {
+        display: none;
+      }
+
+      h2 {
+        display: none;
+      }
+
+      h3 {
+        color: $color-deep-green;
+      }
+
+      .addresses,
+      .directions {
+        max-height: 27.75rem;
+        width: 100% !important;
+
+        li a .name {
+          display: inline-block;
+          font-family: $ff-header;
+          color: $color-deep-green;
+          font-weight: 500;
+          font-size: rem(18);
+          margin-bottom: rem(8);
+        }
+
+        li a .address,
+        li a .city,
+        li a .prov_state,
+        li a .postal_zip,
+        li a .country {
+          color: $color-black;
+          font-weight: 100;
+        }
+
+        .return_to_results {
+          //   display: block;
+          display: none;
+          font-size: $font-xs;
+          margin-bottom: $spacing-gutter;
+        }
+
+        div[class^="directions_"] {
+          font-size: $font-xs;
+        }
+
+        li {
+          a {
+            width: 80%;
+            @include mq(989) {
+              width: 75%;
+            }
+          }
+        }
+
+        &_step {
+          padding: 1.25rem 1.25rem 1.25rem 0;
+
+          &_id {
+            width: 8%;
+          }
+        }
+
+        &_instructions {
+          width: 75% !important;
+        }
+
+        &_step_distance {
+          text-align: right;
+          width: 17%;
+        }
+      }
+
+      .directions {
+        a {
+          text-decoration: underline;
+        }
+      }
+
+      .gmnoprint {
+        &:last-of-type {
+          display: none;
+        }
+      }
+    }
+  }
+}
+
+.search_within_distance,
+.search_limit {
+  position: relative;
+
+  select {
+    color: $color-deep-green;
+  }
+
+  &:after {
+    content: "";
+    display: block;
+    position: absolute;
+    top: 50%;
+    right: 2rem;
+    transform: translateY(-0.15625rem);
+    border: 0.3125rem solid transparent;
+    border-top-color: #000;
+    width: 0;
+    height: 0;
+    pointer-events: none;
+    touch-action: none;
+  }
+}
+
+.search-bar {
+  .main_search_bar {
+    padding-left: 0px;
+  }
+}
+
+.code-address-btn {
+  padding-right: 0px;
+}
+
+@include mq-max(550) {
+  .search_within_distance {
+    select {
+      padding: 12px 15px;
+    }
+  }
+}

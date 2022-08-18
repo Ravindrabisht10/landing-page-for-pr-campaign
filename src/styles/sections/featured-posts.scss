@@ -1,0 +1,30 @@
+.section--featured-posts {
+  padding-right: rem(20);
+  padding-left: rem(20);
+
+  .button {
+    min-width: rem(225);
+  }
+
+  @include mq($medium) {
+    .swiper-wrapper {
+      display: flex;
+      align-items: stretch;
+      justify-content: space-between;
+    }
+  }
+}
+
+.featured-posts__title {
+  margin-top: rem(6);
+  margin-bottom: rem(40);
+
+  @include mq-max(rem(750)) {
+    margin-bottom: 1em;
+  }
+}
+
+.featured-posts__subtitle {
+  @include font(14, 18, 500, 0.88);
+  color: $color-deep-green;
+}

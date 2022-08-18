@@ -1,0 +1,180 @@
+{% comment %}
+  Image columns
+  - Image Card
+    - Title
+    - Description
+    - Action
+{% endcomment %}
+
+{%- if section.blocks.size > 0 -%}
+  <section class="section image-columns image-columns--{{ section.settings.layout }} text-{{ section.settings.text_alignment }}
+    {% if section.settings.no_pt != blank %}pt-0{% endif %} {% if section.settings.no_pb != blank %}pb-0{% endif %}"
+    data-section-id="{{ section.id }}" data-section-type="{{ section.type }}">
+
+    {%- if section.settings.layout == 'default' -%}
+      <div class="ccontain">
+    {%- endif -%}
+
+    <div class="image-columns__grid">
+      {%- for block in section.blocks -%}
+        {%- assign opacity = block.settings.opacity | divided_by: 100.0 -%}
+        {%-
+          render 'block-image-card',
+          layout: section.settings.layout,
+          image: block.settings.image,
+          title: block.settings.title,
+          description: block.settings.description,
+          text_color: block.settings.text_color,
+          title_color: block.settings.title_color,
+          background_color: block.settings.background_color,
+          description_color: block.settings.description_color,
+          button_label: block.settings.button_label,
+          button_link: block.settings.button_link,
+          button_type: block.settings.button_type,
+          image_width: '1200x',
+          opacity: opacity
+        -%}
+      {%- endfor -%}
+    </div>
+
+    {%- if section.settings.layout == 'default' -%}
+      </div>
+    {%- endif -%}
+  </section>
+
+  {%- if section.settings.add_section_divider != blank -%}
+    <div class="ccontain"><hr></div>
+  {%- endif -%}
+
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Image Columns",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Settings"
+    },
+    {
+      "type": "select",
+      "id": "layout",
+      "options": [
+        { "value": "default", "label": "Text below Image" },
+        { "value": "alternate", "label": "Text on Image" }
+      ],
+      "label": "Layout",
+      "default": "default"
+    },
+    {
+      "type": "select",
+      "id": "text_alignment",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" },
+        { "value": "right", "label": "Right" }
+      ],
+      "label": "Text Alignment",
+      "default": "center"
+    },
+    {
+      "type": "color",
+      "id": "section_background_color",
+      "label": "Section Background Color"
+    },
+    {
+      "type": "checkbox",
+      "id": "add_section_divider",
+      "label": "Add Section Divider"
+    },
+    {
+      "type": "checkbox",
+      "id": "no_pt",
+      "label": "Remove Top Space?"
+    }
+  ],
+  "blocks": [
+    {
+      "name": "Image Card",
+      "type": "image_card",
+      "limit": 2,
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Card Title"
+        },
+        {
+          "type": "richtext",
+          "id": "description",
+          "label": "Description",
+          "default": "<p>Card Description</p>"
+        },
+        {
+          "type": "text",
+          "id": "button_label",
+          "label": "Button Label",
+          "default": "Shop Now"
+        },
+        {
+          "type": "url",
+          "id": "button_link",
+          "label": "Button Link"
+        },
+        {
+          "type": "select",
+          "id": "button_type",
+          "options": [
+            { "value": "primary", "label": "Primary" },
+            { "value": "secondary", "label": "Secondary" },
+            { "value": "tertiary", "label": "Tertiary Outline" },
+            { "value": "tertiary-dark", "label": "Tertiary Dark" }
+          ],
+          "label": "Button Type",
+          "default": "tertiary"
+        },
+        {
+          "type": "color",
+          "id": "background_color",
+          "label": "Background Color",
+          "default": "#000000"
+        },
+        {
+          "type": "range",
+          "id": "opacity",
+          "min": 1,
+          "max": 100,
+          "step": 1,
+          "unit": "%",
+          "label": "Opacity",
+          "default": 20
+        },
+        {
+          "type": "color",
+          "id": "text_color",
+          "label": "Text Color",
+          "default": "#ffffff"
+        },
+        {
+          "type": "color",
+          "id": "description_color",
+          "label": "Description Color",
+          "default": "#000000"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "category": "Image",
+      "name":"Image Columns"
+    }
+  ]
+}
+{% endschema %}

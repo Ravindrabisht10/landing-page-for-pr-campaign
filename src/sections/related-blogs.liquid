@@ -1,0 +1,24 @@
+
+{% assign relatedblogssettings = section.settings %}
+{% render 'component-relatedblogs',  relatedblogssettings: relatedblogssettings %}
+
+
+{% schema %} 
+  {
+    "name": "Related Blogs",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "show_related_blogs",
+        "label": "Show Related Blogs",
+        "default": false
+      },
+      {
+        "id": "related_title",
+        "type": "text",
+        "label": "Section title",
+        "default": "Related Blogs"
+      }
+    ]
+  }
+{% endschema %}

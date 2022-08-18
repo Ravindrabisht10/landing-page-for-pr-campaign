@@ -1,0 +1,29 @@
+<!-- <script id="emarsys_webpersonalization_es6" src="//static.scarabresearch.com/wpjs/wpes6.js?ts=2681" charset="utf-8" defer></script> -->
+
+<script type="text/javascript">(function e(){var e=document.createElement("script");e.type="text/javascript",e.async=true,e.src="//staticw2.yotpo.com/vCFZ4g6Dr9uJy9Xjmb7JcsQr8cNpChOqoEebc6Ff/widget.js";var t=document.getElementsByTagName("script")[0];t.parentNode.insertBefore(e,t)})();</script>
+
+{%- render 'boost-pfs' -%}
+{%- render 'boost-pfs-theme-config', show_sorting: true -%}
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tiny-slider/2.9.3/tiny-slider.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tiny-slider/2.9.2/min/tiny-slider.js"></script>
+
+<script>
+  window.eHouse = {
+    shop: "{{ shop.permanent_domain }}",
+  };
+</script>
+
+
+<script src="{{- 'layout.js' | asset_url -}}" defer></script>
+{%- assign dont_load = 'gift_card' -%}
+{%- unless dont_load contains template.name or template.name == blank -%}
+  <script src="{{- template.name | append: '.js' | asset_url -}}" defer></script>
+{%- endunless -%}
+{%- if template.name == blank -%}
+  <script src="{{- 'subscriptions.js' | asset_url -}}" defer></script>
+{%- endif -%}
+
+{%- if request.path contains '/tools/recurring/portal/' -%}
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js" async></script>
+{%- endif -%}

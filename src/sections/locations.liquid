@@ -1,0 +1,75 @@
+<script type="text/javascript" src="//maps.googleapis.com/maps/api/js?key=AIzaSyCIDsxP71RaNnFd0AnwTBplgWHG_20fylg&sensor=false&language=en"></script>
+<section class="locations-list">
+  <div class="row contain search-container">
+    <div class="col-12">
+      <div class="search-bar">
+        <div class="main_search_bar">
+          {% comment %} <label class="main_search_label" for="address_search">Find stores near this location</label> {% endcomment %}
+          <input type="text" id="address_search" name="address_search" placeholder="Enter an address or ZIP code" onfocus="if(this.value=='Postal/Zip Code'){this.value=''}">
+        </div>
+        <div class="search_within_distance">
+          {% comment %} <label for="within_distance" class="distance_label">Distance</label> {% endcomment %}
+          <select id="within_distance" name="within_distance">
+              <option value="" selected="selected">Distance</option>
+              <option value="25">25 Mi</option>
+              <option value="50">50 Mi</option>
+              <option value="100">100 Mi</option>
+              <option value="0">No Limit</option>
+          </select>
+        </div>
+        <div class="search_limit">
+          {% comment %} <label class="search_limit_label" for="limit">Results</label> {% endcomment %}
+          <select id="limit" name="limit">
+              <option value="25">25 Results</option>
+              <option value="50">50 Results</option>
+              <option value="75">75 Results</option>
+              <option value="100">100 Results</option>
+          </select>
+        </div>
+        <div class="code-address-btn">
+          <button class="button button--primary" onclick="codeAddress()">Search</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row contain map-container">
+    <div class="col-12 col-lg-4 order-2 order-lg-1">
+      <h3>{{ section.settings.locations_title }}</h3>
+      <div class="addresses" id="addresses_list">
+        <ul></ul>
+      </div>
+      <div class="directions" id="directions_text">
+        <a href="#" onclick="end_directions(); return false;" class="return_to_results">&lt;&lt; Back to Results</a>
+        <div id="direction_destination"></div>
+        <div id="directions_steps">
+        </div>
+    </div>
+    </div>
+    <div class="col-12 col-lg-8 order-1 order-lg-2 map">
+      <div class="" id="store_map"></div>
+    </div>
+  </div>
+</section>
+
+
+
+
+{% schema %}
+  {
+    "name": "Content",
+    "settings": [
+      {
+        "type": "text",
+        "id": "title",
+        "label": "Heading",
+        "default": "Locations"
+      },
+      {
+        "type": "text",
+        "id": "locations_title",
+        "label": "Locations Title",
+        "default": "Stores Near You"
+      }
+    ]
+  }
+{% endschema %}

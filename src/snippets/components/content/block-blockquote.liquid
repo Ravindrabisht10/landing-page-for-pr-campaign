@@ -1,0 +1,25 @@
+<section class="section {% if _section.settings.no_pt != blank %}pt-0{% endif %} {% if _section.settings.no_pb != blank %}pb-0{% endif %}">
+  <blockquote class="blockquote">
+    <div class="blockquote__inner ccontain">
+      {%- if _section.settings.copy != blank -%}
+        <div class="blockquote__description">{{ _section.settings.copy }}</div>
+      {%- endif -%}
+      
+      {%- if _section.settings.image != blank -%}
+        <img class="blockquote__image" src="{{ _section.settings.image | img_url: '200x'}}" alt="{{ _section.settings.title }}">
+      {%- endif -%}
+
+      {%- if _section.settings.title != blank -%}
+        <div class="blockquote__name h6">{{ _section.settings.title }}</div>
+      {%- endif -%}
+
+      {%- if _section.settings.info != blank -%}
+        <div class="blockquote__info">{{ _section.settings.info }}</div>
+      {%- endif -%}
+    </div>
+  </blockquote>
+</section>
+
+{%- if _section.settings.add_section_divider != blank -%}
+  <div class="ccontain"><hr></div>
+{%- endif -%}

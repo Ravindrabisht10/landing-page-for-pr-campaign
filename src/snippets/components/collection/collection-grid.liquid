@@ -1,0 +1,21 @@
+<div>
+  {%- paginate collection.products by 15 -%}
+    <div class="product-controls">
+      <div data-product-count
+           class="product-controls__count">
+        <!-- {{- collection.products | size }} products -->
+      </div>
+
+      <div class="boost-pfs-filter-top-sorting desktop-only" data-sorting>[[sortingItems]]</div>
+    </div>
+
+    <div class="product-grid boost-pfs-filter-products">
+      {%- for product in collection.products -%}
+        {%- render 'product-tile', _product: product -%}
+      {%- endfor -%}
+    </div>
+
+
+    <div class="boost-pfs-filter-load-more"></div>
+  {%- endpaginate -%}
+</div>

@@ -1,0 +1,49 @@
+@include mq-max($medium) {
+  .view-more-maxed {
+    // overflow: hidden;
+
+    &:not(.view-more-maxed--open) {
+      max-height: rem(420);
+      position: relative;
+
+      &::before {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 100%;
+        background: linear-gradient(to top, rgba($color-white, 1), rgba($color-white, 1), rgba($color-white, 0));
+      }
+
+      &::after {
+        @include font(18, 18, 500, 1);
+        content: 'View More';
+        position: absolute;
+        bottom: rem(24);
+        left: 50%;
+        transform: translateX(-50%);
+        padding-bottom: rem(3);
+        border-bottom: rem(2) solid $color-dust-orange-100;
+        color: $color-deep-green;
+      }
+    }
+  }
+
+  .view-more-maxed--open {
+    animation: open-content .75s;
+    animation-fill-mode: forwards;
+  }
+
+  @keyframes open-content {
+    0% {
+      max-height: rem(420);
+    }
+    99% {
+      max-height: 200vh;
+    }
+    100 {
+      max-height: unset;
+    }
+  }
+}

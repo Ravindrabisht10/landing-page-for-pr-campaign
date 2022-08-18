@@ -1,0 +1,32 @@
+{%- comment -%}
+
+  Required:
+    _product: the product to display in the title
+
+{%- endcomment -%}
+
+<article class="product-tile">
+  {%- render 'product-badges', _product: _product -%}
+  <a href="{{- _product.url -}}">
+    <div class="product-tile__image-wrap">
+      <img class="product-tile__image"
+           io-img-src="{{- _product.featured_image | img_url: '220x' -}}"
+           alt="{{- _product.featured_image.alt -}}" />
+      <img class="product-tile__image-alt"
+           io-img-src="{{- _product.images[1] | img_url: '220x' -}}"
+           alt="{{- _product.images[1].alt -}}" />
+    </div>
+    <h2 class="product-tile__title">{{- _product.title -}}</h2>
+    {%- render 'product-bottom-line', _product: _product -%}
+    <div class="product-tile__content">{{- _product.description -}}</div>
+    <div class="product-tile__price">
+      {%- render 'product-price', product: _product -%}
+    </div>
+  </a>
+  {%- unless _product.tags contains 'badge-out-of-stock' or _product.tags contains 'badge-discontinued' -%}
+    <button class="button button--secondary button--wide button--small product-tile__quickshop-trigger"
+            data-quickbuy-trigger="{{- _product.handle -}}">
+      + Quick Buy
+    </button>
+  {%- endunless -%}
+</article>

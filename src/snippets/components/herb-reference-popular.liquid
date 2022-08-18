@@ -1,0 +1,48 @@
+{% assign herbs = blogs['herbs'].articles %}
+
+<section class="popular-herbs ccontain flex-box flex-box--vertical">
+  <h2>Popular Herbs</h2>
+  <p class="popular-herbs__description">
+    Our Herbal Reference Guide lets you enhance your relationship with herbs by giving you a comprehensive profile of each plant.
+  </p>
+
+  <div data-swiper-slider
+       data-slides-per-view="6"
+       data-slides-per-view-tablet="2"
+       data-slides-per-view-mobile="1"
+       data-slides-group="true"
+       data-slides-loop="false"
+       class="popular-herbs__slider nooverflow">
+
+    <div class="popular-herbs__pagination">
+      <div class="swiper-pagination"></div>
+      <div class="swiper-button-prev">
+        {%- render 'icon-chevron-left' -%}
+      </div>
+      <div class="swiper-button-next">
+        {%- render 'icon-chevron-right' -%}
+      </div>
+    </div>
+
+    <div class="swiper-button-prev mobile-only">
+      {%- render 'icon-chevron-left' -%}
+    </div>
+    <div class="swiper-button-next mobile-only">
+      {%- render 'icon-chevron-right' -%}
+    </div>
+
+    <div class="swiper-wrapper">
+      {%- for herb in herbs limit:18 -%}
+        <a class="swiper-slide herb-tile" href="{{- herb.url -}}">
+          <div class="herb-tile__image-wrap">
+            <img io-img-src="{{- herb.image | img_url: '372x' -}}"
+                 alt="{{- herb.title -}}" />
+          </div>
+          <h3 class="herb-tile__title">{{- herb.title -}}</h3>
+        </a>
+      {%- endfor -%}
+    </div>
+
+    <div class="swiper-scrollbar"></div>
+  </div>
+</section>

@@ -1,0 +1,13 @@
+.image-callout {
+  display: block;
+  margin: $spacing-xl 0 0;
+
+  @include mq($large-up) {
+    margin: $spacing-xxl 0 0;
+  }
+  a,
+  img {
+    display: block;
+    width: 100%;
+  }
+}

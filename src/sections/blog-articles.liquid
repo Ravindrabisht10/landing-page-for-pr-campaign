@@ -1,0 +1,101 @@
+  {% comment %}
+
+  Article Previews
+  ====================
+  {% endcomment %}
+
+  {% if section.settings.blog_featured != blank %}
+      {% assign pagesize = 14 %}
+  {% else %}
+      {% assign pagesize = 13 %}
+  {% endif %}
+  
+  {% paginate blog.articles by pagesize %}
+  
+    <section class="featured-blogs-container blog-list-container ccontain">
+      <div class="row contain">
+        {% if section.settings.blog_featured != blank %}
+          {% assign featuredArticle = articles[section.settings.blog_featured] %}
+          {% render 'featured-blog-post', article_obj: featuredArticle %}
+        {% endif %} 
+  
+        {% for article in blog.articles %}
+  
+          {% assign blog_category = '' %}
+          
+          {% for category in article.tags %}
+            {% if category contains 'category' %}
+              {% assign blog_category = category %}
+            {% endif %}
+          {% endfor %}
+          
+          {% if forloop.index == 1 and article.image and section.settings.blog_featured == blank %}
+            {% assign article_obj = article %}
+            {% render 'featured-blog-post', article_obj: article_obj %}
+          {% else %}
+
+                <section class="article blog-article swiper-slide">
+                  <a href="{{ article.url }}">
+                    <div class="article__image-wrap">
+                      <img class="article__image" io-img-src="{{- article.image.src | img_url: '700x' -}}" alt="{{- article.image.alt -}}"/>
+                    </div>
+  
+                    <figcaption class="article__caption">
+                      {%- if article.tags.size > 0 -%}
+                          <div class="article__tags">
+                              {%- for tag in article.tags -%}
+                                  {%- unless tag contains 'category-' -%}
+                                      <span class="badge badge--tag">
+                                          {{- tag -}}
+                                      </span>
+                                  {%- endunless -%}
+                              {%- endfor -%}
+                          </div>
+                      {%- endif -%}
+                      <h3 class="article__title">
+                          {{- article.title -}}
+                      </h3>
+                      <div class="article__description">
+                          {{- article.excerpt | default: article.content | strip_html | truncate: 180 -}}
+                      </div>
+                      <span class="link">
+                          Read More
+                      </span>
+                  </figcaption>
+
+
+
+                  </a>
+                </section>
+
+          {% endif %}
+        {% endfor %}
+      </div>
+      {% if paginate.pages > 1 %}
+        <section class="pagination-container">
+          {% include 'pagination' %}
+        </section>
+      {% endif %}
+    </section>
+  
+  {% endpaginate %}
+  
+  {% schema %}
+    {
+      "name": "Blog Articles",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Heading",
+          "default": "Blog Articles"
+        },
+        {
+          "type": "article",
+          "id": "blog_featured",
+          "label": "Article"
+        }
+      ]
+    }
+  {% endschema %}
+  

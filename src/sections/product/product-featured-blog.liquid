@@ -1,0 +1,174 @@
+{% assign featured_blog_arr = product.metafields.Additional['FeaturedBlog'] | split: "," %}
+{% assign blog_count = featured_blog_arr | size %}
+
+{% if blog_count > 0 %}
+    {%- capture feature_articles -%}
+        {%- for article in featured_blog_arr -%}
+            {% assign article_object = articles[article] %}
+            <figure class="article swiper-slide">
+                <a href="{{- article_object.url -}}">
+                    <div class="article__image-wrap">
+                        <img class="article__image" io-img-src="{{- article_object.image | img_url: '700x' -}}" alt="{{- article_object.image.alt -}}"/>
+                    </div>
+                    <figcaption class="article__caption">
+                        {%- if article_object.tags.size > 0 -%}
+                            <div class="article__tags">
+                                {%- for tag in article_object.tags -%}
+                                    {%- unless tag contains 'category-' -%}
+                                        <span class="badge badge--tag">
+                                            {{- tag -}}
+                                        </span>
+                                    {%- endunless -%}
+                                {%- endfor -%}
+                            </div>
+                        {%- endif -%}
+                        <h3 class="article__title">
+                            {{- article_object.title -}}
+                        </h3>
+                        <div class="article__description">
+                            {{- article_object.excerpt | default: article_object.content | strip_html | truncate: 180 -}}
+                        </div>
+                        <span class="link">
+                            Read More
+                        </span>
+                    </figcaption>
+                </a>
+            </figure>
+        {%- endfor -%}
+    {%- endcapture -%}
+
+{% else %}
+
+    {%- capture feature_articles -%}
+        {%- for block in section.blocks -%}
+            {%- assign article_object = articles[block.settings.article_handle] -%}
+            <figure class="article swiper-slide">
+                <a href="{{- article_object.url -}}">
+                    <div class="article__image-wrap">
+                        <img class="article__image" io-img-src="{{- article_object.image | img_url: '700x' -}}" alt="{{- article_object.image.alt -}}"/>
+                    </div>
+                    <figcaption class="article__caption">
+                        {%- if article_object.tags.size > 0 -%}
+                            <div class="article__tags">
+                                {%- for tag in article_object.tags -%}
+                                    {%- unless tag contains 'category-' -%}
+                                        <span class="badge badge--tag">
+                                            {{- tag -}}
+                                        </span>
+                                    {%- endunless -%}
+                                {%- endfor -%}
+                            </div>
+                        {%- endif -%}
+                        <h3 class="article__title">
+                            {{- article_object.title -}}
+                        </h3>
+                        <div class="article__description">
+                            {{- article_object.excerpt | default: article_object.content | strip_html | truncate: 180 -}}
+                        </div>
+                        <span class="link">
+                            Read More
+                        </span>
+                    </figcaption>
+                </a>
+            </figure>
+        {%- endfor -%}
+    {%- endcapture -%}
+
+{% endif %}
+
+<div class="featured-blogs-container ccontain">
+    <div class="ccontain flex-box flex-box--vertical">
+        <p class="featured-posts__subtitle">{{- section.settings.sub-title -}}</p>
+        <h2 class="featured-posts__title">{{- section.settings.title -}}</h2>
+    </div>
+
+    <div class="articles flex-box flex-box--streched flex-box--spaced desktop-only">
+        {{- feature_articles -}}
+    </div>
+
+    <div class="articles mobile-only" data-slides-group="false" data-slides-loop="false" data-slides-per-view-mobile="1" data-slides-per-view-tablet="2" data-slides-per-view="2" data-slides-speed="300" data-swiper-slider>
+        <div class="swiper-button-prev swiper-component-{{ _section.id }}">
+          {%- render 'icon-chevron-left' -%}
+        </div>
+        <div class="swiper-button-next swiper-component-{{ _section.id }}">
+          {%- render 'icon-chevron-right' -%}
+        </div>
+        <div class="swiper-wrapper">
+            {{- feature_articles -}}
+        </div>
+        <div class="swiper-scrollbar"></div>
+    </div>
+
+    {%- if section.settings.blog_url != blank -%}
+        <div class="ccontain flex-box flex-box--centered">
+            <a href="{{- section.settings.blog_url -}}" class="button button--{{ section.settings.button_type }}">
+                View All
+            </a>
+        </div>
+    {%- endif -%}
+
+</div>
+
+
+
+{% schema %}
+{
+    "name": "Product Featured Posts",
+    "class": "featured-posts",
+    "tag": "section",
+    "settings": [
+        {
+            "type": "header",
+            "content": "Settings"
+        },
+        {
+            "type": "text",
+            "id": "title",
+            "label": "Title"
+        },
+        {
+            "type": "text",
+            "id": "sub-title",
+            "label": "Title",
+             "default": "OUR BLOG"
+        },
+        {
+        "type": "select",
+        "id": "button_type",
+        "options": [
+            { "value": "primary", "label": "Primary" },
+            { "value": "secondary", "label": "Secondary" },
+            { "value": "tertiary", "label": "Tertiary Outline" },
+            { "value": "tertiary-dark", "label": "Tertiary Dark" }
+        ],
+            "label": "Button Type",
+            "default": "tertiary"
+        },
+        {
+            "type": "url",
+            "id": "blog_url",
+            "label": "Blog URL"
+        }
+    ],
+    "blocks": [
+        {
+            "name": "Blog Post",
+            "type": "blog_post",
+            "limit": 2,
+            "settings": [
+        {
+            "type": "article",
+            "id": "article_handle",
+            "label": "Article To Display"
+        }
+    ]
+    }
+    ],
+    "presets": [
+        {
+            "category": "Blog",
+            "name": "Featured Posts"
+        }
+    ]
+}
+{% endschema %}

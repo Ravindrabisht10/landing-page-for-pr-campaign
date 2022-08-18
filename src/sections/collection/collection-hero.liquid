@@ -1,0 +1,168 @@
+{%- assign background_image = false -%}
+{%- assign background_color = false -%}
+{%- assign overlay_opacity = collection.metafields.accentuate.collection_hero_background_ove | default: 0 -%}
+{%- assign hero_style = collection.metafields.accentuate.collection_hero_style | default: 'dark' | downcase -%}
+
+{%- if collection.image != blank -%}
+  {%- assign background_image = collection.image -%}
+{%- elsif section.settings.hero_background != blank -%}
+  {%- assign background_image = section.settings.hero_background -%}
+{%- endif -%}
+{%- assign mobile_background = background_image -%}
+{%- if collection.metafields.accentuate.collection_hero_background_mob != blank -%}
+  {%- assign mobile_background = collection.metafields.accentuate.collection_hero_background_mob -%}
+{%- endif -%}
+
+{%- if collection.metafields.accentuate.collection_hero_background_col != blank  -%}
+  {%- assign background_color = collection.metafields.accentuate.collection_hero_background_col -%}
+{%- else -%}
+  {%- assign background_color = section.settings.hero_background_color -%}
+{%- endif -%}
+{%- assign allProduct = 'All Products' -%}
+{%- capture sub_collection_pills -%}
+  {%- unless collection.metafields.accentuate.collection_hero_sub_categories == blank -%}
+    <div class="collection-hero__sub-categories ccontain">
+      {%- if collection.title == allProduct -%}
+      {%- for sub_collection in collection.metafields.accentuate.collection_hero_sub_categories limit: 6 -%}
+        {%- if sub_collection != '' and sub_collection != blank -%}
+          {%- assign collection_object = collections[sub_collection] -%}
+          <a href="{{- collection_object.url -}}"
+             class="button button--tertiary button--small button--narrow">
+            {{- collection_object.title -}}
+          </a>
+        {%- endif -%}
+      {%- endfor -%}
+      {% else %}
+      	 {%- for sub_collection in collection.metafields.accentuate.collection_hero_sub_categories limit: 6 -%}
+        {%- if sub_collection != '' and sub_collection != blank -%}
+          {%- assign collection_object = collections[sub_collection] -%}
+          <a href="{{- collection_object.url -}}"
+             class="button button--tertiary button--small button--narrow">
+            {{- collection_object.description -}}
+          </a>
+        {%- endif -%}
+      {%- endfor -%}
+      {%- endif -%}
+    </div>
+  {%- endunless -%}
+{%- endcapture -%}
+{% assign parent = collection.metafields.accentuate.parent_category %}
+{% assign sub_parent =  collection.metafields.accentuate.sub_parent_category %}
+<header class="collection-hero collection-hero--{{- hero_style -}}"
+  {% if background_image != false -%}
+    data-io-id="collection-hero"
+    io-bg-srcset="{{- mobile_background }} 0px, {{- background_image | img_url: '1440x' }} 0px"
+  {%- elsif background_color != false -%}
+    style="background-color: {{- background_color -}}"
+  {%- endif -%}>
+  <ul class="collection-hero__breadcrumbs">
+    <li class="collection-hero__breadcrumb">
+      <a href="/collections/all/" class="collection-hero__link">Shop All</a>
+    </li>
+    {%- if collection.handle != 'all' %}
+      {% if parent != null %}
+        <li>/</li>
+        <li class="collection-hero__breadcrumb">
+          <a href="/collections/{{- parent -}}" id="parent-category">{{- parent -}}</a>
+        </li>
+        {% if sub_parent != null %}
+          <li>/</li>
+          <li class="collection-hero__breadcrumb">
+            <a href="/collections/{{- sub_parent -}}" id="sub-parent-category">{{- sub_parent -}}</a>
+          </li>
+        {% endif %}
+      {% endif %}
+      <li>/</li>
+      <li class="collection-hero__breadcrumb">
+      {% if collection.title contains '-' %}
+        {{- collection.description -}}
+      {% else %}
+        {{- collection.title -}}
+      {% endif %}
+      </li>
+    {%- endif -%}
+  </ul>
+
+  <div class="collection-hero__content">
+    <h1 id="collection-title" class="collection-hero__title">
+    {% if collection.title contains "-" %}
+      {{- collection.description -}}
+    {% else %}
+      {{- collection.title -}}
+    {% endif %}
+    </h1>
+    <div>
+      {{- collection.metafields.additional.collection_hero_content.html -}}
+    </div>
+  </div>
+
+  <div class="desktop-only">
+    {{- sub_collection_pills -}}
+  </div>
+</header>
+
+<script>
+  const formatBreadcrumb = (text) => {
+    let result = text.replaceAll('-', ' ')
+    result = result.toLowerCase()
+    .split(' ')
+    .map((w) => w.charAt(0).toUpperCase() + w.substring(1))
+    .join(' ')
+
+    return result
+  }
+  const formatSubBreadcrumb = (elementText, parentText) => {
+    let parent = formatBreadcrumb(parentText)
+    let subParent = formatBreadcrumb(elementText)
+
+    let remove = parent.length + 1
+    
+    let result = subParent.substring(remove)
+
+    return result
+  }
+
+  let parentCategory = document.querySelector('#parent-category')
+  let subParentCategory = document.querySelector('#sub-parent-category')
+  let parentText = parentCategory.innerText
+  let subParentText = '';
+
+  if(subParentCategory) {
+    subParentText = subParentCategory.innerText
+    subParentCategory.innerText = formatSubBreadcrumb(subParentText, parentText)
+  }
+  parentCategory.innerText = formatBreadcrumb(parentText)
+
+</script>
+
+<style type="text/css">
+  .collection-hero::before {
+    {%- if overlay_opacity == '100' -%}
+      opacity: 1;
+    {%- else -%}
+      opacity: 0.{{- overlay_opacity -}};
+    {%- endif -%}
+  }
+</style>
+
+<div class="mobile-only">
+  {{- sub_collection_pills -}}
+</div>
+
+{% schema %}
+  {
+    "name": "Collection Hero",
+    "settings": [
+      {
+        "type": "image_picker",
+        "id": "hero_background",
+        "label": "Hero Background"
+      },
+      {
+        "type": "color",
+        "id": "hero_background_color",
+        "label": "Hero Background Color"
+      }
+    ]
+  }
+{% endschema %}

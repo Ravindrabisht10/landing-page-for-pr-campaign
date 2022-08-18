@@ -1,0 +1,21 @@
+.featured-blogs-container {
+  // padding: 5rem 0 7.25rem 0;
+  padding-top: 5rem;
+  border-top: rem(1) solid $color-grey-300;
+}
+
+@media only screen and (max-width: 750px) {
+  .featured-blogs-container {
+    padding-top: 4rem;
+    padding-left: 0px;
+    padding-right: 0px;
+
+    .featured-posts__title {
+      margin-bottom: 1em;
+    }
+
+    .article__caption {
+      padding: 1.5rem 1rem 0 1rem;
+    }
+  }
+}

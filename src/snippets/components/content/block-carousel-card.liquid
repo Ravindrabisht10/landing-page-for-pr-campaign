@@ -1,0 +1,36 @@
+<div class="carousel-card {{ item_class }}">
+  <div class="carousel-card__image-wrapper">
+    {%- if button_link != blank -%}
+      <a href="{{ button_link }}" class="carousel-card__link"></a>
+    {%- endif -%}
+
+    {%- if image != blank -%}
+      <img class="carousel-card__image" src="{{ image | img_url: '720x' }}" srcset="{{ image | img_url: '720x', scale: 2 }} 2x"
+        alt="{{ image.alt | default: title }}">
+    {%- endif -%}
+  </div>
+  
+  <div class="carousel-card__content">
+    {%- if sub_title != blank -%}
+      <div class="carousel-card__sub-title sub-title">{{ sub_title }}</div>
+    {%- endif -%}
+
+    {%- if title != blank -%}
+      <h2 class="carousel-card__title">
+        {%- if button_link != blank -%}
+          <a href="{{ button_link }}" >{{ title }}</a>
+        {%- else -%}
+          {{ title }}
+        {%- endif -%}
+      </h2>
+    {%- endif -%}
+
+    {%- if description != blank -%}
+      <div class="carousel-card__description">{{ description }}</div>
+    {%- endif -%}
+
+    {%- if button_link != blank and button_label != blank -%}
+      <a href="{{ button_link }}" class="{% unless button_type == 'link' %}button button--{{ button_type }}{% else %}link{% endunless %} carousel-card__cta">{{ button_label }}</a>
+    {%- endif -%}
+  </div>
+</div>

@@ -1,0 +1,16 @@
+{%- section 'collection-hero' -%}
+
+<div class="product-controls--mobile mobile-only" data-mobile-controls>
+  <button class="product-controls__filter-toggle"
+          data-mobile-filter-trigger>
+    Filter
+  </button>
+  <div class="boost-pfs-filter-top-sorting" data-sorting>
+    [[sortingItems]]
+  </div>
+</div>
+
+<div class="collection-wrapper">
+  {%- section 'collection-filtering' -%}
+  {%- render 'collection-grid' -%}
+</div>

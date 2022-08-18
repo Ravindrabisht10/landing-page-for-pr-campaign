@@ -1,0 +1,2994 @@
+{%- comment -%}
+  This is a required section for content pages
+{%- endcomment -%}
+
+{%- for block in section.blocks -%}
+  {% unless block.settings.page_handle != page.handle %}
+
+    {%- case block.type -%}
+      {%- when 'hero' -%}
+        {%- render 'section-hero' _section: block -%}
+      {%- when 'text_image' -%}
+        {%- render 'section-text-image' _section: block -%}
+      {%- when 'text_image_sticky' -%}
+        {%- render 'section-text-image-sticky' _section: block -%}
+      {%- when 'image_columns' -%}
+        {%- render 'section-image-columns' _section: block -%}
+      {%- when 'three_columns' -%}
+        {%- render 'section-image-columns' _section: block, column_count: 3, layout: 'default' -%}
+      {%- when 'carousel' -%}
+        {%- render 'section-carousel' _section: block -%}
+      {%- when 'accordion' -%}
+        {%- render 'section-accordion' _section: block -%}
+      {%- when 'one_column' -%}
+        {%- render 'section-image-columns' _section: block, column_count: 1, layout: 'default' -%}
+      {%- when 'search_herbs' -%}
+        {%- render 'search-herbs', _section: block -%}
+      {%- when 'featured_collection' -%}
+        {%- render 'section-featured-collection', _section: block -%}
+      {%- when 'featured_blogs' -%}
+        {%- render 'section-featured-blogs', _section: block -%}
+      {%- when 'quote' -%}
+        {%- render 'block-blockquote', _section: block -%}
+      {%- when 'callout' -%}
+        {%- render 'component-callout-secondary', callout_settings: block.settings -%}
+      {%- when 'columncontent' -%}
+        {%- render 'component-column-content', component_settings: block.settings -%}
+      {%- when 'columncontentfull' -%}
+        {%- render 'component-column-content-full', component_settings: block.settings -%}
+      {%- when 'columncontenticons' -%}
+        {%- render 'component-column-content-icons', component_settings: block.settings -%}
+      {%- when 'videohero' -%}
+        {%- render 'component-video-hero', herosettings: block.settings -%}
+      {%- when 'people_carousel' -%}
+        {%- render 'block-people-content', _section: block -%}
+      {%- when 'contact_form' -%}
+        {%- render 'component-contact-form', _section: block -%}
+      {%- when 'gaiamap' -%}
+        {% render 'component-gaia-map', mapsettings: block.settings %}
+
+      
+    {%- endcase -%}
+
+  {%- endunless -%}
+{%- endfor -%}
+
+{% schema %}
+  {
+    "name": "Content",
+    "settings": [
+      {
+        "type": "text",
+        "id": "title",
+        "label": "Heading",
+        "default": "Content"
+      }
+    ],
+    "blocks": [
+      {
+        "type": "product",
+        "name": "Product",
+        "settings": [
+          {
+            "type": "page",
+            "id": "page_handle",
+            "label": "Page Handle Section Belongs To",
+            "info": "This is use to match pages with their sections"
+          }      
+        ]
+      },
+      {
+        "type": "hero",
+        "name": "Hero",
+        "settings": [
+          {
+            "type": "page",
+            "id": "page_handle",
+            "label": "Page Handle Section Belongs To",
+            "info": "This is use to match pages with their sections"
+          },
+          {
+            "type": "text",
+            "id": "hero_start_date",
+            "label": "Hero Start Date",
+            "info": "YYYY-MM-DD (Leave blank for no timeframe)"
+          },
+          {
+            "type": "text",
+            "id": "hero_start_time",
+            "label": "Hero Start Time",
+            "info": "HH:MM (Leave blank for no timeframe)"
+          },
+          {
+            "type": "text",
+            "id": "hero_end_date",
+            "label": "Hero End Date",
+            "info": "YYYY-MM-DD"
+          },
+          {
+            "type": "text",
+            "id": "hero_end_time",
+            "label": "Hero End Time",
+            "info": "HH:MM"
+          },
+          {
+            "type": "image_picker",
+            "id": "image",
+            "label": "Background Image"
+          },
+          {
+            "type": "checkbox",
+            "id": "enable_parallax",
+            "label": "Enable Parallax Image",
+            "default": true
+          },
+          {
+            "type": "text",
+            "id": "hero_video",
+            "label": "Background Video"
+          },
+          {
+            "type": "text",
+            "id": "sub_title",
+            "label": "Sub Title",
+            "default": "Discover the Gaia Difference"
+          },
+          {
+            "type": "text",
+            "id": "title",
+            "label": "Title",
+            "default": "Hero Title"
+          },
+          {
+            "type": "richtext",
+            "id": "description",
+            "label": "Description",
+            "default": "<p>Hero Description</p>"
+          },
+          {
+            "type": "range",
+            "id": "content_max_width",
+            "min": 300,
+            "max": 700,
+            "step": 5,
+            "unit": "px",
+            "label": "Content Max width",
+            "default": 525
+          },
+          {
+            "type": "header",
+            "content": "Button 1"
+          },
+          {
+            "type": "text",
+            "id": "button_label_1",
+            "label": "Button Label",
+            "default": "Shop Now"
+          },
+          {
+            "type": "url",
+            "id": "button_link_1",
+            "label": "Button Link"
+          },
+          {
+            "type": "select",
+            "id": "button_type_1",
+            "options": [
+               { "value": "primary", "label": "Primary" },
+               { "value": "secondary", "label": "Secondary" },
+               { "value": "tertiary", "label": "Tertiary Outline" },
+               { "value": "tertiary-dark", "label": "Tertiary Dark" },
+               { "value": "link", "label": "Focus Link" }
+            ],
+            "label": "Button Type",
+            "default": "primary"
+          },
+          {
+            "type": "header",
+            "content": "Button 2"
+          },
+          {
+            "type": "text",
+            "id": "button_label_2",
+            "label": "Button Label",
+            "default": "Shop Now"
+          },
+          {
+            "type": "url",
+            "id": "button_link_2",
+            "label": "Button Link"
+          },
+          {
+            "type": "select",
+            "id": "button_type_2",
+            "options": [
+               { "value": "primary", "label": "Primary" },
+               { "value": "secondary", "label": "Secondary" },
+               { "value": "tertiary", "label": "Tertiary Outline" },
+               { "value": "tertiary-dark", "label": "Tertiary Dark" },
+               { "value": "link", "label": "Focus Link" }
+            ],
+            "label": "Button Type",
+            "default": "primary"
+          },
+          {
+            "type": "header",
+            "content": "Settings"
+          },
+          {
+            "type": "select",
+            "id": "content_spacing",
+            "options": [
+              { "value": "small", "label": "Small" },
+              { "value": "medium", "label": "Medium" },
+              { "value": "large", "label": "Large" }
+            ],
+            "label": "Section Padding",
+            "default": "large"
+          },
+          {
+            "type": "text",
+            "id": "mobile_object_position",
+            "label": "Mobile Horizontal Position %",
+            "default": "38"
+          },
+          {
+            "type": "select",
+            "id": "layout",
+            "options": [
+              { "value": "left", "label": "Left" },
+              { "value": "center", "label": "Center" },
+              { "value": "right", "label": "Right" }
+            ],
+            "label": "Content Alignment",
+            "default": "left"
+          },
+          {
+            "type": "select",
+            "id": "text_alignment",
+            "options": [
+              { "value": "left", "label": "Left" },
+              { "value": "center", "label": "Center" },
+              { "value": "right", "label": "Right" }
+            ],
+            "label": "Text Alignment",
+            "default": "left"
+          },
+          {
+            "type": "color",
+            "id": "title_color",
+            "label": "Title Color",
+            "default": "#ffffff"
+          },
+          {
+            "type": "color",
+            "id": "text_color",
+            "label": "Text Color",
+            "default": "#ffffff"
+          }
+        ]
+      },
+      {
+        "type": "text_image",
+        "name": "Text/Image",
+        "settings": [
+          {
+            "type": "page",
+            "id": "page_handle",
+            "label": "Page Handle Section Belongs To",
+            "info": "This is use to match pages with their sections"
+          },
+          {
+            "type": "header",
+            "content": "Section Settings"
+          },
+          {
+            "type": "select",
+            "id": "layout",
+            "options": [
+              { "value": "left", "label": "Image Left" },
+              { "value": "right", "label": "Image Right" }
+            ],
+            "label": "Layout",
+            "default": "left"
+          },
+          {
+            "type": "checkbox",
+            "id": "add_section_divider",
+            "label": "Add Bottom Section Divider"
+          },
+          {
+            "type": "checkbox",
+            "id": "no_pt",
+            "label": "Remove Top Space"
+          },
+          {
+            "type": "checkbox",
+            "id": "no_pb",
+            "label": "Remove Bottom Space"
+          },
+          {
+            "type": "header",
+            "content": "Content Block"
+          },
+          {
+            "type": "image_picker",
+            "id": "image",
+            "label": "Column Image"
+          },
+          {
+            "type": "text",
+            "id": "sub_title",
+            "label": "Sub Title",
+            "default": "SubHeading"
+          },
+          {
+            "type": "text",
+            "id": "title",
+            "label": "Title",
+            "default": "Heading text"
+          },
+          {
+            "type": "richtext",
+            "id": "description",
+            "label": "Description",
+            "default": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec consequat libero non odio sodales porta. Curabitur et lectus eget justo suscipit porttitor. Vivamus pharetra tellus eros, vel consectetur metus cursus lobortis. In magna tortor, cursus ut tincidunt non, sodales sed lectus. Integer commodo justo in sodales fringilla. Donec et gravida urna. In enim ligula, venenatis vel luctus vel, bibendum vel neque.</p>"
+          },
+          {
+            "type": "color",
+            "id": "background_color",
+            "label": "Background Color",
+            "default": "#EAEFEC"
+          },
+          {
+            "type": "color",
+            "id": "heading_color",
+            "label": "Heading Color",
+            "default": "#16402D"
+          },
+          {
+            "type": "color",
+            "id": "description_color",
+            "label": "Description Color",
+            "default": "#000000"
+          },
+          {
+            "type": "text",
+            "id": "button_label",
+            "label": "Button Label",
+            "default": "Shop Now"
+          },
+          {
+            "type": "url",
+            "id": "button_link",
+            "label": "Button Link"
+          },
+          {
+            "type": "select",
+            "id": "button_type",
+            "options": [
+              { "value": "primary", "label": "Primary" },
+              { "value": "secondary", "label": "Secondary" },
+              { "value": "tertiary", "label": "Tertiary Outline" },
+              { "value": "tertiary-dark", "label": "Tertiary Dark" },
+              { "value": "link", "label": "Focus Link" }
+            ],
+            "label": "Button Type",
+            "default": "link"
+          }
+        ]
+      },
+      {
+        "type": "text_image_sticky",
+        "name": "Text/Image with Sticky",
+        "settings": [
+          {
+            "type": "page",
+            "id": "page_handle",
+            "label": "Page Handle Section Belongs To",
+            "info": "This is use to match pages with their sections"
+          },
+          {
+            "type": "header",
+            "content": "Section Settings"
+          },
+          {
+            "type": "select",
+            "id": "layout",
+            "options": [
+              { "value": "left", "label": "Image Left" },
+              { "value": "right", "label": "Image Right" }
+            ],
+            "label": "Layout",
+            "default": "left"
+          },
+          {
+            "type": "checkbox",
+            "id": "add_section_divider",
+            "label": "Add Bottom Section Divider"
+          },
+          {
+            "type": "checkbox",
+            "id": "no_pt",
+            "label": "Remove Top Space"
+          },
+          {
+            "type": "checkbox",
+            "id": "no_pb",
+            "label": "Remove Bottom Space"
+          },
+          {
+            "type": "header",
+            "content": "Content Block - One"
+          },
+          {
+            "type": "image_picker",
+            "id": "image_one",
+            "label": "Column Image"
+          },
+          {
+            "type": "text",
+            "id": "sub_title_one",
+            "label": "Sub Title",
+            "default": "SubHeading"
+          },
+          {
+            "type": "text",
+            "id": "title_one",
+            "label": "Title",
+            "default": "Heading text"
+          },
+          {
+            "type": "richtext",
+            "id": "description_one",
+            "label": "Description",
+            "default": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec consequat libero non odio sodales porta. Curabitur et lectus eget justo suscipit porttitor. Vivamus pharetra tellus eros, vel consectetur metus cursus lobortis. In magna tortor, cursus ut tincidunt non, sodales sed lectus. Integer commodo justo in sodales fringilla. Donec et gravida urna. In enim ligula, venenatis vel luctus vel, bibendum vel neque.</p>"
+          },
+          {
+            "type": "text",
+            "id": "button_label_one",
+            "label": "Button Label",
+            "default": "Shop Now"
+          },
+          {
+            "type": "url",
+            "id": "button_link_one",
+            "label": "Button Link"
+          },
+          {
+            "type": "select",
+            "id": "button_type_one",
+            "options": [
+              { "value": "primary", "label": "Primary" },
+              { "value": "secondary", "label": "Secondary" },
+              { "value": "tertiary", "label": "Tertiary Outline" },
+              { "value": "tertiary-dark", "label": "Tertiary Dark" },
+              { "value": "link", "label": "Focus Link" }
+            ],
+            "label": "Button Type",
+            "default": "link"
+          },
+          {
+            "type": "header",
+            "content": "Content Block - Two"
+          },
+          {
+            "type": "image_picker",
+            "id": "image_two",
+            "label": "Column Image"
+          },
+          {
+            "type": "text",
+            "id": "sub_title_two",
+            "label": "Sub Title",
+            "default": "SubHeading"
+          },
+          {
+            "type": "text",
+            "id": "title_two",
+            "label": "Title",
+            "default": "Heading text"
+          },
+          {
+            "type": "richtext",
+            "id": "description_two",
+            "label": "Description",
+            "default": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec consequat libero non odio sodales porta. Curabitur et lectus eget justo suscipit porttitor. Vivamus pharetra tellus eros, vel consectetur metus cursus lobortis. In magna tortor, cursus ut tincidunt non, sodales sed lectus. Integer commodo justo in sodales fringilla. Donec et gravida urna. In enim ligula, venenatis vel luctus vel, bibendum vel neque.</p>"
+          },
+          {
+            "type": "text",
+            "id": "button_label_two",
+            "label": "Button Label",
+            "default": "Shop Now"
+          },
+          {
+            "type": "url",
+            "id": "button_link_two",
+            "label": "Button Link"
+          },
+          {
+            "type": "select",
+            "id": "button_type_two",
+            "options": [
+              { "value": "primary", "label": "Primary" },
+              { "value": "secondary", "label": "Secondary" },
+              { "value": "tertiary", "label": "Tertiary Outline" },
+              { "value": "tertiary-dark", "label": "Tertiary Dark" },
+              { "value": "link", "label": "Focus Link" }
+            ],
+            "label": "Button Type",
+            "default": "link"
+          },
+          {
+            "type": "header",
+            "content": "Content Block - Three"
+          },
+          {
+            "type": "image_picker",
+            "id": "image_three",
+            "label": "Column Image"
+          },
+          {
+            "type": "text",
+            "id": "sub_title_three",
+            "label": "Sub Title",
+            "default": "SubHeading"
+          },
+          {
+            "type": "text",
+            "id": "title_three",
+            "label": "Title",
+            "default": "Heading text"
+          },
+          {
+            "type": "richtext",
+            "id": "description_three",
+            "label": "Description",
+            "default": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec consequat libero non odio sodales porta. Curabitur et lectus eget justo suscipit porttitor. Vivamus pharetra tellus eros, vel consectetur metus cursus lobortis. In magna tortor, cursus ut tincidunt non, sodales sed lectus. Integer commodo justo in sodales fringilla. Donec et gravida urna. In enim ligula, venenatis vel luctus vel, bibendum vel neque.</p>"
+          },
+          {
+            "type": "text",
+            "id": "button_label_three",
+            "label": "Button Label",
+            "default": "Shop Now"
+          },
+          {
+            "type": "url",
+            "id": "button_link_three",
+            "label": "Button Link"
+          },
+          {
+            "type": "select",
+            "id": "button_type_three",
+            "options": [
+              { "value": "primary", "label": "Primary" },
+              { "value": "secondary", "label": "Secondary" },
+              { "value": "tertiary", "label": "Tertiary Outline" },
+              { "value": "tertiary-dark", "label": "Tertiary Dark" },
+              { "value": "link", "label": "Focus Link" }
+            ],
+            "label": "Button Type",
+            "default": "link"
+          }
+        ]
+      },
+      {
+        "type": "image_columns",
+        "name": "Image Columns",
+        "settings": [
+          {
+            "type": "page",
+            "id": "page_handle",
+            "label": "Page Handle Section Belongs To",
+            "info": "This is use to match pages with their sections"
+          },
+          {
+            "type": "header",
+            "content": "Section Settings"
+          },
+          {
+            "type": "text",
+            "id": "title",
+            "label": "Section Title",
+            "default": "Image Columns"
+          },
+          {
+            "type": "select",
+            "id": "layout",
+            "options": [
+              { "value": "default", "label": "Text below Image" },
+              { "value": "alternate", "label": "Text on Image" }
+            ],
+            "label": "Layout",
+            "default": "default"
+          },
+          {
+            "type": "select",
+            "id": "text_alignment",
+            "options": [
+              { "value": "left", "label": "Left" },
+              { "value": "center", "label": "Center" },
+              { "value": "right", "label": "Right" }
+            ],
+            "label": "Text Alignment",
+            "default": "center"
+          },
+          {
+            "type": "color",
+            "id": "section_background_color",
+            "label": "Section Background Color"
+          },
+          {
+            "type": "checkbox",
+            "id": "add_section_divider",
+            "label": "Add Bottom Section Divider"
+          },
+          {
+            "type": "checkbox",
+            "id": "no_pt",
+            "label": "Remove Top Space"
+          },
+          {
+            "type": "checkbox",
+            "id": "no_pb",
+            "label": "Remove Bottom Space"
+          },
+          {
+            "type": "header",
+            "content": "Image Column 1"
+          },
+          {
+            "type": "image_picker",
+            "id": "image_1",
+            "label": "Image"
+          },
+          {
+            "type": "text",
+            "id": "title_1",
+            "label": "Title",
+            "default": "Card Title"
+          },
+          {
+            "type": "color",
+            "id": "title_color",
+            "label": "Text Color",
+            "default": "#ffffff"
+          },
+          {
+            "type": "richtext",
+            "id": "description_1",
+            "label": "Description",
+            "default": "<p>Card Description</p>"
+          },
+          {
+            "type": "text",
+            "id": "button_label_1",
+            "label": "Button Label",
+            "default": "Shop Now"
+          },
+          {
+            "type": "url",
+            "id": "button_link_1",
+            "label": "Button Link"
+          },
+          {
+            "type": "select",
+            "id": "button_type_1",
+            "options": [
+              { "value": "primary", "label": "Primary" },
+              { "value": "secondary", "label": "Secondary" },
+              { "value": "tertiary", "label": "Tertiary Outline" },
+              { "value": "tertiary-dark", "label": "Tertiary Dark" }
+            ],
+            "label": "Button Type",
+            "default": "tertiary"
+          },
+          {
+            "type": "color",
+            "id": "background_color_1",
+            "label": "Background Color",
+            "default": "#000000"
+          },
+          {
+            "type": "range",
+            "id": "opacity_1",
+            "min": 1,
+            "max": 100,
+            "step": 1,
+            "unit": "%",
+            "label": "Opacity",
+            "default": 20
+          },
+          {
+            "type": "color",
+            "id": "text_color_1",
+            "label": "Text Color",
+            "default": "#ffffff"
+          },
+          {
+            "type": "color",
+            "id": "description_color_1",
+            "label": "Description Color",
+            "default": "#000000"
+          },
+          {
+            "type": "header",
+            "content": "Image Column 2"
+          },
+          {
+            "type": "image_picker",
+            "id": "image_2",
+            "label": "Image"
+          },
+          {
+            "type": "text",
+            "id": "title_2",
+            "label": "Title",
+            "default": "Card Title"
+          },
+          {
+            "type": "richtext",
+            "id": "description_2",
+            "label": "Description",
+            "default": "<p>Card Description</p>"
+          },
+          {
+            "type": "text",
+            "id": "button_label_2",
+            "label": "Button Label",
+            "default": "Shop Now"
+          },
+          {
+            "type": "url",
+            "id": "button_link_2",
+            "label": "Button Link"
+          },
+          {
+            "type": "select",
+            "id": "button_type_2",
+            "options": [
+              { "value": "primary", "label": "Primary" },
+              { "value": "secondary", "label": "Secondary" },
+              { "value": "tertiary", "label": "Tertiary Outline" },
+              { "value": "tertiary-dark", "label": "Tertiary Dark" }
+            ],
+            "label": "Button Type",
+            "default": "tertiary"
+          },
+          {
+            "type": "color",
+            "id": "background_color_2",
+            "label": "Background Color",
+            "default": "#000000"
+          },
+          {
+            "type": "range",
+            "id": "opacity_2",
+            "min": 1,
+            "max": 100,
+            "step": 1,
+            "unit": "%",
+            "label": "Opacity",
+            "default": 20
+          },
+          {
+            "type": "color",
+            "id": "text_color_2",
+            "label": "Text Color",
+            "default": "#ffffff"
+          },
+          {
+            "type": "color",
+            "id": "description_color_2",
+            "label": "Description Color",
+            "default": "#000000"
+          }
+        ]
+      },
+      {
+        "type": "three_columns",
+        "name": "Three Columns",
+        "settings": [
+          {
+            "type": "page",
+            "id": "page_handle",
+            "label": "Page Handle Section Belongs To",
+            "info": "This is use to match pages with their sections"
+          },
+          {
+            "type": "header",
+            "content": "Section Settings"
+          },
+          {
+            "type": "text",
+            "id": "title",
+            "label": "Section Title",
+            "default": "Heading 3 up"
+          },
+          {
+            "type": "color",
+            "id": "section_background_color",
+            "label": "Section Background Color"
+          },
+          {
+            "type": "checkbox",
+            "id": "add_section_divider",
+            "label": "Add Bottom Section Divider"
+          },
+          {
+            "type": "checkbox",
+            "id": "no_pt",
+            "label": "Remove Top Space"
+          },
+          {
+            "type": "checkbox",
+            "id": "no_pb",
+            "label": "Remove Bottom Space"
+          },
+          {
+            "type": "header",
+            "content": "Column 1"
+          },
+          {
+            "type": "image_picker",
+            "id": "image_1",
+            "label": "Image"
+          },
+          {
+            "type": "text",
+            "id": "sub_title_1",
+            "label": "Sub Title",
+            "default": "Card Sub Title"
+          },
+          {
+            "type": "text",
+            "id": "title_1",
+            "label": "Title",
+            "default": "Card Title"
+          },
+          {
+            "type": "richtext",
+            "id": "description_1",
+            "label": "Description",
+            "default": "<p>Card Description</p>"
+          },
+          {
+            "type": "select",
+            "id": "text_alignment_1",
+            "options": [
+              { "value": "left", "label": "Left" },
+              { "value": "center", "label": "Center" },
+              { "value": "right", "label": "Right" }
+            ],
+            "label": "Text Alignment",
+            "default": "left"
+          },
+          {
+            "type": "text",
+            "id": "button_label_1",
+            "label": "Button Label",
+            "default": "Shop Now"
+          },
+          {
+            "type": "url",
+            "id": "button_link_1",
+            "label": "Button Link"
+          },
+          {
+            "type": "select",
+            "id": "button_type_1",
+            "options": [
+              { "value": "primary", "label": "Primary" },
+              { "value": "secondary", "label": "Secondary" },
+              { "value": "tertiary", "label": "Tertiary Outline" },
+              { "value": "tertiary-dark", "label": "Tertiary Dark" },
+              { "value": "link", "label": "Focus Link" }
+            ],
+            "label": "Button Type",
+            "default": "link"
+          },
+          {
+            "type": "header",
+            "content": "Column 2"
+          },
+          {
+            "type": "image_picker",
+            "id": "image_2",
+            "label": "Image"
+          },
+          {
+            "type": "text",
+            "id": "sub_title_2",
+            "label": "Sub Title",
+            "default": "Card Sub Title"
+          },
+          {
+            "type": "text",
+            "id": "title_2",
+            "label": "Title",
+            "default": "Card Title"
+          },
+          {
+            "type": "richtext",
+            "id": "description_2",
+            "label": "Description",
+            "default": "<p>Card Description</p>"
+          },
+          {
+            "type": "select",
+            "id": "text_alignment_2",
+            "options": [
+              { "value": "left", "label": "Left" },
+              { "value": "center", "label": "Center" },
+              { "value": "right", "label": "Right" }
+            ],
+            "label": "Text Alignment",
+            "default": "left"
+          },
+          {
+            "type": "text",
+            "id": "button_label_2",
+            "label": "Button Label",
+            "default": "Shop Now"
+          },
+          {
+            "type": "url",
+            "id": "button_link_2",
+            "label": "Button Link"
+          },
+          {
+            "type": "select",
+            "id": "button_type_2",
+            "options": [
+              { "value": "primary", "label": "Primary" },
+              { "value": "secondary", "label": "Secondary" },
+              { "value": "tertiary", "label": "Tertiary Outline" },
+              { "value": "tertiary-dark", "label": "Tertiary Dark" },
+              { "value": "link", "label": "Focus Link" }
+            ],
+            "label": "Button Type",
+            "default": "link"
+          },
+          {
+            "type": "header",
+            "content": "Column 3"
+          },
+          {
+            "type": "image_picker",
+            "id": "image_3",
+            "label": "Image"
+          },
+          {
+            "type": "text",
+            "id": "sub_title_3",
+            "label": "Sub Title",
+            "default": "Card Sub Title"
+          },
+          {
+            "type": "text",
+            "id": "title_3",
+            "label": "Title",
+            "default": "Card Title"
+          },
+          {
+            "type": "richtext",
+            "id": "description_3",
+            "label": "Description",
+            "default": "<p>Card Description</p>"
+          },
+          {
+            "type": "select",
+            "id": "text_alignment",
+            "options": [
+              { "value": "left", "label": "Left" },
+              { "value": "center", "label": "Center" },
+              { "value": "right", "label": "Right" }
+            ],
+            "label": "Text Alignment",
+            "default": "left"
+          },
+          {
+            "type": "text",
+            "id": "button_label_3",
+            "label": "Button Label",
+            "default": "Shop Now"
+          },
+          {
+            "type": "url",
+            "id": "button_link_3",
+            "label": "Button Link"
+          },
+          {
+            "type": "select",
+            "id": "button_type_3",
+            "options": [
+              { "value": "primary", "label": "Primary" },
+              { "value": "secondary", "label": "Secondary" },
+              { "value": "tertiary", "label": "Tertiary Outline" },
+              { "value": "tertiary-dark", "label": "Tertiary Dark" },
+              { "value": "link", "label": "Focus Link" }
+            ],
+            "label": "Button Type",
+            "default": "link"
+          }
+        ]
+      },
+      {
+        "type": "carousel",
+        "name": "Carousel",
+        "settings": [
+          {
+            "type": "page",
+            "id": "page_handle",
+            "label": "Page Handle Section Belongs To",
+            "info": "This is use to match pages with their sections"
+          },
+          {
+            "type": "header",
+            "content": "Section Settings"
+          },
+          {
+            "type": "color",
+            "id": "section_background_color",
+            "label": "Section Background Color"
+          },
+          {
+            "type": "checkbox",
+            "id": "add_section_divider",
+            "label": "Add Bottom Section Divider"
+          },
+          {
+            "type": "checkbox",
+            "id": "no_pt",
+            "label": "Remove Top Space"
+          },
+          {
+            "type": "checkbox",
+            "id": "no_pb",
+            "label": "Remove Bottom Space"
+          },
+          {
+            "type": "number",
+            "id": "position",
+            "label": "Position",
+            "default": 100
+          },
+          {
+            "type": "text",
+            "id": "sub_title",
+            "label": "Sub Title",
+            "default": "SubHeading"
+          },
+          {
+            "type": "text",
+            "id": "title",
+            "label": "Title",
+            "default": "Carousel"
+          },
+          {
+            "type": "textarea",
+            "id": "content",
+            "label": "Content"
+          },
+          {
+            "type": "header",
+            "content": "Slides Settings"
+          },
+          {
+            "type": "number",
+            "id": "slides_speed",
+            "label": "Slides Speed",
+            "default": 2000,
+            "info": "ms"
+          },
+          {
+            "type": "number",
+            "id": "slides_per_view",
+            "label": "Slides Per view",
+            "default": 4
+          },
+          {
+            "type": "checkbox",
+            "id": "slides_group",
+            "label": "Group Slides",
+            "default": true
+          },
+          {
+            "type": "checkbox",
+            "id": "slides_loop",
+            "label": "Loop Slides",
+            "default": false
+          },
+          {
+            "type": "header",
+            "content": "Carousel Item 1"
+          },
+          {
+            "type": "image_picker",
+            "id": "image_1",
+            "label": "Item Image"
+          },
+          {
+            "type": "text",
+            "id": "sub_title_1",
+            "label": "Item Sub Title",
+            "default": "Item Sub Title"
+          },
+          {
+            "type": "text",
+            "id": "title_1",
+            "label": "Item Title",
+            "default": "Item Title"
+          },
+          {
+            "type": "richtext",
+            "id": "description_1",
+            "label": "Item Description",
+            "default": "<p>Everything we produce is rigorously tested for pesticides, microbes and heavy metals.</p>"
+          },
+          {
+            "type": "text",
+            "id": "button_label_1",
+            "label": "Item Button Label",
+            "default": "Read All Reviews"
+          },
+          {
+            "type": "url",
+            "id": "button_link_1",
+            "label": "Item Button Link"
+          },
+          {
+            "type": "select",
+            "id": "button_type_1",
+            "options": [
+              { "value": "primary", "label": "Primary" },
+              { "value": "secondary", "label": "Secondary" },
+              { "value": "tertiary", "label": "Tertiary Outline" },
+              { "value": "tertiary-dark", "label": "Tertiary Dark" },
+              { "value": "link", "label": "Focus Link" }
+            ],
+            "label": "Item Button Type",
+            "default": "link"
+          },
+          {
+            "type": "header",
+            "content": "Carousel Item 2"
+          },
+          {
+            "type": "image_picker",
+            "id": "image_2",
+            "label": "Item Image"
+          },
+          {
+            "type": "text",
+            "id": "sub_title_2",
+            "label": "Item Sub Title",
+            "default": "Item Sub Title"
+          },
+          {
+            "type": "text",
+            "id": "title_2",
+            "label": "Item Title",
+            "default": "Item Title"
+          },
+          {
+            "type": "richtext",
+            "id": "description_2",
+            "label": "Item Description",
+            "default": "<p>Everything we produce is rigorously tested for pesticides, microbes and heavy metals.</p>"
+          },
+          {
+            "type": "text",
+            "id": "button_label_2",
+            "label": "Item Button Label",
+            "default": "Read All Reviews"
+          },
+          {
+            "type": "url",
+            "id": "button_link_2",
+            "label": "Item Button Link"
+          },
+          {
+            "type": "select",
+            "id": "button_type_2",
+            "options": [
+              { "value": "primary", "label": "Primary" },
+              { "value": "secondary", "label": "Secondary" },
+              { "value": "tertiary", "label": "Tertiary Outline" },
+              { "value": "tertiary-dark", "label": "Tertiary Dark" },
+              { "value": "link", "label": "Focus Link" }
+            ],
+            "label": "Item Button Type",
+            "default": "link"
+          },
+          {
+            "type": "header",
+            "content": "Carousel Item 3"
+          },
+          {
+            "type": "image_picker",
+            "id": "image_3",
+            "label": "Item Image"
+          },
+          {
+            "type": "text",
+            "id": "sub_title_3",
+            "label": "Item Sub Title",
+            "default": "Item Sub Title"
+          },
+          {
+            "type": "text",
+            "id": "title_3",
+            "label": "Item Title",
+            "default": "Item Title"
+          },
+          {
+            "type": "richtext",
+            "id": "description_3",
+            "label": "Item Description",
+            "default": "<p>Everything we produce is rigorously tested for pesticides, microbes and heavy metals.</p>"
+          },
+          {
+            "type": "text",
+            "id": "button_label_3",
+            "label": "Item Button Label",
+            "default": "Read All Reviews"
+          },
+          {
+            "type": "url",
+            "id": "button_link_3",
+            "label": "Item Button Link"
+          },
+          {
+            "type": "select",
+            "id": "button_type_3",
+            "options": [
+              { "value": "primary", "label": "Primary" },
+              { "value": "secondary", "label": "Secondary" },
+              { "value": "tertiary", "label": "Tertiary Outline" },
+              { "value": "tertiary-dark", "label": "Tertiary Dark" },
+              { "value": "link", "label": "Focus Link" }
+            ],
+            "label": "Item Button Type",
+            "default": "link"
+          },
+          {
+            "type": "header",
+            "content": "Carousel Item 4"
+          },
+          {
+            "type": "image_picker",
+            "id": "image_4",
+            "label": "Item Image"
+          },
+          {
+            "type": "text",
+            "id": "sub_title_4",
+            "label": "Item Sub Title",
+            "default": "Item Sub Title"
+          },
+          {
+            "type": "text",
+            "id": "title_4",
+            "label": "Item Title",
+            "default": "Item Title"
+          },
+          {
+            "type": "richtext",
+            "id": "description_4",
+            "label": "Item Description",
+            "default": "<p>Everything we produce is rigorously tested for pesticides, microbes and heavy metals.</p>"
+          },
+          {
+            "type": "text",
+            "id": "button_label_4",
+            "label": "Item Button Label",
+            "default": "Read All Reviews"
+          },
+          {
+            "type": "url",
+            "id": "button_link_4",
+            "label": "Item Button Link"
+          },
+          {
+            "type": "select",
+            "id": "button_type_4",
+            "options": [
+              { "value": "primary", "label": "Primary" },
+              { "value": "secondary", "label": "Secondary" },
+              { "value": "tertiary", "label": "Tertiary Outline" },
+              { "value": "tertiary-dark", "label": "Tertiary Dark" },
+              { "value": "link", "label": "Focus Link" }
+            ],
+            "label": "Item Button Type",
+            "default": "link"
+          },
+          {
+            "type": "header",
+            "content": "Carousel Item 5"
+          },
+          {
+            "type": "image_picker",
+            "id": "image_5",
+            "label": "Item Image"
+          },
+          {
+            "type": "text",
+            "id": "sub_title_5",
+            "label": "Item Sub Title",
+            "default": "Item Sub Title"
+          },
+          {
+            "type": "text",
+            "id": "title_5",
+            "label": "Item Title",
+            "default": "Item Title"
+          },
+          {
+            "type": "richtext",
+            "id": "description_5",
+            "label": "Item Description",
+            "default": "<p>Everything we produce is rigorously tested for pesticides, microbes and heavy metals.</p>"
+          },
+          {
+            "type": "text",
+            "id": "button_label_5",
+            "label": "Item Button Label",
+            "default": "Read All Reviews"
+          },
+          {
+            "type": "url",
+            "id": "button_link_5",
+            "label": "Item Button Link"
+          },
+          {
+            "type": "select",
+            "id": "button_type_5",
+            "options": [
+              { "value": "primary", "label": "Primary" },
+              { "value": "secondary", "label": "Secondary" },
+              { "value": "tertiary", "label": "Tertiary Outline" },
+              { "value": "tertiary-dark", "label": "Tertiary Dark" },
+              { "value": "link", "label": "Focus Link" }
+            ],
+            "label": "Item Button Type",
+            "default": "link"
+          },
+          {
+            "type": "header",
+            "content": "Carousel Item 6"
+          },
+          {
+            "type": "image_picker",
+            "id": "image_6",
+            "label": "Item Image"
+          },
+          {
+            "type": "text",
+            "id": "sub_title_6",
+            "label": "Item Sub Title",
+            "default": "Item Sub Title"
+          },
+          {
+            "type": "text",
+            "id": "title_6",
+            "label": "Item Title",
+            "default": "Item Title"
+          },
+          {
+            "type": "richtext",
+            "id": "description_6",
+            "label": "Item Description",
+            "default": "<p>Everything we produce is rigorously tested for pesticides, microbes and heavy metals.</p>"
+          },
+          {
+            "type": "text",
+            "id": "button_label_6",
+            "label": "Item Button Label",
+            "default": "Read All Reviews"
+          },
+          {
+            "type": "url",
+            "id": "button_link_6",
+            "label": "Item Button Link"
+          },
+          {
+            "type": "select",
+            "id": "button_type_6",
+            "options": [
+              { "value": "primary", "label": "Primary" },
+              { "value": "secondary", "label": "Secondary" },
+              { "value": "tertiary", "label": "Tertiary Outline" },
+              { "value": "tertiary-dark", "label": "Tertiary Dark" },
+              { "value": "link", "label": "Focus Link" }
+            ],
+            "label": "Item Button Type",
+            "default": "link"
+          },
+          {
+            "type": "header",
+            "content": "Carousel Item 7"
+          },
+          {
+            "type": "image_picker",
+            "id": "image_7",
+            "label": "Item Image"
+          },
+          {
+            "type": "text",
+            "id": "sub_title_7",
+            "label": "Item Sub Title",
+            "default": "Item Sub Title"
+          },
+          {
+            "type": "text",
+            "id": "title_7",
+            "label": "Item Title",
+            "default": "Item Title"
+          },
+          {
+            "type": "richtext",
+            "id": "description_7",
+            "label": "Item Description",
+            "default": "<p>Everything we produce is rigorously tested for pesticides, microbes and heavy metals.</p>"
+          },
+          {
+            "type": "text",
+            "id": "button_label_7",
+            "label": "Item Button Label",
+            "default": "Read All Reviews"
+          },
+          {
+            "type": "url",
+            "id": "button_link_7",
+            "label": "Item Button Link"
+          },
+          {
+            "type": "select",
+            "id": "button_type_7",
+            "options": [
+              { "value": "primary", "label": "Primary" },
+              { "value": "secondary", "label": "Secondary" },
+              { "value": "tertiary", "label": "Tertiary Outline" },
+              { "value": "tertiary-dark", "label": "Tertiary Dark" },
+              { "value": "link", "label": "Focus Link" }
+            ],
+            "label": "Item Button Type",
+            "default": "link"
+          },
+          {
+            "type": "header",
+            "content": "Carousel Item 8"
+          },
+          {
+            "type": "image_picker",
+            "id": "image_8",
+            "label": "Item Image"
+          },
+          {
+            "type": "text",
+            "id": "sub_title_8",
+            "label": "Item Sub Title",
+            "default": "Item Sub Title"
+          },
+          {
+            "type": "text",
+            "id": "title_8",
+            "label": "Item Title",
+            "default": "Item Title"
+          },
+          {
+            "type": "richtext",
+            "id": "description_8",
+            "label": "Item Description",
+            "default": "<p>Everything we produce is rigorously tested for pesticides, microbes and heavy metals.</p>"
+          },
+          {
+            "type": "text",
+            "id": "button_label_8",
+            "label": "Item Button Label",
+            "default": "Read All Reviews"
+          },
+          {
+            "type": "url",
+            "id": "button_link_8",
+            "label": "Item Button Link"
+          },
+          {
+            "type": "select",
+            "id": "button_type_8",
+            "options": [
+              { "value": "primary", "label": "Primary" },
+              { "value": "secondary", "label": "Secondary" },
+              { "value": "tertiary", "label": "Tertiary Outline" },
+              { "value": "tertiary-dark", "label": "Tertiary Dark" },
+              { "value": "link", "label": "Focus Link" }
+            ],
+            "label": "Item Button Type",
+            "default": "link"
+          },
+          {
+            "type": "header",
+            "content": "Carousel Item 9"
+          },
+          {
+            "type": "image_picker",
+            "id": "image_9",
+            "label": "Item Image"
+          },
+          {
+            "type": "text",
+            "id": "sub_title_9",
+            "label": "Item Sub Title",
+            "default": "Item Sub Title"
+          },
+          {
+            "type": "text",
+            "id": "title_9",
+            "label": "Item Title",
+            "default": "Item Title"
+          },
+          {
+            "type": "richtext",
+            "id": "description_9",
+            "label": "Item Description",
+            "default": "<p>Everything we produce is rigorously tested for pesticides, microbes and heavy metals.</p>"
+          },
+          {
+            "type": "text",
+            "id": "button_label_9",
+            "label": "Item Button Label",
+            "default": "Read All Reviews"
+          },
+          {
+            "type": "url",
+            "id": "button_link_9",
+            "label": "Item Button Link"
+          },
+          {
+            "type": "select",
+            "id": "button_type_9",
+            "options": [
+              { "value": "primary", "label": "Primary" },
+              { "value": "secondary", "label": "Secondary" },
+              { "value": "tertiary", "label": "Tertiary Outline" },
+              { "value": "tertiary-dark", "label": "Tertiary Dark" },
+              { "value": "link", "label": "Focus Link" }
+            ],
+            "label": "Item Button Type",
+            "default": "link"
+          }
+        ]
+      },
+      {
+        "type": "accordion",
+        "name": "Accordion",
+        "settings": [
+          {
+            "type": "page",
+            "id": "page_handle",
+            "label": "Page Handle Section Belongs To",
+            "info": "This is use to match pages with their sections"
+          },
+          {
+            "type": "header",
+            "content": "Section Settings"
+          },
+          {
+            "type": "color",
+            "id": "section_background_color",
+            "label": "Section Background Color"
+          },
+          {
+            "type": "checkbox",
+            "id": "add_section_divider",
+            "label": "Add Bottom Section Divider"
+          },
+          {
+            "type": "checkbox",
+            "id": "no_pt",
+            "label": "Remove Top Space"
+          },
+          {
+            "type": "checkbox",
+            "id": "no_pb",
+            "label": "Remove Bottom Space"
+          },
+          {
+            "type": "text",
+            "id": "sub_title",
+            "label": "Sub Title",
+            "default": "SubHeading"
+          },
+          {
+            "type": "text",
+            "id": "title",
+            "label": "Title",
+            "default": "Accordion"
+          },
+          {
+            "type": "header",
+            "content": "Accordion 1"
+          },
+          {
+            "type": "text",
+            "id": "title_1",
+            "label": "Accordion Title"
+          },
+          {
+            "type": "richtext",
+            "id": "description_1",
+            "label": "Accordion Description"
+          },
+          {
+            "type": "header",
+            "content": "Accordion 2"
+          },
+          {
+            "type": "text",
+            "id": "title_2",
+            "label": "Accordion Title"
+          },
+          {
+            "type": "richtext",
+            "id": "description_2",
+            "label": "Accordion Description"
+          },
+          {
+            "type": "header",
+            "content": "Accordion 3"
+          },
+          {
+            "type": "text",
+            "id": "title_3",
+            "label": "Accordion Title"
+          },
+          {
+            "type": "richtext",
+            "id": "description_3",
+            "label": "Accordion Description"
+          },
+          {
+            "type": "header",
+            "content": "Accordion 4"
+          },
+          {
+            "type": "text",
+            "id": "title_4",
+            "label": "Accordion Title"
+          },
+          {
+            "type": "richtext",
+            "id": "description_4",
+            "label": "Accordion Description"
+          },
+          {
+            "type": "header",
+            "content": "Accordion 5"
+          },
+          {
+            "type": "text",
+            "id": "title_5",
+            "label": "Accordion Title"
+          },
+          {
+            "type": "richtext",
+            "id": "description_5",
+            "label": "Accordion Description"
+          },
+          {
+            "type": "header",
+            "content": "Accordion 6"
+          },
+          {
+            "type": "text",
+            "id": "title_6",
+            "label": "Accordion Title"
+          },
+          {
+            "type": "richtext",
+            "id": "description_6",
+            "label": "Accordion Description"
+          },
+          {
+            "type": "header",
+            "content": "Accordion 7"
+          },
+          {
+            "type": "text",
+            "id": "title_7",
+            "label": "Accordion Title"
+          },
+          {
+            "type": "richtext",
+            "id": "description_7",
+            "label": "Accordion Description"
+          },
+          {
+            "type": "header",
+            "content": "Accordion 8"
+          },
+          {
+            "type": "text",
+            "id": "title_8",
+            "label": "Accordion Title"
+          },
+          {
+            "type": "richtext",
+            "id": "description_8",
+            "label": "Accordion Description"
+          },
+          {
+            "type": "header",
+            "content": "Accordion 9"
+          },
+          {
+            "type": "text",
+            "id": "title_9",
+            "label": "Accordion Title"
+          },
+          {
+            "type": "richtext",
+            "id": "description_9",
+            "label": "Accordion Description"
+          },
+          {
+            "type": "header",
+            "content": "Accordion 10"
+          },
+          {
+            "type": "text",
+            "id": "title_10",
+            "label": "Accordion Title"
+          },
+          {
+            "type": "richtext",
+            "id": "description_10",
+            "label": "Accordion Description"
+          }
+        ]
+      },
+      {
+        "type": "one_column",
+        "name": "One Column",
+        "settings": [
+          {
+            "type": "page",
+            "id": "page_handle",
+            "label": "Page Handle Section Belongs To",
+            "info": "This is use to match pages with their sections"
+          },
+          {
+            "type": "header",
+            "content": "Section Settings"
+          },
+          {
+            "type": "color",
+            "id": "section_background_color",
+            "label": "Section Background Color"
+          },
+          {
+            "type": "checkbox",
+            "id": "add_section_divider",
+            "label": "Add Bottom Section Divider"
+          },
+          {
+            "type": "checkbox",
+            "id": "no_pt",
+            "label": "Remove Top Space"
+          },
+          {
+            "type": "checkbox",
+            "id": "no_pb",
+            "label": "Remove Bottom Space"
+          },
+          {
+            "type": "header",
+            "content": "Image"
+          },
+          {
+            "type": "image_picker",
+            "id": "image",
+            "label": "Primary Image"
+          },
+          {
+            "type": "image_picker",
+            "id": "image_secondary",
+            "label": "Secondary Image"
+          },
+          {
+            "type": "header",
+            "content": "Content"
+          },
+          {
+            "type": "text",
+            "id": "sub_title",
+            "label": "Sub Title",
+            "default": "SubHeading"
+          },
+          {
+            "type": "text",
+            "id": "title",
+            "label": "Title",
+            "default": "A Commitment to Quality"
+          },
+          {
+            "type": "richtext",
+            "id": "description",
+            "label": "Description",
+            "default": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec consequat libero non odio sodales porta. Curabitur et lectus eget justo suscipit porttitor. Vivamus pharetra tellus eros, vel consectetur metus cursus lobortis. In magna tortor, cursus ut tincidunt non, sodales sed lectus. Integer commodo justo in sodales fringilla. Donec et gravida urna. In enim ligula, venenatis vel luctus vel, bibendum vel neque.</p>"
+          },
+          {
+            "type": "text",
+            "id": "button_label",
+            "label": "Button Label",
+            "default": "Shop Now"
+          },
+          {
+            "type": "url",
+            "id": "button_link",
+            "label": "Button Link"
+          },
+          {
+            "type": "select",
+            "id": "button_type",
+            "options": [
+              { "value": "primary", "label": "Primary" },
+              { "value": "secondary", "label": "Secondary" },
+              { "value": "tertiary", "label": "Tertiary Outline" },
+              { "value": "tertiary-dark", "label": "Tertiary Dark" },
+              { "value": "link", "label": "Focus Link" }
+            ],
+            "label": "Button Type",
+            "default": "primary"
+          },
+          {
+            "type": "header",
+            "content": "Content Settings"
+          },
+          {
+            "type": "select",
+            "id": "text_alignment",
+            "options": [
+              { "value": "left", "label": "Left" },
+              { "value": "center", "label": "Center" },
+              { "value": "right", "label": "Right" }
+            ],
+            "label": "Text Alignment",
+            "default": "left"
+          },
+          {
+            "type": "color",
+            "id": "title_color",
+            "label": "Title Color",
+            "default": "#000000"
+          },
+          {
+            "type": "color",
+            "id": "text_color",
+            "label": "Text Color",
+            "default": "#000000"
+          }
+        ]
+      },
+      {
+        "type": "search_herbs",
+        "name": "Search Herbs",
+        "settings": [
+          {
+            "type": "page",
+            "id": "page_handle",
+            "label": "Page Handle Section Belongs To",
+            "info": "This is use to match pages with their sections"
+          },
+          {
+            "type": "checkbox",
+            "id": "add_section_divider",
+            "label": "Add Bottom Section Divider"
+          },
+          {
+            "type": "checkbox",
+            "id": "no_pt",
+            "label": "Remove Top Space"
+          },
+          {
+            "type": "checkbox",
+            "id": "no_pb",
+            "label": "Remove Bottom Space"
+          },
+          {
+            "type": "image_picker",
+            "id": "meet-herb-bottom-image",
+            "label": "Bottom Image"
+          },
+          {
+            "type": "html",
+            "id": "search_copy_additional",
+            "label": "Additional Copy"
+          }
+        ]
+      },
+      {
+        "type": "featured_collection",
+        "name": "Featured Collection",
+        "settings": [
+          {
+            "type": "page",
+            "id": "page_handle",
+            "label": "Page Handle Section Belongs To",
+            "info": "This is use to match pages with their sections"
+          },
+          {
+            "type": "header",
+            "content": "Section Settings"
+          },
+          {
+            "type": "checkbox",
+            "id": "add_section_divider",
+            "label": "Add Bottom Section Divider"
+          },
+          {
+            "type": "checkbox",
+            "id": "no_pt",
+            "label": "Remove Top Space"
+          },
+          {
+            "type": "checkbox",
+            "id": "no_pb",
+            "label": "Remove Bottom Space"
+          },
+          {
+            "type": "number",
+            "id": "position",
+            "label": "Position",
+            "default": 100
+          },
+          {
+            "type": "text",
+            "id": "sub_title",
+            "label": "Sub Title"
+          },
+          {
+            "type": "text",
+            "id": "title",
+            "label": "Title",
+            "default": "Best Sellers"
+          },
+          {
+            "type": "collection",
+            "id": "collection",
+            "label": "Featured Collection"
+          },
+          {
+            "type": "header",
+            "content": "Section Button"
+          },
+          {
+            "type": "text",
+            "id": "button_label",
+            "label": "Button Label",
+            "default": "Shop All Products"
+          },
+          {
+            "type": "url",
+            "id": "button_link",
+            "label": "Button Url"
+          },
+          {
+            "type": "select",
+            "id": "button_type",
+            "options": [
+              { "value": "primary", "label": "Primary" },
+              { "value": "secondary", "label": "Secondary" },
+              { "value": "tertiary", "label": "Tertiary Outline" },
+              { "value": "tertiary-dark", "label": "Tertiary Dark" }
+            ],
+            "label": "Button Type",
+            "default": "primary"
+          },
+          {
+            "type": "header",
+            "content": "Slides Settings"
+          },
+          {
+            "type": "number",
+            "id": "slides_speed",
+            "label": "Slides Speed",
+            "default": 2000,
+            "info": "ms"
+          },
+          {
+            "type": "number",
+            "id": "slides_limit",
+            "label": "Slides Limit",
+            "default": 12
+          },
+          {
+            "type": "checkbox",
+            "id": "slides_group",
+            "label": "Group Slides",
+            "default": true
+          },
+          {
+            "type": "checkbox",
+            "id": "slides_loop",
+            "label": "Loop Slides",
+            "default": false
+          }
+        ]
+      },
+      {
+        "type": "featured_blogs",
+        "name": "Featured Blogs",
+        "settings": [
+          {
+            "type": "page",
+            "id": "page_handle",
+            "label": "Page Handle Section Belongs To",
+            "info": "This is use to match pages with their sections"
+          },
+          {
+            "type": "header",
+            "content": "Section Settings"
+          },
+          {
+            "type": "checkbox",
+            "id": "add_section_divider",
+            "label": "Add Bottom Section Divider"
+          },
+          {
+            "type": "checkbox",
+            "id": "no_pt",
+            "label": "Remove Top Space"
+          },
+          {
+            "type": "checkbox",
+            "id": "no_pb",
+            "label": "Remove Bottom Space"
+          },
+          {
+            "type": "header",
+            "content": "Settings"
+          },
+          {
+            "type": "text",
+            "id": "sub_title",
+            "label": "Sub Title",
+            "default": "Our Blog"
+          },
+          {
+            "type": "text",
+            "id": "title",
+            "label": "Title"
+          },
+          {
+            "type": "select",
+            "id": "button_type",
+            "options": [
+              { "value": "primary", "label": "Primary" },
+              { "value": "secondary", "label": "Secondary" },
+              { "value": "tertiary", "label": "Tertiary Outline" },
+              { "value": "tertiary-dark", "label": "Tertiary Dark" }
+            ],
+            "label": "Button Type",
+            "default": "tertiary"
+          },
+          {
+            "type": "url",
+            "id": "blog_url",
+            "label": "Blog URL"
+          },
+          {
+            "type": "article",
+            "id": "article_handle_1",
+            "label": "Article To Display"
+          },
+          {
+            "type": "article",
+            "id": "article_handle_2",
+            "label": "Article To Display"
+          }
+        ]
+      },
+      {
+        "type": "quote",
+        "name": "Quote",
+        "settings": [
+          {
+            "type": "page",
+            "id": "page_handle",
+            "label": "Page Handle Section Belongs To",
+            "info": "This is use to match pages with their sections"
+          },
+          {
+            "type": "header",
+            "content": "Section Settings"
+          },
+          {
+            "type": "checkbox",
+            "id": "add_section_divider",
+            "label": "Add Bottom Section Divider"
+          },
+          {
+            "type": "checkbox",
+            "id": "no_pt",
+            "label": "Remove Top Space"
+          },
+          {
+            "type": "checkbox",
+            "id": "no_pb",
+            "label": "Remove Bottom Space"
+          },
+          {
+            "type": "header",
+            "content": "Settings"
+          },
+          {
+            "type": "richtext",
+            "id": "copy",
+            "label": "Copy",
+            "default": "<p>Dictum at tempor commodo ullamcorper a lacus vestibulum sed arcu. Varius morbi enim nunc faucibus a. Elementum nisi quis eleifend quam adipiscing vitae proin sagittis. Tincidunt lobortis feugiat vivamus at augue. Bibendum ut tristique et egestas quis ipsum suspendisse. Quis risus sed vulputate odio ut. Pulvinar neque laoreet suspendisse interdum consectetur libero id faucibus nisl.</p>"
+          },
+          {
+            "type": "image_picker",
+            "id": "image",
+            "label": "Image"
+          },
+          {
+            "type": "text",
+            "id": "title",
+            "label": "Title"
+          },
+          {
+            "type": "text",
+            "id": "info",
+            "label": "Info"
+          }
+        ]
+      },
+      {
+        "type": "callout",
+        "name": "Callout",
+        "settings": [
+          {
+            "type": "page",
+            "id": "page_handle",
+            "label": "Page Handle Section Belongs To",
+            "info": "This is use to match pages with their sections"
+          },
+          {
+            "type": "header",
+            "content": "Section Settings"
+          },
+          {
+            "type": "checkbox",
+            "id": "add_section_divider",
+            "label": "Add Bottom Section Divider"
+          },
+          {
+            "type": "checkbox",
+            "id": "no_pt",
+            "label": "Remove Top Space"
+          },
+          {
+            "type": "checkbox",
+            "id": "no_pb",
+            "label": "Remove Bottom Space"
+          },
+          {
+            "type": "text",
+            "id": "title",
+            "label": "Heading",
+            "default": "Callout"
+          },
+          {
+            "label": "Callout Image",
+            "id": "callout_image",
+            "type": "image_picker"
+          },
+          {
+            "label": "Callout Background Color",
+            "id": "callout_color",
+            "type": "color",
+            "default": "#183028"
+          },
+          {
+            "type": "text",
+            "id": "callout_title",
+            "label": "Callout Title",
+            "default": "Callout Title"
+          },
+          {
+            "type": "textarea",
+            "id": "callout_copy",
+            "label": "Callout Copy",
+            "default": "Callout Copy"
+          },
+          {
+            "type": "url",
+            "id": "callout_cta_link",
+            "label": "Callout CTA Link"
+          },
+          {
+            "type": "text",
+            "id": "callout_cta_copy",
+            "label": "Callout CTA Copy",
+            "default": "Callout CTA Copy"
+          },
+          {
+          "type": "select",
+          "id": "callout_alignment",
+          "label": "Alignment",
+          "options": [
+            {
+              "value": "left",
+              "label": "Left"
+            },
+            {
+              "value": "right",
+              "label": "Right"
+            }
+          ],
+          "default": "right"
+          },
+          {
+          "type": "select",
+          "id": "callout_copy_color",
+          "label": "Color",
+          "options": [
+            {
+              "value": "light",
+              "label": "Light"
+            },
+            {
+              "value": "dark",
+              "label": "Dark"
+            }
+          ],
+          "default": "light"
+          }
+        ]
+      },
+      {
+        "type": "columncontent",
+        "name": "2 Column Content",
+        "settings": [
+          {
+            "type": "page",
+            "id": "page_handle",
+            "label": "Page Handle Section Belongs To",
+            "info": "This is use to match pages with their sections"
+          },
+          {
+            "type": "product_list",
+            "id": "product",
+            "label": "Product",
+            "info": "Select product to attach to this widget"
+          },
+          {
+            "type": "checkbox",
+            "id": "show_atc_one",
+            "label": "Show ATC button column 1"
+          },
+          {
+            "type": "checkbox",
+            "id": "show_atc_two",
+            "label": "Show ATC button column 2"
+          },
+          {
+            "type": "header",
+            "content": "Section Settings"
+          },
+          {
+            "type": "checkbox",
+            "id": "add_section_divider",
+            "label": "Add Bottom Section Divider"
+          },
+          {
+            "type": "checkbox",
+            "id": "no_pt",
+            "label": "Remove Top Space"
+          },
+          {
+            "type": "checkbox",
+            "id": "no_pb",
+            "label": "Remove Bottom Space"
+          },
+          {
+            "label": "Content Background Color",
+            "id": "column_color",
+            "type": "color",
+            "default": "#ffffff"
+          },
+          {
+            "label": "Column 1 Image",
+            "id": "content_1_image",
+            "type": "image_picker"
+          },
+          {
+            "type": "text",
+            "id": "content_1_title",
+            "label": "Column 1 Title"
+          },
+          {
+            "type": "textarea",
+            "id": "content_1_copy",
+            "label": "Column 1 Copy"
+          },
+          {
+            "type": "url",
+            "id": "content_1_cta_link",
+            "label": "Column 1 CTA Link"
+          },
+          {
+            "type": "text",
+            "id": "content_1_cta_copy",
+            "label": "Content CTA Copy"
+          },
+          {
+           "type": "select",
+           "id": "content_1_width",
+           "label": "Column 1 Width",
+           "options": [
+             {
+               "value": " ",
+               "label": "Normal"
+             },
+             {
+               "value": "wide",
+               "label": "Wide"
+             }
+           ]
+          },
+          {
+            "label": "Column 2 Image",
+            "id": "content_2_image",
+            "type": "image_picker"
+          },
+          {
+            "type": "text",
+            "id": "content_2_title",
+            "label": "Column 2 Title"
+          },
+          {
+            "type": "textarea",
+            "id": "content_2_copy",
+            "label": "Column 2 Copy"
+          },
+          {
+            "type": "url",
+            "id": "content_2_cta_link",
+            "label": "Column 2 CTA Link"
+          },
+          {
+            "type": "text",
+            "id": "content_2_cta_copy",
+            "label": "Column 2 Copy"
+          },
+          {
+           "type": "select",
+           "id": "content_2_width",
+           "label": "Column 2 Width",
+           "options": [
+             {
+               "value": " ",
+               "label": "Normal"
+             },
+             {
+               "value": "wide",
+               "label": "Wide"
+             }
+           ]
+          },
+          {
+           "type": "select",
+           "id": "content_1_alignment",
+           "label": "Column 1 Alignment",
+           "options": [
+             {
+               "value": "1",
+               "label": "Top"
+             },
+             {
+               "value": "2",
+               "label": "Bottom"
+             }
+           ],
+           "default": "1"
+          }
+        ]
+      },
+      {
+        "type": "columncontentfull",
+        "name": "2 Column Content - Full",
+        "settings": [
+          {
+            "type": "page",
+            "id": "page_handle",
+            "label": "Page Handle Section Belongs To",
+            "info": "This is use to match pages with their sections"
+          },
+          {
+            "type": "header",
+            "content": "Section Settings"
+          },
+          {
+            "type": "checkbox",
+            "id": "add_section_divider",
+            "label": "Add Bottom Section Divider"
+          },
+          {
+            "type": "checkbox",
+            "id": "no_pt",
+            "label": "Remove Top Space"
+          },
+          {
+            "type": "checkbox",
+            "id": "no_pb",
+            "label": "Remove Bottom Space"
+          },
+          {
+            "label": "Column 1 Background Color",
+            "id": "content_1_color",
+            "type": "color",
+            "default": "#ffffff"
+          },
+          {
+            "label": "Column 1 Image",
+            "id": "content_1_image",
+            "type": "image_picker"
+          },
+          {
+            "type": "textarea",
+            "id": "content_1_copy",
+            "label": "Column 1 Copy"
+          },
+          {
+           "type": "select",
+           "id": "content_1_copy_color",
+           "label": "Column 1 Copy Color",
+           "options": [
+             {
+               "value": "light",
+               "label": "Light"
+             },
+             {
+               "value": "dark",
+               "label": "Dark"
+             }
+           ],
+           "default": "dark"
+          },
+          {
+            "label": "Column 2 Background Color",
+            "id": "content_2_color",
+            "type": "color",
+            "default": "#ffffff"
+          },
+          {
+            "label": "Column 2 Image",
+            "id": "content_2_image",
+            "type": "image_picker"
+          },
+          {
+            "type": "textarea",
+            "id": "content_2_copy",
+            "label": "Column 2 Copy"
+          },
+          {
+           "type": "select",
+           "id": "content_2_copy_color",
+           "label": "Column 2 Copy Color",
+           "options": [
+             {
+               "value": "light",
+               "label": "Light"
+             },
+             {
+               "value": "dark",
+               "label": "Dark"
+             }
+           ],
+           "default": "dark"
+          }
+        ]
+      },
+      {
+        "type": "columncontenticons",
+        "name": "2 Column Content - Icons",
+        "settings": [
+          {
+            "type": "page",
+            "id": "page_handle",
+            "label": "Page Handle Section Belongs To",
+            "info": "This is use to match pages with their sections"
+          },
+          {
+            "type": "header",
+            "content": "Section Settings"
+          },
+          {
+            "type": "checkbox",
+            "id": "add_section_divider",
+            "label": "Add Bottom Section Divider"
+          },
+          {
+            "type": "checkbox",
+            "id": "no_pt",
+            "label": "Remove Top Space"
+          },
+          {
+            "type": "checkbox",
+            "id": "no_pb",
+            "label": "Remove Bottom Space"
+          },
+          {
+            "label": "Content Background Color",
+            "id": "column_color",
+            "type": "color",
+            "default": "#ffffff"
+          },
+          {
+            "label": "Column 1 Image",
+            "id": "content_1_image",
+            "type": "image_picker"
+          },
+          {
+            "type": "text",
+            "id": "content_1_title",
+            "label": "Column 1 Title"
+          },
+          {
+            "type": "textarea",
+            "id": "content_1_copy",
+            "label": "Column 1 Copy"
+          },
+          {
+            "type": "url",
+            "id": "content_1_cta_link",
+            "label": "Column 1 CTA Link"
+          },
+          {
+            "type": "text",
+            "id": "content_1_cta_copy",
+            "label": "Column 1 CTA Copy"
+          },
+          {
+           "type": "select",
+           "id": "content_1_cta_type",
+           "label": "Column 1 CTA Type",
+           "options": [
+             {
+               "value": "link",
+               "label": "Link"
+             },
+             {
+               "value": "button button--primary",
+               "label": "Primary"
+             },
+             {
+               "value": "button button--secondary",
+               "label": "Secondary"
+             },
+             {
+               "value": "button button--tertiary",
+               "label": "Tertiary"
+             }
+           ]
+          },
+          {
+           "type": "select",
+           "id": "content_2_icon_type",
+           "label": "Column 2 Icon Type",
+           "options": [
+             {
+               "value": "icons",
+               "label": "Icons"
+             },
+             {
+               "value": "images",
+               "label": "Images"
+             }
+           ],
+           "default": "icons"
+          },
+          {
+            "label": "Column 2 Icon 1",
+            "id": "content_2_image_1",
+            "type": "image_picker"
+          },
+          {
+            "type": "text",
+            "id": "content_2_image_1_title",
+            "label": "Column 2 Icon 1 Title"
+          },
+          {
+            "type": "text",
+            "id": "content_2_image_1_copy",
+            "label": "Column 2 Icon 1 Copy"
+          },
+          {
+            "label": "Column 2 Icon 2",
+            "id": "content_2_image_2",
+            "type": "image_picker"
+          },
+          {
+            "type": "text",
+            "id": "content_2_image_2_title",
+            "label": "Column 2 Icon 2 Title"
+          },
+          {
+            "type": "text",
+            "id": "content_2_image_2_copy",
+            "label": "Column 2 Icon 2 Copy"
+          },
+          {
+            "label": "Column 2 Icon 3",
+            "id": "content_2_image_3",
+            "type": "image_picker"
+          },
+          {
+            "type": "text",
+            "id": "content_2_image_3_title",
+            "label": "Column 2 Icon 3 Title"
+          },
+          {
+            "type": "text",
+            "id": "content_2_image_3_copy",
+            "label": "Column 2 Icon 3 Copy"
+          },
+          {
+            "label": "Column 2 Icon 4",
+            "id": "content_2_image_4",
+            "type": "image_picker"
+          },
+          {
+            "type": "text",
+            "id": "content_2_image_4_title",
+            "label": "Column 2 Icon 4 Title"
+          },
+          {
+            "type": "text",
+            "id": "content_2_image_4_copy",
+            "label": "Column 2 Icon 4 Copy"
+          },
+          {
+            "label": "Column 2 Icon 5",
+            "id": "content_2_image_5",
+            "type": "image_picker"
+          },
+          {
+            "type": "text",
+            "id": "content_2_image_5_title",
+            "label": "Column 2 Icon 5 Title"
+          },
+          {
+            "type": "text",
+            "id": "content_2_image_5_copy",
+            "label": "Column 2 Icon 5 Copy"
+          },
+          {
+            "type": "number",
+            "id": "image_width",
+            "label": "Icon Width",
+            "default": 50
+          }
+        ]
+      },
+      {
+        "type": "videohero",
+        "name": "Video Hero",
+        "settings": [
+          {
+            "type": "page",
+            "id": "page_handle",
+            "label": "Page Handle Section Belongs To",
+            "info": "This is use to match pages with their sections"
+          },
+          {
+            "type": "text",
+            "id": "title",
+            "label": "Heading",
+            "default": "Video Hero"
+          },
+          {
+            "type": "image_picker",
+            "id": "hero_image",
+            "label": "Hero Image"
+          },
+          {
+            "type": "text",
+            "id": "video_clip",
+            "label": "Background Video"
+          },
+          {
+            "type": "text",
+            "id": "hero_title",
+            "label": "Hero Title",
+            "default": "Hero Image"
+          },
+          {
+            "type": "textarea",
+            "id": "hero_copy",
+            "label": "Hero Copy",
+            "default": "Hero Image"
+          },
+          {
+            "id": "video_link",
+            "type": "text",
+            "label": "Video Link"
+          },
+          {
+            "type": "text",
+            "id": "video_copy",
+            "label": "Video Copy",
+            "default": "Watch Video"
+          },
+          {
+            "type": "color",
+            "id": "text_color",
+            "label": "Text Color",
+            "default": "#FFFFFF"
+          }
+        ]
+      },
+      {
+        "type": "people_carousel",
+        "name": "People Carousel",
+        "settings": [
+          {
+            "type": "page",
+            "id": "page_handle",
+            "label": "Page Handle Section Belongs To",
+            "info": "This is use to match pages with their sections"
+          },
+          {
+            "type": "header",
+            "content": "Section Settings"
+          },
+          {
+            "type": "checkbox",
+            "id": "add_section_divider",
+            "label": "Add Bottom Section Divider"
+          },
+          {
+            "type": "checkbox",
+            "id": "no_pt",
+            "label": "Remove Top Space"
+          },
+          {
+            "type": "checkbox",
+            "id": "no_pb",
+            "label": "Remove Bottom Space"
+          },
+          {
+            "type": "text",
+            "id": "title",
+            "label": "Title"
+          },
+          {
+            "type": "text",
+            "id": "description",
+            "label": "Description"
+          },
+          {
+            "type": "image_picker",
+            "id": "person_one_image",
+            "label": "Person One - Image"
+          },
+          {
+            "type": "text",
+            "id": "person_one_name",
+            "label": "Person One - Name"
+          },
+          {
+            "type": "text",
+            "id": "person_one_role",
+            "label": "Person One - Role"
+          },
+          {
+            "type": "richtext",
+            "id": "person_one_left_content",
+            "label": "Person One - Content"
+          },
+          {
+            "type": "image_picker",
+            "id": "person_two_image",
+            "label": "Person Two - Image"
+          },
+          {
+            "type": "text",
+            "id": "person_two_name",
+            "label": "Person Two - Name"
+          },
+          {
+            "type": "text",
+            "id": "person_two_role",
+            "label": "Person Two - Role"
+          },
+          {
+            "type": "richtext",
+            "id": "person_two_left_content",
+            "label": "Person Two - Content"
+          },
+          {
+            "type": "image_picker",
+            "id": "person_three_image",
+            "label": "Person Three - Image"
+          },
+          {
+            "type": "text",
+            "id": "person_three_name",
+            "label": "Person Three - Name"
+          },
+          {
+            "type": "text",
+            "id": "person_three_role",
+            "label": "Person Three - Role"
+          },
+          {
+            "type": "richtext",
+            "id": "person_three_left_content",
+            "label": "Person Three - Content"
+          },
+          {
+            "type": "image_picker",
+            "id": "person_four_image",
+            "label": "Person Four - Image"
+          },
+          {
+            "type": "text",
+            "id": "person_four_name",
+            "label": "Person Four - Name"
+          },
+          {
+            "type": "text",
+            "id": "person_four_role",
+            "label": "Person Four - Role"
+          },
+          {
+            "type": "richtext",
+            "id": "person_four_left_content",
+            "label": "Person Four - Content"
+          },
+          {
+            "type": "image_picker",
+            "id": "person_five_image",
+            "label": "Person Five - Image"
+          },
+          {
+            "type": "text",
+            "id": "person_five_name",
+            "label": "Person Five - Name"
+          },
+          {
+            "type": "text",
+            "id": "person_five_role",
+            "label": "Person Five - Role"
+          },
+          {
+            "type": "richtext",
+            "id": "person_five_left_content",
+            "label": "Person Five - Content"
+          },
+          {
+            "type": "image_picker",
+            "id": "person_six_image",
+            "label": "Person Six - Image"
+          },
+          {
+            "type": "text",
+            "id": "person_six_name",
+            "label": "Person Six - Name"
+          },
+          {
+            "type": "text",
+            "id": "person_six_role",
+            "label": "Person Six - Role"
+          },
+          {
+            "type": "richtext",
+            "id": "person_six_left_content",
+            "label": "Person Six - Content"
+          }
+        ]
+      },
+      {
+        "type": "contact_form",
+        "name": "Contact Form",
+        "settings": [
+          {
+            "type": "page",
+            "id": "page_handle",
+            "label": "Page Handle Section Belongs To",
+            "info": "This is use to match pages with their sections"
+          },
+          {
+            "type": "header",
+            "content": "Section Settings"
+          },
+          {
+            "type": "checkbox",
+            "id": "add_section_divider",
+            "label": "Add Bottom Section Divider"
+          },
+          {
+            "type": "checkbox",
+            "id": "no_pt",
+            "label": "Remove Top Space"
+          },
+          {
+            "type": "checkbox",
+            "id": "no_pb",
+            "label": "Remove Bottom Space"
+          },
+          {
+            "type": "text",
+            "id": "form_endpoint",
+            "label": "Form Endpoint",
+            "default": "https://gaiaherbs.wufoo.com/forms/w1a8e5v91o6iw0a/"
+          }
+        ]
+      },
+      {
+        "type": "gaiamap",
+        "name": "Gaia Map",
+        "settings": [
+          {
+            "type": "page",
+            "id": "page_handle",
+            "label": "Page Handle Section Belongs To",
+            "info": "This is use to match pages with their sections"
+          },
+          {
+            "type": "header",
+            "content": "Section Settings"
+          },
+          {
+            "type": "checkbox",
+            "id": "add_section_divider",
+            "label": "Add Bottom Section Divider"
+          },
+          {
+            "type": "checkbox",
+            "id": "no_pt",
+            "label": "Remove Top Space"
+          },
+          {
+            "type": "checkbox",
+            "id": "no_pb",
+            "label": "Remove Bottom Space"
+          },
+          {
+            "type": "text",
+            "id": "map_location",
+            "label": "Map Location",
+            "default": "Gaia Location"
+          },
+          {
+            "type": "text",
+            "id": "map_title",
+            "label": "Map Heading",
+            "default": "Gaia Map"
+          },
+          {
+            "type": "textarea",
+            "id": "map_copy",
+            "label": "Map Copy",
+            "default": "Gaia Map"
+          },
+          {
+            "type": "textarea",
+            "id": "map_copy_mobile",
+            "label": "Map Copy Mobile"
+          },
+          {
+            "type": "image_picker",
+            "id": "map_image",
+            "label": "Map Image"
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}

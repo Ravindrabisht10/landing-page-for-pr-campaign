@@ -1,0 +1,57 @@
+.badge {
+  @include font(10, 23, 500);
+  display: inline-block;
+  border-radius: 12px;
+  padding: 0 rem(10);
+  background-color: $color-grey-300;
+  color: $color-white;
+  text-transform: uppercase;
+
+  & + .badge {
+    margin-left: rem(8);
+  }
+  &.badge--final-sale{
+    background-color: #AB3F3C;
+  }
+}
+
+.badge--inline {
+  display: inline-block;
+}
+
+.badge--tag {
+  background-color: $color-grey-200;
+  color: $color-black;
+  line-height: rem(23);
+}
+
+.badge--best-seller {
+  background-color: $color-dust-orange-500;
+}
+
+.badge--award-winner {
+  background-color: $color-teal-500;
+}
+
+.badge--sale {
+  background-color: $color-brick-500;
+}
+
+.badge--new {
+  background-color: $color-yellow-500;
+  color: $color-black;
+}
+
+.badge--discontinued {
+  background-color: $color-black;
+}
+
+.badge--coming-soon,
+.badge--in-store-exclusive {
+  background-color: $color-teal-300;
+}
+
+.badge--out-of-stock {
+  background-color: $color-grey-300;
+  color: $color-primary;
+}

@@ -1,0 +1,60 @@
+.section--testimonials {
+  background-color: $color-grey-100;
+  padding: rem(50) 0;
+  text-align: center;
+
+  .yotpo-reviews-carousel .carousel-display-wrapper .yotpo-carousel .carousel-review-body {
+    font-style: normal !important;
+  }
+
+  @include mq($medium) {
+    padding-top: rem(90);
+    padding-bottom: rem(90);
+
+    .swiper-wrapper {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr; //repeat(3, 1fr): doesn't work in IE.
+      grid-gap: rem(20);
+    }
+  }
+}
+
+.testimonial-card {
+  background-color: $color-white;
+  border-radius: rem(6);
+  padding: rem(32) rem(22) rem(30);
+
+  &__image {
+    width: rem(100);
+    height: rem(100);
+    object-fit: cover;
+    border-radius: 50%;
+  }
+
+  &__description {
+    font-weight: 300;
+    line-height: 1.5;
+    margin-top: rem(16);
+    margin-bottom: rem(8);
+  }
+
+  &__name {
+    color: $color-deep-green;
+    font-weight: 500;
+    font-size: 14px;
+    text-transform: uppercase;
+  }
+
+  &__info {
+    margin-top: rem(10);
+  }
+
+  @include mq($medium) {
+    padding: rem(44) rem(32);
+
+    &__description {
+      margin-top: rem(24);
+      margin-bottom: rem(24);
+    }
+  }
+}

@@ -1,0 +1,56 @@
+{%- layout none -%}
+
+{% assign ingredients = product.metafields.Additional['Ingredients'] | split: ', '%}
+{%- assign selected_variant = false -%}
+{%- assign first_oos_variant = false -%}
+
+{%- for variant in product.variants -%}
+  {%- if first_oos_variant == false and variant.metafields.accentuate.variant_hideshow != 'true' -%}
+    {%- assign first_oos_variant = variant -%}
+  {%- endif -%}
+  {%- if variant.available and variant.metafields.accentuate.variant_hideshow != 'true' -%}
+    {%- assign selected_variant = variant -%}
+    {%- break -%}
+  {%- endif -%}
+{%- endfor -%}
+
+{%- if selected_variant == false -%}
+  {%- assign selected_variant = first_oos_variant -%}
+{%- endif -%}
+
+{
+  "id": {{- product.id | json -}},
+  "url": {{- product.url | json -}},
+  "handle": {{- product.handle | json -}},
+  "price": {{- selected_variant.price | json -}},
+  "image": {{- product.featured_image | json -}},
+  "comparePrice": {{- selected_variant.compare_at_price | default: false | json -}},
+  "title": {{- product.title | json -}},
+  "description": {{- product.description | json -}},
+  "tags": {{- product.tags | json -}},
+  "available": {{- product.available | json -}},
+  "selectedVariant": {{- selected_variant | json -}},
+  "metafields": {
+    "miniDescription": {{- product.metafields.cart_upsell.cart_upsell_product_desc | json -}},
+    "yotpo": {{- product.metafields.yotpo | json -}},
+    "bottomLine": {{- product.metafields.yotpo.bottomline | json -}},
+    "ingredients": {{- product.metafields.Additional.OtherIngredients | json -}},
+    "doesntContain": {{- product.metafields.Additional.DoesNotContain | json -}}
+  },
+  "ingredientDetails": [
+    {% for ingrendient in ingredients %}
+      {% assign ingredientslug = 'herbs/' | append: ingrendient | replace: ' ', '-'  | replace: "'", "" | replace: '.', '' | downcase %}
+      {% assign ingredienthandle = ingrendient | replace: ' ', '-'  | replace: "'", "" | replace: '.', '' | downcase %}
+      {% assign herb = articles[ingredientslug] %}
+      {
+        "name": {{ herb.title | json }},
+        "longname": {{ herb.metafields.Additional['NameScientific'] | json }},
+        "description": {{ herb.content | strip_html | truncate: 500 | json  }},
+        "slug": {{ ingredientslug | json  }},
+        "handle": {{ ingredienthandle | json  }},
+        "url": {{ herb.url | json  }},
+        "img": {{ herb.image | img_url: '300x' | json }}
+      }{% unless forloop.last %},{% endunless %}
+    {% endfor %}
+  ]
+}

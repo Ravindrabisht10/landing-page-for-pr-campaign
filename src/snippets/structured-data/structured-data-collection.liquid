@@ -1,0 +1,12 @@
+<script type="application/ld+json">
+  {
+    "@context": "http://schema.org",
+    "@type": "CollectionPage",
+    "name": "{{- collection.title -}}",
+    "url": "{{- collection.url -}}",
+    "description": "{{- collection.description -}}"
+    {% if collection.image %}
+      ,"image": "{{ collection.image }}"
+    {%- endif -%}
+  }
+</script>

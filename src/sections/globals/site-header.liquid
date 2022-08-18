@@ -1,0 +1,989 @@
+{%- comment -%}
+This is a required section for the Shopify Theme Store.
+It is available in the "Header" section in the theme editor.
+Theme Store required settings
+- Show announcement
+- Text: message to announce
+- Link: link of the announcement bar
+Theme Store optional settings
+- Home page only: only shows on the home page
+{%- endcomment -%}
+
+{%- assign shouldnt_toggle = true -%}
+{% if template == 'index' or page.handle == 'meet-your-herbs' %}
+  {%- assign shouldnt_toggle = section.settings.header_bg_toggle -%}
+{%- endif -%}
+
+<div class="header-trigger" data-sticky-header-trigger  {% unless shouldnt_toggle == true -%}data-allow-light{%- endunless -%}></div>
+
+<section data-section-id="{{ section.id }}" data-section-type="header">
+  <header class="page-header default-header show-promo {% unless shouldnt_toggle == true -%}light{%- endunless -%}" data-header-sticky>
+    {%- render 'banner-alert' alertSettings: section.settings, alerts: section.blocks -%}
+    <nav class="nav-desktop" role="navigation">
+     <div id='desktop-search-container'>
+      <form  id="searchform" method="get" role="search" autocomplete="off">
+        <input type="search" id="search" class="search header-search nav-search-embed" name="q" placeholder="Search Gaia Herbs">
+        <span id="nav-search-icon">{% render 'icon-search-black' %}</span>
+      </form>
+    </div>
+      <div class="ccontain">
+      <a href="/" class="logo-image" style="width: {{- section.settings.logo_max_width -}}px;">
+        {%- capture image_size %}{{ section.settings.logo_max_width }}x{% endcapture -%}
+        <h1>
+          <img class="default-logo" data-logo-light src="{{ section.settings.logo | img_url: image_size }}"
+            srcset="{{ section.settings.logo | img_url: image_size }} 1x, {{ section.settings.logo | img_url: image_size, scale: 2 }} 2x"
+            alt="{{ section.settings.logo.alt | default: shop.name }}" />
+
+          <img class="dark-logo" data-logo-dark src="{{ section.settings.logo-alt | img_url: image_size }}"
+            srcset="{{ section.settings.logo-alt | img_url: image_size }} 1x, {{ section.settings.logo-alt | img_url: image_size, scale: 2 }} 2x"
+            alt="{{ section.settings.logo.alt | default: shop.name }}" />
+        </h1>
+      </a>
+      <ul class="nav-primary">
+        {% for link in linklists[section.settings.menu].links %}
+        <li class="sub" >
+          <a class="top-level-link" href="{{ link.url }}" data-desktop-link>{% if link.title == "Meet Your Herbs" %}{% render 'meet-your-herbs-icon' %}{{ link.title }}<i class="fa fa-registered" aria-hidden="true" ></i>{% else %}{{ link.title }}{% endif %}</a>
+          {% if link.title == "Shop" %}
+          <div class="nav-sub shop-sub-nav">
+            <div class="row contain">
+              <div class="col-3 animate-1">
+                <ul class="shop-menu-one">
+                  {% for link in linklists[section.settings.shop-menu-one].links %}
+                  <span class="link-header">{{ link.title }}</span>
+                  <ul>
+                    {% for childlink in link.links %}
+                    <li>
+                      <a class="child-link" href="{{ childlink.url }}">{{ childlink.title }}{% if childlink.title == "GaiaKids" %}<i class="fa fa-registered" aria-hidden="true"></i>{% endif %}</a>
+                    </li>
+                    {% endfor %}
+                  </ul>
+                  {% endfor %}
+                </ul>
+
+                <ul class="shop-menu-two">
+                  {% for link in linklists[section.settings.shop-menu-two].links %}
+                  <span class="link-header">{{ link.title }}</span>
+                  <ul>
+                    {% for childlink in link.links %}
+                    <li>
+                      <a class="child-link" href="{{ childlink.url }}">{{ childlink.title }}</a>
+                    </li>
+                    {% endfor %}
+                  </ul>
+                  {% endfor %}
+                </ul>
+              </div>
+
+              <div class="col-9 animate-2">
+                <ul class="shop-menu-three">
+                  {% for link in linklists[section.settings.shop-menu-three].links %}
+                  <span class="link-header">{{ link.title }}</span>
+                  <ul id='category-links'>
+                    {% for childlink in link.links %}
+                    {% assign asset_name = childlink.title | split: '-' %}
+                    {% assign file_name = asset_name[1] | downcase %}
+                    {% assign new_badge = asset_name[2] | downcase | append: '.svg' %}
+                    {% assign image_name = file_name | append: '.svg' %}
+                    {% assign snippet_name = file_name %}
+
+                    <li>
+                    {%- include file_name -%}
+                    <a class="child-link" href="{{ childlink.url }}">{{ childlink.title | split: '-' | first }}</a>
+                    </li>
+                    {% endfor %}
+                  </ul>
+                  {% endfor %}
+                </ul>
+              </div>
+            </div>
+           <div id="shop-btn-container">
+              <button id="shop-bottom-btn" class="nav-shop-btn-left"><a id="myh-bottom-btn-text" href="/collections/all">Shop All Products</a></button>
+              <button id="shop-bottom-btn" class='sub-btn-bottom'><a id="myh-bottom-btn-text" href="{{ section.settings.shop-cta-url}}">{{ section.settings.shop-cta-title }}</a></button>
+              {% comment %} <a id="third-panel-shop" href="{{ section.settings.shop-cta-url}}">
+                <h4>{{ section.settings.shop-cta-title }}</h4>
+                <p >{{ section.settings.shop-cta-description }}</p>
+              </a> {% endcomment %}
+            </div>
+            <div class="dropdown-close-container buffer" >
+              <button class="dropdown-close-icon" data-desktop-close>(X) Close</button>
+            </div>
+          </div>
+
+         {% elsif link.title == "Learn" %}
+
+
+          <div id="help-menu-container" class="nav-sub learn-menu">
+            <div class="help-box row contain">
+              <div class="col-3">
+                <ul class="learn-menu-one">
+                  {% for link in linklists[section.settings.learn-menu-one].links %}
+                  <span class="link-header">{{ link.title }}</span>
+                  <ul>
+                    {% for childlink in link.links %}
+                    <li>
+                      <a class="child-link" href="{{ childlink.url }}">{{ childlink.title }}{% if childlink.title == "Meet Your Herbs" %}<i class="fa fa-registered" aria-hidden="true"></i>{% endif %}</a>
+                    </li>
+                    {% endfor %}
+                  </ul>
+                  {% endfor %}
+                </ul>
+              </div> 
+              <div class="col-9">
+                <div class="row contain about-menu-one blog-cta-container">
+                  {% for block in section.blocks %}
+                  {% case block.type %}
+                  {% when 'Blog' %}
+                  {% assign article = articles[block.settings.blogPost] %}
+                  {% if article %}
+                  <div class="col-6">
+                    <a href="{{ article.url }}">
+                      <div class="article-img-container">
+                        <div class="article-img" style="background-image:url('{{ article.image.src | img_url:'800x' }}')">
+                        </div>
+                      </div>
+                      <span>{{ article.title }}</span>
+                    </a>
+                  </div>
+                  {% endif %}
+                  {% endcase %}
+                  {% endfor %}
+                </div>
+              </div>
+
+              </div>
+                <div class="dropdown-close-container" >
+                  <button id="help-close" class="dropdown-close-icon" data-desktop-close>(X) Close</button>
+                </div>
+            
+            </div>
+
+          {% elsif link.title == "About" %}
+
+          <div id="about-menu-container" class="nav-sub about-menu">
+            <div class="row contain about-left">
+              <div class="col-3">
+                <ul class="about-menu-one">
+                  <div class="about-menu-container">
+                  {% for link in linklists[section.settings.about-menu-one].links %}
+                  
+                    <div class="about-menu-block">
+                      <span class="link-header">{{ link.title }}</span>
+                      <ul>
+                        {% for childlink in link.links %}
+                        <li>
+                          <a class="child-link" href="{{ childlink.url }}">{{ childlink.title }}</a>
+                        </li>
+                        {% endfor %}
+                      </ul>
+                    </div>
+                  {% endfor %}
+                  </div>
+                </ul>
+{% comment %} 
+                <ul class="about-menu-two">
+                  {% for link in linklists[section.settings.about-menu-two].links %}
+                  <span class="link-header">{{ link.title }}</span>
+                  <ul {% if link.handle=="herbs-a-z" %}class="herbs-alphabet-linklist" {% endif %}>
+                    {% for childlink in link.links %}
+                    <li>
+                      <a class="child-link" href="{{ childlink.url }}">{{ childlink.title }}</a>
+                    </li>
+                    {% endfor %}
+                  </ul>
+                  {% endfor %}
+                </ul> {% endcomment %}
+              </div>
+              <div class="col-9">
+                <div class="row contain about-right">
+                {% for block in section.blocks %}
+                  {% case block.type %}
+                  {% when 'cta-block' %}
+                  {% unless block.settings.cta-block-title == 'help-image' %}
+                      <div class="col-6 cta-block-container">
+                        <a href="{{ block.settings.cta-link-url }}">
+                          <div class="cta-image-wrapper">
+                            <div class="cta-block-img" style="background-image:url('{{ block.settings.cta-block-image | img_url:'800x' }}')">
+                            </div>
+                          </div>
+                        <span>{{ block.settings.cta-block-title }}</span>
+                        </a>
+                        <p>{{ block.settings.cta-block-description }}</p>
+                      </div>
+                  {% endunless %}
+                  {% endcase %}
+                  {% endfor %}
+                </div>
+              </div>
+            </div>
+            <div class="dropdown-close-container" >
+              <button id="about-btn-close" class="dropdown-close-icon" data-desktop-close>(X) Close</button>
+            </div>
+          </div>
+          {% elsif link.title == "Meet Your Herbs" %}
+          <div id="myh-drop" class="nav-sub meet-herbs-menu">
+            <section class="myh-search myh-drop-content">
+              <div id="myh-top-container" class="row contain myh-all">
+                <div id="myh-img-container" class="col-6">
+                 {%- assign img_url = section.settings.meet-herb-bottom-image | img_url:'1920x1280' -%}
+                    <img id="myh-image" loading="lazy" src="{{ img_url }}" alt="My Herbs Results" />
+                </div>
+                <div class="col-6 myh-top-right">
+                  <h5>{{ section.settings.meet-herb-title }}<i class="fa fa-registered" aria-hidden="true"></i></h5>
+                  <p  id="myh-text-p">{{ section.settings.meet-herb-description }}</p>
+                  <form class="myh-search" action="/pages/meet-your-herbs-results">
+                    <input type="text" id="id" name="id" class=" myh-seach-in input input--wide  search herb-nav-search" placeholder="{{ section.settings.herb-search-placeholder }}" autocomplete="on" aria-label="Search Query"/>
+                    <button id="myh-search-btn" type="submit" class="button button--primary button--icon" aria-label="Search">
+                      <span>&#x1F50E;&#xFE0E;</span>Search</button>
+                  </form>
+                </div>
+        
+              </div>
+            </section>
+            <section class="myh-help myh-drop-content-2">
+              <div class="row contain myh-all">
+                {% comment %} {%- assign img_url = section.settings.meet-herb-bottom-image | img_url:'1920x1280' -%}
+                <div class="col-12 col-lg-2">
+                  <img loading="lazy" src="{{ img_url }}" alt="My Herbs Results" />
+                </div> {% endcomment %}
+                <div id="myh-bottom-right" class="col-12 col-lg-6 image-text-content">
+                    <h5>{{ section.settings.meet-herb-image-title }}</h5>
+                    <p>{{ section.settings.meet-herb-image-description }}</p>
+                </div>
+                <div class="col-12 col-lg-6 copy-additional">
+                  {{ section.settings.search_copy_additional }}
+                </div>
+                {% comment %} <div class="col-1 d-none d-lg-block"></div> {% endcomment %}
+              
+              </div>
+            </section>
+            <div id="myh-btn-container">
+              <button id="myh-bottom-btn"><a id="myh-bottom-btn-text" href="/pages/meet-your-herbs">Learn More</a></button>
+            </div>
+            <div class="dropdown-close-container buffer" >
+              <button id='myh-closer' class="dropdown-close-icon" data-desktop-close>(X) Close</button>
+            </div>
+          </div>
+
+          {% endif %}
+        </li>
+        {% endfor %}
+      </ul>
+
+  
+      {% comment %} Icon navigation {% endcomment %}
+      <ul class="nav-aux">
+        <li class="navigation-sub" tabindex="0">
+          <div id='search-dropdown' class="nav-sub search-sub">
+            <div class="row contain">
+              <div class="col-12">
+                  <div class="result-container hide-nav row contain">
+                    <div class="col-lg-3 col-sm-12 side-results">
+                      <h4>Suggestions</h4>
+                      <div class="suggestions-results"></div>
+                      <h4>Category</h4>
+                      <div class="collection-results"></div>
+                      <h4>Pages</h4>
+                      <div class="page-results"></div>
+                    </div>
+                    <div class="col-lg-9 col-sm-12 main-results">
+                      <h4>Product Suggestions</h4>
+                      <div class="product-results row"></div>
+                      <div class="view-all-btn-container hide-nav">
+                        <a class="view-all-btn">VIEW ALL <span class="result-total"></span> SEARCH RESULTS</a>
+                      </div>
+                      <div>
+                        <button id="clear-all-btn">CLEAR SEARCH</button>
+                      </div>
+                    </div>
+                  </div>
+              </div>
+            </div>
+          </div>
+        </li>
+        <li>
+          <a id="nav-locate" href="/pages/where-to-buy" aria-label="find a store">
+            {% render 'icon-location-white' %}
+          </a>
+        </li>
+        <li>
+          <a id="nav-account" href="/account" aria-label="login">
+            {% render 'icon-user-white' %}
+          </a>
+        </li>
+        <li class="cart">
+          <a class="cartTrigger" data-toggle-inline-cart>
+            {% render 'icon-shop-white' %}
+            <p class="count" data-cart-view="data-cart-view" rv-show="cart.item_count | gt 0" {% if cart.item_count == 0 -%}style="opacity: 0;"{%- endif -%}>
+              <span data-cart-render="item_count">
+                {{- cart.item_count -}}
+              </span>
+            </p>
+          </a>
+        </li>
+      </ul>
+    </div>
+    </nav>
+
+    <nav class="nav-mobile" role="navigation" data-mobile-menu>
+      <a href="/" class="logo-image" style="width: {{- section.settings.logo_max_width -}}px;">
+        {% if section.settings.logo != blank %}
+        {% capture image_size %}{{ section.settings.logo_max_width }}x{% endcapture %}
+        <img class="default-logo" loading="lazy" src="{{ section.settings.logo | img_url: image_size }}"
+          srcset="{{ section.settings.logo | img_url: image_size }} 1x, {{ section.settings.logo | img_url: image_size, scale: 2 }} 2x"
+          alt="{{ section.settings.logo.alt | default: shop.name }}">
+        <img class="dark-logo" loading="lazy" src="{{ section.settings.logo-alt | img_url: image_size }}"
+          srcset="{{ section.settings.logo-alt | img_url: image_size }} 1x, {{ section.settings.logo-alt | img_url: image_size, scale: 2 }} 2x"
+          alt="{{ section.settings.logo.alt | default: shop.name }}" />
+        {% else %}
+        {{ shop.name }}
+        {% endif %}
+      </a>
+      <ul class="nav-aux">
+        <li class="sub">
+          <button id="mobile nav-search" class="mobile-nav-search icon-button" aria-label="Search">
+            {% render 'icon-search-white' %}
+          </button>
+          <div class="nav-sub">
+            <div class="row contain">
+              <div class="col-12">
+                <form action="/search" id="searchform" method="get" role="search" autocomplete="off">
+                  <input type="search" id="search" class="search" name="q" placeholder="Search Gaia Herbs">
+                  <button type="submit" class="button-search">
+                    {% render 'icon-search-white' %}
+                  </button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </li>
+        <li class="cart">
+          <a class="cartTrigger" data-toggle-inline-cart>
+            {% render 'icon-shop-white' %}
+            <p class="count" data-cart-view="data-cart-view" rv-show="cart.item_count | gt 0" {% if cart.item_count == 0 -%}style="opacity: 0;"{%- endif -%}>
+              <span data-cart-render="item_count">
+                {{- cart.item_count -}}
+              </span>
+            </p>
+          </a>
+        </li>
+        <li class="account">
+           <a id="mobile-nav-account" href="/account" aria-label="login">
+                {% render 'icon-user-white' %}
+            </a>
+        </li>
+        <li>
+          <a href="#" class="nav-trigger" data-mobile-nav-toggle>
+            <span></span>
+          </a>
+        </li>
+      </ul>
+      <div class="nav-container">
+        <ul>
+          {% for link in linklists[section.settings.menu].links %}
+
+          <li class="sub" data-sub-menu>
+            <a class="top-level-mobile-nav {% if link.title == "Meet Your Herbs" %}meet-herbs{% endif %}" {% if link.title == "Meet Your Herbs" %} href="/pages/meet-your-herbs" {% else %} href="#" {% endif %}>
+          
+              {% if link.title == "Meet Your Herbs" %}<div class="herb-icon">{% render 'meet-your-herbs-icon' %}</div>{{ link.title }}<i class="fa fa-registered" aria-hidden="true"></i>{% else %}{{ link.title }}{% endif %}<div class="right-arrow">{% render 'icon-arrow-right-green-simple' %}</div>
+            </a>
+            <div class="nav-sub mobile-nav-sub">
+              <div class="top-mobile-navigation">
+                <a href="#" class="nav-toggle" >
+                  {% render 'icon-arrow-left-green' %}
+                </a>
+                <div class="nav-top-title">{{link.title}}</div>
+                <a href="#" class="nav-trigger" data-mobile-nav-toggle>
+                  <span></span>
+                </a>
+              </div>
+
+              {% if link.title == "Shop" %}
+
+                  <ul class="shop-menu-one">
+                    <ul class="mobile-main-nav-accordion col-12">
+                      <li>
+                        <a class="shop-all link" href="/collections/all">Shop All</a>
+                      </li>
+                    <ul>
+
+                    {% for link in linklists[section.settings.shop-menu-one].links %}
+
+                        <ul class="mobile-main-nav-accordion col-12">
+                          <li>
+                            <a data-mobile-list class="toggle" href="javascript:void(0);">{{ link.title }}</a>
+
+                            <ul class="mobile-nav-inner">
+                              {% for child_link in link.links %}
+                              <li><a href="{{ child_link.url }}">{{ child_link.title }}</a></li>
+                              {% endfor %}
+                            </ul>
+                          </li>
+                        </ul>
+                    {% endfor %}
+                  </ul>
+
+
+                  <ul class="shop-menu-two">
+                    {% for link in linklists[section.settings.shop-menu-two].links %}
+
+                        <ul class="mobile-main-nav-accordion col-12">
+                          <li>
+                            <a data-mobile-list class="toggle" href="javascript:void(0);">{{ link.title }}</a>
+
+                            <ul class="mobile-nav-inner">
+                              {% for child_link in link.links %}
+                              <li><a href="{{ child_link.url }}">{{ child_link.title }}</a></li>
+                              {% endfor %}
+                            </ul>
+                          </li>
+                        </ul>
+                    {% endfor %}
+                  </ul>
+
+
+                  <ul class="mobile-shop-menu-three">
+                    {% for link in linklists[section.settings.shop-menu-three].links %}
+
+                        <ul class="mobile-main-nav-accordion col-12">
+                          <li>
+                            <a data-mobile-list class="toggle active" href="javascript:void(0);">{{ link.title }}</a>
+
+                            <ul class="mobile-nav-inner open {% if link.title == "Shop By Health Interest" %}shop-by-health{% endif %}">
+                              {% for childlink in link.links %}
+                                {% assign asset_name = childlink.title | split: '-' %}
+                                {% assign file_name = asset_name[1] | downcase %}
+                                <li>{%- include file_name -%}<a class="child-link" href="{{ childlink.url }}">{{ childlink.title | split: '-' | first }}</a> {% if asset_name contains "newbadge" %}<div class="badge badge--inline badge--new">New</div>{% endif %} </li>
+                              {% endfor %}
+                            </ul>
+                          </li>
+                        </ul>
+                    {% endfor %}
+                  </ul>
+
+                  <div class="col-12 mobile-cta-block">
+                    <div class="row contain">
+                      <div class="col-4">
+                        <a href="{{ section.settings.shop-cta-url}}"><div class="cta-image-container" io-bg-src="{{ section.settings.shop-cta-image | img_url: "1200x" }}"></div></a>
+                        {% if section.settings.enable_badge %}<div class="badge badge--inline badge--new">New</div>{% endif %}
+                      </div>
+                      <div class="col-8 mobile-cta-text-content">
+                        <a href="{{ section.settings.shop-cta-url}}">
+                          <h4>{{ section.settings.shop-cta-title }}</h4>
+                          <p>{{ section.settings.shop-cta-description }}</p>
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+
+              {% elsif link.title == "Learn" %}
+
+              <ul class="mobile-learn-menu-one">
+                {% for link in linklists[section.settings.learn-menu-one].links %}
+
+                    <ul class="mobile-main-nav-accordion col-12">
+                      <li>
+                        <a data-mobile-list class="toggle active" href="javascript:void(0);">{{ link.title }}</a>
+
+                        <ul class="mobile-nav-inner open {% if link.title == "Resources" %}resources{% endif %}">
+                          {% for child_link in link.links %}
+                          <li><a href="{{ child_link.url }}">{{ child_link.title }}</a></li>
+                          {% endfor %}
+                        </ul>
+                      </li>
+                    </ul>
+                {% endfor %}
+              </ul>
+
+
+              <ul class="mobile-learn-menu-two">
+                {% for link in linklists[section.settings.learn-menu-two].links %}
+
+                    <ul class="mobile-main-nav-accordion col-12">
+                      <li>
+                        <a data-mobile-list class="toggle active" href="javascript:void(0);">{{ link.title }}</a>
+
+                        <ul class="mobile-nav-inner open {% if link.title == "Herbs A-Z" %}herbs-a-z herbs-alphabet-linklist{% endif %}">
+                          {% for child_link in link.links %}
+                          <li>
+                            <a class="child-link" data-letter="{{ child_link.title }}" href="{{ child_link.url }}">{{ child_link.title }}</a>
+                          </li>
+                          {% endfor %}
+                        </ul>
+                      </li>
+                    </ul>
+                {% endfor %}
+              </ul>
+
+              <div class="mobile-learn-menu-three">
+
+                  {% for block in section.blocks %}
+                  {% case block.type %}
+                  {% when 'Blog' %}
+                  {% assign article = articles[block.settings.blogPost] %}
+                  {% if article %}
+                  <div class="col-12 mobile-article-container">
+                    <div class="row contain">
+                      <div class="col-4">
+                        <div class="article-img " style="background-image:url('{{ article.image.src | img_url:'800x' }}')">
+                        </div>
+                      </div>
+                      <div class="col-8">
+                        <a class="article-title" href="{{ article.url }}">
+                          {{ article.title }}
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                  {% endif %}
+                  {% endcase %}
+                  {% endfor %}
+
+              </div>
+
+
+              {% elsif link.title == "About" %}
+
+              <ul class="shop-menu-one">
+                {% for link in linklists[section.settings.about-menu-one].links %}
+
+                    <ul class="mobile-main-nav-accordion col-12">
+                      <li>
+                        <a data-mobile-list class="toggle active" href="javascript:void(0);">{{ link.title }}</a>
+
+                        <ul class="mobile-nav-inner open {% if link.title == "About Gaia" %}about-gaia{% endif %}">
+                          {% for child_link in link.links %}
+                          <li><a href="{{ child_link.url }}">{{ child_link.title }}</a></li>
+                          {% endfor %}
+                        </ul>
+                      </li>
+                    </ul>
+                {% endfor %}
+              </ul>
+
+              <div class="col-12 mobile-cta-block learn-cta-block">
+                    {% for block in section.blocks %}
+                      {% case block.type %}
+                      {% when 'cta-block' %}
+                      <div class="cta-content row contain">
+                        <div class="col-4">
+                          <a href="{{ block.settings.cta-link-url }}">
+                            <div class="cta-block-img" style="background-image:url('{{ block.settings.cta-block-image | img_url:'800x' }}')">
+                            </div>
+                          </a>
+                        </div>
+                        <div class="col-8 mobile-cta-text-content">
+                          <h4>{{ block.settings.cta-block-title }}</h4>
+                          <p>{{ block.settings.cta-block-description }}</p>
+                        </div>
+                      </div>
+
+                      {% endcase %}
+                    {% endfor %}
+              </div>
+              {%- endif -%}
+            </div>
+          </li>
+          {% endfor %}
+          <ul class="nav-aux">
+            <li>
+              <a class="mobile-nav-btns" id="mobile-nav-account" href="/account" aria-label="login">
+                {% render 'icon-user-white' %}
+                {% if customer %}
+                  <span>My Account</span>
+                {% else %}
+                  <span>Sign In</span>
+                {% endif %}
+              </a>
+            </li>
+            <li>
+              <a class="mobile-nav-btns" id="mobile-nav-locate" href="/pages/where-to-buy" aria-label="find a store">
+                {% render 'icon-location-white' %}
+                <span>Find A Store</span>
+              </a>
+            </li>
+          </ul>
+        </ul>
+      </div>
+
+      <div class="search-sub mobile-search hide-nav">
+        <div class="mobile-result-wrapper">
+            <form action="/search" id="searchform" class="mobile-search-form" method="get" role="search" autocomplete="off">
+              <div class="input-wrapper">
+                <input type="search" id="search" class="search header-search mobile-header-search" name="q" placeholder="Search Gaia Herbs">
+              </div>
+              <button type="submit" class="button-search">
+                {% render 'icon-search-white' %}
+              </button>
+            </form>
+
+              <div class="js-results-container mobile-result-container hide-nav">
+                <div class="col-sm-12 side-results">
+                  <h4>Suggestions</h4>
+                  <div class="suggestions-results suggestions-mobile-results"></div>
+                  <h4>Category</h4>
+                  <div class="collection-results collection-mobile-results"></div>
+                  <h4>Pages</h4>
+                  <div class="page-results page-mobile-results"></div>
+                </div>
+                <div class="col-sm-12 main-results">
+                  <h4>Product Suggestions</h4>
+                  <div class="product-results product-mobile-results row"></div>
+                </div>
+              </div>
+        </div>
+          <div class="view-all-btn-container mobile-view-all-btn-container hide-nav"><a class="view-all-btn">VIEW ALL <span class="result-total"></span> SEARCH RESULTS</a></div>
+
+      </div>
+
+
+    </nav>
+
+  </header>
+</section>
+
+<script>
+const clearAllBtn = document.getElementById('clear-all-btn'),
+headerSearch = document.querySelector('.header-search'),
+searchResultLink = document.querySelector('.view-all-btn-container'),
+resultContainer = document.querySelector('.result-container'),
+searchWrapper = document.querySelector('.search-sub')
+let input = document.getElementById('search')
+clearAllBtn.addEventListener('click', () => {
+  clearSearch()
+})
+headerSearch.addEventListener('keyup', () => {
+  headerSearch.value == '' &&  clearSearch()
+})
+function clearSearch() {
+  searchWrapper.classList.remove('active-search');
+  searchWrapper.classList.remove('active');
+  resultContainer.classList.add('hide-nav');
+  searchResultLink.classList.add('hide-nav');
+  document.body.classList.remove("no-scroll");
+  headerSearch.value = '';
+}
+</script>
+
+{% schema %}
+  {
+    "name": "Site Header",
+    "settings": [
+      {
+      "type": "header",
+      "content": "Alert Banner"
+      },
+      {
+      "type": "checkbox",
+      "id": "announcement_bar_enabled",
+      "label": "Show Alert Banner",
+      "default": true
+      },
+      {
+      "type": "range",
+      "id": "announcement_bar_enable",
+      "label": "Alert Banner Timer",
+      "min": 1,
+      "max": 20,
+      "step": 1,
+      "default": 5,
+      "info": "seconds between switching alert messages in the bar"
+      },
+      {
+      "type": "checkbox",
+      "id": "announcement_bar_home_page_only",
+      "label": "Show on home page only",
+      "default": true
+      },
+      {
+      "type": "color",
+      "id": "announcement_bar_color",
+      "label": "Alert Banner Background Color",
+      "default": "#205C40"
+      },
+      {
+      "type": "color",
+      "id": "announcement_bar_text_color",
+      "label": "Alert Banner Text Color",
+      "default": "#FFFFFF"
+      },
+      {
+      "type": "header",
+      "content": "Header"
+      },
+      {
+        "type": "checkbox",
+        "id": "header_bg_toggle",
+        "label": "Persistent background color",
+        "default": false
+      },
+      {
+      "type": "image_picker",
+      "id": "logo",
+      "label": "Logo image"
+      },
+      {
+        "type": "image_picker",
+        "id": "logo-alt",
+        "label": "Alternate Logo (For on hover / scroll)"
+      },
+      {
+      "type": "range",
+      "id": "logo_max_width",
+      "min": 50,
+      "max": 450,
+      "step": 10,
+      "unit": "px",
+      "label": "Custom logo width",
+      "default": 250
+      },
+      {
+      "type": "link_list",
+      "id": "menu",
+      "label": "Menu",
+      "default": "main-menu"
+      },
+      {
+      "type": "link_list",
+      "id": "shop-menu-one",
+      "label": "Shop Menu One"
+      },
+      {
+      "type": "link_list",
+      "id": "shop-menu-two",
+      "label": "Shop Menu Two"
+      },
+      {
+      "type": "link_list",
+      "id": "shop-menu-three",
+      "label": "Shop Menu Three"
+      },
+      {
+      "type": "url",
+      "id": "shop-menu-bottom",
+      "label": "Shop Menu Bottom"
+      },
+      {
+        "type": "link_list",
+        "id": "shop-all-mobile",
+        "label": "Shop All for mobile Shop menu"
+      },
+      {
+        "type": "text",
+        "id": "shop-bottom-menu-title",
+        "label": "Bottom Menu Title",
+        "default": "Title"
+      },
+      {
+        "type": "checkbox",
+        "id": "enable_badge",
+        "default": true,
+        "label": "Enable 'New' Badge"
+      },
+      {
+      "type": "image_picker",
+      "id": "shop-cta-image",
+      "label": "Shop CTA Image"
+      },
+      {
+      "type": "url",
+      "id": "shop-cta-url",
+      "label": "Shop CTA Link"
+      },
+      {
+      "type": "text",
+      "id": "shop-cta-title",
+      "label": "Shop CTA Title",
+      "default": "Shop All Products"
+      },
+      {
+      "type": "textarea",
+      "id": "shop-cta-description",
+      "label": "Shop CTA Description",
+      "default": "Lorem ipsum dolor sit amet, consectetur adipiscing elit"
+      },
+      {
+      "type": "link_list",
+      "id": "learn-menu-one",
+      "label": "Learn Menu One"
+      },
+      {
+      "type": "link_list",
+      "id": "learn-menu-two",
+      "label": "Learn Menu Two"
+      },
+      {
+        "type": "link_list",
+        "id": "about-menu-one",
+        "label": "About Menu One"
+      },
+      {
+        "type": "link_list",
+        "id": "about-menu-two",
+        "label": "About Menu Two"
+      },
+      {
+      "type": "link_list",
+      "id": "mobile_menu",
+      "label": "Mobile Menu",
+      "default": "main-menu"
+      },
+      {
+        "type": "url",
+        "id": "herb-bottom-menu",
+        "label": "Meet Your Herb bottom menu"
+        },
+      {
+        "type": "text",
+        "id": "meet-herb-menu-title",
+        "label": "'Meet Your Herb' bottom menu title",
+        "default": "Title"
+      },
+      {
+      "type": "text",
+      "id": "meet-herb-title",
+      "label": "Meet your Herb Menu Title",
+      "default": "Title"
+      },
+      {
+      "type": "textarea",
+      "id": "meet-herb-description",
+      "label": "Meet your Herb Description",
+      "default": "Lorem ipsum dolor sit amet, consectetur adipiscing elit"
+      },
+      {
+      "type": "image_picker",
+      "id": "meet-herb-bottom-image",
+      "label": "Meet your Herb bottom image"
+      },
+      {
+      "type": "text",
+      "id": "meet-herb-image-title",
+      "label": "Bottom Image Title",
+      "default": "Title"
+      },
+      {
+      "type": "textarea",
+      "id": "meet-herb-image-description",
+      "label": "Bottom Image Description",
+      "default": "Lorem ipsum dolor sit amet, consectetur adipiscing elit"
+      },
+      {
+      "type": "text",
+      "id": "herb-search-placeholder",
+      "label": "Search Placeholder",
+      "default": "Enter Your Herb ID"
+      },
+      {
+        "type": "textarea",
+        "id": "search_copy_additional",
+        "label": "Meet Your Herbs Additional Help Copy",
+        "default": "Meet Your Herbs Additional Help Copy"
+      }
+    ],
+    "blocks": [
+      {
+        "name": "promo",
+        "type": "promo",
+        "settings": [
+          {
+          "type": "text",
+          "id": "announcement_bar_text",
+          "label": "Alert Banner text",
+          "default": "Announce something here"
+          },
+          {
+          "type": "url",
+          "id": "announcement_bar_link",
+          "label": "Alert Banner link"
+          },
+          {
+          "type": "text",
+          "id": "announcement_bar_link_text",
+          "label": "Alert Banner link text",
+          "default": "Alert Banner link text"
+          },
+          {
+          "type": "text",
+          "id": "announcement_bar_text_alt",
+          "label": "Secondary Alert Banner text",
+          "default": "Announce something here"
+          },
+          {
+          "type": "url",
+          "id": "announcement_bar_link_alt",
+          "label": "Secondary Alert Banner link"
+          },
+          {
+          "type": "text",
+          "id": "announcement_bar_link_text_alt",
+          "label": "Alert Banner link text",
+          "default": "Secondary Alert Banner link text"
+          },
+          {
+            "type": "text",
+            "id": "announcement_bar_start_date",
+            "label": "Alert Banner Start Date",
+            "info": "YYYY-MM-DD"
+          },
+          {
+            "type": "text",
+            "id": "announcement_bar_start_time",
+            "label": "Alert Banner Start Time",
+            "info": "HH:MM"
+          },
+          {
+            "type": "text",
+            "id": "announcement_bar_end_date",
+            "label": "Alert Banner End Date",
+            "info": "YYYY-MM-DD"
+          },
+          {
+            "type": "text",
+            "id": "announcement_bar_end_time",
+            "label": "Alert Banner End Time",
+            "info": "HH:MM"
+          }
+        ]
+      },
+      {
+        "type": "Blog",
+        "name": "Blog",
+        "settings": [
+          {
+            "type": "article",
+            "id": "blogPost",
+            "label": "Blog article"
+          }
+        ]
+      },
+      {
+      "type": "cta-block",
+      "name": "CTA block",
+        "settings": [
+          {
+            "type": "image_picker",
+            "id": "cta-block-image",
+            "label": "CTA Block Image"
+          },
+          {
+            "type": "text",
+            "id": "cta-block-title",
+            "default": "Title",
+            "label": "CTA Block Title"
+          },
+          {
+            "type": "textarea",
+            "id": "cta-block-description",
+            "default": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+            "label": "CTA Block Description"
+          },
+          {
+            "id": "cta-link-url",
+            "type": "url",
+            "label": "CTA link"
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}

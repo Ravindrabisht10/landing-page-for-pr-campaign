@@ -1,0 +1,135 @@
+.button {
+  @include font(14, 48, 500, 0.5);
+
+  display: inline-block;
+  border: rem(1) solid $color-black;
+  border-radius: rem(6);
+  padding: 0 rem(24);
+  min-width: rem(140);
+  text-align: center;
+  text-transform: uppercase;
+  appearance: none;
+  -webkit-appearance: none;
+  transition: color .3s, background-color .3s, border-color .3s;
+
+  &:hover {
+    cursor: pointer;
+  }
+
+  &:disabled {
+    opacity: 0.4;
+    pointer-events: none;
+    touch-action: none;
+  }
+
+  @include mq($medium) {
+    padding: 0 rem(43);
+  }
+}
+
+.button--wide {
+  width: 100%;
+}
+
+.button--icon {
+  display: inline-flex;
+  align-items: center;
+
+  svg {
+    width: rem(25);
+    height: rem(25);
+    margin-right: rem(10);
+  }
+}
+
+.button--small {
+  line-height: rem(38);
+}
+
+.button--narrow {
+  width: auto;
+  min-width: 0;
+  padding-left: rem(16);
+  padding-right: rem(16);
+}
+
+.button--square {
+  border-radius: 0;
+}
+
+.button--primary {
+  border-color: $color-dust-orange-500;
+  background-color: $color-dust-orange-500;
+  color: $color-white;
+
+  &:hover {
+    border-color: $color-dust-orange-700;
+    background-color: $color-dust-orange-700;
+    color: $color-white;
+  }
+}
+
+.button--secondary {
+  border-color: $color-primary;
+  background-color: $color-primary;
+  color: $color-white;
+
+  &:hover {
+    border-color: $color-teal-500;
+    background-color: $color-teal-500;
+    color: $color-white;
+  }
+}
+
+.button--tertiary {
+  border-color: $color-primary;
+  background-color: $color-white;
+  color: $color-primary;
+
+  &:hover {
+    background-color: $color-grey-200;
+    color: $color-primary;
+  }
+}
+
+.button--tertiary-dark {
+  border-color: $color-white;
+  background-color: $color-white;
+  color: $color-primary;
+
+  &:hover {
+    border-color: $color-teal-500;
+    background-color: $color-teal-500;
+    color: $color-white;
+  }
+}
+
+.button--lime {
+  border-color: $color-lime-green-500;
+  background-color: $color-lime-green-500;
+  color: $color-white;
+
+  &:hover {
+    border-color: $color-lime-green;
+    background-color: $color-lime-green;
+    color: $color-white;
+  }
+}
+
+.icon-button {
+  border: 0;
+  background-color: transparent;
+  cursor: pointer;
+  appearance: none;
+  -webkit-appearance: none;
+
+  svg {
+    pointer-events: none;
+    touch-action: none;
+  }
+}
+
+.button--certificate {
+  padding-left: rem(10);
+  padding-right: rem(10);
+}

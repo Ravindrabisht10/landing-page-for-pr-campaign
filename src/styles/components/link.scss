@@ -1,0 +1,171 @@
+.link {
+  @include font(14, 22, 500, 1);
+
+  position: relative;
+  border: 0;
+  background: transparent;
+  color: $color-deep-green;
+  text-decoration: none;
+  transition: color .3s;
+  cursor: pointer;
+  appearance: none;
+  -webkit-appearance: none;
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: rem(-2);
+    left: 0;
+    right: 0;
+    height: rem(2);
+    background-color: $color-brick-500;
+    transition: left .2s, right .2s;
+  }
+
+  &:hover {
+    color: $color-teal-500;
+
+    &::after {
+      left: rem(4);
+      right: rem(4);
+    }
+  }
+}
+
+.list {
+  &-bullet {
+    padding: $spacing-xs 0;
+    margin: 0;
+
+    @include mq($large) {
+      padding: $spacing-gutter 0;
+    }
+
+    li {
+      display: block;
+      font-size: $font-xs;
+      list-style-type: none;
+      margin: 0;
+      padding: 0 0 $spacing-gutter $spacing-m;
+      position: relative;
+
+      @include mq($large) {
+        font-size: $font-body;
+        padding: 0 0 $spacing-xs $spacing-gutter;
+      }
+
+      &:before {
+        background: $primary-dark-green;
+        border-radius: 1rem;
+        content: '';
+        display: inline-block;
+        position: absolute;
+        height: .25rem;
+        width: .25rem;
+        left: 0;
+        top: 50%;
+        transform: translateY(-50%);
+      }
+
+      &:last-of-type {
+        padding: 0 0 0 $spacing-m;
+
+        @include mq($large) {
+          padding: 0 0 0 $spacing-gutter;
+        }
+      }
+    }
+  }
+
+  &-num {
+    padding: $spacing-gutter 0 $spacing-gutter $spacing-gutter;
+    margin: 0;
+
+    li {
+      display: list-item;
+      font-size: $font-xs;
+      margin: 0;
+      padding: 0 0 $spacing-gutter $spacing-xs;
+      position: relative;
+
+      @include mq($large) {
+        font-size: $font-body;
+        padding: 0 0 $spacing-gutter $spacing-l;
+      }
+
+      &:last-of-type {
+        padding: 0 0 0 $spacing-xs;
+
+        @include mq($large) {
+          padding: 0 0 0 $spacing-l;
+        }
+      }
+    }
+  }
+
+  &-link {
+    margin: $spacing-xs 0 0;
+    padding: 0;
+
+    @include mq($large) {
+      display: flex;
+      flex-wrap: wrap;
+      margin: 0;
+    }
+
+    li {
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+      width: 100%;
+
+      &:nth-child(-n + 1) {
+        a {
+          border-top: 1px solid $tertiary-light-grey;
+        }
+      }
+
+      @include mq($large) {
+        padding: 0 $spacing-gutter;
+        width: 50%;
+
+        &:nth-child(-n + 2) {
+          a {
+            border-top: 1px solid $tertiary-light-grey;
+          }
+        }
+      }
+
+      a {
+        border-bottom: 1px solid $tertiary-light-grey;
+        color: $primary-dark-green;
+        display: block;
+        padding: $spacing-gutter $spacing-xl $spacing-gutter 0;
+        position: relative;
+        text-decoration: none;
+        transition: color .25s ease-in-out;
+
+        @include mq($large) {
+          padding: $spacing-gutter $spacing-gutter $spacing-gutter 0;
+
+          &:hover {
+            color: $color-teal-500;
+          }
+        }
+
+        &:after {
+          background: url('../assets/icon-arrow-right.png') no-repeat;
+          background-size: contain;
+          content: '';
+          display: block;
+          height: .625rem;
+          position: absolute;
+          right: 0;
+          top: 50%;
+          transform: translateY(-50%);
+          width: .375rem;
+        }
+      }
+    }
+  }
+}

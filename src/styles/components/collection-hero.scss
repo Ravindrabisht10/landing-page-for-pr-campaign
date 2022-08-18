@@ -1,0 +1,136 @@
+.collection-hero {
+  @include guttered;
+  position: relative;
+  padding-top: rem(24);
+  padding-bottom: rem(40);
+  background-size: cover;
+  background-position: center;
+
+  &.collection-hero--light {
+    &::before {
+      background-color: $color-black;
+    }
+
+    *:not(.button) {
+      color: $color-white;
+    }
+  }
+
+  & > * {
+    position: relative;
+    z-index: 1;
+  }
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: $color-white;
+  }
+}
+
+.collection-hero__breadcrumbs {
+  @include maxed;
+  margin-bottom: rem(16);
+  display: flex;
+  justify-content: center;
+  list-style-type: none;
+
+  @include mq($large) {
+    margin-bottom: rem(0);
+    justify-content: flex-start;
+  }
+}
+
+.collection-hero__breadcrumb {
+  padding: 0 rem(6);
+
+  &:first-of-type {
+    padding-left: 0;
+  }
+
+  &:last-of-type {
+    font-weight: 500;
+  }
+}
+
+.collection-hero__title {
+  margin-top: rem(24);
+  margin-bottom: $gutter;
+}
+
+.collection-hero__breadcrumbs,
+.collection-hero__breadcrumb,
+.collection-hero__link {
+  @include font(12, 16, 400);
+}
+
+.collection-hero__breadcrumb:last-of-type {
+  .collection-hero__link {
+    color: $color-black;
+    font-weight: 400;
+
+    .collection-hero--light & {
+      color: $color-white;
+    }
+  }
+}
+
+.collection-hero__content {
+  @include center-content;
+  @include maxed(650);
+  @include font(16, 24, 300);
+  flex-direction: column;
+  text-align: center;
+}
+
+.collection-hero__sub-categories {
+  padding-top: rem(16);
+  padding-bottom: rem(16);
+  white-space: nowrap;
+  text-align: center;
+  overflow: auto;
+  background-color: $color-grey-200;
+
+  @include mq($large) {
+    margin-top: rem(24);
+    margin-bottom: rem(20);
+    padding-top: 0;
+    padding-bottom: 0;
+    background-color: transparent;
+  }
+
+  .button + .button {
+    margin-left: rem(12);
+  }
+}
+
+
+@media only screen and (max-width: 600px) {
+  .collection-hero__sub-categories {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: .25em;
+
+    
+    a {
+      flex-basis: 70%;
+      // width: 125%;
+      margin: .25em !important;
+    }
+  }
+  .collection-hero__breadcrumbs {
+    padding: {
+      left: 0;
+      right: 0;
+    }
+  }
+  .collection-hero__breadcrumb,
+  .collection-hero__link {
+    font-size: .50rem;
+  }
+}

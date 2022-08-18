@@ -1,0 +1,180 @@
+{% if slides != blank %}  
+  <section class="testimonials">
+    <div class="owl-carousel carousel-testimonials">
+      {% for slide in slides %}
+        <div>
+          <div class="slide-content">
+            {% if forloop.index == 1 %}
+              <h2>{{ section.settings.testimonial_title }}</h2>
+            {% else %}
+              <div class="testimonial-title">{{ section.settings.testimonial_title }}</div>
+            {% endif %}
+            <div class="testimonial">
+              {% include 'icon-quote' %}
+              <div class="testimonial-quote">{{ slide.settings.slide_testimonial }}</div>
+            </div>
+            {%- assign img_url = slide.settings.slide_image | img_url:'1440x1025' -%}
+            <img loading="lazy" src="{{ img_url }}" alt="">
+            <div class="testimonial-title">{{ slide.settings.slide_testimonial_name }}</div>
+            <p>{{ slide.settings.slide_testimonial_title }}</p>
+          </div>
+        </div>
+      {% endfor %}
+    </div> 
+  </section>
+{% elsif testimonialsettings != blank %}
+  <section class="testimonials">
+    <div class="owl-carousel carousel-testimonials">
+      {% if testimonialsettings.slide_testimonial_1 != blank %}
+        <div>
+          <div class="slide-content">
+            <h2>{{ testimonialsettings.testimonial_title }}</h2>
+            <div class="testimonial">
+              {% include 'icon-quote' %}
+              <div class="testimonial-quote">{{ testimonialsettings.slide_testimonial_1 }}</div>
+            </div>
+            {%- assign img_url = testimonialsettings.slide_image_1 | img_url:'1440x1025' -%}
+            <img loading="lazy" src="{{ img_url }}" alt="">
+            <div class="testimonial-title">{{ testimonialsettings.slide_testimonial_name_1 }}</div>
+            <p>{{ testimonialsettings.slide_testimonial_title_1 }}</p>
+          </div>
+        </div>
+      {% endif %}
+      {% if testimonialsettings.slide_testimonial_2 != blank %}
+        <div>
+          <div class="slide-content">
+            <div class="testimonial-title">{{ testimonialsettings.testimonial_title }}</div>
+            <div class="testimonial">
+              {% include 'icon-quote' %}
+              <div class="testimonial-quote">{{ testimonialsettings.slide_testimonial_2 }}</div>
+            </div>
+            {%- assign img_url = testimonialsettings.slide_image_2 | img_url:'1440x1025' -%}
+            <img loading="lazy" src="{{ img_url }}" alt="">
+            <div class="testimonial-title">{{ testimonialsettings.slide_testimonial_name_2 }}</div>
+            <p>{{ testimonialsettings.slide_testimonial_title_2 }}</p>
+          </div>
+        </div>
+      {% endif %}
+      {% if testimonialsettings.slide_testimonial_3 != blank %}
+        <div>
+          <div class="slide-content">
+            <div class="testimonial-title">{{ testimonialsettings.testimonial_title }}</div>
+            <div class="testimonial">
+              {% include 'icon-quote' %}
+              <div class="testimonial-quote">{{ testimonialsettings.slide_testimonial_3 }}</div>
+            </div>
+            {%- assign img_url = testimonialsettings.slide_image_3 | img_url:'1440x1035' -%}
+            <img loading="lazy" src="{{ img_url }}" alt="">
+            <div class="testimonial-title">{{ testimonialsettings.slide_testimonial_name_3 }}</div>
+            <p>{{ testimonialsettings.slide_testimonial_title_3 }}</p>
+          </div>
+        </div>
+      {% endif %}
+      {% if testimonialsettings.slide_testimonial_4 != blank %}
+        <div>
+          <div class="slide-content">
+            <div class="testimonial-title">{{ testimonialsettings.testimonial_title }}</div>
+            <div class="testimonial">
+              {% include 'icon-quote' %}
+              <div class="testimonial-quote">{{ testimonialsettings.slide_testimonial_4 }}</div>
+            </div>
+            {%- assign img_url = testimonialsettings.slide_image_4 | img_url:'1440x1035' -%}
+            <img loading="lazy" src="{{ img_url }}" alt="">
+            <div class="testimonial-title">{{ testimonialsettings.slide_testimonial_name_4 }}</div>
+            <p>{{ testimonialsettings.slide_testimonial_title_4 }}</p>
+          </div>
+        </div>
+      {% endif %}
+      {% if testimonialsettings.slide_testimonial_5 != blank %}
+        <div>
+          <div class="slide-content">
+            <div class="testimonial-title">{{ testimonialsettings.testimonial_title }}</div>
+            <div class="testimonial">
+              {% include 'icon-quote' %}
+              <div class="testimonial-quote">{{ testimonialsettings.slide_testimonial_5 }}</div>
+            </div>
+            {%- assign img_url = testimonialsettings.slide_image_5 | img_url:'1440x1035' -%}
+            <img loading="lazy" src="{{ img_url }}" alt="">
+            <div class="testimonial-title">{{ testimonialsettings.slide_testimonial_name_5 }}</div>
+            <p>{{ testimonialsettings.slide_testimonial_title_5 }}</p>
+          </div>
+        </div>
+      {% endif %}
+      {% if testimonialsettings.slide_testimonial_6 != blank %}
+        <div>
+          <div class="slide-content">
+            <div class="testimonial-title">{{ testimonialsettings.testimonial_title }}</div>
+            <div class="testimonial">
+              {% include 'icon-quote' %}
+              <div class="testimonial-quote">{{ testimonialsettings.slide_testimonial_6 }}</div>
+            </div>
+            {%- assign img_url = testimonialsettings.slide_image_6 | img_url:'1440x1035' -%}
+            <img loading="lazy" src="{{ img_url }}" alt="">
+            <div class="testimonial-title">{{ testimonialsettings.slide_testimonial_name_6 }}</div>
+            <p>{{ testimonialsettings.slide_testimonial_title_6 }}</p>
+          </div>
+        </div>
+      {% endif %}
+      {% if testimonialsettings.slide_testimonial_7 != blank %}
+        <div>
+          <div class="slide-content">
+            <div class="testimonial-title">{{ testimonialsettings.testimonial_title }}</div>
+            <div class="testimonial">
+              {% include 'icon-quote' %}
+              <div class="testimonial-quote">{{ testimonialsettings.slide_testimonial_7 }}</div>
+            </div>
+            {%- assign img_url = testimonialsettings.slide_image_7 | img_url:'1440x1035' -%}
+            <img loading="lazy" src="{{ img_url }}" alt="">
+            <div class="testimonial-title">{{ testimonialsettings.slide_testimonial_name_7 }}</div>
+            <p>{{ testimonialsettings.slide_testimonial_title_7 }}</p>
+          </div>
+        </div>
+      {% endif %}
+      {% if testimonialsettings.slide_testimonial_8 != blank %}
+        <div>
+          <div class="slide-content">
+            <div class="testimonial-title">{{ testimonialsettings.testimonial_title }}</div>
+            <div class="testimonial">
+              {% include 'icon-quote' %}
+              <div class="testimonial-quote">{{ testimonialsettings.slide_testimonial_8 }}</div>
+            </div>
+            {%- assign img_url = testimonialsettings.slide_image_8 | img_url:'1440x1035' -%}
+            <img loading="lazy" src="{{ img_url }}" alt="">
+            <div class="testimonial-title">{{ testimonialsettings.slide_testimonial_name_8 }}</div>
+            <p>{{ testimonialsettings.slide_testimonial_title_8 }}</p>
+          </div>
+        </div>
+      {% endif %}
+      {% if testimonialsettings.slide_testimonial_9 != blank %}
+        <div>
+          <div class="slide-content">
+            <div class="testimonial-title">{{ testimonialsettings.testimonial_title }}</div>
+            <div class="testimonial">
+              {% include 'icon-quote' %}
+              <div class="testimonial-quote">{{ testimonialsettings.slide_testimonial_9 }}</div>
+            </div>
+            {%- assign img_url = testimonialsettings.slide_image_9 | img_url:'1440x1035' -%}
+            <img loading="lazy" src="{{ img_url }}" alt="">
+            <div class="testimonial-title">{{ testimonialsettings.slide_testimonial_name_9 }}</div>
+            <p>{{ testimonialsettings.slide_testimonial_title_9 }}</p>
+          </div>
+        </div>
+      {% endif %}
+      {% if testimonialsettings.slide_testimonial_10 != blank %}
+        <div>
+          <div class="slide-content">
+            <div class="testimonial-title">{{ testimonialsettings.testimonial_title }}</div>
+            <div class="testimonial">
+              {% include 'icon-quote' %}
+              <div class="testimonial-quote">{{ testimonialsettings.slide_testimonial_10 }}</div>
+            </div>
+            {%- assign img_url = testimonialsettings.slide_image_10 | img_url:'1440x1035' -%}
+            <img loading="lazy" src="{{ img_url }}" alt="">
+            <div class="testimonial-title">{{ testimonialsettings.slide_testimonial_name_10 }}</div>
+            <p>{{ testimonialsettings.slide_testimonial_title_10 }}</p>
+          </div>
+        </div>
+      {% endif %}
+    </div> 
+  </section>
+{% endif %}

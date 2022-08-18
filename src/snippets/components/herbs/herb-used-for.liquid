@@ -1,0 +1,17 @@
+{%- capture left_side -%}
+  <h2>What is {{ article.title }} Used For?</h2>
+  <div class="herb-uses__content weight-300">
+    {{- article.metafields.Additional.Uses -}}
+  </div>
+  <p><a href="#additionalInformation" scrollto="additionalInformation" class="link">View Important Precautions</a></p>
+{%- endcapture -%}
+
+{%- capture right_side -%}
+  <img src="{{- article.metafields.Additional.ContentImage -}}"
+       alt="{{- article.title -}}" />
+{%- endcapture -%}
+
+
+{%- render 'fifty-fifty',
+    left_side: left_side,
+    right_side: right_side -%}

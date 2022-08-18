@@ -1,0 +1,80 @@
+<section class="ccontain flex-box flex-box--vertical account-template">
+  <div class="create-account-form">
+    {% form 'create_customer', class: 'flex-box flex-box--vertical account-form' %}
+
+    <h1 class="template-title">{{ 'customer.register.title' | t }}</h1>
+
+    <div class="new-account-link__container flex-box flex-box--split">
+      <p>Already have an account? </p>
+      <a href="/account">
+        Sign in now.
+      </a>
+    </div>
+
+    {{ form.errors | default_errors }}
+
+    <div class="form-elements">
+      <div class="text-input__wrap">
+        <input type="text"
+          class="text-input"
+          name="customer[first_name]"
+          id="FirstName"
+          placeholder=" "
+          pattern="^[a-zA-Z]+$"
+          oninvalid="this.setCustomValidity('Please enter a valid first name')"
+          onchange="try{setCustomValidity('')}catch(e){}"
+          maxlength="35"
+          autofocus
+          {% if form.first_name %}value="{{ form.first_name }}"{% endif %}>
+        <label for="FirstName" class="">
+          {{ 'customer.register.first_name' | t }}
+        </label>
+      </div>
+
+      <div class="text-input__wrap">
+        <input type="text"
+          class="text-input"
+          name="customer[last_name]"
+          id="LastName"
+          placeholder=" "
+          pattern="^[a-zA-Z '.-]*$"
+          oninvalid="this.setCustomValidity('Please enter a valid last name')"
+          onchange="try{setCustomValidity('')}catch(e){}"
+          maxlength="35"
+          {% if form.last_name %}value="{{ form.last_name }}"{% endif %}>
+        <label for="LastName" class="">
+          {{ 'customer.register.last_name' | t }}
+        </label>
+      </div>
+
+      <div class="text-input__wrap">
+        <input type="email"
+          name="customer[email]"
+          id="Email"
+          class="{% if form.errors contains 'email' %}input-error{% endif %} text-input"
+          placeholder=" "
+          value="{% if form.email %}{{ form.email }}{% endif %}"
+          spellcheck="false"
+          autocomplete="off"
+          autocapitalize="off">
+        <label for="Email" class="">
+          {{ 'customer.register.email' | t }}
+        </label>
+      </div>
+
+      <div class="text-input__wrap">
+        <input type="password"
+          name="customer[password]"
+          id="CreatePassword"
+          class="{% if form.errors contains 'password' %}input-error{% endif %} text-input"
+          placeholder=" ">
+        <label for="CreatePassword" class="">
+          {{ 'customer.register.password' | t }}
+        </label>
+      </div>
+
+      <input type="submit" value="{{ 'customer.register.submit' | t }}" class="sign-in-button button button--primary">
+    </div>
+  {% endform %}
+  </div>
+</section>

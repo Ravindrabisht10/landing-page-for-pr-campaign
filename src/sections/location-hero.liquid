@@ -1,0 +1,149 @@
+<div class="location-hero">
+    {%- render 'section-hero' _section: section -%}
+  </div>
+  
+  {% schema %}
+  {
+    "name": "Location Hero",
+    "settings": [
+      {
+        "type": "image_picker",
+        "id": "image",
+        "label": "Background Image"
+      },
+      {
+        "type": "checkbox",
+        "id": "enable_parallax",
+        "label": "Enable Parallax Image",
+        "default": true
+      },
+      {
+        "type": "text",
+        "id": "hero_video",
+        "label": "Background Video"
+      },
+      {
+        "type": "text",
+        "id": "sub_title",
+        "label": "Sub Title",
+        "default": "Discover the Gaia Difference"
+      },
+      {
+        "type": "text",
+        "id": "title",
+        "label": "Title",
+        "default": "Hero Title"
+      },
+      {
+        "type": "richtext",
+        "id": "description",
+        "label": "Description",
+        "default": "<p>Hero Description</p>"
+      },
+      {
+        "type": "range",
+        "id": "content_max_width",
+        "min": 300,
+        "max": 700,
+        "step": 5,
+        "unit": "px",
+        "label": "Content Max width",
+        "default": 525
+      },
+      {
+        "type": "header",
+        "content": "Settings"
+      },
+      {
+        "type": "checkbox",
+        "id": "no_space",
+        "label": "No space?",
+        "info": "Space between sections",
+        "default": false
+      },
+      {
+        "type": "select",
+        "id": "content_spacing",
+        "options": [
+          { "value": "small", "label": "Small" },
+          { "value": "medium", "label": "Medium" },
+          { "value": "large", "label": "Large" }
+        ],
+        "label": "Section Padding",
+        "default": "large"
+      },
+      {
+        "type": "text",
+        "id": "mobile_object_position",
+        "label": "Mobile Horizontal Position %",
+        "default": "38"
+      },
+      {
+        "type": "select",
+        "id": "layout",
+        "options": [
+          { "value": "left", "label": "Left" },
+          { "value": "center", "label": "Center" },
+          { "value": "right", "label": "Right" }
+        ],
+        "label": "Content Alignment",
+        "default": "left"
+      },
+      {
+        "type": "select",
+        "id": "text_alignment",
+        "options": [
+           { "value": "left", "label": "Left" },
+           { "value": "center", "label": "Center" },
+           { "value": "right", "label": "Right" }
+        ],
+        "label": "Text Alignment",
+        "default": "left"
+      },
+      {
+        "type": "color",
+        "id": "text_color",
+        "label": "Text Color",
+        "default": "#ffffff"
+      }
+    ],
+    "blocks": [
+      {
+        "name": "Button",
+        "type": "button",
+        "limit": 2,
+        "settings": [
+          {
+            "type": "text",
+            "id": "title",
+            "label": "Button Label",
+            "default": "Shop Now"
+          },
+          {
+            "type": "url",
+            "id": "button_link",
+            "label": "Button Link"
+          },
+          {
+            "type": "select",
+            "id": "button_type",
+            "options": [
+               { "value": "primary", "label": "Primary" },
+               { "value": "secondary", "label": "Secondary" },
+               { "value": "tertiary", "label": "Tertiary Outline" },
+               { "value": "tertiary-dark", "label": "Tertiary Dark" }
+            ],
+            "label": "Button Type",
+            "default": "primary"
+          }
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "category": "Hero",
+        "name":"Hero"
+      }
+    ]
+  }
+  {% endschema %}

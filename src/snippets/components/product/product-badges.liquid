@@ -1,0 +1,46 @@
+{%- comment -%}
+
+  Required:
+    _product: the product to display in the title
+
+  Optional:
+    _classes: the classes to add to the badge wrapper
+
+{%- endcomment -%}
+
+{%- assign displayed_badge = false -%}
+
+<div class="product-tile__badges {{ _classes }}">
+  {%- if _product.tags contains 'badge-out-of-stock' -%}
+    {%- assign displayed_badge = true -%}
+    <div class="badge badge--out-of-stock">Out Of Stock</div>
+  {%- elsif _product.tags contains 'badge-in-store-exclusive' -%}
+    {%- assign displayed_badge = true -%}
+    <div class="badge badge--in-store-exclusive">In Store Exclusive</div>
+  {%- elsif _product.tags contains 'badge-final-sale' -%}
+    {%- assign displayed_badge = true -%}
+    <div class="badge badge--final-sale">Final Sale</div>
+  {%- elsif _product.tags contains 'badge-sale' -%}
+    {%- assign displayed_badge = true -%}
+    <div class="badge badge--sale">Sale</div>
+  {%- elsif _product.tags contains 'badge-new' -%}
+    {%- assign displayed_badge = true -%}
+    <div class="badge badge--new">New</div>
+  {%- elsif _product.tags contains 'badge-coming-soon' -%}
+    {%- assign displayed_badge = true -%}
+    <div class="badge badge--coming-soon">Coming Soon</div>
+  {%- elsif _product.tags contains 'badge-best-seller' -%}
+    {%- assign displayed_badge = true -%}
+    <div class="badge badge--best-seller">Best Seller</div>
+  {%- elsif _product.tags contains 'badge-award-winner' -%}
+    {%- assign displayed_badge = true -%}
+    <div class="badge badge--award-winner">Award Winner</div>
+  {%- elsif _product.tags contains 'badge-discontinued' -%}
+    {%- assign displayed_badge = true -%}
+    <div class="badge badge--discontinued">Discontinued</div>
+  {%- endif -%}
+
+  {%- if _product.available == false and displayed_badge == false -%}
+    <div class="badge badge--out-of-stock">Out Of Stock</div>
+  {%- endif -%}
+</div>

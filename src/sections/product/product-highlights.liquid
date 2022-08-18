@@ -1,0 +1,184 @@
+<!-- Re-adding back in code for dynamic content images for highlights and suggested use sections
+Set default image upon page load to content image 1
+ -->
+
+{%- assign contentImage1 = product.metafields.Additional.ContentImage1 -%}
+{%- assign contentImage2 = product.metafields.Additional.ContentImage2 -%}
+
+{%- for block in section.blocks -%}
+  {%- assign new_text_content = block.settings.description -%}
+  {%- assign highlight_title = block.settings.title -%}
+
+ 
+  {%- if forloop.index0 == 0 -%}
+    {%- assign highlight_title = product.metafields.additional.highlights_title | default: block.settings.title -%}
+    {%- assign key = 'product_highlights_content__on' -%}
+  {%- elsif forloop.index0 == 1 -%}
+    {%- assign key = 'product_highlights_content__tw' -%}
+  {%- else -%}
+    {%- assign key = 'product_highlights_content__th' -%}
+  {%- endif -%}
+  {%- if product.metafields.accentuate[key] != blank -%}
+    {%- assign new_text_content = product.metafields.accentuate[key] -%}
+  {%- endif -%}
+
+  {%- capture text_content -%}
+    {{- text_content -}}
+<!-- 	dynamically load images  -->
+	{%- if block.settings.sub_title == 'highlights' -%}
+		{%- assign highlight_image = contentImage1 -%}
+  	{%- elsif block.settings.sub_title == 'suggested use' -%}
+		{%- assign highlight_image = contentImage2 -%}
+  	{%- endif -%}
+    
+	<div class="highlights__highlight"
+         data-highlight-content
+         data-img-to-use="{{- highlight_image -}}">
+      
+      {%-
+        render 'block-text-card',
+        sub_title: block.settings.sub_title,
+        title: highlight_title,
+        description: new_text_content,
+        text_color: block.settings.text_color,
+        background_color: '#FFFFFF',
+        description_color: '#000000',
+        button_label: block.settings.button_label,
+        button_link: block.settings.button_link,
+        button_type: block.settings.button_type,
+      -%}
+    </div>
+
+  {%- endcapture -%}
+
+  {%- capture mobile_content -%}
+    {{- mobile_content -}}
+    <img class="highlights__mobile-image"
+         src="{{- highlight_image -}}" />
+    <div class="highlights__mobile-highlight">
+      {%-
+        render 'block-text-card',
+        sub_title: block.settings.sub_title,
+        title: block.settings.title,
+        description: new_text_content,
+        text_color: block.settings.text_color,
+        background_color: '#FFFFFF',
+        description_color: '#000000',
+        button_label: block.settings.button_label,
+        button_link: block.settings.button_link,
+        button_type: block.settings.button_type,
+      -%}
+    </div>
+  {%- endcapture -%}
+{%- endfor -%}
+
+<div class="ccontain mobile-only">
+  <div class="highlights">
+    {{- mobile_content -}}
+  </div>
+</div>
+
+
+<div class="ccontain highlights desktop-only">
+  <div class="highlights__images" {% if section.settings.layout != 'left' -%}style="order: 1;"{%- endif -%}>
+    <div class="highlights__image-wrap">
+      <img class="highlights__image"
+           src="{{- contentImage1 -}}"
+           alt="Product Highlights"
+           data-image-sources="{{- images -}}"
+           data-image-index="0"
+           />
+    </div>
+  </div>
+  <div class="highlights__content">
+    {{- text_content -}}
+  </div>
+</div>
+
+
+{% schema %}
+  {
+    "name": "Product Highlights",
+    "class": "product-highlights",
+    "tag": "section",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Settings"
+      },
+      {
+        "type": "select",
+        "id": "layout",
+        "options": [
+          { "value": "left", "label": "Image Left" },
+          { "value": "right", "label": "Image Right" }
+        ],
+        "label": "Layout",
+        "default": "left"
+      }
+    ],
+    "blocks": [
+      {
+        "type": "two_column_text_image",
+        "name": "Two Columns (Text/Image)",
+        "settings": [
+          {
+            "type": "header",
+            "content": "Image Column"
+          },
+          {
+            "type": "image_picker",
+            "id": "image",
+            "label": "Column Image"
+          },
+          {
+            "type": "header",
+            "content": "Content Column"
+          },
+          {
+            "type": "text",
+            "id": "sub_title",
+            "label": "Sub Title",
+            "default": "SubHeading"
+          },
+          {
+            "type": "text",
+            "id": "title",
+            "label": "Title",
+            "default": "Heading text"
+          },
+          {
+            "type": "html",
+            "id": "description",
+            "label": "Description",
+            "default": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec consequat libero non odio sodales porta. Curabitur et lectus eget justo suscipit porttitor. Vivamus pharetra tellus eros, vel consectetur metus cursus lobortis. In magna tortor, cursus ut tincidunt non, sodales sed lectus. Integer commodo justo in sodales fringilla. Donec et gravida urna. In enim ligula, venenatis vel luctus vel, bibendum vel neque.</p>"
+          },
+          {
+            "type": "text",
+            "id": "button_label",
+            "label": "Button Label",
+            "default": "Shop Now"
+          },
+          {
+            "type": "url",
+            "id": "button_link",
+            "label": "Button Link"
+          },
+          {
+            "type": "select",
+            "id": "button_type",
+            "options": [
+              { "value": "primary", "label": "Primary" },
+              { "value": "secondary", "label": "Secondary" },
+              { "value": "tertiary", "label": "Tertiary Outline" },
+              { "value": "tertiary-dark", "label": "Tertiary Dark" },
+              { "value": "link", "label": "Focus Link" }
+            ],
+            "label": "Button Type",
+            "default": "primary"
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}

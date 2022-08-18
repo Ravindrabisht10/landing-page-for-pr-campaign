@@ -1,0 +1,159 @@
+<div id="myhresults" class="myhresults">
+  <div class="test-results-modal hidden" data-cert-modal>
+    <router-view name="testresults"></router-view>
+  </div>
+  <router-view name="ingredients"></router-view>
+</div>
+
+<script type="text/x-template" id="test-results-template">
+    <section v-show="isresult" id="test-results" class="myh-results-testing">
+        <div id="full-results" class="myh-results-full">
+            <div class="myh-results-full-modal">
+                <button data-close-cert-modal class="icon-button buybox__supplements-close">
+                    {%- render 'icon-close' -%}
+                </button>
+                <h3>Certificate of Compliance</h3>
+                <p>Gaia Herbs creates this certificate for all of our products to give customers the proof that each one has been tested and validated for purity, integrity and potency.</p>
+                <p class="d-none d-lg-block"><a href="#" class="myh-print" onclick="window.print();return false;">Print Your Results</a></p>
+                {% raw %}
+                    <div class="myh-results-full-section">
+                        <div class="title">
+                            <h5 data-herb-modal-product-title></h5>
+                        </div>
+                        <table class="product">
+                            <tr class="section">
+                                <td>MASTER ID: {{ result[0].cofc.master_id }}</td>
+                                <td>MFG DATE: {{ result[0].manufactured_date | moment("M/D/YYYY") }}</td>
+                                <td>BEST BY: {{ result[0].cofc.best_by | moment("M/D/YYYY") }}</td>
+                            </tr>
+                            <tr v-if="result[0].cofc.ingredients">
+                                <td colspan="3">INGREDIENTS:<br /><span v-html="result[0].cofc.ingredients"></span></td>
+                            </tr>
+                            <tr v-if="result[0].cofc.solvents">
+                                <td colspan="3">SOLVENTS:<br /><span v-html="result[0].cofc.solvents"></span></td>
+                            </tr>
+                            <tr v-if="isproduct && productData[0].product.otheringredients">
+                                <td colspan="3">OTHER INGREDIENTS:<br />
+                                <span v-html="removetrailperiod(productData[0].product.otheringredients)"></span>
+                                <span v-if="result[0].cofc.other_ingredients && result[0].cofc.ingredients_mineral">, </span>{{ result[0].cofc.ingredients_mineral }}</td></td>
+                            </tr>
+                            <tr v-if="result[0].cofc.concentration_equivalency">
+                                <td colspan="3">CONCENTRATION EQUIVALENCY:<br /><span v-html="result[0].cofc.concentration_equivalency"></span></td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="myh-results-full-section">
+                        <div class="title">
+                            <h5>PURITY - Keep it Clean</h5>
+                            <p>The plants used in our herbal extracts must meet or exceed our standards for purity. Beyond visual and tactile inspection, tests are conducted to ensure the absence of heavy metals, pesticides and other chemical contaminants.</p>
+                        </div>
+                        <p class="no-results" v-if="result[0].cofc.purity_tests.length == 0 || !result[0].cofc.purity_tests">No purity tests found</p>
+                        <table v-if="result[0].cofc.purity_tests" v-for="(test, key) in result[0].cofc.purity_tests">
+                            <tr>
+                                <th>{{ key }}</th>
+                                <th>Method</th>
+                                <th>Specification</th>
+                                <th>Result</th>
+                            </tr>
+                            <tr v-for="(testresult, index) in test">
+                                <td>{{ testresult.name }}</td>
+                                <td>{{ testresult.method }}</td>
+                                <td>{{ testresult.specification }}</td>
+                                <td>{{ testresult.result }}</td>
+                            </tr>
+                        </table>
+                    </div>
+                {% endraw %}
+                {% raw %}
+                    <div class="myh-results-full-section">
+                        <div class="title">
+                            <h5>Integrity - Keep it Real</h5>
+                            <p>Responsible sourcing practices, correct extraction technology and ideal concentration methods are used to validate the full expression of every ingredient.</p>
+                        </div>
+                        <table class="three-column grey" v-if="result[0].cofc.integrity_tests.length > 0">
+                            <tr class="section">
+                                <th>Ingredients</th>
+                            </tr>
+                        </table>
+                        <table v-for="(test, key) in result[0].cofc.integrity_tests" class="three-column">
+                            <tr>
+                                <th>{{ key }}</th>
+                                <th>Specification</th>
+                                <th>Result</th>
+                            </tr>
+                            <tr v-for="(testresult, index) in test">
+                                <td>{{ testresult.identity }}</td>
+                                <td>{{ testresult.specification }}</td>
+                                <td>{{ testresult.result.replace('present %', 'present&nbsp;%') }}</td>
+                            </tr>
+                        </table>
+                        <table class="three-column grey">
+                        <tr class="section" v-if="result[0].cofc.product_integrity_tests.length > 0">
+                            <th>Finished Product</th>
+                        </tr>
+                        </table>
+                        <table v-if="result[0].cofc.product_integrity_tests.length > 0" class="four-column">
+                            <tr>
+                                <th>Name</th>
+                                <th>Method</th>
+                                <th>Specification</th>
+                                <th>Result</th>
+                            </tr>
+                            <tr v-for="(testresult, index) in result[0].cofc.product_integrity_tests">
+                                <td>{{ testresult.name }}</td>
+                                <td>{{ testresult.method }}</td>
+                                <td>{{ testresult.specification }}</td>
+                                <td>{{ testresult.result }}</td>
+                            </tr>
+                        </table>
+                    </div>
+                {% endraw %}
+                {% raw %}
+                    <div class="myh-results-full-section">
+                        <div class="title">
+                            <h5>Potency - Keep it Strong</h5>
+                            <p>Our methods and procedures for strength properties ensure that the powerful effects of each herb will be utilized.</p>
+                        </div>
+                        <table class="three-column grey">
+                            <tr class="section">
+                                <th>Finished Product</th>
+                            </tr>
+                        </table>
+                        <p class="no-results" v-if="result[0].cofc.potency_tests.length == 0 || !result[0].cofc.potency_tests">This product does not have an active constituent biomarker listed on the supplement facts panel. All Gaia Herbs products go through comprehensive processes to verify the potency and efficacy of our products. This includes guaranteed extract ratios and raw material specifications. For more information please contact <a href="mailto:info@gaiaherbs.com">info@gaiaherbs.com</a>.</p>
+                        <table v-if="result[0].cofc.potency_tests.length > 0" class="four-column">
+                            <tr>
+                                <th>BioActivity</th>
+                                <th>Method</th>
+                                <th>Specification</th>
+                                <th>Result</th>
+                            </tr>
+                            <tr v-for="(testresult, index) in result[0].cofc.potency_tests">
+                                <td>{{ testresult.bioactivity }}</td>
+                                <td>{{ testresult.method }}</td>
+                                <td>{{ testresult.specification }}</td>
+                                <td>{{ testresult.result }}</td>
+                            </tr>
+                        </table>
+                    </div>
+                {% endraw %}
+                <div class="myh-results-full-section signature">
+                    <div class="title">
+                        <h5>Quality Assurance Approvals</h5>
+                    </div>
+                    <table class="two-column">
+                        <tr class="section">
+                            <td>
+                                <img src="{{ section.settings.signature_one | img_url: '300x'}}" />
+                                <p>Director of Quality</p>
+                            </td>
+                            <td>
+                                <img src="{{ section.settings.signature_two | img_url: '300x'}}" />
+                                <p>Data Reviewer</p>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+</script>

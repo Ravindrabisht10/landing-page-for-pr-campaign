@@ -1,0 +1,57 @@
+{%- capture left_side -%}
+  <h2 class="meet-herbs__title">Latest Batch Details</h2>
+  <table class="meet-herbs__results" data-hreb-results=""></table>
+  <a href="/pages/meet-your-herbs-results?product={{- product.variants[0].sku -}}"
+     class="button button--secondary meet-herbs__button">
+    View Test Results
+  </a>
+{%- endcapture -%}
+
+{%- capture right_side -%}
+  <div class="meet-herbs__image-wrap" io-bg-src="{{- section.settings.background | img_url: '800x800' -}}">
+    <img io-img-src="{{- product.featured_image | img_url: '540x' -}}"
+         alt="{{- product.title -}}"
+         class="meet-herbs__image" />
+  </div>
+{%- endcapture -%}
+
+{%- unless product.metafields.accentuate.hide_meet_your_herbs_module == 'true' -%}
+  <div class="hidden">
+    {%- render 'icon-checkmark' -%}
+  </div>
+
+  <h2 class="meet-herbs__section-title">{{- section.settings.title -}}</h2>
+  <p class="meet-herbs__intro">{{- section.settings.intro -}}</p>
+
+  {%- render 'fifty-fifty',
+      left_side: left_side,
+      right_side: right_side,
+      classes: 'meet-herbs__fiftyfifty' -%}
+{%- endunless -%}
+
+{% schema %}
+  {
+    "name": "Meet Your Herbs",
+    "class": "meet-herbs",
+    "tag": "section",
+    "settings": [
+      {
+        "id": "title",
+        "type": "text",
+        "label": "Title",
+        "default": "Meet Your Herbs"
+      },
+      {
+        "id": "intro",
+        "type": "text",
+        "label": "Intro",
+        "default": "Use the world’s first herb traceability tool to discover the origin of your herbs and see validation of your product’s quality."
+      },
+      {
+        "type": "image_picker",
+        "id": "background",
+        "label": "Image Background"
+      }
+    ]
+  }
+{% endschema %}

@@ -1,0 +1,166 @@
+{%- comment -%}
+  Required:
+    item: the line item to display
+{%- endcomment -%}
+
+{%- assign sub_data = item.product.metafields.subscriptions -%}
+{%- if sub_data.original_handle == blank -%}
+  {%- assign is_subscription = false -%}
+{%- else -%}
+  {%- assign is_subscription = true -%}
+  {%- assign original_product = all_products[sub_data.original_handle] -%}
+  {%- assign sub_data = original_product.metafields.subscriptions -%}
+  {%- for prop in item.properties -%}
+    {%- if prop[0] == "shipping_interval_frequency" -%}
+      {%- assign selected_frequency = prop[1] -%}
+    {%- endif -%}
+  {%- endfor -%}
+{%- endif -%}
+
+{%- assign frequencies = sub_data.shipping_interval_frequency | split: ',' -%}
+{%- if is_subscription == false -%}
+  {%- assign product_title = item.product.title -%}
+  {%- assign product_url = item.product.url -%}
+{%- else -%}
+  {%- assign product_title = original_product.title -%}
+  {%- assign product_url = original_product.url -%}
+{%- endif -%}
+
+{%- assign freebies = false -%}
+{%- if item.variant.price <= 0 -%}
+  {%- assign freebies = true -%}
+{%- endif -%}
+{% comment%}
+{%- for c in item.product.collections -%}
+{%- if c.handle == "freebies" -%}
+{%- assign freebies = true -%}
+{%- endif -%}
+{%- endfor -%}
+{% endcomment%}
+
+<div class="line-item"
+     data-cart-item-base="{{- item.product.first_available_variant.id -}}"
+     data-cart-item-price="{{- item.variant.price | money -}}"
+     {% if is_subscription -%}data-product-is-subscription{%- endif -%}>
+  <div class="flex-box line-item__form">
+    <a href="{{- product_url -}}"
+       aria-label="view {{ product_title }}">
+      <img class="line-item__image"
+           src="{{- item.image | img_url: '200x' -}}"
+           alt="{{- item.image.alt -}}" />
+    </a>
+    <div class="line-item__content flex-box--vertical">
+      <div class="flex-box flex-box--spaced">
+        <a href="{{- product_url -}}">
+          <h3 class="line-item__title h5">
+            {{- product_title -}}
+          </h3>
+        </a>
+        <button class="icon-button line-item__trash"
+                data-update-item="{{- item.variant_id -}}"
+                data-quantity="0"
+                aria-label="remove {{ item.product.title }} from cart">
+          <span class="unopen">{%- render 'icon-trash' -%}</span>
+          <span class="open">{%- render 'icon-trash-open' -%}</span>
+        </button>
+      </div>
+      <p class="line-item__option"
+         data-line-item-quantity="{{- item.variant_id -}}">
+        {{- item.variant.option1 }} |
+        {% if is_subscription %}
+          Every {{ selected_frequency }} {{ sub_data.shipping_interval_unit_type }}
+        {% else %}
+          One-Time
+        {% endif -%}
+      </p>
+      <div class="flex-box flex-box--spaced">
+        <div class="flex-box line-item__quantity">
+
+        {% if freebies == false %}
+          <button class="icon-button"
+          data-update-item="{{- item.variant_id -}}"
+          data-quantity="{{- item.quantity | minus: 1 -}}">
+            -
+          </button>
+        {% endif %}
+
+        {% if freebies == false %}
+          <span>{{- item.quantity -}}</span>
+        {% else %}
+          <span class="wide">{{- item.quantity -}}</span>
+        {% endif %}
+
+        {% if freebies == false %}
+          <button class="icon-button"
+            data-update-item="{{- item.variant_id -}}"
+            data-quantity="{{- item.quantity | plus: 1 -}}">
+            +
+          </button>
+        {% endif %}
+
+        </div>
+        <p>
+          {%- if item.variant.compare_at_price -%}
+            <span class="price price--sale">
+              {{- item.variant.price | times: item.quantity | money -}}
+            </span>
+            <span class="price price--old">
+              {{- item.variant.compare_at_price | times: item.quantity | money -}}
+            </span>
+          {%- else -%}
+            {% if freebies == false %}
+            {{- item.final_line_price | money -}}
+            {%if item.line_level_total_discount > 0%}
+              {%assign originalprice = item.line_level_total_discount  | plus: item.final_line_price %}
+              <span style="font-size: small; text-decoration: line-through; color: red;  ">{{- originalprice | money -}}</span>
+            {%endif%}
+            {% else %}
+              Gift
+           {% endif %}
+          {%- endif -%}
+        </p>
+      </div>
+        {%if item.line_level_total_discount > 0%}
+          <p style="font-size: small; text-align: right;">
+            {% for discount in item.discounts %}
+              {{ discount.title }}
+            {% endfor %}
+          </p>
+        {%endif%}
+    </div>
+  </div>
+
+  {%- if is_subscription == true -%}
+    <div class="select-wrap">
+      <select data-update-cart-item="{{- item.variant_id -}}"
+              data-new-subscription-map="{{- sub_data.original_to_hidden_variant_map | json | escape -}}"
+              data-subscription-unit="{{- sub_data.shipping_interval_unit_type -}}"
+              onchange="window.variantFrequencyUpdated(event)"
+              data-current-quantity="{{- item.quantity -}}"
+              class="select select--small">
+        <optgroup label="One Time">
+          <option value="one-time">
+            One Time
+          </option>
+        </optgroup>
+        <optgroup label="Subscribe & Save">
+          {%- for frequency in frequencies -%}
+            {%- assign frequency_converted = frequency | plus: 0 -%}
+            <option value="{{- frequency -}}" {% if frequency == selected_frequency or frequency_converted == selected_frequency -%}selected="selected"{%- endif -%}>
+              Deliver every {{ frequency }} {{ sub_data.shipping_interval_unit_type }}s
+            </option>
+          {%- endfor -%}
+        </optgroup>
+      </select>
+    </div>
+  {%- elsif item.product.metafields.subscriptions.has_subscription != false and item.product.metafields.subscriptions.has_subscription != blank and freebies == false -%}
+    <button data-upgrade-to-subscription="{{- item.variant_id -}}"
+            data-new-subscription-map='{{- sub_data.original_to_hidden_variant_map | json -}}'
+            class="button button--tertiary button--small button--wide button--sns"
+            data-subscription-unit="{{- sub_data.shipping_interval_unit_type -}}"
+            data-default-frequency="{{- frequencies[0] -}}"
+            data-current-quantity="{{- item.quantity -}}">
+      Upgrade to subscription & save 10%
+    </button>
+  {%- endif -%}
+</div>

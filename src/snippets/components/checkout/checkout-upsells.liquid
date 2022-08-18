@@ -1,0 +1,107 @@
+<div data-rebuy-id="{{- settings.rebuy_checkout_upsell_id -}}"></div>
+<script id="rebuy-recharge-checkout-template" type="text/template">
+  <div class="rebuy-widget checkout-promotion"
+    v-cloak
+    v-on:click="stopPropagation($event)"
+    v-bind:id="'rebuy-widget-' + id"
+    v-bind:class="[products.length > 0 ? 'is-visible' : 'is-hidden']">
+    <div
+      class="checkout-promotion-wrapper"
+      v-cloak
+      v-bind:class="[visible ? 'is-visible' : 'is-hidden']">
+      <div class="checkout-promotion-header" v-if="config.language.title || config.language.subtitle || config.language.description">
+        <h2 v-if="config.language.title" class="promo-title" v-html="config.language.title"></h2>
+        <h3 v-if="config.language.subtitle" class="promo-subtitle" v-html="config.language.subtitle"></h3>
+        <div v-if="config.language.description" class="promo-description" v-html="config.language.description"></div>
+      </div>
+
+      <div class="checkout-promotion-body">
+        <div
+          class="checkout-promotion-product line-item"
+          v-for="product in products"
+          v-bind:class="[product.handle, 'product-id-' + product.id, rechargeCheckoutHasProduct(product) ? 'has-product' : '', productTagClasses(product)]">
+          <div class="promotion-image">
+            <img
+              v-bind:src="itemImage(product, product.selected_variant, '160x160')"
+              v-bind:alt="product.title">
+          </div>
+          <div class="promotion-info">
+            <h4 class="product-title" v-html="product.title"></h4>
+            <div class="variant-title" v-if="showVariantTitle(product)" v-html="product.selected_variant.title"></div>
+            <div class="variant-price">
+              <div v-if="variantOnSale(product, product.selected_variant)">
+                <span class="rebuy-money sale" v-html="formatMoney(variantPrice(product, product.selected_variant))"></span>
+                <span class="rebuy-money compare-at" v-html="formatMoney(variantCompareAtPrice(product, product.selected_variant))"></span>
+              </div>
+              <div v-if="!(variantOnSale(product, product.selected_variant))">
+                <span class="rebuy-money" v-html="formatMoney(variantPrice(product, product.selected_variant))"></span>
+              </div>
+            </div>
+            <div class="product-description" v-if="showProductDescription(product)" v-html="text(product.body_html)"></div>
+          </div>
+          <div class="promotion-actions">
+
+            <div class="product-quantity" v-if="hasQuantityInputEnabled()">
+              <div class="rebuy-select-wrapper">
+                <label class="rebuy-label">Quantity</label>
+                <select
+                  class="rebuy-select"
+                  v-model="product.quantity">
+                  <option v-for="n in maxQuantityInputValue()" v-bind:value="n">{{ n }}</option>
+                </select>
+              </div>
+            </div>
+
+            <button
+              class="rebuy-button"
+              v-bind:class="{ working: (product.status != 'ready' && product.status != 'selecting') }"
+              v-bind:disabled="!(variantAvailable(product.selected_variant)) || (product.status != 'ready' && product.status != 'selecting')"
+              v-on:click="addToCart(product)"
+              style="background-color: #205C40;"
+              type="button">
+                <span v-html="buttonLabel(product)"></span>
+            </button>
+          </div>
+          <div class="promotion-options" v-if="showVariantSelect(product) && product.status == 'selecting'">
+            <select
+              class="rebuy-select"
+              v-model="product.selected_variant_id"
+              v-on:change="selectVariant(product)">
+              <option v-for="variant in product.variants" v-bind:value="variant.id">{{ variant.title }}</option>
+            </select>
+          </div>
+
+          <div class="subscription-frequency" v-if="showSubscriptionFrequency(product)">
+            <select
+              class="rebuy-select"
+              v-model="product.subscription_frequency">
+              <option v-for="frequency in product.subscription_frequencies" v-bind:value="frequency">{{ frequencyLabel(frequency, product.subscription_interval) }}</option>
+            </select>
+          </div>
+
+          <div class="subscription-checkbox" v-if="showSubscriptionOptions(product)">
+            <label class="rebuy-checkbox-label">
+              <input
+                class="checkbox-input rebuy-checkbox"
+                v-model="product.subscription"
+                v-on:change="toggleSubscription(product)"
+                type="checkbox" />
+              <span class="checkbox-label" v-html="upgradeToSubscriptionLabel(product)"></span>
+            </label>
+          </div>
+
+
+        </div>
+      </div>
+    </div>
+  </div>
+</script>
+
+<style type="text/css">
+  .rebuy-button {
+    font-size: .875rem;
+    font-weight: 500;
+    letter-spacing: .03125rem;
+    text-transform: uppercase;
+  }
+</style>

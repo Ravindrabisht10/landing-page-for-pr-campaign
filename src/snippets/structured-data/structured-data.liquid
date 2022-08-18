@@ -1,0 +1,9 @@
+{%- if template == 'index' -%}
+  {%- render 'structured-data-index' -%}
+{%- elsif template contains 'product' -%}
+  {%- render 'structured-data-product' -%}
+{%- elsif template contains 'article' -%}
+  {%- render 'structured-data-article' -%}
+{%- elsif template contains 'collection' -%}
+  {%- render 'structured-data-collection' -%}
+{%- endif -%}

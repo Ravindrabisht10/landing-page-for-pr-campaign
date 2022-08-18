@@ -1,0 +1,30 @@
+<div class="flex-box flex-box--centered flex-box--split">
+  <div class="result-ingredient-block flex-box flex-box--vertical centered">
+    {%- render 'icon-leaf' -%}
+    <h4>Other Ingredients</h4>
+    <p class="weight-300" data-other-ingredients></p>
+  </div>
+  <div class="result-ingredient-block flex-box flex-box--vertical centered">
+    {%- render 'icon-not-include' -%}
+    <h4>Does Not Contain</h4>
+    <p class="weight-300" data-doesnt-contain></p>
+  </div>
+</div>
+
+<div class="ccontain">
+  {%- render 'social-sharing', share_copy: 'Share Your Results', share_permalink: canonical_url -%}
+</div>
+
+<div class="ready-banner">
+  <div class="ccontain flex-box flex-box--vertical centered">
+    <h2 class="ready-banner__title">
+      Ready to purchase
+      <span data-herb-manufacture-title></span>?
+    </h2>
+    <a href=""
+       class="button button--primary"
+       data-herb-results-product-link>
+      Shop Now
+    </a>
+  </div>
+</div>

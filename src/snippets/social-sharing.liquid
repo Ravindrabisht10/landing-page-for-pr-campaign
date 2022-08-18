@@ -1,0 +1,47 @@
+<!-- /snippets/social-sharing.liquid -->
+<div class="social-sharing">
+    {% if share_copy != blank %}
+      <p>{{ share_copy }}</p>
+    {% else %}
+      <p>Share</p>
+    {% endif %}
+    {% if link_override != blank%}
+        {% assign currenturl = 'https:' %}
+    {% else %}
+        {% assign currenturl = shop.url %}
+    {% endif %}
+    {% if settings.share_facebook %}
+      <a target="_blank" href="//www.facebook.com/sharer.php?u={{ currenturl | append: share_permalink }}">
+        {% render 'icon-facebook-new' %}
+      </a>
+    {% endif %}
+
+    {% if settings.share_twitter %}
+      <a target="_blank" href="//twitter.com/share?text={{ share_title | url_param_escape }}&amp;url={{ currenturl | append: share_permalink }}">
+        {% render 'icon-twitter-new' %}
+      </a>
+    {% endif %}
+
+    {% if settings.share_pinterest %}
+      <a target="_blank" href="//pinterest.com/pin/create/button/?url={{ currenturl | append: share_permalink }}&amp;media={{ share_image | img_url: '1024x1024' }}&amp;description={{ share_title | url_param_escape }}">
+        {% render 'icon-pinterest-new' %}
+      </a>
+    {% endif %}
+
+    {% if settings.share_linkedin %}
+      <a target="_blank" href="https://www.linkedin.com/shareArticle?mini=true&url={{ currenturl | append: share_permalink }}&title={{ share_title | url_param_escape }}&summary={{ share_title | url_param_escape }}">
+        {% render 'icon-linkedin-new' %}
+      </a>
+    {% endif %}
+
+    <a href="javascript:window.print()">
+      {% render 'icon-print-new' %}
+    </a>
+
+    <a target="_top" href="mailto:?subject={{ share_title | url_param_escape }}&body={{ currenturl | append: share_permalink }}">
+        {% render 'icon-mail-new' %}
+    </a>
+
+
+
+  </div>

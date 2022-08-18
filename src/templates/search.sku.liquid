@@ -1,0 +1,50 @@
+{%- layout none -%}
+{%- comment -%}
+/*
+ * SKU Search Endpoint
+ *
+ */ 
+{%- endcomment -%}
+
+
+
+{%- paginate collections.all.products by 1000 -%}
+{
+	"products": {
+		{%- for item in collections.all.products -%}
+			{% assign ingredients = item.metafields.Additional['Ingredients'] | split: ', '%}
+			{%- unless item.object_type == 'product' -%}{%- continue -%}{%- endunless -%}
+			{% for variant in item.variants %}
+				{{- variant.sku| json -}}: {
+					"product": {
+						"title": {{ item.title | json }},
+						"ingredientDetails": 
+								[
+										{% for ingrendient in ingredients %}
+												{% assign ingredientslug = 'herbs/' | append: ingrendient | replace: ' ', '-'  | replace: "'", "" | replace: '.', '' | downcase %}
+												{% assign ingredienthandle = ingrendient | replace: ' ', '-'  | replace: "'", "" | replace: '.', '' | downcase %}
+												{% assign herb = articles[ingredientslug] %}
+												{
+														"name": {{ herb.title | json }},
+														"longname": {{ herb.metafields.Additional['NameScientific'] | json }},
+														"description": {{ herb.content | strip_html | truncate: 500 | json  }},
+														"slug": {{ ingredientslug | json  }},
+														"handle": {{ ingredienthandle | json  }},
+														"url": {{ herb.url | json  }},
+														"img": {{ herb.image | img_url: '300x' | json }}
+												}{% unless forloop.last %},{% endunless %}
+										{% endfor %}
+								],
+						"url": {{ item.url | json }},
+						"image": {{ item.featured_image | img_url: '600x' | json }},
+						"description": {{ item.description | split: '</p>' | json }},
+						"otheringredients": {{ item.metafields.Additional['OtherIngredients'] | json }},
+						"doesnotcontain": {{ item.metafields.Additional['DoesNotContain'] | json }}
+					}
+				}{%- unless forloop.last %},{% endunless -%}
+			{%- endfor -%}
+			{%- unless forloop.last %},{% endunless -%}
+		{%- endfor -%}
+	}
+}
+{%- endpaginate -%}

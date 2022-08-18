@@ -1,0 +1,128 @@
+<div class="hidden">
+  {%- render 'icon-checkmark' -%}
+</div>
+
+{%- capture left_side_one -%}
+  <div class="highlights__highlight highlights__highlight--padded"
+       data-highlight-content>
+    <div class="sub-title color-deep-green" data-herb-manufacture-id></div>
+    <h2 class="herb-results__title" data-herb-manufacture-title></h2>
+    <div data-herb-manufacture-excerpt
+         class="herb-results__description"></div>
+    <table class="herb-results__results herb-results__results--alt"
+           data-herb-manufacture-table>
+    </table>
+    <a href=""
+       data-herb-results-product-link
+       class="button button--primary">
+      Shop This Product
+    </a>
+  </div>
+{%- endcapture -%}
+
+{%- capture left_side -%}
+  <div class="highlights__highlight highlights__highlight--padded"
+       data-highlight-content>
+    <h2 class="herb-results__title" data-herb-results-product-title>
+      Testing Results
+    </h2>
+    <p class="herb-results__description">
+      {{- section.settings.intro -}}
+    </p>
+
+    <h3 class="herb-results__latest-title">Latest Batch Details</h3>
+    <table class="herb-results__results">
+      <tbody data-hreb-results></tbody>
+    </table>
+
+    <p class="quality-signature__title">Quality Assurance Approvals</p>
+    <div class="flex-box">
+      <figure class="quality-signature">
+        <img src="{{- section.settings.signature_one | img_url: 'x50' -}}"
+             alt="{{- section.settings.signature_one.alt -}}" />
+        <figcaption>
+          Director of Quality
+        </figcaption>
+      </figure>
+
+      <figure class="quality-signature">
+        <img src="{{- section.settings.signature_two | img_url: 'x50' -}}"
+             alt="{{- section.settings.signature_two.alt -}}" />
+        <figcaption>
+          Data Reviewer
+        </figcaption>
+      </figure>
+    </div>
+
+    <button class="button button--tertiary button--certificate" data-trigger-cert-modal>
+      View Complete Testing Certificate
+    </button>
+  </div>
+{%- endcapture -%}
+
+
+
+
+
+<div class="ccontain mobile-only">
+  <div class="highlights highlights--no-border">
+    <div class="meet-herbs__image-wrap"
+         io-bg-src="{{- section.settings.background | img_url: '800x800' -}}">
+      <img class="highlights__image highlights__image--offset"
+           data-product-image
+           alt="Product Image" />
+    </div>
+    {{- left_side_one -}}
+    {{- left_side -}}
+  </div>
+</div>
+
+<div class="ccontain highlights highlights--no-border desktop-only">
+  <div class="highlights__images" {% if section.settings.layout != 'left' -%}style="order: 1;"{%- endif -%}>
+    <div class="highlights__image-wrap meet-herbs__image-wrap"
+         io-bg-src="{{- section.settings.background | img_url: '800x800' -}}">
+      <img class="highlights__image highlights__image--offset hidden"
+           data-product-image
+           src=""
+           alt="Product Highlights"
+           data-image-index="0" />
+    </div>
+  </div>
+  <div class="highlights__content">
+    {{- left_side_one -}}
+    {{- left_side -}}
+  </div>
+</div>
+
+{%- render 'meet-herbs-vue-app', section: section -%}
+
+{% schema %}
+  {
+    "name": "Meet Your Herbs - Results",
+    "class": "herb-results",
+    "tag": "section",
+    "settings": [
+      {
+        "id": "intro",
+        "type": "text",
+        "label": "Intro",
+        "default": "We believe you deserve to know exactly what’s in your supplements—and what’s not. At Gaia Herbs, every ingredient and finished product is tested in our state-of-the-art laboratory to ensure Purity, Integrity, and Potency."
+      },
+      {
+        "type": "image_picker",
+        "id": "background",
+        "label": "Image Background"
+      },
+      {
+        "type": "image_picker",
+        "id": "signature_one",
+        "label": "Signature One"
+      },
+      {
+        "type": "image_picker",
+        "id": "signature_two",
+        "label": "Signature Two"
+      }
+    ]
+  }
+{% endschema %}

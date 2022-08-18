@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="{{ shop.locale }}">
+  <head>
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-W45N8S6');
+  </script>
+
+    {%- render 'theme-head' -%}
+    {{ content_for_header }}
+    {% render 'wunderkind' %}
+    {% render 'yotpo-js' %}
+    {% render 'klaviyo-js' %}
+  </head>
+  <body class="{%- unless settings.display_preview == 'yes' -%}hide-preview-bar{%- endunless -%}">
+  <noscript>
+    <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-W45N8S6" height="0" width="0" style="display:none;visibility:hidden"></iframe>
+  </noscript>
+    <div id="outlet-overlay"></div>
+
+    <a class="visually-hidden skip-link" href="#MainContent">
+      Skip to content
+    </a>
+
+    {%- section 'site-header' -%}
+
+    <main role="main" id="MainContent">
+      {{ content_for_layout }}
+    </main>
+
+    {% render 'addToCart-CartJS' %}
+    {%- section 'inline-cart' -%}
+    {%- section 'site-prefooter' -%}
+    {%- section 'site-footer' -%}
+
+    {%- render 'quickshop-wrap' -%}
+    {%- section 'cookie-bar' -%}
+
+    {%- render 'structured-data' -%}
+    {%- render 'external-scripts' -%}
+    {%- render 'dev-scripts' -%}
+
+  </body>
+</html>

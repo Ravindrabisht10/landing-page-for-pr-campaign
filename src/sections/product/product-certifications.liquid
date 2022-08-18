@@ -1,0 +1,61 @@
+{%- assign certs = product.metafields.Additional.Certifications -%}
+
+<h2 class="sub-title">{{- section.settings.title -}}</h2>
+<ul class="product-certs__list">
+  {%- for block in section.blocks -%}
+    {%- if certs contains block.settings.title and block.settings.title != blank -%}
+      <li class="product-certs__item">
+        <img src="{{- block.settings.image | img_url: 'x100' -}}"
+             alt="{{ block.settings.title }}"
+             class="product-certs__image"/>
+        <p>{{- block.settings.title -}}</p>
+      </li>
+    {%- endif -%}
+  {%- endfor -%}
+</ul>
+
+<style>
+  #shopify-section-{{- section.id -}} {
+    background-color: {{- section.settings.background_color -}};
+  }
+</style>
+
+{% schema %}
+  {
+    "name": "Product Certifications",
+    "class": "product-certs js-view-more-content",
+    "tag": "section",
+    "settings": [
+      {
+        "type": "text",
+        "id": "title",
+        "label": "Title",
+        "default": "clean, pure, & certified"
+      },
+      {
+        "type": "color",
+        "id": "background_color",
+        "label": "Background Color",
+        "default": "#EAEFEC"
+      }
+    ],
+    "blocks": [
+      {
+        "type": "cert",
+        "name": "Certification",
+        "settings": [
+          {
+            "type": "text",
+            "id": "title",
+            "label": "Title"
+          },
+          {
+            "type": "image_picker",
+            "id": "image",
+            "label": "Image"
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}

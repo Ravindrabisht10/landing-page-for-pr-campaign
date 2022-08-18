@@ -1,0 +1,14 @@
+{%- assign img_url = component_settings.callout_image | img_url:'1920x1280' -%}
+<div class="row {{ component_settings.callout_image_width }}">
+  <div class="col-12">
+    <section class="image-callout">
+      {% if component_settings.callout_image_link != blank %}
+          <a href="{{ component_settings.callout_image_link }}">
+      {% endif %}
+          <img loading="lazy" src="{{ img_url }}">
+      {% if component_settings.callout_image_link != blank %}
+          </a>
+      {% endif %}
+    </section>
+  </div>
+</div>

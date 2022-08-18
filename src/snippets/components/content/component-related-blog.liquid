@@ -1,0 +1,28 @@
+{% assign relatedBlog = articles[relatedblogsettings.blog] %}
+
+{% if relatedBlog != blank %}
+  {% assign article = relatedBlog %}
+{% endif %}
+
+{% if article != blank %}
+        
+  {% for category in article.tags %}
+    {% if category contains 'category' %}
+      {% assign blog_category = category %}
+    {% endif %}
+  {% endfor %}
+  
+  <section class="product-related-blog" style="background: url({{ article.image.src | img_url: '1920x' }});">
+    <div class="row contain">
+      <div class="col-12 col-lg-4">
+        {% if blog_category != blank %}
+          <h5>{{ blog_category | remove: 'category-' | replace: '-', ' '}}</h5>
+        {% endif %}
+        <h3>{{ article.title }}</h3>
+        {% assign content = article.content | split: '<p>' %}
+        <p>{{ content[1] | truncate: 140 | strip_html}}</p>
+        <p><a href="{{ article.url }}" id="pdp-blog-learn-more" class="button-secondary">Learn More</a></p>
+      </div>
+    </div>
+  </section>
+{% endif %}

@@ -1,0 +1,209 @@
+{%- assign sub_data = product.metafields.subscriptions -%}
+{%- assign current_variant = product.selected_or_first_available_variant -%}
+{%- assign product_skus = product.metafields.bundle.bundle_product_skus -%}
+{%- assign variantsArr = product.variants -%}
+
+{%- if sub_data != blank -%}
+  {%- if sub_data.has_subscription == 'True' or sub_data.has_subscription == 'TRUE' -%}
+    {%- assign is_subscription = true -%}
+    {%- assign original_product = all_products[sub_data.original_handle] -%}
+    {%- assign frequencies = sub_data.shipping_interval_frequency | split: ',' -%}
+    {%- for prop in product.properties -%}
+      {%- if prop[0] == "shipping_interval_frequency" -%}
+        {%- assign selected_frequency = prop[1] -%}
+      {%- endif -%}
+    {%- endfor -%}
+  {%- endif -%}
+{%- endif -%}
+
+
+<section class="buybox" data-product-buybox>
+
+
+  {%- render 'product-badges',
+      _product: product,
+      _classes: 'buybox__badges' -%}
+
+  <div class="flex-box flex-box--spaced">
+    {%- if template.suffix == 'quickshop' -%}
+      <a href="{{- product.url -}}">
+    {%- endif -%}
+    <h1 class="h4 buybox__title">{{- product.title -}}</h1>
+    {%- if template.suffix == 'quickshop' -%}
+      </a>
+    {%- endif -%}
+    <p class="buybox__main-price"
+       data-one-time-price>
+      {%- render 'product-price' -%}
+    </p>
+  </div>
+
+  {%- render 'product-bottom-line', _product: product -%}
+
+  <div class="buybox__description">
+    {{- product.description -}}
+  </div>
+
+  {%- if product.metafields.additional.product_highlights != blank -%}
+    {%- assign highlights = product.metafields.additional.product_highlights | newline_to_br | split: '<br />' -%}
+    <div class="buybox__highlights">
+      <p class="buybox__highlights-title">
+        Highlights
+      </p>
+      <ul class="buybox__highlights-list">
+        {%- for highlight in highlights -%}
+          <li class="buybox__highlights-item">
+            {{- highlight -}}
+          </li>
+        {%- endfor -%}
+      </ul>
+    </div>
+  {%- endif -%}
+
+  {%- unless template.suffix == 'quickshop' -%}
+    {%- render 'product-supplement-modal' -%}
+  {%- else -%}
+    <a href="{{- product.url -}}"
+       class="link">
+      View Product Details
+    </a>
+  {%- endunless -%}
+
+  {%- unless product.tags contains 'badge-coming-soon' or product.tags contains 'badge-in-store-exclusive' -%}
+
+    <p class="buybox__size">
+      <span class="buybox__size-label">SIZE:</span>
+      <span data-size-selected
+            class="buybox__size-value">
+        {% for variant in product.variants %}
+          {% if variant.available == true %}
+            {{- variant.metafields.accentuate.serving_size -}}
+            {% break %}
+          {% endif %}
+        {% endfor %}
+      </span>
+    </p>
+    <div class="flex-box">
+      {%- for variant in product.variants -%}
+        {%- if variant.metafields.accentuate.variant_hideshow == 'true' -%}
+          {%- continue -%}
+        {%- endif -%}
+        <button data-update-variant="{{- variant.id -}}"
+          data-variant-available="{{- variant.available -}}"
+          data-variant-sku="{{- variant.sku -}}"
+          data-variant-price="{{- variant.price -}}"
+          data-compare-price="{{- variant.compare_at_price | default: 'false' -}}"
+          data-delivery-frequency="{{- variant.metafields.accentuate.delivery_frequency -}}"
+          data-supply="{{- variant.metafields.accentuate.serving_size -}}"
+          id="{{- variant.id -}}"
+          class="buybox__variant button button--tertiary button--small variant_selectors {% if current_variant.id == variant.id -%}selected{%- endif -%}"> 
+          {%- if variant.weight > 0 -%}
+            {{- variant.weight | weight_with_unit: variant.weight_unit -}}
+          {%- else -%}
+            {{- variant.option1 -}}
+          {%- endif -%}
+        </button>
+      {%- endfor -%}
+    </div>
+
+    {%- if is_subscription == true -%}
+      <div class="flex-box buybox__option">
+        <input class="checkbox"
+               id="one-time"
+               name="purchase-type"
+               value="one-time"
+               type="radio"
+               checked="checked"
+               data-update-product-type />
+        <label class="buybox__label flex-box flex-box--spaced"
+               for="one-time">
+          One-Time Purchase
+          <span class="buybox__label-price"
+                data-one-time-price>
+            {%- render 'product-price' -%}
+          </span>
+        </label>
+      </div>
+      <div class="flex-box buybox__option">
+        <input class="checkbox"
+               type="radio"
+               id="subscription"
+               name="purchase-type"
+               value="subscription"
+               data-unit-type="{{- sub_data.shipping_interval_unit_type -}}"
+               data-update-product-type />
+        <label class="buybox__label flex-box flex-box--spaced"
+               for="subscription">
+          Subscribe & Save 10%
+          <span class="buybox__label-price"
+                data-subscription-price>
+            {%- render 'product-price', multiplier: 0.9, is_sub: 'true' -%}
+          </span>
+        </label>
+      </div>
+
+      <div class="buybox__frequency hidden"
+           data-frequency-selector>
+        <div class="select-wrap">
+          <div class="select-label">Delivery Schedule</div>
+          <select data-buybox-frequency>
+            {%- for option in frequencies -%}
+              <option value="{{- option -}}">Ships Every {{ option }} {{ sub_data.shipping_interval_unit_type }}s</option>
+            {%- endfor -%}
+          </select>
+        </div>
+
+        <p class="buybox__benefits">When you subscribe, we’ll automatically ship your items based on your desired delivery schedule. You can adjust, pause, or cancel at anytime using your Gaia Herbs account.</p>
+      </div>
+    {%- endif -%}
+
+    <div class="buybox__ctas {% if template.suffix == 'quickshop' -%}buybox__ctas--quickshop{%- endif -%}">
+      <div class="flex-box flex-box--streched">
+        <div class="flex-box line-item__quantity">
+          <button class="icon-button"
+                  data-set-quantity="-1">
+            -
+          </button>
+          <span data-buybox-quantity="1">1</span>
+          <button class="icon-button"
+                  data-set-quantity="1">
+            +
+          </button>
+        </div>
+        <button class="button button--secondary button--wide"
+                id="atc-btn"
+                data-item-price="{{- current_variant.price | money -}}"
+                data-add-to-cart="{{- current_variant.id -}}"
+                data-product-map='{{ sub_data.original_to_hidden_variant_map | json }}'>
+          Add To Cart
+        </button>
+      </div>
+
+
+      <p id="pdp-shipping-notice" class="flex-box buybox__shipping-wrapper">
+        {%- render 'icon-shipping' -%}
+        <span id="pdp-shipping-text" class="buybox__shipping">Free Shipping on orders over $49</span>
+      </p>
+    </div>
+
+  {%- endunless -%}
+  
+  <input type="hidden" id='hiddenInput' data-product-skus='{{ product_skus }}'/>
+
+  
+  {%- unless template.suffix == 'quickshop' -%}
+    {%- render 'product-upsell' -%}
+  {%- endunless -%}
+</section>
+<script>
+const input = document.querySelector('#hiddenInput')
+let variantArr = {{ variantsArr | json }}
+let variantObj = []
+for(let v of variantArr){
+  let res = {}
+  res['id'] = v.id
+  res['available'] = v.available
+  variantObj.push(res)
+}
+input.setAttribute('data-variant-availability', JSON.stringify(variantObj))
+</script>

@@ -1,0 +1,70 @@
+<div class="image-card image-card--{{ layout }} {% if button_link != blank %}image-card--zoom-enabled{% endif %} {{ text_alignment_class }}"
+  {%- if text_color != blank -%}
+    style="color: {{ text_color }};"
+  {%- endif -%}
+  >
+
+  {%- if layout == 'alternate' -%}
+    {%- if button_link != blank -%}
+      <a href="{{ button_link }}" class="image-card__link" aria-label="{{ title }}"
+        {%- if background_color != blank -%}
+          style="background-color: {{ background_color | color_modify: 'alpha', opacity }};"
+        {%- endif -%}
+        ></a>
+    {%- endif -%}
+  {%- endif -%}
+
+  <div class="image-card__image-wrapper">
+    {%- if layout == 'default' and button_link != blank -%}
+      <a href="{{ button_link }}" class="image-card__link" aria-label="{{ title }}"
+          {%- if background_color != blank -%}
+            style="background-color: {{ background_color | color_modify: 'alpha', opacity }};"
+          {%- endif -%}
+        ></a>
+    {%- endif -%}
+
+    {%- if image != blank -%}
+      <img class="image-card__image" io-img-src="{{ image | img_url: image_width }}" io-img-srcset="{{ image | img_url: image_width }} 1x, {{ image | img_url: image_width, scale: 2 }} 2x"
+        alt="{{ image.alt | default: title }}">
+    {%- endif -%}
+
+    {%- if image_secondary != blank -%}
+      <img class="image-card__image--secondary" io-img-src="{{ image_secondary | img_url: image_width }}" io-img-srcset="{{ image_secondary | img_url: image_width }} 1x, {{ image_secondary | img_url: image_width, scale: 2 }} 2x"
+        alt="{{ image_secondary.alt | default: title }}">
+    {%- endif -%}
+  </div>
+
+  <div class="image-card__content">
+    {%- if sub_title != blank -%}
+      <div class="image-card__sub-title sub-title">{{ sub_title }}</div>
+    {%- endif -%}
+
+    {%- if layout == 'default' -%}
+      {%- if title != blank -%}
+        <h2 class="image-card__title" style="color: {{ title_color }}">
+          {%- if button_link != blank -%}
+            <a href="{{ button_link }}" >{{ title }}</a>
+          {%- else -%}
+            {{ title }}
+          {%- endif -%}
+        </h2>
+      {%- endif -%}
+    {%- else -%}
+      {%- if title != blank -%}
+        <h2 class="image-card__title">{{ title }}</h2>
+      {%- endif -%}
+    {%- endif -%}
+
+    {%- if description != blank -%}
+      <div class="image-card__description"
+          {%- if description_color != blank -%}
+            style="color: {{ description_color }};"
+          {%- endif -%}
+        >{{ description }}</div>
+    {%- endif -%}
+
+    {%- if button_link != blank and button_label != blank -%}
+      <a href="{{ button_link }}" target="_blank" rel="noopener noreferrer" class="{% unless button_type == 'link' %}button button--{{ button_type }}{% else %}link{% endunless %} image-card__cta">{{ button_label }}</a>
+    {%- endif -%}
+  </div>
+</div>

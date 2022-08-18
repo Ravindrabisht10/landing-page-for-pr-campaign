@@ -1,0 +1,108 @@
+{% comment %}
+  Hero Section
+  - Background Image
+  - Sub Title
+  - Title
+  - Description
+  - Actions based in Blocks
+{% endcomment %}
+
+{%- assign currentDate = "now" | date: "%Y%m%d" -%}
+{%- assign currentTime = "now" | date: "%H%M" -%}
+{%- assign alertDateTS = _section.settings.hero_start_date | replace: "-", "" -%}
+{%- assign alertTimeTS = _section.settings.hero_start_time | replace: ":", "" -%}
+{%- assign alertDateEndTS = _section.settings.hero_end_date | replace: "-", "" -%}
+{%- assign alertTimeEndTS = _section.settings.hero_end_time | replace: ":", "" -%}
+{%- assign display_hero = true -%}
+
+{%- if alertDateTS == blank or alertTimeTS == blank -%}
+  {%- assign display_hero = true -%}
+{%- elsif alertDateTS > currentDate or alertDateTS == currentDate and currentTime < alertTimeTS -%}
+  {%- assign display_hero = false -%}
+{%- elsif alertDateEndTS < currentDate or alertDateEndTS == currentDate and currentTime > alertTimeEndTS -%}
+  {%- assign display_hero = false -%}
+{%- endif -%}
+
+{%- if display_hero == true -%}
+<style>
+  #hero_{{ _section.id }} {
+    color: {{ _section.settings.text_color }};
+  }
+
+  #hero_{{ _section.id }} .hero__title,
+  #hero_{{ _section.id }} .hero__sub-title {
+    color: {{ _section.settings.title_color }};
+  }
+
+  @media screen and (max-width: 749px) {
+    #hero_{{ _section.id }} .hero__image {
+      object-position: {{ _section.settings.mobile_object_position }}% 50%;
+    }
+  }
+</style>
+
+<section id="hero_{{ _section.id }}"
+  class="hero hero--{{ _section.settings.layout }} hero--spacing-{{ _section.settings.content_spacing }} text-{{ _section.settings.text_alignment }}"
+  data-section-id="{{ _section.id }}" data-section-type="{{ _section.type }}" >
+
+  {%- if _section.settings.hero_video != blank -%}
+    <div class="hero__video">
+      <video class="" src="{{ _section.settings.hero_video }}" preload="metadata" loop autoplay muted="muted" playsinline></video>
+    </div>
+  {%- else -%}
+    <picture class="hero__picture">
+      <source media="(min-width: 2561px)" srcset="{{ _section.settings.image | img_url: '3440x', format: 'pjpg' }}, {{ _section.settings.image | img_url: '3440x', scale: 2, format: 'pjpg' }} 2x">
+      <source media="(max-width: 2560px)" srcset="{{ _section.settings.image | img_url: '2560x', format: 'pjpg' }}, {{ _section.settings.image | img_url: '2560x', scale: 2, format: 'pjpg' }} 2x">
+      <source media="(max-width: 1920px)" srcset="{{ _section.settings.image | img_url: '1920x', format: 'pjpg' }}, {{ _section.settings.image | img_url: '1920x', scale: 2, format: 'pjpg' }} 2x">
+      <source media="(max-width: 1600px)" srcset="{{ _section.settings.image | img_url: '1600x', format: 'pjpg' }}, {{ _section.settings.image | img_url: '1600x', scale: 2, format: 'pjpg' }} 2x">
+      <source media="(max-width: 1400px)" srcset="{{ _section.settings.image | img_url: '1400x', format: 'pjpg' }}, {{ _section.settings.image | img_url: '1400x', scale: 2, format: 'pjpg' }} 2x">
+      <source media="(max-width: 1280px)" srcset="{{ _section.settings.image | img_url: '1280x', format: 'pjpg' }}, {{ _section.settings.image | img_url: '1280x', scale: 2, format: 'pjpg' }} 2x">
+      <source media="(max-width: 1024px)" srcset="{{ _section.settings.image | img_url: '1024x', format: 'pjpg' }}, {{ _section.settings.image | img_url: '1024x', scale: 2, format: 'pjpg' }} 2x">
+      <source media="(max-width: 750px)" srcset="{{ _section.settings.image  | img_url: '750x', format: 'pjpg' }}, {{ _section.settings.image  | img_url: '750x', format: 'pjpg', scale: 2 }} 2x">
+
+      <img class="hero__image" src="{{ _section.settings.image | img_url: '750x' }}"
+        srcset="{{ _section.settings.image | img_url: '750x', scale: 2 }} 2x"
+        alt="{{ _section.settings.image.alt | default: _section.settings.title }}"
+        {% if _section.settings.enable_parallax %}data-js-parallax-element{% endif %} >
+    </picture>
+  {%- endif -%}
+
+  <div class="hero__inner ccontain">
+    <div class="hero__content" style="max-width: {{ _section.settings.content_max_width }}px;">
+      {%- if _section.settings.sub_title != blank -%}
+        <span class="sub-title hero__sub-title">{{ _section.settings.sub_title }}</span>
+      {%- endif -%}
+
+      {%- if _section.settings.title != blank -%}
+        <h2 class="h1 hero__title">{{ _section.settings.title }}</h2>
+      {%- endif -%}
+
+      {%- if _section.settings.description != blank -%}
+        <div class="hero__description">{{ _section.settings.description }}</div>
+      {%- endif -%}
+
+      <div class="hero__actions">
+        {%- if _section.blocks.size > 0 -%}
+          {%- for block in _section.blocks -%}
+            {%- if block.type == 'button' -%}
+              {%- if block.settings.button_link != blank and block.settings.title != blank -%}
+                <a href="{{ block.settings.button_link }}" class="button button--{{ block.settings.button_type }} hero__cta">{{ block.settings.title }}</a>
+              {%- endif -%}
+            {%- endif -%}
+          {%- endfor -%}
+        {%- else -%}
+          {%- for i in (1 .. 2) -%}
+            {%- assign button_label = 'button_label_' | append: i -%}
+            {%- assign button_link = 'button_link_' | append: i -%}
+            {%- assign button_type = 'button_type_' | append: i -%}
+
+            {%- if _section.settings[button_label] != blank and _section.settings[button_link] != blank -%}
+              <a href="{{ _section.settings[button_link] }}" target="_blank" rel="noopener noreferrer" class="button button--{{ _section.settings[button_type] }} hero__cta">{{ _section.settings[button_label] }}</a>
+            {%- endif -%}
+          {%- endfor -%}
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+</section>
+{%- endif -%}

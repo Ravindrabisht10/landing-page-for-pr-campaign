@@ -1,0 +1,132 @@
+.input {
+  @include font(14, 40, 500);
+  border: 0;
+  border-radius: rem(4);
+  padding: 0 $gutter;
+  background-color: $color-secondary;
+  color: $color-primary;
+
+  &::placeholder {
+    color: inherit;
+  }
+}
+
+.input--wide {
+  width: 100%;
+
+  @include mq($medium) {
+    min-width: 12.625rem;
+  }
+}
+
+.input[type="radio"],
+.checkbox {
+  position: relative;
+  border: rem(1) solid $color-primary;
+  border-radius: 100%;
+  min-width: rem(22);
+  min-height: rem(22);
+  background-color: $color-white;
+  cursor: pointer;
+  appearance: none;
+  -webkit-appearance: none;
+  transition: background-color .3s;
+
+  &:checked {
+    background-color: $color-primary;
+
+    &::before,
+    &::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      border: rem(1) solid $color-white;
+      border-radius: 100%;
+    }
+
+    &::before {
+      width: rem(10);
+      height: rem(10);
+    }
+
+    &::after {
+      border-width: rem(2);
+      width: 0;
+      height: 0;
+    }
+  }
+}
+
+.checkbox-square {
+  display: block;
+  border-radius: rem(2);
+  border: rem(1) solid $color-primary;
+  margin-right: rem(12);
+  width: rem(20);
+  height: rem(20);
+  appearance: none;
+}
+.checkbox-square:checked {
+  background-color: $color-primary;
+
+  &::before {
+    content: '\2713';
+    position: relative;
+    display: block;
+    width: 20px;
+    height: 20px;
+    z-index: 1;
+    text-align: center;
+    color: $color-white
+  }
+}
+
+.text-input__wrap {
+  position: relative;
+
+  & label {
+    @include font(11, 14);
+    position: absolute;
+    top: 0;
+    left: rem(24);
+    padding: 0 rem(3);
+    transform: translateY(-50%);
+    background-color: $color-white;
+    transition: top .2s, left .2s, padding .2s;
+  }
+}
+
+.text-input {
+  @include font(16, 45, 400);
+  border: rem(1) solid $color-deep-green;
+  border-radius: rem(4);
+  padding: 0 rem(24);
+  width: 100%;
+  background-color: $color-secondary;
+  color: $color-primary;
+  background-color: $color-white;
+
+  &:placeholder-shown + label {
+    @include font(16, 14);
+    top: 50%;
+    left: rem(26);
+    padding: 0;
+  }
+}
+
+.contact-input {
+  margin-top: rem(24);
+}
+
+.textarea {
+  padding-top: rem(12);
+  padding-bottom: rem(12);
+  line-height: rem(24);
+}
+
+select.wufoo-ddl {
+  @include font(16, 16, 300, 0);
+  color: $color-black;
+}

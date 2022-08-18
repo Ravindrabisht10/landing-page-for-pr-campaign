@@ -1,0 +1,52 @@
+<aside class="cookie-bar hidden" data-page-banner>
+  <div class="cookie-bar__contain flex-box flex-box--split">
+    <p class="coookie-bar__text">
+      {{- section.settings.bar_text -}}
+    </p>
+    <button class="button button--{{- section.settings.button_type }} cookie-bar__accept-button"
+            data-set-cookie
+            data-close-cookies>
+      Accept
+    </button>
+    <a href="{{- section.settings.learn_more_link | default: '/pages/privacy-policy' -}}"
+       class="link cookie-bar__link">
+      Learn More
+    </a>
+  </div>
+
+  <button class="icon-button cookie-bar__close"
+          data-close-cookies>
+    {%- render 'icon-close' -%}
+  </button>
+</aside>
+
+
+{% schema %}
+  {
+    "name": "Cookie Bar",
+    "settings": [
+      {
+        "type": "textarea",
+        "label": "Cookie Bar Text",
+        "id": "bar_text",
+        "default": "By clicking “Accept”, you agree the use of cookies to improve the user experience, which may include personalized ads."
+      },
+      {
+        "type": "select",
+        "label": "Cookie Bar Accept Button Type",
+        "id": "button_type",
+        "options": [
+          { "label": "Primary", "value": "primary" },
+          { "label": "Secondary", "value": "secondary" },
+          { "label": "Tertiary", "value": "tertiary" }
+        ],
+        "default": "primary"
+      },
+      {
+        "type": "url",
+        "label": "Learn More Link",
+        "id": "learn_more_link"
+      }
+    ]
+  }
+{% endschema %}

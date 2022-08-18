@@ -1,0 +1,126 @@
+.product-gallery {
+  position: relative;
+  display: grid;
+  grid-template-columns: rem(70) 1fr;
+  grid-column-gap: rem(10);
+  overflow: hidden;
+}
+
+.product-gallery,
+.product-gallery__thumbnails,
+.product-gallery__main-image {
+  min-height: rem(295);
+  height: rem(295);
+}
+
+.product-gallery__thumbnails {
+  overflow: auto;
+}
+
+.product-gallery__thumbnail {
+  list-style-type: none;
+  opacity: 0.4;
+  cursor: pointer;
+  transition: opacity .2s;
+
+  & + & {
+    margin-top: rem(20);
+  }
+
+  img {
+    cursor: pointer;
+  }
+}
+
+.product-gallery__thumbnail--selected {
+  opacity: 1;
+}
+
+.product-gallery__main-image {
+  width: 100%;
+  object-fit: contain;
+  background-color: $color-grey-100;
+}
+
+.product-gallery--main {
+  display: flex;
+  flex-direction: column-reverse;
+  height: auto;
+
+  @include mq($medium) {
+    position: sticky;
+    top: rem(96);
+    display: grid;
+    height: rem(620);
+  }
+}
+
+.has-promo .product-gallery--main {
+  @include mq($medium) {
+    top: rem(152);
+  }
+}
+
+.product-gallery__content-wrap {
+  overflow: hidden;
+  width: 100%;
+
+  @include mq($medium) {
+    overflow: visible;
+  }
+}
+
+.product-gallery__thumbnails--main {
+  margin-top: rem(12);
+  margin-bottom: rem(35);
+  height: auto;
+  min-height: 0;
+  display: flex;
+  overflow: auto;
+
+  @include mq($medium) {
+    margin-top: 0;
+    margin-bottom: 0;
+    display: block;
+    height: rem(435);
+  }
+}
+
+.product-gallery__thumbnail--main {
+  margin-bottom: rem(12);
+  width: rem(60);
+  flex-shrink: 0;
+
+  @include mq($medium) {
+    margin-bottom: 0;
+  }
+
+  & + & {
+    margin-top: 0;
+    margin-left: rem(10);
+
+    @include mq($medium) {
+      margin-top: rem(20);
+      margin-left: 0;
+    }
+  }
+}
+
+.product-gallery__main-image--main {
+  padding: rem(45);
+  height: 100%;
+  cursor: zoom-in;
+}
+
+.product-gallery__zoomzoom {
+  position: absolute;
+  bottom: rem(140);
+  right: rem(20);
+  width: rem(20);
+  pointer-events: none;
+  touch-action: none;
+
+  @include mq($medium) {
+    bottom: rem(20);
+  }
+}

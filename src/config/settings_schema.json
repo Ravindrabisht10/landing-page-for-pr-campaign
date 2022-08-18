@@ -1,0 +1,160 @@
+[
+  {
+    "name": "theme_info",
+    "theme_name": "eHouse All Nàtural",
+    "theme_version": "0.1.0",
+    "theme_author": "eHouse",
+    "theme_documentation_url": "https:\/\/shopify.github.io\/slate\/",
+    "theme_support_url": "https:\/\/github.com\/Shopify\/slate"
+  },
+  {
+    "name": "Site Info",
+    "settings": [
+      {
+        "type": "image_picker",
+        "id": "favicon",
+        "label": "Site Favicon"
+      },
+      {
+        "type": "image_picker",
+        "id": "site_logo",
+        "label": "Site Logo"
+      }
+    ]
+  },
+  {
+    "name": "Search Module",
+    "settings": [
+      {
+        "type": "text",
+        "id": "search_title",
+        "label": "Search Title",
+        "default": "CAN’T FIND YOUR HERB ID?"
+      },
+      {
+        "type": "richtext",
+        "id": "search_content",
+        "label": "Search Content",
+        "default": "<p>Your herb ID# can be found on the back of your product.<br/>Or, enter A571201042 to trace a batch of our Adrenal Health Daily Support.</p>"
+      }
+    ]
+  },
+  {
+    "name": "Social",
+    "settings": [
+      {
+        "type": "text",
+        "id": "social_facebook",
+        "label": "Facebook URL"
+      },
+      {
+        "type": "text",
+        "id": "social_instagram",
+        "label": "Instagram URL"
+      },
+      {
+        "type": "text",
+        "id": "social_twitter",
+        "label": "Twitter URL"
+      },
+      {
+        "type": "text",
+        "id": "social_linkedin",
+        "label": "Linkedin URL"
+      },
+      {
+        "type": "text",
+        "id": "social_pintrest",
+        "label": "Pintrest URL"
+      },
+      {
+        "type": "text",
+        "id": "social_youtube",
+        "label": "YouTube URL"
+      }
+    ]
+  },
+  {
+    "name": "Product Recommendations",
+    "settings": [
+      {
+        "label": "Product Upsell - Rebuy ID",
+        "type": "text",
+        "id": "rebuy_product_upsell_id",
+        "default": "12278"
+      },
+      {
+        "label": "Product Upsell - Title",
+        "type": "text",
+        "id": "rebuy_product_upsell_title",
+        "default": "Pairs Well With..."
+      },
+      {
+        "label": "Full Product Upsell - Rebuy ID",
+        "type": "text",
+        "id": "rebuy_full_product_upsell_id",
+        "default": "12404"
+      },
+      {
+        "label": "Full Product Upsell - Title",
+        "type": "text",
+        "id": "rebuy_full_product_upsell_title",
+        "default": "You Might Also Like"
+      },
+      {
+        "label": "Full Product Upsell - Subtitle",
+        "type": "text",
+        "id": "rebuy_full_product_upsell_subtitle",
+        "default": "our favorites"
+      },
+      {
+        "label": "Cart Upsell - Rebuy ID",
+        "type": "text",
+        "id": "rebuy_cart_upsell_id",
+        "default": "12336"
+      },
+      {
+        "label": "Checkokut Upsell - Rebuy ID",
+        "type": "text",
+        "id": "rebuy_checkout_upsell_id",
+        "default": "12402"
+      }
+    ]
+  },
+  {
+    "name": "Legal",
+    "settings": [
+      {
+        "type": "text",
+        "id": "herb_disclaimer",
+        "label": "Herb Disclaimer",
+        "default": "This information in our Herbal Reference Guide is intended only as a general reference for further exploration, and is not a replacement for professional health advice. This content does not provide dosage information, format recommendations, toxicity levels, or possible interactions with prescription drugs. Accordingly, this information should be used only under the direct supervision of a qualified health practitioner such as a naturopathic physician."
+      }
+    ]
+  },
+  {
+    "name": "Development Settings",
+    "settings": [
+      {
+        "type": "select",
+        "id": "display_preview",
+        "label": "Display Preview Bar",
+        "options": [
+          { "label": "Yes", "value": "yes" },
+          { "label": "No", "value": "no" }
+        ],
+        "default": "yes"
+      },
+      {
+        "type": "select",
+        "id": "is_development_theme",
+        "label": "Is Development Theme?",
+        "options": [
+          { "label": "Yes", "value": "yes" },
+          { "label": "No", "value": "no" }
+        ],
+        "default": "no"
+      }
+    ]
+  }
+]

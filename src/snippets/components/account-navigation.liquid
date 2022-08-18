@@ -1,0 +1,83 @@
+<div class="account-navigation__header">
+  <h2 class="template-title h3">Hello, {{ customer.first_name }}!</h2>
+  <a href="/account/logout" class="link signout-link">Sign Out</a>
+</div>
+<div class="navigation-menu">
+  <ul class="desktop-only">
+    <li class="nav-link orders-link" data-account-nav-link="/account">
+      <a href="/account">Order History</a>
+    </li>
+    {% if customer.metafields.subscriptions.customer_string %}
+      <!--BeginRechargeCode-->
+      <li class="nav-link" data-account-nav-link="/tools/recurring/portal/{{customer.metafields.subscriptions.customer_string}}/subscriptions/">
+<!--          <a href="/tools/recurring/customer/{{customer.metafields.subscriptions.customer_string}}/subscriptions/">My Subscriptions</a> -->
+        <a href="/tools/recurring/login">My Subscriptions</a>
+      </li>
+      <!--EndRechargeCode-->
+    {% endif %}
+    {% if customer.metafields.subscriptions.customer_string %}
+      <!--BeginRechargeCode-->
+      <li class="nav-link" data-account-nav-link="/tools/recurring/portal/{{customer.metafields.subscriptions.customer_string}}/payment_sources">
+        <a href="/tools/recurring/login" class="js--rc-payment_sources" name="billing">Billing Information</a>
+      </li>
+      <!--EndRechargeCode-->
+    {% endif %}
+    <li class="nav-link saved-address-link" data-account-nav-link="/account/addresses">
+      <a href="/account/addresses">Saved Addresses</a>
+    </li>
+  </ul>
+
+  <div class="select-wrap mobile-only">
+    <select id="accountNav" class="mobile-only" onchange="window.location = this.value;">
+      <option value="/account">Order History</option>
+      {% if customer.metafields.subscriptions.customer_string %}
+    <!--BeginRechargeCode-->
+      <option value="/tools/recurring/customer/{{customer.metafields.subscriptions.customer_string}}/subscriptions/">My Subscriptions</option>
+    <!--EndRechargeCode-->
+    {% endif %}
+  <!--       <option value="/tools/recurring/login">My Subscriptions</option> -->
+      {% if customer.metafields.subscriptions.customer_string %}
+    <!--BeginRechargeCode-->
+      <option value="/tools/recurring/portal/{{customer.metafields.subscriptions.customer_string}}/payment_sources">Billing Information</option>
+    <!--EndRechargeCode-->
+    {% endif %}
+  <!--       <option value="/tools/recurring/login">Billing Information</option> -->
+      <option value="/account/addresses">Saved Addresses</option>
+    </select>
+  </div>
+</div>
+
+<script>
+const RC_CLASS_IDENTIFIER = 'js--rc-payment_sources';
+
+async function fetchRcCustomer() {
+    try {
+        const res = await fetch(
+            '/tools/recurring/get_rc_token/{{ customer.id }}'
+        )
+            .then((res) => res.clone().text())
+            .then((res) => JSON.parse(res.match(/{"rc_customer":.*}}/g)[0]));
+        return res.rc_customer;
+    } catch (err) {
+        console.error(err);
+    }
+}
+fetchRcCustomer().then((rc_customer) => {
+    document
+        .querySelectorAll(`[class^=${RC_CLASS_IDENTIFIER}]`)
+        .forEach((link) => {
+            const target_class = Array.from(link.classList).find((el) =>
+                el.includes(RC_CLASS_IDENTIFIER)
+            );
+            const target_class_location = target_class.split(
+                RC_CLASS_IDENTIFIER
+            )[1];
+            const base_path = `/tools/recurring/portal/${rc_customer.hash}/payment_sources`;
+            const token = `token=${rc_customer.token}`;
+            target_class_location.includes('?')
+                ? (link.href = base_path + '&' + token)
+                : (link.href = base_path + '?' + token);
+        });
+});
+
+</script>

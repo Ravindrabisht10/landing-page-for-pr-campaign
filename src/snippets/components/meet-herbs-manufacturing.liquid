@@ -1,0 +1,28 @@
+{%- capture left_side -%}
+  <div class="sub-title color-deep-green" data-herb-manufacture-id></div>
+  <h2 class="herb-results__title" data-herb-manufacture-title></h2>
+  <div data-herb-manufacture-excerpt
+       class="herb-results__description"></div>
+  <table class="herb-results__results herb-results__results--alt"
+         data-herb-manufacture-table>
+  </table>
+  <a href=""
+     data-herb-results-product-link
+     class="button button--primary">
+    Shop This Product
+  </a>
+{%- endcapture -%}
+
+{%- capture right_side -%}
+  <div class="meet-herbs__image-wrap">
+    <img io-img-src=""
+         alt="Product Image"
+         data-herb-results-product-image
+         class="meet-herbs__image hidden" />
+  </div>
+{%- endcapture -%}
+
+{%- render 'fifty-fifty',
+      left_side: left_side,
+      right_side: right_side,
+      classes: 'meet-herbs__fiftyfifty' -%}

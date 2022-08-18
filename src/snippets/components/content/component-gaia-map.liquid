@@ -1,0 +1,197 @@
+<section class="map {% if mapsettings.no_pt != blank %}pt-0{% endif %} {% if mapsettings.no_pb != blank %}pb-0{% endif %}">
+	<h5>{{ mapsettings.map_location }}</h5>
+	<h2>{{ mapsettings.map_title }}</h2>
+	<p>{{ mapsettings.map_copy }}</p>
+	{% assign img_url = mapsettings.map_image | img_url:'1280x' %}
+	<div class="map-container">
+		<img loading="lazy" src="{{ img_url }}" />
+
+		<div class="marker marker-house-field">
+			<div>
+				<h5>Pisgah Field</h5>
+				<p>Echinacea purpurea</p>
+			</div>
+		</div>
+
+		<div class="marker marker-ginko-trees">
+			<div>
+				<h5>Ginkgo Trees</h5>
+			</div>
+		</div>
+
+		<div class="marker marker-hawthorn-trees">
+			<div>
+				<h5>Hawthorn Trees</h5>
+			</div>
+		</div>
+
+		<div class="marker marker-barn-field">
+			<div>
+				<h5>Henry Field</h5>
+				<p>American Skullcap, Echinacea angustifolia, Lemon Balm, Feverfew, Astragalus & Vervain</p>
+			</div>
+		</div>
+
+		<div class="marker marker-east-field">
+			<div>
+				<h5>Stoney Knob Field</h5>
+				<p>Nettle, Feverfew, Astragalus, Vervain & Echinacea purpurea</p>
+			</div>
+		</div>
+
+		<div class="marker marker-middle-1">
+			<div>
+				<h5>Silvermine Field</h5>
+				<p>Echinacea purpurea</p>
+			</div>
+		</div>
+
+		<div class="marker marker-middle-2">
+			<div>
+				<h5>Black Mountain Field</h5>
+				<p>Burdock, Chinese Skullcap & Vervain</p>
+			</div>
+		</div>
+
+		<div class="marker marker-middle-3">
+			<div>
+				<h5>Hickory Knob Field</h5>
+				<p>Echinacea angustifolia</p>
+			</div>
+		</div>
+
+		<div class="marker marker-bamboo-field">
+			<div>
+				<h5>Laurel Field</h5>
+				<p>Vegetables</p>
+			</div>
+		</div>
+
+		<div class="marker marker-bamboo-field-2">
+			<div>
+				<h5>Bamboo 2</h5>
+				<p>Holy Basil</p>
+			</div>
+		</div>
+
+		<div class="marker marker-eight-acres">
+			<div>
+				<h5>McCall Field</h5>
+				<p>Feverfew & Chinese Skullcap</p>
+			</div>
+		</div>
+
+		<div class="marker marker-river-bottom">
+			<div>
+				<h5>French Broad Field</h5>
+				<p>Oats, Lemon Balm, Vervain & Vegetables</p>
+			</div>
+		</div>
+
+		<div class="marker marker-west-5">
+			<div>
+				<h5>Bunker Hill Field</h5>
+				<p>Oats</p>
+			</div>
+		</div>
+
+		<div class="marker marker-west-4">
+			<div>
+				<h5>Claypole Field</h5>
+				<p>Oats</p>
+			</div>
+		</div>
+
+		<div class="marker marker-west-3">
+			<div>
+				<h5>Nancy Field</h5>
+				<p>Echinacea purpurea</p>
+			</div>
+		</div>
+
+		<div class="marker marker-west-2">
+			<div>
+				<h5>Three Forks Field</h5>
+				<p>Valerian</p>
+			</div>
+		</div>
+
+		<div class="marker marker-west-2-upper">
+			<div>
+				<h5>Black Balsam Field</h5>
+				<p>Holy Basil</p>
+			</div>
+		</div>
+
+		<div class="marker marker-west-2-annex">
+			<div>
+				<h5>Stone Mountain Field</h5>
+				<p>Echinacea angustifolia</p>
+			</div>
+		</div>
+
+		<div class="marker marker-west-1">
+			<div>
+				<h5>Chestnut Knob Field</h5>
+				<p>Holy Basil</p>
+			</div>
+		</div>
+
+		<div class="marker marker-woods-3">
+			<div>
+				<h5>Rocky Field</h5>
+				<p>Vegetables</p>
+			</div>
+		</div>
+
+		<div class="marker marker-woods-4">
+			<div>
+				<h5>Taxaway Field</h5>
+				<p>Echinacea purpurea</p>
+			</div>
+		</div>
+		
+		<div class="marker marker-woods-1">
+			<div>
+				<h5>Spice Cove Field</h5>
+				<p>Echinacea purpurea & Valerian</p>
+			</div>
+		</div>
+
+		<div class="marker marker-woods-2">
+			<div>
+				<h5>Woodruff Field</h5>
+				<p>Valerian</p>
+			</div>
+		</div>
+
+		<div class="marker marker-catheys-field">
+			<div>
+				<h5>Cathey’s Creek Field</h5>
+				<p>Echinacea purpurea</p>
+			</div>
+		</div>
+
+		<div class="marker marker-compost-field">
+			<div>
+				<h5>Stone Field</h5>
+				<p>Echinacea purpurea</p>
+			</div>
+		</div>
+
+		<div class="marker marker-compost-annex">
+			<div>
+				<h5>Blue Ridge Field</h5>
+				<p>California Poppy & American Skullcap</p>
+			</div>
+		</div>
+	</div>
+	{% if mapsettings.map_copy_mobile != blank %}
+			<p class="d-block d-lg-none">{{ mapsettings.map_copy_mobile }}</p>
+	{% endif %}
+</section>
+
+
+{%- if mapsettings.add_section_divider != blank -%}
+  <div class="ccontain"><hr></div>
+{%- endif -%}

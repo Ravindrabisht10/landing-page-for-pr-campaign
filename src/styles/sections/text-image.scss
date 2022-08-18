@@ -1,0 +1,100 @@
+.section--text-image {
+  & + .section--text-image {
+    padding-top: 0;
+  }
+
+  .ccontain {
+    display: grid;
+    padding: 0;
+  }
+
+  .image-card {
+    position: relative;
+    overflow: hidden;
+
+    &__image-wrapper {
+      padding-bottom: 100%;
+    }
+  }
+
+  @include mq($medium) {
+    &--sticky-enabled {
+      .image-card {
+        position: sticky;
+        top: rem(62);
+        align-self: baseline;
+      }
+
+      .text-card-wrapper {
+        display: block;
+      }
+      
+      .text-card {
+        padding-top: 0;
+      }
+    }
+
+    &--right {
+      .image-card {
+        order: 1;
+      }
+    }
+
+    .ccontain {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .image-card {
+      &__image-wrapper {
+        position: static;
+        height: auto;
+      }
+    }
+  }
+
+  @include mq($large) {
+    .ccontain {
+      padding-left: rem(24);
+      padding-right: rem(24);
+    }
+
+    &--sticky-enabled {
+      .image-card {
+        top: rem(90);
+      }
+    }
+  }
+}
+
+.text-card {
+  display: flex;
+  align-items: center;
+  padding: rem(30) rem(20);
+
+  &-wrapper {
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+  }
+
+  &__title {
+    color: inherit;
+  }
+
+  &__description {
+    font-weight: 300;
+    line-height: 1.5;
+    margin-top: rem(16);
+    margin-bottom: rem(24);
+  }
+
+  @include mq($medium) {
+    padding: rem(80) rem(60);
+  }
+
+  @include mq($large) {
+    padding-top: rem(110);
+    padding-bottom: rem(110);
+  }
+}

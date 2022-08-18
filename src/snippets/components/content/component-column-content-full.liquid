@@ -1,0 +1,26 @@
+
+{% assign img_url_1 = '' %}
+{% assign img_url_2 = '' %}
+{% if component_settings.content_1_image %}
+    {%- assign img_url_1 = component_settings.content_1_image | img_url:'1080x' -%}
+{% endif %}
+{% if component_settings.content_2_image %}
+    {%- assign img_url_2 = component_settings.content_2_image | img_url:'1080x' -%}
+{% endif %}
+
+<section class="section content-column-full row {% if component_settings.no_pt != blank %}pt-0{% endif %} {% if component_settings.no_pb != blank %}pb-0{% endif %}">
+  <div class="col-12 col-md-6" style="background-color: {{ component_settings.content_1_color }}; background-image: url('{{ img_url_1 }}');">
+    <div class="content {{ component_settings.content_1_copy_color }}">
+      {{ component_settings.content_1_copy }}
+    </div>
+  </div>
+  <div class="col-12 col-md-6" style="background-color: {{ component_settings.content_2_color }}; background-image: url('{{ img_url_2 }}');">
+      <div class="content {{ component_settings.content_2_copy_color }}">
+          {{ component_settings.content_2_copy }}
+      </div>
+  </div>
+</section>
+
+{%- if component_settings.add_section_divider != blank -%}
+  <div class="ccontain"><hr></div>
+{%- endif -%}

@@ -1,0 +1,104 @@
+{%- comment -%}
+  This is a required section for the Shopify Theme Store.
+  It is available when you add "Testimonials" section in the Theme Editor.
+
+  Theme Store required settings
+  - Sub Heading
+  - Heading
+  - Featured Collection
+{%- endcomment -%}
+
+{%- render 'section-featured-collection', _section: section -%}
+
+{% schema %}
+  {
+    "name": "Featured Collection",
+    "settings": [
+      {
+        "type": "number",
+        "id": "position",
+        "label": "Position",
+        "default": 50
+      },
+      {
+        "type": "text",
+        "id": "sub_title",
+        "label": "Sub Title"
+      },
+      {
+        "type": "text",
+        "id": "title",
+        "label": "Title",
+        "default": "Best Sellers"
+      },
+      {
+        "type": "collection",
+        "id": "collection",
+        "label": "Featured Collection"
+      },
+      {
+        "type": "header",
+        "content": "Section Button"
+      },
+      {
+        "type": "text",
+        "id": "button_label",
+        "label": "Button Label",
+        "default": "Shop All Products"
+      },
+      {
+        "type": "url",
+        "id": "button_link",
+        "label": "Button Url"
+      },
+      {
+        "type": "select",
+        "id": "button_type",
+        "options": [
+           { "value": "primary", "label": "Primary" },
+           { "value": "secondary", "label": "Secondary" },
+           { "value": "tertiary", "label": "Tertiary Outline" },
+           { "value": "tertiary-dark", "label": "Tertiary Dark" }
+        ],
+        "label": "Button Type",
+        "default": "primary"
+      },
+      {
+        "type": "header",
+        "content": "Slides Settings"
+      },
+      {
+        "type": "number",
+        "id": "slides_speed",
+        "label": "Slides Speed",
+        "default": 2000,
+        "info": "ms"
+      },
+      {
+        "type": "number",
+        "id": "slides_limit",
+        "label": "Slides Limit",
+        "default": 12
+      },
+      {
+        "type": "checkbox",
+        "id": "slides_group",
+        "label": "Group Slides",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "slides_loop",
+        "label": "Loop Slides",
+        "default": false
+      }
+    ],
+    "presets": [
+      {
+        "name": "Featured Collection",
+        "category": "Collection"
+      }
+    ]
+  }
+{% endschema %}
+

@@ -1,0 +1,965 @@
+$star-color: #eba937;
+$breakpoint-tablet: 768px;
+$breakpoint-mobile: 550px;
+
+@mixin title {
+  font-weight: 700;
+  font-size: 32px;
+  line-height: 38px;
+  color: #16402d;
+
+  @media screen and (max-width:$breakpoint-mobile) {
+    font-size: 24px;
+    line-height: 29px;
+  }
+}
+
+//body css
+body {
+  padding-top: 0 !important;
+  overflow-x: hidden;
+}
+
+// announcement bar css
+.banner-alert {
+  background-color: rgb(32, 92, 64);
+  transition-duration: 0s;
+  transform: translate3d(0%, 0px, 0px);
+
+  p {
+    color: #ffffff;
+  }
+}
+
+// navigation
+.bm-nav {
+  padding-bottom: 1em;
+  padding-top: 1em;
+  background-color: #fcfbf9;
+
+  @media screen and (min-width:1038px) {
+    padding-top: 4em;
+  }
+
+  .nav-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    .logo {
+      max-width: 110px;
+
+      @media (max-width:$breakpoint-mobile) {
+        max-width: 66px
+      }
+
+      img {
+        max-width: 100%;
+      }
+    }
+  }
+}
+
+// banner css
+.bm-banner-section {
+  background-color: #eaefec;
+  padding: 3em 0;
+
+  h1 {
+    font-weight: 700;
+    line-height: 55px;
+    margin-bottom: 11px;
+
+    @media screen and (max-width:$breakpoint-mobile) {
+      line-height: 36px;
+    }
+
+    .r-copy {
+      font-size: 20px;
+      position: absolute;
+      top: -10px;
+    }
+  }
+
+  .prod-img {
+    @media (max-width:$breakpoint-mobile) {
+      padding: 0;
+    }
+  }
+
+  .prod-detail {
+    @media (max-width:$breakpoint-mobile) {
+      padding: 0;
+    }
+
+    .prod-rating {
+      .stars {
+        color: $star-color;
+        font-size: 25px;
+      }
+
+      span {
+        padding-left: 10px;
+        font-style: normal;
+        font-weight: 400;
+        font-size: 20px;
+        line-height: 25px;
+        color: #16402d;
+        align-self: end;
+
+        @media screen and (max-width:$breakpoint-mobile) {
+          font-size: 16px;
+          line-height: 20px;
+        }
+      }
+    }
+
+    .buybox__description {
+      p {
+        font-size: 22px;
+        line-height: 28px;
+        color: #16402d;
+
+        @media screen and (max-width:$breakpoint-mobile) {
+          font-size: 18px;
+          line-height: 23px;
+        }
+      }
+    }
+
+    .buybox__highlights {
+      p {
+        font-weight: 400;
+        font-size: 22px;
+        line-height: 26px;
+        font-family: "Kepler Std";
+        margin-bottom: 11px;
+      }
+
+      .buybox__highlights-list {
+        margin-bottom: 0;
+      }
+
+      li {
+        border-bottom: none;
+
+        p {
+          font-weight: 400;
+          font-size: 16px;
+          line-height: 20px;
+          color: #000000;
+          margin: 0;
+          font-family: MarkPro, Helvetica, Arial, sans-serif;
+
+          @media screen and (max-width:$breakpoint-mobile) {
+            font-size: 14px;
+            line-height: 18px;
+          }
+        }
+      }
+
+      img {
+        top: 5px;
+      }
+    }
+
+    .get-offer {
+      padding: 27px 16px;
+      background: url("https://i.ibb.co/HgL11M3/Vector-10.png") no-repeat center center;
+      background-size: contain;
+      color: #ffffff;
+      max-width: 179px;
+      font-weight: 500;
+      font-size: 14px;
+      line-height: 18px;
+      text-transform: uppercase;
+
+      @media screen and (max-width:$breakpoint-mobile) {
+        font-size: 13px;
+        line-height: 16px;
+      }
+    }
+
+
+    .button {
+      font-weight: 500;
+      font-size: 16px;
+      line-height: 20px;
+      padding: 14px 48px;
+      margin-bottom: 30px;
+    }
+  }
+
+  .swiper-wrapper {
+    height: auto;
+  }
+
+  .swiper-button-next,
+  .swiper-button-prev {
+    @media (max-width:768px) {
+      top: 209px;
+    }
+  }
+
+  .prod-variants {
+    display: flex;
+    justify-content: center;
+    justify-content: space-between;
+    max-width: 196px;
+    margin: 20px auto;
+
+
+    @media screen and (max-width:$breakpoint-tablet) {
+      margin-left: unset;
+      margin-right: unset;
+    }
+
+    .prod-variant {
+      width: 50px;
+    }
+  }
+
+  .visual-treatment {
+    font-weight: 500;
+    font-size: 13px;
+    line-height: 12px;
+    text-align: center;
+    color: #16402D;
+    width: 100%;
+
+    @media (max-width:1024px) {
+      margin-top: 44px;
+    }
+  }
+}
+
+// review css
+.bm-review-section {
+  padding: 3em 0;
+
+  h2 {
+    padding-bottom: 40px;
+    @include title;
+  }
+
+  .swiper-wrapper {
+    height: auto;
+  }
+
+  .review {
+    background: #fcfbf9;
+    border-radius: 4px;
+    padding: 17px;
+    max-width: 520px !important;
+    margin: auto;
+    justify-content: space-between;
+    min-height: 144px;
+    display: flex;
+
+    @media (max-width:550px) {
+      max-width: 405px !important;
+      flex-direction: column;
+      padding-left: 38px;
+    }
+
+    .stars {
+      color: $star-color;
+      font-size: 20px;
+    }
+
+    .review-left {
+      width: 30%;
+    }
+
+    .review-right {
+      width: 75%;
+        @media (max-width:767px) {
+          width:100%;
+        }
+      .review-text {
+        font-family: 'Campton';
+      }
+    }
+
+    .reviewer {
+      padding-top: 10px;
+    }
+
+    .review-date {
+      font-weight: 400;
+      font-size: 13px;
+      line-height: 25px;
+      text-align: center;
+      color: #6a6c77;
+    }
+  }
+
+  .swiper-button-prev {
+    left: 0;
+    align-items: end;
+  }
+
+  .swiper-button-next {
+    right: 0;
+    align-items: end;
+  }
+}
+
+// certification-section css
+.bm-certification-section {
+  background-color: #fcfbf9;
+  padding: 3rem 0;
+
+  .certification-content {
+    .icon {
+      margin-bottom: 24px;
+    }
+
+    h3 {
+      margin-bottom: 6px;
+      font-size: 1rem;
+      line-height: 1.1875rem;
+      font-weight: 400;
+      letter-spacing: 0rem;
+      margin-top: 1.5rem;
+      font-family: kepler-std;
+      color: #16402d;
+    }
+
+    p {
+      font-size: 14px;
+      font-family: 'MarkPro', Helvetica, Arial, sans-serif;
+      font-weight: 400;
+      max-width: 250px;
+      margin: auto;
+    }
+  }
+}
+
+// turmeric-supreme-section
+.bm-turmeric-supreme-section {
+  padding: 3em 0;
+
+  .section-img {
+    @media only screen and (max-width: 991px) and (min-width: 768px) {
+      padding-top: 30px;
+    }
+
+    @media (max-width:$breakpoint-mobile) {
+      padding: 0;
+    }
+  }
+
+  .section-content {
+    @media (max-width:$breakpoint-mobile) {
+      padding: 0;
+    }
+
+    .sub-title {
+      font-weight: 500;
+      font-size: 24px;
+      line-height: 30px;
+      color: #16402d;
+      margin-bottom: 30px;
+      text-transform: unset;
+
+      @media screen and (max-width:$breakpoint-mobile) {
+        font-size: 18px;
+        line-height: 23px;
+      }
+    }
+
+    h2 {
+      margin-bottom: 24px;
+      @include title;
+    }
+
+    li {
+      padding-bottom: 20px;
+
+      img {
+        padding-top: 5px;
+      }
+
+      .highlight {
+        h4 {
+          font-size: 20px;
+          line-height: 24px;
+          margin-bottom: 6px;
+
+          @media screen and (max-width:$breakpoint-mobile) {
+            font-size: 18px;
+            line-height: 22px;
+          }
+        }
+
+        p {
+          font-size: 16px;
+          line-height: 22px;
+
+          @media screen and (max-width:$breakpoint-mobile) {
+            font-size: 14px;
+          }
+        }
+      }
+    }
+
+    .button {
+      margin-top: 10px;
+      font-size: 16px;
+    }
+  }
+
+  .right-img {
+    max-width: 100%;
+    margin: auto;
+
+    @media screen and (max-width: 767px) {
+      margin-bottom: 29px;
+    }
+
+    img {
+      width: 100%;
+    }
+  }
+}
+
+// logo-section
+.bm-logo-section {
+  background-color: #fcfbf9;
+  padding: 50px 0;
+
+  @media screen and (max-width: $breakpoint-tablet) {
+    display: none;
+  }
+
+  h2 {
+    margin-bottom: 30px;
+    @include title;
+  }
+
+  .logo {
+    padding: 10px;
+  }
+
+  .row {
+    gap: 30px;
+  }
+}
+
+// featured-herbs-section
+.bm-featured-herbs-section {
+  background-color: #eaefec;
+  padding: 3em 0;
+
+  h2 {
+    @include title;
+  }
+
+  .herbs-features {
+    .swiper-wrapper {
+      .swiper-slide {
+        .swiper-wrapper {
+          @media screen and (min-width:1038px) {
+            justify-content: center;
+          }
+        }
+      }
+    }
+  }
+
+  .swiper-wrapper {
+    height: auto;
+  }
+
+  .feature-herbs__slide {
+    height: auto;
+
+    img {
+      border-radius: 50%;
+    }
+  }
+
+  .row {
+    justify-content: center;
+    gap: 20px;
+  }
+
+  p {
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 25px;
+    padding-top: 15px;
+    padding-bottom: 32px;
+    color: #16402d;
+
+    @media screen and (max-width:$breakpoint-mobile) {
+      font-size: 18px;
+      line-height: 23px;
+    }
+  }
+
+  .feature-herbs__badges {
+    .badge--tag {
+      font-weight: bold;
+    }
+  }
+
+  .feature-herbs__slide-excerpt {
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 20px;
+    margin-bottom: 0;
+  }
+
+  .bottom-content {
+    margin-top: 32px;
+
+    .info {
+      padding-bottom: 10px;
+      font-weight: 400;
+      font-size: 20px;
+      line-height: 25px;
+
+      @media screen and (max-width:$breakpoint-mobile) {
+        font-size: 16px;
+        line-height: 20px;
+      }
+    }
+
+    .link {
+      @media screen and (min-width:551px) {
+        font-size: 18px;
+        line-height: 23px;
+      }
+    }
+  }
+}
+
+// meet-herbs-section
+.bm-meet-herbs-section {
+  padding: 3em 0;
+
+  .content {
+    @media (max-width:$breakpoint-mobile) {
+      padding: 0;
+    }
+
+    h2 {
+      @include title;
+
+      @media screen and (max-width:$breakpoint-mobile) {
+        text-align: center;
+      }
+    }
+
+    .sub-title {
+      font-weight: 400;
+      font-size: 20px;
+      line-height: 27px;
+      color: #000000;
+      padding-top: 10px;
+      padding-bottom: 40px;
+      text-transform: inherit;
+
+      @media screen and (max-width:$breakpoint-mobile) {
+        font-size: 16px;
+        line-height: 22px;
+        text-align: center;
+      }
+    }
+
+    .row {
+      @media screen and (min-width:769px) {
+        justify-content: space-between;
+        max-width: 500px;
+      }
+
+      .col-md-7 {
+        .row {
+          max-width: 530px;
+        }
+      }
+    }
+
+    li {
+      padding-bottom: 20px;
+      padding-left: 45px;
+
+      img {
+        left: 14px;
+      }
+      
+
+      p {
+        font-weight: 400;
+        font-size: 22px;
+        line-height: 28px;
+
+        @media screen and (max-width:$breakpoint-mobile) {
+          font-size: 18px;
+          line-height: 23px;
+        }
+      }
+    }
+    li + a {
+      margin-left: 16px;
+    }
+  }
+
+  .section-img {
+    @media (max-width:$breakpoint-mobile) {
+      padding: 0;
+      margin-top: 20px;
+    }
+  }
+}
+
+// why-choose-turmeric
+.bm-why-choose-turmeric {
+  background-color: #eaefec;
+
+  .section-content {
+    @media screen and (max-width: $breakpoint-tablet) {
+      flex-wrap: wrap;
+      justify-content: center;
+
+      .img-container {
+        padding: 0;
+      }
+    }
+
+    @media screen and (min-width: 769px) {
+      .img-container {
+        padding-right: 0px;
+        padding-left: 0;
+
+        .left-img {
+          img {
+            display: block !important;
+          }
+        }
+      }
+    }
+
+    h2 {
+      @include title;
+    }
+
+    .text-content {
+      padding-top: 3em;
+      padding-bottom: 3em;
+      background-color: #eaefec;
+      padding-left: 30px;
+      align-self: center;
+
+      @media (max-width:991px) {
+        padding-left: 16px;
+       .row{
+        justify-content: center;
+       }
+
+      }
+
+      .supplement {
+        max-width: 91px;
+
+        @media (max-width:$breakpoint-mobile) {
+          max-width: 65px;
+        }
+      }
+    }
+
+    .list {
+      padding: 15px 0;
+
+      p {
+        font-weight: 400;
+        font-size: 20px;
+        line-height: 25px;
+        font-family: MarkPro, Helvetica, Arial, sans-serif;
+
+        @media screen and (max-width:$breakpoint-mobile) {
+          font-size: 14px;
+          line-height: 18px;
+        }
+      }
+
+      img {
+        padding-top: 7px;
+      }
+    }
+
+    .info {
+      display: inline-block;
+      margin-top: 24px;
+      .link{
+        font-weight: bold ;
+        font-size: 18px;
+      }
+    }
+
+    .button {
+      display: block;
+      margin-top: 28px;
+      font-size: 16px;
+      line-height: 48px;
+    }
+
+    a {
+      font-weight: 400;
+      font-size: 18px;
+      line-height: 22px;
+    }
+  }
+}
+
+// bm-discount-section
+
+.bm-discount-section {
+  padding: 3em 0;
+
+  h2 {
+    margin-bottom: 50px;
+    @include title;
+  }
+
+  .section-content {
+    .section-tile {
+      background: rgba(243, 239, 234, 0.3);
+      border-radius: 6px;
+      max-width: 351px;
+      display: flex;
+      flex-direction: column;
+      padding: 15px 15px 30px;
+      justify-content: space-between;
+      min-height: 497px;
+      position: relative;
+      margin: 0 auto;
+
+      .product-type {
+        font-weight: 400;
+        font-size: 24px;
+        line-height: 29px;
+        color: #16402D;
+      }
+
+      .product-type_highlight {
+        font-weight: 700;
+        font-size: 24px;
+        line-height: 29px;
+        color: #16402D;
+      }
+
+      p {
+        margin: 10px 0;
+        font-weight: 600;
+      }
+
+      .prod-type {
+        font-weight: 400;
+        font-size: 24px;
+        line-height: 29px;
+        margin-top: 30px;
+        color: #16402d;
+      }
+
+      .rebuy-money {
+        font-weight: 500;
+        font-size: 20px;
+        line-height: 25px;
+        text-align: center;
+        color: #16402d;
+        margin-bottom: 10px;
+      }
+
+      .button {
+        font-weight: 500;
+        font-size: 16px;
+        width: 224px;
+        line-height: 41px;
+      }
+
+      .offer-tag {
+        background-image: url(https://bm-test-dev.s3.us-east-2.amazonaws.com/Gaia+Herbs/Landing+Page+for+PR+Campaign/tag-bg.png);
+        background-repeat: no-repeat;
+        background-size: 100%;
+        height: 102px;
+        position: absolute;
+        right: -13px;
+    width: 114px;
+    top: -6px;
+        justify-content: center;
+        display: flex;
+
+        span {
+          transform: rotate(40deg);
+          display: inline-block;
+          margin-top: 19px;
+          color: #fff;
+          font-size: 14px;
+          font-weight: 600;
+
+          @media (max-width:1024px) {
+            margin-top: 21px;
+          }
+        }
+      }
+    }
+
+    .most-popular {
+      background: #eaefec;
+      box-shadow: 0px 4px 13px rgba(0, 0, 0, 0.13);
+      border-radius: 6px;
+
+      .prod-type-highlight {
+        font-weight: 700;
+        margin-top: 30px;
+      }
+    }
+  }
+
+  .swiper-wrapper {
+    height: auto;
+  }
+
+  .swiper-container {
+
+    .swiper-button-prev,
+    .swiper-button-next {
+      display: none;
+    }
+  }
+
+  @media (min-width: 1025px) {
+    .swiper-container {
+      .swiper-pagination {
+        display: none;
+      }
+    }
+  }
+
+  @media screen and (max-width: $breakpoint-tablet) {
+    overflow: hidden;
+
+    .swiper-container {
+      max-width: 800px;
+      margin: 0 auto;
+      overflow: visible;
+      padding-bottom: 40px;
+
+      .swiper-pagination {
+        display: block;
+        bottom: 0px;
+
+        .swiper-pagination-bullet-active {
+          background-color: #16402D;
+          width: 13px;
+          height: 13px;
+          vertical-align: middle;
+        }
+      }
+    }
+  }
+
+  @media screen and (max-width: $breakpoint-mobile) {
+    .swiper-container {
+      max-width: 520px;
+    }
+  }
+}
+
+// faq css
+.bm-FAQ {
+  padding-top: 3em;
+  padding-bottom: 3em;
+  background-color: #FCFBF9;
+
+  .faq-heading {
+    letter-spacing: -0.02em;
+    max-width: 1099px;
+    margin: 0 auto;
+    text-align: center;
+    margin-bottom: 3rem;
+    @include title;
+    line-height: 32px;
+
+    @media screen and (max-width: $breakpoint-mobile) {
+      font-size: 20px;
+      line-height: 30px;
+    }
+  }
+
+  .accordion {
+    background: #ffffff;
+    border-radius: 12px;
+    margin: auto;
+
+    .accordion-item {
+      margin-top: 20px;
+      background-color: #eaefec;
+      padding: 18px;
+
+      .accordionTitle {
+        font-family: "Mark Pro";
+        font-style: normal;
+        font-weight: 500;
+        font-size: 18px;
+        line-height: 23px;
+        color: #16402d;
+        cursor: pointer;
+        letter-spacing: 0.03em;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin: 0;
+
+        @media screen and (max-width: $breakpoint-mobile) {
+          font-size: 14px;
+          line-height: 18px;
+        }
+      }
+
+      .accordionContent {
+        line-height: 26px;
+        letter-spacing: 0.03em;
+        color: #000000;
+        font-size: 18px;
+        display: none;
+
+        p {
+          margin: 15px 0;
+
+          @media screen and (max-width: $breakpoint-mobile) {
+            font-size: 12px;
+            line-height: 16px;
+          }
+        }
+      }
+    }
+
+    .accordionTitle.is-open+.accordionContent {
+      display: block;
+    }
+
+    .accordionTitle.is-open img[alt="close"] {
+      display: none;
+    }
+
+    .accordionTitle img[alt="open"] {
+      display: none;
+    }
+
+    .accordionTitle.is-open img[alt="open"] {
+      display: block;
+    }
+  }
+}
+
+// swiper css
+.swiper-button-prev:after,
+.swiper-button-next:after {
+  color: #16402d;
+  font-size: 18px !important;
+  font-weight: 700;
+}

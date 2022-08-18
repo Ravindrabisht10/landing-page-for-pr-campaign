@@ -1,0 +1,121 @@
+{%- assign manufacturer = product.metafields.Additional.Manufacturer -%}
+{%- assign category = product.metafields.additional.PrimaryHealthCategory -%}
+
+{%- capture manufacturer_content -%}
+  {%- if manufacturer != blank -%}
+    {%- if manufacturer == 'NC' -%}
+      <h3 class="h6 product-description__title">MADE IN NC, USA<br />WITH GLOBAL INGREDIENTS</h3>
+      <p>Proudly made in the Blue Ridge Mountains of Western North Carolina.</p>
+    {%- endif -%}
+    {%- if manufacturer == 'Italy' -%}
+      <h3 class="h6 product-description__title">Partners in Quality</h3>
+      <p>Produced in Italy by Aboca, the herbal supplement leader in Europe since 1978.</p>
+    {%- endif -%}
+    {%- if manufacturer == 'USA' -%}
+      <h3 class="h6 product-description__title">MADE IN THE USA<br />WITH GLOBAL INGREDIENTS</h3>
+      <p>Produced in the United States with a trusted partner.</p>
+    {%- endif -%}
+    {%- if manufacturer == 'Canada' -%}
+      <h3 class="h6 product-description__title">MADE IN CANADA<br />WITH GLOBAL INGREDIENTS</h3>
+      <p>Produced in Canada with a trusted partner.</p>
+    {%- endif -%}
+    {%- if manufacturer == 'Germany' -%}
+      <h3 class="h6 product-description__title">MADE IN GERMANY<br />WITH GLOBAL INGREDIENTS</h3>
+      <p>Produced in Germany with a trusted partner.</p>
+    {%- endif -%}
+  {%- endif -%}
+{%- endcapture -%}
+
+{%- unless product.description == blank or product.metafields.additional.hide_description_section == 'true' -%}
+  <h2 class="sub-title">
+    Description
+  </h2>
+
+  <div class="product-description__content">
+    {{- product.description -}}
+  </div>
+{%- endunless -%}
+{%- unless product.metafields.additional.interest_delivery_location == 'true' -%}
+<ul class="product-description__list">
+  <li class="product-description__item">
+    <h3 class="h6 product-description__title">Health Interest</h3>
+    <p>
+      {{- category | default: section.settings.health_intrest -}}
+    </p>
+  </li>
+  <li class="product-description__item">
+    <h3 class="h6 product-description__title">Herb Delivery</h3>
+    <p>
+      {{- product.type | default: section.settings.delivery -}}
+    </p>
+  </li>
+  <li class="product-description__item">
+    {%- for block in section.blocks -%}
+      {%- if block.settings.title == manufacturer -%}
+        {%- if block.settings.icon == blank -%}{%- break -%}{%- endif -%}
+        <img class="product-description__icon"
+             src="{{- block.settings.icon | img_url: '40x' -}}"
+             alt="{{- block.settings.icon.alt -}}" />
+        {%- break -%}
+      {%- endif -%}
+    {%- endfor -%}
+    {{- manufacturer_content | default: section.settings.quality -}}
+  </li>
+</ul>
+{%- endunless -%}
+
+
+<script>
+window.onload = () => {
+/*  const filterBtnIcon = document.querySelector('.more-filters-icon')
+  const filterBtn = document.querySelector('more-filters-btn')
+  filterBtnIcon.setAttribute('id', 'filter-icon')
+  filterBtn.style.paddingBottom = "2em !important";
+
+  console.log(filterBrn.style.paddingBottom)
+*/
+}
+</script>
+
+{% schema %}
+  {
+    "name": "Product Description",
+    "class": "product-description ccontain js-view-more-content",
+    "tag": "section",
+    "settings": [
+      {
+        "type": "text",
+        "id": "health_intrest",
+        "label": "Default Health Interest Content"
+      },
+      {
+        "type": "text",
+        "id": "delivery",
+        "label": "Default Delivery Content"
+      },
+      {
+        "type": "richtext",
+        "id": "quality",
+        "label": "Default Quality Content"
+      }
+    ],
+    "blocks": [
+      {
+        "type": "icon",
+        "name": "Location Icon",
+        "settings": [
+          {
+            "type": "text",
+            "id": "title",
+            "label": "Location Name"
+          },
+          {
+            "type": "image_picker",
+            "id": "icon",
+            "label": "Location"
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}

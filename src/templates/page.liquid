@@ -1,0 +1,52 @@
+{%- assign page_sidebar_handle = page.metafields.additional.page_sidebar_handle -%}
+{%- assign page_sidebar = linklists[page_sidebar_handle] -%}
+
+{%- assign page_feature_image = page.metafields.additional.page_featured_image -%}
+
+{%- assign page_hero_is_dark = false -%}
+{%- if page.metafields.additional.page_hero_text_color == 'Dark' -%}
+  {%- assign page_hero_is_dark = true -%}
+{%- endif -%}
+
+
+<section class="page-content">
+  {%- unless page_feature_image == blank -%}
+    <header class="page-content__hero"
+            io-bg-src="{{- page_feature_image -}}">
+      <h1 class="page-content__title {% if page_hero_is_dark -%}page-content__title--dark{%- endif -%}">{{- page.title -}}</h1>
+    </header>
+  {%- endunless -%}
+
+  <div class="page-content__wrapper {% unless page_sidebar == blank -%}page-content__wrapper--sidebar{%- endunless -%}">
+    {%- unless page_sidebar == blank -%}
+      <div class="select-wrap mobile-only">
+        <select data-nav-select>
+          {%- for link in page_sidebar.links -%}
+            <option value="{{- link.url -}}">
+              {{- link.title -}}
+            </option>
+          {%- endfor -%}
+        </select>
+      </div>
+
+      <nav class="page-content__nav desktop-only"
+           aria-label="related pages">
+        <ul class="page-content__nav-list">
+          {%- for link in page_sidebar.links -%}
+            <li class="page-content__nav-item">
+              <a class="page-content__nav-link {% if page.url == link.url -%}page-content__nav-link--current{%- endif -%}"
+                 href="{{- link.url -}}"
+                 {%- if link.type == 'http_link' -%}target="_blank"{%- endif -%}>
+                {{- link.title -}}
+              </a>
+            </li>
+          {%- endfor -%}
+        </ul>
+      </nav>
+    {%- endunless -%}
+
+    <div class="page-content__ugc">
+      {%- render 'shortcode-content', _content: page.content -%}
+    </div>
+  </div>
+</section>

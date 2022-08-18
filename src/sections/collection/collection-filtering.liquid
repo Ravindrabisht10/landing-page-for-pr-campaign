@@ -1,0 +1,62 @@
+<nav class="filter-nav" data-filters>
+  <div class="filter-nav__mobile-head mobile-only">
+    <h2 class="h4">Filter</h2>
+    <button class="product-controls__filter-toggle"
+          data-mobile-filter-trigger>
+      {%- render 'icon-close' -%}
+    </button>
+  </div>
+  {%- unless linklists[section.settings.navigation] == blank -%}
+    {%- assign list = linklists[section.settings.navigation].links[0] -%}
+    <p class="filter-nav__toggle filter-nav__toggle--first closed" data-filter-nav-toggle style="visibility:hidden">{{- section.settings.nav_title -}}</p>
+    <ul class="filter-nav__title closed" data-filter-nav>
+      {%- for link in list.links -%}
+        {%- assign asset_name = link.title | split: '-' -%}
+        {%- assign file_name = asset_name[1] | downcase -%}
+        {%- assign image_name = file_name | append: '.svg' -%}
+        {%- assign link_url = link.url -%}
+        {%- assign is_active_collection = false -%}
+        {%- if collection.url contains link_url -%}
+          {%- assign link_url = '/collections/all' -%}
+          {%- assign is_active_collection = true -%}
+        {%- endif -%}
+        <li>
+          <a href="{{- link_url -}}"
+             class="filter-nav__link {% if is_active_collection == true -%}filter-nav__link--active{%- endif -%}">
+            {%- include file_name -%}
+            {{- asset_name[0] -}}
+            {% if is_active_collection == true -%}
+              {%- render 'icon-close' -%}
+            {%- endif -%}
+          </a>
+        </li>
+      {%- endfor -%}
+    </ul>
+  {%- endunless -%}
+
+  <div class="boost-pfs-filter-tree boost-pfs-filter-tree-v"></div>
+
+  <button class="mobile-only button button--primary button--wide filter-apply-button"
+          data-mobile-filter-trigger>
+    Apply
+  </button>
+</nav>
+
+{% schema %}
+  {
+    "name": "Collection Filtering",
+    "settings": [
+      {
+        "type": "text",
+        "id": "nav_title",
+        "label": "Filter Nav Title",
+        "default": "Shop by Health Interest"
+      },
+      {
+        "type": "link_list",
+        "id": "navigation",
+        "label": "Filter Nav"
+      }
+    ]
+  }
+{% endschema %}

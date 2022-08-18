@@ -1,0 +1,29 @@
+{%- assign category = product.metafields.additional.PrimaryHealthCategory -%}
+
+<ul class="product-breadcrumbs" data-product-breadcrumbs>
+  <li class="product-breadcrumbs__item">
+    <a href="/" class="product-breadcrumbs__link">
+      Home
+    </a>
+  </li>
+  <li>/</li>
+  <li class="product-breadcrumbs__item">
+    <a href="/collections/all" class="product-breadcrumbs__link">
+      Shop All
+    </a>
+  </li>
+  <li>/</li>
+  {%- unless category == blank -%}
+    <li class="product-breadcrumbs__item">
+      <a href="/collections/{{- category | downcase | replace: ' ', '-' -}}" class="product-breadcrumbs__link">
+        {{- category -}}
+      </a>
+    </li>
+    <li class="tablet-up">/</li>
+  {%- endunless -%}
+  <li class="product-breadcrumbs__item">
+    <span class="product-breadcrumbs__link">
+      {{- product.title -}}
+    </span>
+  </li>
+</ul>

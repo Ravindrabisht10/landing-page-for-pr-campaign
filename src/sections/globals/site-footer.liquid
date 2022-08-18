@@ -1,0 +1,122 @@
+<div class="footer__newsletter">
+  {%- render 'newsletter' -%}
+</div>
+
+<div class="footer__container">
+  <div class="footer__menus">
+    <h1 class="footer__logo"
+        aria-label="Gaia Herbs">
+      <img io-img-src="{{- section.settings.logo | img_url: '200x' -}}"
+           alt="Go to Gaia Herbs Homepage"
+           class="footer__logo-img" />
+    </h1>
+
+    {%- assign footer_menu = linklists[section.settings.menu_handle] -%}
+    {%- for column in footer_menu.links -%}
+      <div>
+        <h2 class="footer__menu-title"
+            data-collapse-nav-trigger>
+          {{- column.title -}}
+        </h2>
+        <ul class="footer__menu">
+          {%- for link in column.links -%}
+            <li class="footer__menu-item">
+              <a class="footer__menu-link"
+                 href="{{- link.url -}}">
+                {{- link.title -}}
+              </a>
+            </li>
+          {%- endfor -%}
+        </ul>
+      </div>
+    {%- endfor -%}
+  </div>
+
+  <address class="footer__address">
+    {{- section.settings.address -}}
+  </address>
+  <div class="footer__certified">
+    {{- section.settings.certification_text -}}
+    <img class="footer__certified-image"
+         io-img-src="{{- section.settings.certified_image | img_url: '72x' -}}"
+         alt="Certified B corporation" />
+  </div>
+
+  <ul class="footer__legal">
+    {%- assign legal_menu = linklists[section.settings.legal_menu_handle] -%}
+    {%- for link in legal_menu.links -%}
+      <li>
+        <a href="{{- link.url -}}"
+           class="footer__legal-link">
+          {{- link.title -}}
+        </a>
+      </li>
+    {%- endfor -%}
+  </ul>
+
+  <ul class="footer__social">
+    {%- assign social_handles = "facebook,instagram,twitter,linkedin,pintrest,youtube" | split: ',' -%}
+    {%- for handle in social_handles -%}
+      {%- assign social_handle = "social_" | append: handle -%}
+      <li>
+        <a href="{{- settings[social_handle] -}}"
+           class="footer__social-link"
+           aria-label="{{ handle }}">
+          {%- render 'social-icon',
+              _icon: handle -%}
+        </a>
+    {%- endfor -%}
+  </ul>
+
+  <div class="footer__disclaimer">
+    {{- section.settings.disclaimer -}}
+  </div>
+
+</div>
+
+{% schema %}
+  {
+    "name": "Site Footer",
+    "tag": "footer",
+    "class": "footer",
+    "settings": [
+      {
+        "type": "image_picker",
+        "id": "logo",
+        "label": "Logo"
+      },
+      {
+        "type": "image_picker",
+        "id": "certified_image",
+        "label": "Certified Logo"
+      },
+      {
+        "type": "link_list",
+        "id": "menu_handle",
+        "label": "Menu"
+      },
+      {
+        "type": "richtext",
+        "id": "address",
+        "label": "Address"
+      },
+      {
+        "type": "textarea",
+        "id": "certification_text",
+        "label": "Certified Text",
+        "default": "We believe in using business as a force for good."
+      },
+      {
+        "type": "link_list",
+        "id": "legal_menu_handle",
+        "label": "Legal Menu"
+      },
+      {
+        "type": "textarea",
+        "id": "disclaimer",
+        "label": "Disclaimer",
+        "default": "*This statement has not been evaluated by the Food and Drug Administration. This product is not intended to diagnose, treat, cure, or prevent any disease."
+      }
+    ]
+  }
+{% endschema %}

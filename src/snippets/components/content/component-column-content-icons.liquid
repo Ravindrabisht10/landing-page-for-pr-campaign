@@ -1,0 +1,111 @@
+<section class="section {% if component_settings.no_pt != blank %}pt-0{% endif %} {% if component_settings.no_pb != blank %}pb-0{% endif %}">
+  {% if component_settings.column_color != '#ffffff' %}
+  <div class="content-columns row content-background"
+    style="background-color: {{ component_settings.column_color }};">
+    {% assign background = 'background' %}
+  {% else %}
+  <div class="content-columns row contain">
+  {% endif %}
+
+
+    <div class="col-12">
+      {% assign img_url_1 = '' %}
+      {% assign img_url_2 = '' %}
+      {% if component_settings.content_1_image %}
+        {%- assign img_url_1 = component_settings.content_1_image | img_url:'1080x' -%}
+      {% endif %}
+      <section class="content-column row {{ component_settings.content_2_icon_type }} {{ component_settings.content_copy_color }} {{ background }}">
+          <div class="col-12 col-md-6 order-{{component_settings.content_1_alignment}}">
+            {% if img_url_1 != blank %}
+              <img io-img-src="{{ img_url_1 }}" alt="">
+            {% endif %}
+            <div class="content {{ component_settings.content_1_width }}">
+              {% if component_settings.content_1_title != blank %}
+                <h2>{{component_settings.content_1_title }}</h2>
+              {% endif %}
+
+              {% if component_settings.content_1_copy != blank %}
+                <p>{{ component_settings.content_1_copy }}</p>
+              {% endif %}
+
+              {% if component_settings.content_1_cta_link != blank %}
+                <p class="d-none d-lg-block">
+                  <a class="{{ component_settings.content_1_cta_type }}" target="_blank" rel="noopener noreferrer" href="{{ component_settings.content_1_cta_link}}">{{ component_settings.content_1_cta_copy}}</a>
+                </p>
+              {% endif %}
+            </div>
+          </div>
+            <div class="col-12 col-md-6">
+              <div class="content">
+                <ul>
+                  {% if component_settings.content_2_image_1 %}
+                    {%- assign img_url_2_1 = component_settings.content_2_image_1 | img_url:'80x' -%}
+                    <li>
+                      <img class="two-col-img" style="width: {{ component_settings.image_width }}px; min-width: {{ component_settings.image_width }}px" io-img-src="{{ img_url_2_1 }}" alt="">
+                      <div>
+                        <h5>{{ component_settings.content_2_image_1_title }}</h5>
+                        {% if component_settings.content_2_image_1_copy != blank %}
+                          <p>{{ component_settings.content_2_image_1_copy }}</p>
+                        {% endif %}
+                      </div>
+                    </li>
+                  {% endif %}
+                  {% if component_settings.content_2_image_2 %}
+                    {%- assign img_url_2_1 = component_settings.content_2_image_2 | img_url:'80x' -%}
+                    <li>
+                      <img class="two-col-img" style="width: {{ component_settings.image_width }}px; min-width: {{ component_settings.image_width }}px" io-img-src="{{ img_url_2_1 }}" alt="">
+                      <div>
+                        <h5>{{ component_settings.content_2_image_2_title }}</h5>
+                        {% if component_settings.content_2_image_2_copy != blank %}
+                          <p>{{ component_settings.content_2_image_2_copy }}</p>
+                        {% endif %}
+                      </div>
+                    </li>
+                  {% endif %}
+                  {% if component_settings.content_2_image_3 %}
+                    {%- assign img_url_2_1 = component_settings.content_2_image_3 | img_url:'80x' -%}
+                    <li>
+                      <img class="two-col-img" style="width: {{ component_settings.image_width }}px; min-width: {{ component_settings.image_width }}px" io-img-src="{{ img_url_2_1 }}" alt="">
+                      <div>
+                        <h5>{{ component_settings.content_2_image_3_title }}</h5>
+                        {% if component_settings.content_2_image_3_copy != blank %}
+                          <p>{{ component_settings.content_2_image_3_copy }}</p>
+                        {% endif %}
+                      </div>
+                    </li>
+                  {% endif %}
+                  {% if component_settings.content_2_image_4 %}
+                    {%- assign img_url_2_1 = component_settings.content_2_image_4 | img_url:'80x' -%}
+                    <li>
+                      <img class="two-col-img" style="width: {{ component_settings.image_width }}px; min-width: {{ component_settings.image_width }}px" io-img-src="{{ img_url_2_1 }}" alt="">
+                      <div>
+                        <h5>{{ component_settings.content_2_image_4_title }}</h5>
+                        {% if component_settings.content_2_image_4_copy != blank %}
+                          <p>{{ component_settings.content_2_image_4_copy }}</p>
+                        {% endif %}
+                      </div>
+                    </li>
+                  {% endif %}
+                  {% if component_settings.content_2_image_5 %}
+                    {%- assign img_url_2_1 = component_settings.content_2_image_5 | img_url:'80x' -%}
+                    <li>
+                      <img class="two-col-img" style="width: {{ component_settings.image_width }}px; min-width: {{ component_settings.image_width }}px" io-img-src="{{ img_url_2_1 }}" alt="">
+                      <div>
+                        <h5>{{ component_settings.content_2_image_5_title }}</h5>
+                        {% if component_settings.content_2_image_5_copy != blank %}
+                          <p>{{ component_settings.content_2_image_5_copy }}</p>
+                        {% endif %}
+                      </div>
+                    </li>
+                  {% endif %}
+                </ul>
+              </div>
+            </div>
+      </section>
+    </div>
+  </div>
+</section>
+
+{%- if component_settings.add_section_divider != blank -%}
+  <div class="ccontain"><hr></div>
+{%- endif -%}

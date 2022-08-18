@@ -1,0 +1,28 @@
+{%- comment -%}
+
+  Required:
+    _product: the product to display in the title
+
+{%- endcomment -%}
+
+<article class="product-tile product-side-bar-tile swiper-slide">
+  <a href="{{- _product.url -}}">
+    {%- render 'product-badges', _product: _product -%}
+    <div class="product-tile__image-wrap">
+      <img class="product-tile__image"
+           io-img-src="{{- _product.featured_image | img_url: '220x' -}}"
+           alt="{{- _product.featured_image.alt -}}" />
+      <img class="product-tile__image-alt"
+           io-img-src="{{- _product.images[1] | img_url: '220x' -}}"
+           alt="{{- _product.images[1].alt -}}" />
+    </div>
+    <h2 class="product-tile__title">{{- _product.title -}}</h2>
+    {% if _product.metafields.yotpo.reviews_count and _product.metafields.yotpo.reviews_count != "0" %}
+      {%- render 'product-bottom-line', _product: _product -%}
+    {% endif %}
+    <div class="product-tile__content">{{- _product.description -}}</div>
+    <div class="product-tile__price">
+      {%- render 'product-price', product: _product -%}
+    </div>
+  </a>
+</article>

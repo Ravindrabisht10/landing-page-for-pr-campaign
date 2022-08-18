@@ -1,0 +1,49 @@
+.cookie-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  padding: 1.75rem 0;
+  width: 100vw;
+  background-color: $color-off-white;
+  z-index: 1000;
+
+  @include mq($large) {
+    padding: 1.25rem 0;
+  }
+}
+
+.cookie-bar__contain {
+  @include maxed(1285);
+  .coookie-bar__text{
+    width: 100%;
+  }
+}
+
+.cookie-bar__accept-button {
+  margin: 1.75rem 0;
+  width: 100%;
+
+  @include mq($large) {
+    margin: 0 1.75rem 0 3.75rem;
+    width: auto;
+  }
+}
+
+.cookie-bar__link {
+  flex-shrink: 0;
+}
+
+.cookie-bar__close {
+  position: absolute;
+  top: rem(15);
+  right: rem(20);
+
+  @include mq($large) {
+    top: 50%;
+    transform: translateY(-50%);
+  }
+
+  svg {
+    width: rem(14);
+  }
+}

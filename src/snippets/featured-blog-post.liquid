@@ -1,0 +1,63 @@
+<div class="col-12 desktop-featured-blog d-none d-lg-block featured-blog-wrapper">
+    <section class="blog-article-featured" style="background: url({{ article_obj.image.src | img_url: '1920x' }});">
+      <a href="{{ article_obj.url }}">
+        <div class="row contain">
+          <div class="col-12 col-lg-5">
+                <figcaption class="article__caption">
+                  {%- if article_obj.tags.size > 0 -%}
+                      <div class="article__tags">
+                          {%- for tag in article_obj.tags -%}
+                              {%- unless tag contains 'category-' -%}
+                                  <span class="badge badge--tag">
+                                      {{- tag -}}
+                                  </span>
+                              {%- endunless -%}
+                          {%- endfor -%}
+                      </div>
+                  {%- endif -%}
+                  <h3 class="article__title">
+                      {{- article_obj.title -}}
+                  </h3>
+                  <div class="article__description">
+                      {{- article_obj.excerpt | default: article_obj.content | strip_html | truncate: 180 -}}
+                  </div>
+                  <span class="button button--tertiary">
+                      Read More
+                  </span>
+              </figcaption>
+          </div>
+        </div>
+      </a>
+    </section>
+  </div>
+
+    <section class="d-lg-none mobile-featured-blog article blog-article swiper-slide">
+      <a href="{{ article_obj.url }}">
+        <div class="article__image-wrap">
+          <img class="article__image" io-img-src="{{- article_obj.image.src | img_url: '700x' -}}" alt="{{- article_obj.image.alt -}}"/>
+        </div>
+
+        <figcaption class="article__caption">
+          {%- if article_obj.tags.size > 0 -%}
+              <div class="article__tags">
+                  {%- for tag in article_obj.tags -%}
+                      {%- unless tag contains 'category-' -%}
+                          <span class="badge badge--tag">
+                              {{- tag -}}
+                          </span>
+                      {%- endunless -%}
+                  {%- endfor -%}
+              </div>
+          {%- endif -%}
+          <h3 class="article__title">
+              {{- article_obj.title -}}
+          </h3>
+          <div class="article__description">
+              {{- article_obj.excerpt | default: article_obj.content | strip_html | truncate: 180 -}}
+          </div>
+          <span class="link">
+              Read More
+          </span>
+      </figcaption>
+      </a>
+    </section>

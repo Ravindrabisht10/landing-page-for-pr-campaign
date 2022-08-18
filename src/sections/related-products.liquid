@@ -1,0 +1,24 @@
+
+{% assign relatedproductsettings = section.settings %}
+{% render 'product-side-bar',  relatedproductsettings: relatedproductsettings %}
+
+
+{% schema %} 
+  {
+    "name": "Related Products",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "show_related_products",
+        "label": "Show Related Products",
+        "default": false
+      },
+      {
+        "id": "related_title",
+        "type": "text",
+        "label": "Section title",
+        "default": "Featured Products"
+      }
+    ]
+  }
+{% endschema %}

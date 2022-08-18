@@ -1,0 +1,100 @@
+{% if relatedblogssettings.show_related_blogs == true %}
+  {% comment %}
+    Determine Related Blogs
+  {% endcomment %}
+
+  {% assign back_button = blogs['seeds-of-knowledge'] %}
+
+  {% if article.metafields.Additional['RelatedBlogs'] %}
+    {% assign relatedBlogs = article.metafields.Additional['RelatedBlogs'] | split: ', ' %}
+    {% assign relatedManual = true %}
+    {% assign blogLimit = 2 %}
+  {% else %}
+    {% assign relatedBlogs = blog.articles %}
+    {% assign relatedManual = false %}
+    {% assign blogLimit = 2 %}
+  {% endif %}
+  {% assign heading = relatedblogssettings.related_title %}
+
+
+  {% if relatedblogssettings.related_category != blank %}
+  {% assign relatedCategory = relatedblogssettings.related_category %}
+  {% paginate blogs['seeds-of-knowledge'].articles by 1000 %}
+    {% assign relatedBlogs = blogs['seeds-of-knowledge'].articles %}
+    {% assign blogLimit = 1000 %}
+  {% endpaginate %}
+{% endif %}
+
+  {% comment %}
+    Build Blog Section
+  {% endcomment %}
+
+  {%- capture feature_articles -%}
+        {%- for article in relatedBlogs limit: 8 -%}
+
+            <figure class="article swiper-slide">
+                <a href="{{- article.url -}}">
+                    <div class="article__image-wrap">
+                        <img class="article__image" io-img-src="{{- article.image | img_url: '700x' -}}" alt="{{- article.image.alt -}}"/>
+                    </div>
+                    <figcaption class="article__caption">
+                        {%- if article.tags.size > 0 -%}
+                            <div class="article__tags">
+                                {%- for tag in article.tags -%}
+                                    {%- unless tag contains 'category-' or tag contains 'related-' -%}
+                                        <span class="badge badge--tag">
+                                            {{- tag -}}
+                                        </span>
+                                    {%- endunless -%}
+                                {%- endfor -%}
+                            </div>
+                        {%- endif -%}
+                        <h3 class="article__title">
+                            {{- article.title -}}
+                        </h3>
+                        <div class="article__description">
+                            {{- article.excerpt | default: article.content | strip_html | truncate: 180 -}}
+                        </div>
+                        <span class="link">
+                            Read More
+                        </span>
+                    </figcaption>
+                </a>
+            </figure>
+        {%- endfor -%}
+    {%- endcapture -%}
+
+
+    <div class="featured-blogs-container blog-related-blog-container ccontain">
+      <div class="ccontain flex-box flex-box--vertical">
+          <h2 class="featured-posts__title">{{- relatedblogssettings.related_title -}}</h2>
+      </div>
+
+      <div class="articles flex-box--streched flex-box--spaced desktop-only" data-slides-group="false" data-slides-loop="false" data-slides-per-view-mobile="1" data-slides-per-view-tablet="2" data-slides-per-view="2" data-slides-speed="300" data-swiper-slider>
+        <div class="swiper-wrapper">
+            {{- feature_articles -}}
+        </div>
+        <div class="swiper-scrollbar"></div>
+      </div>
+
+      <div class="articles mobile-only" data-slides-group="false" data-slides-loop="false" data-slides-per-view-mobile="1" data-slides-per-view-tablet="2" data-slides-per-view="2" data-slides-speed="300" data-swiper-slider>
+          <div class="swiper-wrapper">
+              {{- feature_articles -}}
+          </div>
+          <!-- If we need navigation buttons -->
+          <div class="swiper-button-prev">
+            {%- render 'icon-chevron-left' -%}
+          </div>
+          <div class="swiper-button-next">
+            {%- render 'icon-chevron-right' -%}
+          </div>
+          <div class="swiper-scrollbar"></div>
+      </div>
+
+      <div class="ccontain flex-box flex-box--centered">
+        <a class="button button--tertiary" href="/blogs/seeds-of-knowledge">Back To All Posts</a>
+      </div>
+
+  </div>
+
+{% endif %}

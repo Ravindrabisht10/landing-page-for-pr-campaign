@@ -1,0 +1,148 @@
+.page-content { }
+
+.page-content__hero {
+  @include center-content;
+
+  margin-bottom: rem(32);
+  max-height: rem(430);
+  height: 72vw;
+  text-align: center;
+  background-size: cover;
+  background-position: center;
+
+  @include mq($bp-large) {
+    margin-bottom: rem(80);
+    height: 30vw;
+  }
+}
+
+.page-content__title {
+  @include guttered;
+
+  color: $color-white;
+}
+
+.page-content__title--dark {
+  color: $color-black;
+}
+
+.page-content__wrapper {
+  @include guttered;
+
+  margin-top: rem(32);
+  margin-bottom: rem(120);
+  max-width: rem(996);
+  font-weight: 300;
+  color: $color-deep-green;
+
+  @include mq($bp-large) {
+    margin-top: rem(50);
+  }
+
+  p,
+  ul,
+  ol,
+  table {
+    color: $color-black;
+  }
+}
+
+.page-content__wrapper--sidebar {
+  @include mq ($bp-large) {
+    max-width: rem(1200);
+    display: grid;
+    grid-template-columns: rem(280) 1fr;
+    grid-column-gap: rem(104);
+  }
+}
+
+.page-content__ugc {
+  margin-top: rem(40);
+
+  @include mq($bp-large) {
+    margin-top: 0;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    margin-top: rem(24);
+    margin-bottom: rem(24);
+
+    p + &,
+    div + &,
+    blockquote + & {
+      margin-top: 50px;
+    }
+  }
+
+  h1 {
+    margin-bottom: rem(48);
+  }
+
+  p {
+    margin-top: rem(24);
+  }
+
+  ol,    {
+    padding-top: rem(24);
+    padding-left: rem(34);
+
+    & ol,
+    & ul {
+      padding-top: 0;
+    }
+
+    li {
+      padding-bottom: rem(24);
+    }
+  }
+
+  & > *:first-child {
+    margin-top: 0;
+  }
+
+  img {
+    max-width: 100%;
+  }
+
+  .caption {
+    @include font(14, 24, 300);
+    margin: rem(6) 0 rem(35);
+    font-style: italic;
+  }
+
+  iframe {
+    width: 100%;
+    height: rem(432);
+  }
+
+  @include mq($large) {
+    td:last-of-type {
+      width: 150px;
+    }
+  }
+}
+
+.page-content__nav-item {
+  padding-bottom: 0;
+  list-style: none;
+
+  &:not(:first-of-type) {
+    border-top: 1px solid $color-grey-300;
+  }
+}
+
+.page-content__nav-link {
+  @include font(16, 16, 500, 0.5);
+
+  display: inline-block;
+  padding: rem(24) 0;
+  color: $color-black;
+
+  &:hover {
+    color: $color-teal-500;
+  }
+}
+
+.page-content__nav-link--current {
+  color: $color-primary;
+}

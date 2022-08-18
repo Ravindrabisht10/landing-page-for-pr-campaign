@@ -1,0 +1,138 @@
+<script type="text/x-template" id="ingredients-template">
+  <div>
+    <section v-if="isproduct" class="myh-results-ingredients myh-results-ingredients--shifted-up product-ingredients">
+      <div class="ccontain">
+        <hr class="myh-results-ingredients__break"/>
+        <div class="title">
+          {% raw %}
+            <h2 v-if="productData">Ingredients for<br />{{ productData[0].product.title }}</h2>
+          {% endraw %}
+          <p class="myh-results-ingredients__content">Our scientists begin by validating each ingredient at the raw material stage. We go beyond organoleptic testing and employ industry-leading methods to ensure the purity and integrity of each herb. It’s part of the Gaia difference. Find out more about each individual herb below or view the Complete Certificate for comprehensive validation of this batch.</p>
+        </div>
+      </div>
+
+      <div v-if="productData" class="herblist" data-swiper-slider data-slides-speed="300" data-slides-per-view="6" data-slides-per-view-tablet="2" data-slides-per-view-mobile="2" data-slides-group="true" data-slides-loop="false" data-space-between="16" ref="herbslider">
+        <div class="swiper-wrapper">
+        {% raw %}
+          <div v-for="(herb, j) in ingredientBatches" :key="herb.ingredientId" class="select-carousel__slide swiper-slide">
+            <template v-for="(ingredient, i) in productData[0].product.ingredientDetails">
+              <template v-if="herb.slug == ingredient.handle">
+                <button class="select-carousel__trigger"
+                        :class="{ 'active' : j === 0 }"
+                        :data-trigger-herb="herb.integrity_commonnames">
+                  <img class="select-carousel__trigger-image" :src="ingredient.img" alt="" />
+                  <p class="select-carousel__trigger-text">{{ herb.integrity_commonnames }}</p>
+                </button>
+              </template>
+            </template>
+          </div>
+        {% endraw %}
+        </div>
+        <div class="swiper-button-prev mobile-only">
+          {%- render 'icon-chevron-left' -%}
+        </div>
+        <div class="swiper-button-next mobile-only">
+          {%- render 'icon-chevron-right' -%}
+        </div>
+        <div class="swiper-scrollbar"></div>
+      </div>
+
+      <div v-if="productData" class="ccontain details myh-results-details">
+        <div class="col-12">
+          {% raw %}
+            <div v-for="(herb, j) in ingredientBatches" :class="'detail ingredient detail-' + j + ( j == 0 ? ' active' : '')">
+              <div class="row"
+                   :class="{ 'hidden' : j > 0 }"
+                   :data-for-herb="herb.integrity_commonnames">
+                <div class="col-12 col-lg-5 nopadding">
+                  <template v-for="(ingredient, i) in productData[0].product.ingredientDetails">
+                    <template v-if="herb.slug == ingredient.handle">
+                      <h3 class="info-part">
+                        {{ ingredient.name }}
+                      </h3>
+                      <p class="info-description">{{ ingredient.description }}</p>
+                      <p><a :href="ingredient.url" :id="'pdp-learn-more-' + ingredient.slug" class="link herblist__link">Learn More</a></p>
+                    </template>
+                  </template>
+                </div>
+                <div class="col-lg-1"></div>
+                <div class="col-12 col-lg-6">
+                  <div class="row">
+                    <div class="col-5 batch-select-wrapper select-wrap select-wrap--green" v-if="herb.batches.length > 1">
+                      <div class="select-label select-label--green">Herb Batch</div>
+                      <select class="batch-toggle batch-toggle--green" ref="batchSelect">
+                        <option v-for="(herbBatch, m) in herb.batches" :value="'batch-' + m">Batch {{ herbBatch.alpha.toUpperCase() }}</option>
+                      </select>
+                    </div>
+                    <div class="col-7" v-if="herb.batches.length > 1"></div>
+                    <div class="col-5 col-alt col-padded">
+                      <h5>herb</h5>
+                    </div>
+                    <div class="col-7 col-alt col-padded">
+                      <p class="info-part" v-if="isBatches" v-for="(herbBatch, l) in herb.batches" :data-batch="'batch-' + l" :class="{ 'hidden' : l !== 0 && herb.batches.length > 1 }" :currentIndex="l">
+                        Country of Origin: {{ herbBatch.integrity_CountryOfOrigin }}
+                      </p>
+                    </div>
+                    <div class="col-5 col-padded">
+                      <h5>Biomarker</h5>
+                    </div>
+                    <div class="col-7 col-padded">
+                      <p class="info-biomarker">Not Utilized</p>
+                    </div>
+                    <div class="col-5 col-alt col-padded">
+                      <h5>Harvest</h5>
+                    </div>
+                    <div class="col-7 col-alt col-padded">
+                      <p class="info-part" v-if="isBatches" v-for="(herbBatch, l) in herb.batches" :data-batch="'batch-' + l" :class="{ 'hidden' : l !== 0 && herb.batches.length > 1 }" :currentIndex="l">
+                        {{ herbBatch.integrity_harvesttype }}
+                      </p>
+                    </div>
+                    <div class="col-5 col-padded">
+                      <h5>Plant part used</h5>
+                    </div>
+                    <div class="col-7 col-padded">
+                      <p class="info-part" v-if="isBatches" v-for="(herbBatch, l) in herb.batches" :data-batch="'batch-' + l" :class="{ 'hidden' : l !== 0 && herb.batches.length > 1 }" :currentIndex="l">
+                        {{ herbBatch.plant_part }}
+                      </p>
+                    </div>
+                    <div class="col-5 col-alt col-padded">
+                      <h5>Farm</h5>
+                    </div>
+                    <div class="col-7 col-alt col-padded">
+                      <p class="info-part" v-if="isBatches" v-for="(herbBatch, l) in herb.batches" :data-batch="'batch-' + l" :class="{ 'hidden' : l !== 0 && herb.batches.length > 1 }" :currentIndex="l">
+                        {{ herbBatch.seed_farm_name }}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          {% endraw %}
+        </div>
+        <div v-if="productData[0].product.otheringredients" class="col-12 col-lg-6">
+          <div class="detail additional">
+
+            <h5>Other Ingredients</h5>
+            {% raw %}
+              <p>{{ productData[0].product.otheringredients }}</p>
+            {% endraw %}
+          </div>
+        </div>
+        <div v-if="productData[0].product.doesnotcontain" class="col-12 col-lg-6">
+          <div class="detail additional">
+
+            <h5>Does Not Contain</h5>
+            {% raw %}
+              <p>{{ productData[0].product.doesnotcontain }}</p>
+            {% endraw %}
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="myh-share">
+      <div class="row contain">
+
+      </div>
+    </section>
+  </div>
+</script>

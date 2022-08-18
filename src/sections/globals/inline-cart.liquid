@@ -1,0 +1,93 @@
+<div class="inline-cart__wrapper">
+  <div class="inline-cart__overlay" data-toggle-inline-cart></div>
+  <div id="cart-spacer"></div>
+  <header class="inline-cart__head flex-box">
+    <h2 class="inline-cart__title h4">
+      Your Cart
+    </h2>
+    <button data-toggle-inline-cart class="inline-cart__close icon-button" aria-label="toggle inline cart"></button>
+  </header>
+  <div class="inline-cart__products">
+    {%- if cart.item_count > 0 -%}
+      <p class="inline-cart__count">
+        {{cart.item_count}} item{%- if cart.item_count > 1 -%}s{%- endif -%}
+      </p>
+    {%- else -%}
+      <div class="inline-cart__empty-wrapper">
+        <p class="inline-cart__empty">
+          YOUR CART IS EMPTY.
+        </p>
+        <a href="/collections/all"
+           class="button button--secondary button--small">
+          Continue Shopping
+        </a>
+      </div>
+    {%- endif -%}
+
+    {%- assign sorted_items = cart.items | sort: "title" -%}
+    {%- for item in sorted_items -%}
+      {%- render 'product-cart-tile', item: item -%}
+    {%- endfor -%}
+
+    {%- if cart.item_count > 0 -%}
+      {%- render 'cart-upsells' -%}
+    {%- endif -%}
+  </div>
+
+  {%- if cart.item_count > 0 -%}
+    <div class="inline-cart__footer">
+      <p id="shipping-message" class="inline-cart__shipping-message">
+      {% assign cartTotal = cart.total_price %}
+      <span id="cart-price">{{ cartTotal }}</span>
+        {%- if cart.total_price >= 4900 -%}
+          {%- render 'icon-shipping-qualify' -%}
+          {{- section.settings.free_shipping_qualify -}}
+        {%- else -%}
+          {%- render 'icon-shipping' -%}
+          
+         <span id='free-ship-message'></span>
+        {%- endif -%}
+      </p>
+      <div id="shipping-progress-bar-container" >
+        <progress id="shipping-progress-bar" value="" max="100"></progress>
+      </div>
+      <a href="/checkout"
+         class="button button--primary button--wide"
+         data-checkout-link>
+        Checkout - {{ cart.total_price | money -}}
+      </a>
+      <p class="inline-cart__shipping-disclaimer">
+        {{- section.settings.shipping_disclaimer -}}
+      </p>
+    </div>
+  {%- endif -%}
+
+</div>
+
+{% schema %}
+  {
+    "name": "Inline Cart",
+    "tag": "section",
+    "class": "inline-cart",
+    "settings": [
+      {
+        "type": "text",
+        "label": "Free Shipping Text",
+        "id": "free_shipping",
+        "default": "Free Shipping on orders $49 or more!"
+      },
+      {
+        "type": "text",
+        "label": "Free Shipping Qualified Text",
+        "id": "free_shipping_qualify",
+        "default": "You qualify for free shipping!"
+      },
+      {
+        "type": "text",
+        "label": "Shipping Disclaimer Text",
+        "id": "shipping_disclaimer",
+        "default": "*Shipping and Taxes will be calculated at checkout."
+      }
+    ]
+  }
+{% endschema %}

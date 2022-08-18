@@ -1,0 +1,33 @@
+{%- assign img_url = promosettings.product_image | img_url:'1920x1280' -%}
+{% assign product = all_products[promosettings.product_data] %}
+{% assign description = product.description | split: '</p>' %}
+
+{% if product != blank %}
+  
+  <section class="product-callout" style="background:url({{ img_url }});">
+    <div class="row contain">
+      <div class="col-12 col-lg-8 content">
+        <h3>{{ product.title }}</h3>
+        <p>{{ description[1] | truncate: 300 }}</p>
+        <p class="callout"><a href="{{ product.url }}" class="button-primary image">Shop Now</a></p>
+      </div>
+    </div>
+  </section>
+
+{% elsif promosettings.callout_title != blank %}
+  
+  <section class="product-callout" style="background:url({{ img_url }});">
+    <div class="row contain">
+      <div class="col-12 col-lg-8 content">
+        <h3>{{ promosettings.callout_title }}</h3>
+        {% if promosettings.callout_copy != blank %}
+          <p>{{ promosettings.callout_copy }}</p>
+        {% endif %}
+        {% if promosettings.callout_cta_link != blank %}
+          <p class="callout"><a href="{{ promosettings.callout_cta_link }}" class="button-primary image">{{ promosettings.callout_cta_copy }}</a></p>
+        {% endif %}
+      </div>
+    </div>
+  </section>
+
+{% endif %}

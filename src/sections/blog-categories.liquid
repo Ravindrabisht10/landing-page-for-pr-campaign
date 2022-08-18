@@ -1,0 +1,59 @@
+{% assign blog_categories = section.settings.blog_categories | split: ',' %}
+
+{% if blog_categories.size > 0 %}
+  <section class="blog-categories">
+    <ul class="row contain">
+      {% if current_tags %}
+        <li data-category="all"><a href="/blogs/blog/">All Posts</a></li>
+      {% else %}
+        <li data-category="all"><a class="active" href="/blogs/blog/">All Posts</a></li>
+      {% endif %}
+      {% for tag in blog_categories %}
+        {% assign cleanTag = 'category-' | append: tag %}
+        {% if current_tags contains cleanTag %}
+          <li data-category="{{tag}}"><a class="active" href="#">{{ tag }}</a></li>
+        {% else %}
+          <li data-category="{{tag}}">{{ tag | link_to_tag: cleanTag }}</li>
+        {% endif %}
+
+      {% endfor %}
+    </ul>
+    <div class="dropdown-category-selector-wrapper">
+      <select class="category-dropdown" name="category" id="category">
+        {% if current_tags %}
+          <option value="all">All Posts</option>
+        {% else %}
+          <option value="all" selected>All Posts</option>
+        {% endif %}
+        {% for tag in blog_categories %}
+  
+          {% if current_tags contains tag %}
+            <option value="{{tag}}" selected>{{ tag | capitalize }}</a></li>
+          {% else %}
+            <option value="{{tag}}">{{ tag | capitalize  }}</a></li>
+          {% endif %}
+  
+        {% endfor %}
+      </select>
+    </div>
+  </section>
+{% endif %}
+
+{% schema %}
+  {
+    "name": "Blog Categories",
+    "settings": [
+      {
+        "type": "text",
+        "id": "title",
+        "label": "Heading",
+        "default": "Blog Categories"
+      },
+      {
+        "type": "text",
+        "id": "blog_categories",
+        "label": "Blog Categories"
+      }
+    ]
+  }
+{% endschema %}

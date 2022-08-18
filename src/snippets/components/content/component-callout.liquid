@@ -1,0 +1,19 @@
+{% assign img_url = '' %}
+{% if component_settings.callout_image %}
+  {%- assign img_url = component_settings.callout_image | img_url:'1920x1280' -%}
+{% endif %}
+<section class="callout {{ component_settings.callout_copy_color }}" style="background-image: url('{{ img_url }}'); background-color: {{component_settings.callout_color }};">
+    <div class="callout-content">
+      {% if component_settings.callout_title != blank %}
+        <h2>{{component_settings.callout_title }}</h2>
+      {% endif %}
+
+      {% if component_settings.callout_copy != blank %}
+        <p>{{ component_settings.callout_copy }}</p>
+      {% endif %}
+
+      {% if component_settings.callout_cta_link != blank %}
+        <a class="button button--secondary image" id="callout-cta" href="{{ component_settings.callout_cta_link}}">{{ component_settings.callout_cta_copy}}</a>
+      {% endif %}
+    </div>
+</section>

@@ -1,0 +1,62 @@
+{%- capture feature_articles -%}
+  {%- if _section.blocks != blank -%}
+    {%- for block in _section.blocks -%}
+      {%- assign article_object = articles[block.settings.article_handle] -%}
+      {%- render 'block-article-card' article_object: article_object, card_class: 'swiper-slide' -%}
+    {%- endfor -%}
+  {%- else -%}
+    {%- for i in (1..2) -%}
+      {%- assign article_handle_i = 'article_handle_' | append: i -%}
+      {%- assign article_handle = _section.settings[article_handle_i] -%}
+      {%- assign article_object = articles[article_handle] -%}
+
+      {%- render 'block-article-card' article_object: article_object, card_class: 'swiper-slide' -%}
+    {%- endfor -%}
+  {%- endif -%}
+{%- endcapture -%}
+
+<section class="section section--featured-posts {% if _section.settings.no_pt != blank %}pt-0{% endif %} {% if _section.settings.no_pb != blank %}pb-0{% endif %}">
+  <div class="ccontain flex-box flex-box--vertical text-center">
+    <p class="featured-posts__subtitle">{{- _section.settings.sub_title -}}</p>
+    <h2 class="featured-posts__title">{{- _section.settings.title -}}</h2>
+  </div>
+
+  <div class="articles"
+    data-swiper-slider
+    data-slides-speed="300"
+    data-slides-per-view="2"
+    data-slides-per-view-tablet="2"
+    data-slides-per-view-mobile="1"
+    data-slides-group="false"
+    data-slides-loop="false"
+    data-swiper-destroy="mobile-up"
+    >
+    <div class="swiper-wrapper">
+      {{- feature_articles -}}
+    </div>
+
+    {%- if _section.blocks.size > 2 and _section.blocks != blank -%}
+      <div class="swiper-button-prev mobile-only">
+        {%- render 'icon-chevron-left' -%}
+      </div>
+      <div class="swiper-button-next mobile-only">
+        {%- render 'icon-chevron-right' -%}
+      </div>
+      <div class="swiper-scrollbar"></div>
+    {%- endif -%}
+
+  </div>
+
+  {%- if _section.settings.blog_url != blank -%}
+    <div class="ccontain flex-box flex-box--centered">
+      <a href="{{- _section.settings.blog_url -}}"
+        class="button button--{{ _section.settings.button_type }}">
+        View All
+      </a>
+    </div>
+  {%- endif -%}
+</section>
+
+{%- if _section.settings.add_section_divider != blank -%}
+  <div class="ccontain"><hr></div>
+{%- endif -%}

@@ -1,0 +1,38 @@
+<div class="social-sharing flex-box flex-box--split">
+  {% if share_copy != blank %}
+    <p>{{ share_copy }}</p>
+  {% else %}
+    <p>Share</p>
+  {% endif %}
+  {% if link_override != blank%}
+      {% assign currenturl = 'https:' %}
+  {% else %}
+      {% assign currenturl = shop.url %}
+  {% endif %}
+
+  <div class="flex-box">
+    <a class="social-sharing__icon" target="_blank" href="//www.facebook.com/sharer.php?u={{ currenturl | append: share_permalink }}">
+      {% render 'icon-facebook' %}
+    </a>
+
+    <a class="social-sharing__icon" target="_blank" href="//twitter.com/share?text={{ share_title | url_param_escape }}&amp;url={{ currenturl | append: share_permalink }}">
+      {% render 'icon-twitter' %}
+    </a>
+
+    <a class="social-sharing__icon" target="_blank" href="//pinterest.com/pin/create/button/?url={{ currenturl | append: share_permalink }}&amp;media={{ share_image | img_url: '1024x1024' }}&amp;description={{ share_title | url_param_escape }}">
+      {% render 'icon-pintrest' %}
+    </a>
+
+    <a class="social-sharing__icon" target="_blank" href="https://www.linkedin.com/shareArticle?mini=true&url={{ currenturl | append: share_permalink }}&title={{ share_title | url_param_escape }}&summary={{ share_title | url_param_escape }}">
+      {% render 'icon-linkedin' %}
+    </a>
+
+    <a class="social-sharing__icon" target="_top" href="mailto:?subject={{ share_title | url_param_escape }}&body={{ currenturl | append: share_permalink }}">
+      {% render 'icon-mail' %}
+    </a>
+
+    <a class="social-sharing__icon" href="javascript:window.print()">
+      {% render 'icon-print' %}
+    </a>
+  </div>
+</div>

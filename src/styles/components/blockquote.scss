@@ -1,0 +1,63 @@
+blockquote,
+.blockquote {
+  position: relative;
+  font-weight: 300;
+  margin-top: rem(100);
+  padding: rem(50) rem(22) rem(40);
+  text-align: center;
+  font-style: italic;
+  background-color: $color-grey-200;
+
+  @include mq($large) {
+    @include font(22, 33);
+  }
+
+  span {
+    @include font(14, 21, 500, 0.75);
+
+    margin-top: rem(24);
+    display: block;
+    font-style: normal;
+    text-transform: uppercase;
+  }
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: rem(-75);
+    left: 50%;
+    transform: translateX(-50%);
+    width: 1px;
+    height: rem(100);
+    background-color: $color-deep-green;
+  }
+}
+
+.blockquote {
+  &__inner {
+    max-width: rem(820);
+  }
+  &__description {
+    color: $color-deep-green;
+    font-style: italic;
+  }
+
+  &__name{
+    font-style: normal;
+  }
+
+  &__info {
+    font-style: normal;
+    font-size: 12px;
+    line-height: 1.3;
+  }
+
+  &__image {
+    width: rem(100);
+    height: rem(100);
+    border-radius: 50%;
+    object-fit: cover;
+    margin-top: rem(24);
+    margin-bottom: rem(8);
+  }
+}

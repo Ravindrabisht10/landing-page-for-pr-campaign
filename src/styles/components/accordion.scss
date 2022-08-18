@@ -1,0 +1,70 @@
+.accordion {
+  transition: background-color .3s, border-color .3s;
+
+  &:not(:first-of-type) {
+    border-top: 1px solid $color-grey-300;
+  }
+
+  &:last-of-type {
+    border-bottom: 1px solid $color-grey-300;
+  }
+
+  &[open] {
+    background-color: $color-grey-100;
+    border-color: $color-grey-100;
+  }
+
+  &[open] + .accordion {
+    border-top-color: $color-grey-300;
+  }
+}
+
+.accordion__summary {
+  @include font(16, 64, 500);
+
+  position: relative;
+  color: $color-black;
+  cursor: pointer;
+  transition: color .3s;
+
+  &::-webkit-details-marker {
+    display: none;
+  }
+
+  &::marker {
+    content: '';
+    display: none;
+  }
+
+  &::after {
+    content: '+';
+    position: absolute;
+    top: 50%;
+    right: $gutter;
+    transform: translateY(-50%);
+    font-size: rem(22);
+  }
+
+  [open] &::after {
+    content: '-';
+  }
+
+  [open] & {
+    color: $color-primary;
+  }
+
+  &:hover {
+    color: $color-teal-500;
+  }
+}
+
+.accordion__content {
+  padding-bottom: 2 * $gutter;
+  background-color: $color-grey-100;
+  color: $color-black;
+}
+
+.accordion__summary,
+.accordion__content {
+  @include guttered();
+}

@@ -1,0 +1,62 @@
+{%- render 'section-featured-blogs', _section: section -%}
+
+{% schema %}
+{
+  "name": "Featured Posts",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Settings"
+    },
+    {
+      "type": "text",
+      "id": "sub_title",
+      "label": "Sub Title",
+      "default": "Our Blog"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title"
+    },
+    {
+      "type": "select",
+      "id": "button_type",
+      "options": [
+        { "value": "primary", "label": "Primary" },
+        { "value": "secondary", "label": "Secondary" },
+        { "value": "tertiary", "label": "Tertiary Outline" },
+        { "value": "tertiary-dark", "label": "Tertiary Dark" }
+      ],
+      "label": "Button Type",
+      "default": "tertiary"
+    },
+    {
+      "type": "url",
+      "id": "blog_url",
+      "label": "Blog URL"
+    }
+  ],
+  "blocks": [
+    {
+      "name": "Blog Post",
+      "type": "blog_post",
+      "limit": 2,
+      "settings": [
+        {
+          "type": "article",
+          "id": "article_handle",
+          "label": "Article To Display"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "category": "Blog",
+      "name": "Featured Posts"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,292 @@
+.guiding-truths {
+  background-color: $primary-dark-green;
+  background-size: cover !important;
+  padding: 0;
+  position: relative;
+
+  @include mq($large-up) {
+    min-height: 40rem;
+    padding: ($spacing-xxl + $spacing-l) $spacing-l;
+  }
+
+  @include mq($widescreen) {
+    padding: ($spacing-xxl + $spacing-l) $spacing-s;
+  }
+
+  .row {
+    margin: 0 auto;
+
+    & > div {
+      padding: 0;
+    }
+  }
+
+  .image:not(.callout) {
+    height: 100%;
+    left: 0;
+    opacity: 0;
+    position: absolute;
+    top: 0;
+    transition: opacity 1s ease-in-out;
+    width: 100%;
+
+    &.active {
+      opacity: 1;
+    }
+
+    img {
+      height: 100%;
+      object-fit: cover;
+      width: 100vw;
+    }
+  }
+
+  &-images {
+    display: none;
+
+    @include mq($large-up) {
+      display: block;
+    }
+  }
+
+  &-slides {
+    display: block;
+
+    @include mq($large-up) {
+      display: none !important;
+    }
+
+    .content {
+      min-height: 40rem;
+      padding: $spacing-xxl $spacing-s;
+      text-align: center;
+
+      h2,
+      p,
+      .truth-title {
+        color: #ffffff;
+        margin: 0 0 $spacing-gutter;
+        text-align: center;
+        width: 100%;
+
+        @include mq($large-up) {
+          margin: 0 0 $spacing-l;
+        }
+      }
+
+      h2,
+      .truth-title {
+        // @extend .heading-2-lovely;
+      }
+
+      .callout {
+        display: inline-block;
+        margin: $spacing-gutter auto 0;
+      }
+    }
+
+    .image {
+      opacity: 1 !important;
+      z-index: -1;
+    }
+  }
+
+  &-content {
+    display: none;
+    margin: 0 auto;
+    max-width: 75rem;
+    min-height: 12.5rem;
+    position: relative;
+    width: 100%;
+
+    @include mq($large-up) {
+      display: block;
+      padding: 0 $spacing-s;
+    }
+
+    .content {
+      text-align: center;
+      @include mq($large-up) {
+        left: 0;
+        opacity: 0;
+        pointer-events: none;
+        position: absolute;
+        top: 0;
+        transition: opacity 0.25s ease-in-out;
+        min-height: 15.75rem;
+        padding: 0 $spacing-s;
+        width: 66%;
+      }
+
+      &.active {
+        opacity: 1;
+        pointer-events: initial;
+      }
+
+      h2,
+      p,
+      .truth-title {
+        color: #ffffff;
+        margin: 0 auto $spacing-s;
+        max-width: 30rem;
+        text-align: center;
+      }
+      h2,
+      .truth-title {
+        // @extend .heading-2-lovely;
+        max-width: 100%;
+      }
+    }
+  }
+
+  &-navigation {
+    display: none;
+    margin: 0 auto;
+    padding: 0;
+    position: relative;
+    max-width: 75rem;
+
+    @include mq($large-up) {
+      display: block;
+    }
+
+    &-container {
+      max-width: 66%;
+      position: relative;
+      z-index: 2;
+
+      & > div {
+        margin: 0 auto;
+        width: 30rem;
+        position: relative;
+      }
+    }
+
+    &-carousel {
+      max-width: 66%;
+      position: relative;
+
+      & > div {
+        margin: 0 auto;
+        width: 30rem;
+      }
+    }
+
+    .truth {
+      background: transparent;
+      border-radius: 20rem;
+      cursor: pointer;
+      display: inline-block;
+      height: 5rem;
+      margin: 0;
+      list-style-type: none;
+      padding: $spacing-xs;
+      transition: background 0.25s ease-in-out;
+      width: 5rem;
+
+      img {
+        height: 3.75rem;
+        object-fit: contain;
+        width: 3.75rem;
+      }
+    }
+
+    .active.center {
+      .truth {
+        background: rgba($tertiary-light-grey, 0.3);
+      }
+    }
+
+    .nav {
+      cursor: pointer;
+      position: absolute;
+      top: $spacing-s;
+
+      &.prev {
+        left: -$spacing-l;
+      }
+      &.next {
+        right: -$spacing-l;
+      }
+
+      svg {
+        height: 2rem;
+        width: 1rem;
+      }
+    }
+    .owl-dots {
+      display: none;
+    }
+  }
+
+  &-callout {
+    display: none;
+    margin: 0 auto;
+    max-width: 75rem;
+    padding: $spacing-xs 0 0;
+    position: relative;
+    width: 100%;
+
+    @include mq($large-up) {
+      display: block;
+      padding: $spacing-l 0 0;
+    }
+
+    & > div {
+      text-align: center;
+      width: 100%;
+
+      @include mq($large-up) {
+        width: 66%;
+      }
+    }
+  }
+
+  section + & {
+    margin: $spacing-xl 0 0;
+
+    @include mq($large-up) {
+      margin: $spacing-xxl 0 0;
+    }
+  }
+}
+
+.guiding-truth {
+  div {
+    img {
+      border-radius: 20rem;
+      display: block;
+      height: 12.5rem;
+      object-fit: cover;
+      margin: 0 auto $spacing-gutter;
+      width: 12.5rem;
+
+      @include mq($large-up) {
+        height: 28.75rem;
+        margin: 0;
+        width: 28.75rem;
+      }
+
+      &.icon {
+        border-radius: 0;
+        display: none;
+        height: 5rem;
+        margin: 0 0 $spacing-gutter;
+        object-fit: contain;
+        object-position: left;
+        width: $spacing-xxl;
+
+        @include mq($large-up) {
+          display: block;
+          margin: 0 0 $spacing-gutter;
+        }
+      }
+    }
+
+    &.order-lg-2 {
+      @include mq($large-up) {
+        order: 2;
+      }
+    }
+  }
+}

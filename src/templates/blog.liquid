@@ -1,0 +1,46 @@
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+  {% comment %}
+
+    Page Sections
+
+  {% endcomment %}
+  
+  {% section 'blog-hero' %}
+  {% section 'blog-categories' %}
+  {% section 'blog-articles' %}
+  {% section 'blog-footer' %}
+
+  {% comment %}
+  {% section 'product-callout' %}
+  {% endcomment %}
+
+  <script>
+
+      $('#category').bind('change', function () {
+        const tag = jQuery(this).val();
+        if (tag.length) {
+          window.location.href = $(`.blog-categories li[data-category="${tag}"] a`).attr('href');
+        }
+      });
+
+      $('#contact_subject').bind('change', function () {
+        const subject = jQuery(this).val();
+
+        var form1 = $("#contact_form .form1"),
+          form2 = $("section.form2"),
+          recaptcha = $('.contact-form .g-recaptcha');
+
+        /*if (subject.length) {*/
+        if (subject == "Sponsorship Request") {
+          form1.hide();
+          form2.removeClass("hide");
+          recaptcha.hide();
+          /*$(`.section.subject-area[data-subject="${subject}"] a`).show().siblings().hide();*/
+        } else {
+          form1.show();
+          form2.addClass("hide");
+          recaptcha.show();
+        }
+      });
+  </script>

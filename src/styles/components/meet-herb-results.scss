@@ -1,0 +1,448 @@
+.meet-herbs__fiftyfifty {
+  margin-top: 0;
+
+  @include mq($large) {
+    margin-top: rem(80);
+    margin-bottom: rem(170);
+  }
+}
+
+.herb-results__description {
+  margin-top: rem(16);
+  margin-bottom: rem(32);
+  font-weight: 300;
+
+  *:not(:first-child) {
+    display: none;
+  }
+}
+
+.herb-results__no-results {
+  @include maxed(1280);
+  padding-top: rem(46);
+  padding-left: 0;
+  padding-right: 0;
+
+  .section {
+    padding-top: 0;
+  }
+
+  .herb-search-form {
+    margin-top: rem(30);
+  }
+}
+
+.herb-results__results {
+  margin: rem(16) 0 rem(24);
+
+  tr:nth-child(2n-1) {
+    background-color: $color-secondary;
+  }
+  tr:nth-child(2n) {
+    background-color: $color-white;
+  }
+}
+
+.herb-results__results--alt {
+  td:first-of-type {
+    @include font(14, 18, 500);
+    text-transform: uppercase;
+    color: $color-deep-green;
+  }
+}
+
+.quality-signature__title {
+  @include font(18, 22, 500);
+  margin-top: rem(36);
+  font-family: $ff-header;
+  color: $color-deep-green;
+}
+
+.herb-results__latest-title {
+  @include font(18, 22, 500);
+  margin-top: rem(24);
+}
+
+.myh-results-ingredients__break {
+  margin-bottom: rem(42);
+
+  @include mq($large) {
+    margin-bottom: rem(80);
+  }
+}
+
+.myh-results-ingredients {
+  h2 {
+    text-align: center;
+  }
+}
+
+.myh-results-ingredients--shifted-up {
+  @include mq($large) {
+    margin-top: rem(-80);
+  }
+}
+
+.myh-results-ingredients__content {
+  margin: rem(16) auto rem(40);
+  max-width: rem(816);
+  text-align: center;
+  font-weight: 300;
+}
+
+.myh-results-details {
+  padding: rem(20) rem(16);
+  background-color: $color-grey-200;
+
+  @include mq($large) {
+    padding: rem(60) rem(90);
+  }
+
+  .info-description {
+    font-weight: 300;
+    margin: rem(16) 0 0;
+
+    @include mq($large) {
+      margin: rem(16) 0 rem(24);
+    }
+  }
+
+  .select-wrap {
+    margin-bottom: rem(24);
+    padding-right: 0;
+    padding-left: 0;
+    max-width: rem(250);
+  }
+
+  .batch-toggle {
+    background-color: $color-grey-200;
+  }
+
+  .batch-select-wrapper {
+    margin-top: rem(46);
+
+    @include mq($large) {
+      margin-top: 0;
+    }
+  }
+
+  .col-alt {
+    background-color: $color-white;
+  }
+
+  .col-padded {
+    padding-top: rem(22);
+    padding-bottom: rem(22);
+
+    h5 {
+      @include font(11, 24, 500);
+
+      @include mq($large) {
+        @include font(14, 24, 500);
+      }
+    }
+
+    .info-part,
+    .info-biomarker {
+      @include font(14, 22);
+      text-align: right;
+
+      @include mq($large) {
+        @include font(16, 24);
+      }
+    }
+  }
+}
+
+.myh-results-details--grid {
+  @include mq($large) {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+
+    .left-side {
+      text-align: left;
+    }
+
+    .right-side {
+      text-align: center;
+    }
+  }
+}
+
+.herblist {
+  margin: 0 rem(16);
+  overflow: hidden;
+
+  .swiper-wrapper {
+    align-items: strech;
+  }
+
+  @include mq($large) {
+    margin: 0 auto;
+    max-width: 78rem;
+  }
+
+  div.swiper-scrollbar {
+    margin-top: 0;
+    margin-bottom: rem(16);
+
+    @include mq($large) {
+      margin-bottom: 0;
+    }
+  }
+}
+
+.herblist__description {
+  margin: rem(16) auto rem(40);
+  padding: 0 rem(36);
+  max-width: rem(760);
+  text-align: center;
+  font-weight: 300;
+}
+
+.herblist__link {
+  display: inline-block;
+  margin-top: rem(16);
+  margin-bottom: rem(32);
+
+  @include mq($large) {
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+}
+
+.result-ingredient-block {
+  margin: 0 $gutter;
+  padding: rem(40) $gutter;
+  max-width: rem(528);
+
+  @include mq($large) {
+    margin: rem(30) 0 rem(50);
+    padding: rem(40) rem(80) rem(22);
+  }
+
+  &:first-of-type {
+    border-bottom: rem(1) solid rgba($color-black, 0.1);
+
+    @include mq($large) {
+      border-bottom: 0;
+      border-right: rem(1) solid rgba($color-black, 0.1);
+    }
+  }
+
+  h4 {
+    @include font(18, 22);
+    margin-bottom: rem(16);
+  }
+
+  svg {
+    margin-bottom: rem(20);
+  }
+}
+
+.quality-signature {
+  margin: rem(40) 0;
+  text-align: center;
+
+  img {
+    margin-bottom: rem(24);
+  }
+
+  &:first-of-type {
+    margin-right: rem(100);
+  }
+}
+
+.ready-banner {
+  margin-top: rem(50);
+  padding-top: rem(100);
+  padding-bottom: rem(100);
+  background-color: $color-grey-200;
+
+  .sub-title {
+    color: $color-deep-green;
+    font-weight: 400;
+  }
+}
+
+.ready-banner--small {
+  padding-top: rem(40);
+  padding-bottom: rem(40);
+}
+
+.ready-banner__image {
+  margin-bottom: rem(24);
+  width: rem(125);
+}
+
+.ready-banner__title {
+  margin-bottom: rem(16);
+  max-width: rem(816);
+  color: $color-deep-green;
+
+  span {
+    font-family: $ff-header;
+  }
+}
+
+.ready-banner__description {
+  max-width: rem(700);
+  font-weight: 300;
+}
+
+.ready-banner__cta {
+  margin-top: rem(24);
+}
+
+.social-sharing__icon {
+  display: block;
+  margin-top: rem(16);
+  margin-left: rem(12);
+  font-size: 0;
+
+  @include mq($large) {
+    margin-top: 0;
+  }
+
+  p {
+    font-family: $ff-header;
+  }
+
+  circle {
+    stroke: $color-black;
+  }
+
+  path {
+    fill: $color-black;
+  }
+}
+
+.test-results-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba($color-black, 0.5);
+  z-index: 1000;
+}
+
+.myh-results-testing {
+  position: relative;
+  background-color: $color-white;
+  padding: rem(40) rem(10);
+  max-width: 95vw;
+  max-height: 90vh;
+  width: rem(756);
+  height: rem(946);
+  overflow: auto;
+
+  @include mq($large) {
+    padding: rem(40);
+  }
+
+  tr,
+  td,
+  th {
+    font-size: .625rem;
+    white-space: break-spaces;
+    text-align: left;
+
+    @include mq($large) {
+      font-size: rem(14);
+    }
+
+    &:last-of-type {
+      text-align: left;
+    }
+  }
+}
+
+.myh-results-full-modal {
+  text-align: center;
+
+  table {
+    margin-top: rem(24);
+    margin-bottom: rem(20);
+    background-color: $color-off-white;
+
+    tr {
+      background-color: transparent;
+    }
+  }
+
+  .title {
+    margin-top: 1.25rem;
+    margin-bottom: 1.25rem;
+    padding: 1.25rem 1.25rem;
+    background-color: #183028;
+    color: $color-white;
+
+    p {
+      font-size: rem(12);
+    }
+
+    * {
+      color: inherit;
+    }
+  }
+}
+@media print {
+
+  @page {
+    margin: 0.5in;
+    margin-top: 0.15in;
+    margin-bottom: 0.25in;
+  }
+
+  #preview-bar-iframe,
+  #shopify-section-site-header, footer,
+  .ccontain, .myh-results-ingredients, .myh-share,
+  .flex-box, .ready-banner,
+  #shopify-section-site-prefooter,
+  #shopify-section-cookie-bar {
+    visibility: hidden;
+    display:none;
+  }
+  .test-results-modal, .test-results-modal * {
+    max-height: none !important;
+    height: auto;
+    position: relative;
+  }
+
+  #test-results.myh-results-testing{
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+
+    .myh-results-full-modal{
+
+      button.icon-button.buybox__supplements-close{
+        display: none;
+        visibility: hidden;
+      }
+      h3{
+        font-size: 2rem;
+        padding-bottom: 0.75rem;
+      }
+
+      .myh-results-full-section.signature{
+        .two-column{
+          margin-bottom: 0;
+          padding-bottom: 0;
+          img{
+            width: 70%;
+          }
+        }
+      }
+    }
+
+    .myh-print{
+      visibility: hidden;
+      display:none;
+    }
+  }
+
+}

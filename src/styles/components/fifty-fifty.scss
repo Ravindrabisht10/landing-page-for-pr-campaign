@@ -1,0 +1,11 @@
+.fifty-fifty__content {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  @include mq($large) {
+    width: calc(50% - #{rem(75)});
+    align-items: flex-start;
+  }
+}

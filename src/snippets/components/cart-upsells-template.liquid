@@ -1,0 +1,91 @@
+<div class="rebuy-cart">
+  <h3 class="rebuy-cart__title">You might also like...</h3>
+  <div data-slides-group="false"
+       data-slides-loop="false"
+       data-slides-per-view="1"
+       data-slides-per-view-tablet="1"
+       data-slides-per-view-mobile="1"
+       data-slides-speed="300"
+       data-swiper-slider
+       class="rebuy-cart__swiper">
+    <div class="swiper-button-prev">
+      {%- render 'icon-chevron-left' -%}
+    </div>
+
+    <div class="swiper-wrapper rebuy-cart__slides">
+      <div class="rebuy-cart__tile swiper-slide"
+           v-bind:updated="window.rebuyLastUpdated"
+           v-for="product in window.getRebuyProducts(products)"
+           v-bind:rebuy-product-tile="product.handle">
+
+        <div class="product-tile__badges product-tile__badges--cart-upsell">
+          <div class="badge badge--out-of-stock"
+               v-if="product.tags.includes('badge-out-of-stock')">Out Of Stock</div>
+          <div class="badge badge--in-store-exclusive"
+               v-else-if="product.tags.includes('badge-in-store-exclusive')">In Store Exclusive</div>
+          <div class="badge badge--final-sale"
+               v-else-if="product.tags.includes('badge-final-sale')">Final Sale</div>
+          <div class="badge badge--sale"
+               v-else-if="product.tags.includes('badge-sale')">Sale</div>
+          <div class="badge badge--new"
+               v-else-if="product.tags.includes('badge-new')">New</div>
+          <div class="badge badge--coming-soon"
+               v-else-if="product.tags.includes('badge-coming-soon')">Coming Soon</div>
+          <div class="badge badge--best-seller"
+               v-else-if="product.tags.includes('badge-best-seller')">Best Seller</div>
+          <div class="badge badge--award-winner"
+               v-else-if="product.tags.includes('badge-award-winner')">Award Winner</div>
+          <div class="badge badge--discontinued"
+               v-else-if="product.tags.includes('badge-discontinued')">Discontinued</div>
+        </div>
+
+        <a :href="learnMoreURL(product)">
+          <div class="product-tile__image-wrap">
+            <img v-bind:src="itemImage(product, product.selected_variant, '195x195')"
+                 v-bind:alt="product.title"
+                 class="product-tile__image">
+            <img class="product-tile__image-alt"
+                 :src="product.images[1].src.replace('.png', '_290x290.png')"
+                 :alt="product.title" />
+          </div>
+          <h2 class="product-tile__title"
+              v-html="product.title"></h2>
+
+          <div class="yotpo bottomLine"
+               :data-product-id="product.id"></div>
+
+          <div class="product-tile__content"
+               v-html="product.body_html"></div>
+
+          <div v-if="variantOnSale(product, product.selected_variant)" class="product-tile__price">
+            <span class="rebuy-money sale"
+                      v-html="formatMoney(variantPrice(product, product.selected_variant))"></span>
+            <span class="rebuy-money compare-at"
+                      v-html="formatMoney(variantCompareAtPrice(product, product.selected_variant))"></span>
+          </div>
+          <div v-if="!(variantOnSale(product, product.selected_variant))">
+            <span class="rebuy-money" v-html="formatMoney(variantPrice(product, product.selected_variant))"></span>
+          </div>
+        </a>
+        <div class="select-wrap upsell-variant-select" v-if="product.variants.length > 1">
+          <select :data-cart-upsell-variant="product.handle"
+                  v-on:change="product.selected_variant = product.variants.find((variant) => variant.id === parseInt($event.target.value, 10))">
+            <option v-for="variant in product.variants"
+                    v-if="variant.metafields.accentuate.variant_hideshow != 'true'"
+                    :value="variant.id"
+                    v-html="variant.title">
+            </option>
+          </select>
+        </div>
+        <button class="button button--secondary button--wide button--small"
+                v-on:click="window.quickAddToCart('data-cart-upsell-variant', product);">
+          Add To Cart
+        </button>
+      </div>
+    </div>
+
+    <div class="swiper-button-next">
+      {%- render 'icon-chevron-right' -%}
+    </div>
+  </div>
+</div>

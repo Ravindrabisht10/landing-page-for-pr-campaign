@@ -1,0 +1,107 @@
+<section class="section ccontain {% if _section.settings.no_pt != blank %}pt-0{% endif %} {% if _section.settings.no_pb != blank %}pb-0{% endif %}">
+  <form id="contact_form"
+        name="contact_form"
+        class="wufoo topLabel page flex-box flex-box--vertical"
+        accept-charset="UTF-8"
+        autocomplete="off"
+        enctype="multipart/form-data"
+        method="post"
+        action="{{- _section.settings.form_endpoint -}}">
+    <div class="row" style="width: 100%;">
+      <div class="col-12">
+        <h2>Send A Message</h2>
+      </div>
+      <div class="col-12 ">
+        <div class="select-wrap contact-input select-wrap--wide">
+          <select id="contact_subject" required="" name="Field4" class="field select medium wufoo-ddl" tabindex="1" data-wufoo-field="dropdown">
+            <option value="" disabled="" selected="selected">
+              Please Select: How can we assist?
+            </option>
+            <option value="Help with an Online Order/Product Availability">
+              Help with an Online Order/Product Availability
+            </option>
+            <option value="Question about a Product Formula or Ingredient">
+              Question about a Product Formula or Ingredient
+            </option>
+            <option value="Retail or Healthcare Professional inquiry">
+              Retail or Healthcare Professional inquiry
+            </option>
+            <option value="Social Influencer/ Media request">
+              Social Influencer/ Media request
+            </option>
+            <option value="Sponsorship Request">
+              Sponsorship Request
+            </option>
+            <option value="Other">
+              Other
+            </option>
+          </select>
+        </div>
+      </div>
+      <div class="col-12 col-lg-6 form1 contact-input" data-form-contents="form1">
+        <div class="text-input__wrap">
+          <input id="Field1" name="Field1" required="" type="text" class="field text fn text-input" size="8" tabindex="2" placeholder=" " value="">
+          <label for="Field1">First Name</label>
+        </div>
+      </div>
+      <div class="col-12 col-lg-6 form1 contact-input" data-form-contents="form1">
+        <div class="text-input__wrap">
+          <input id="Field2" name="Field2" type="text" class="field text ln text-input" size="14" tabindex="3" placeholder=" " value="">
+          <label for="Field2">Last Name</label>
+        </div>
+      </div>
+      <div class="col-12 form1 contact-input" data-form-contents="form1">
+        <div class="text-input__wrap">
+          <input id="Field3" name="Field3" type="email" required="" spellcheck="false" class="field text medium text-input" placeholder=" " maxlength="255" tabindex="4" value="">
+          <label class="desc" id="title3" for="Field3">Email Address</label>
+        </div>
+      </div>
+      <div class="col-12 form1 contact-input" data-form-contents="form1">
+        <div class="text-input__wrap">
+          <textarea required="" id="Field5" name="Field5" class="field textarea medium text-input" spellcheck="true" rows="5" cols="50" tabindex="5" onkeyup="" placeholder="How can we help you? (5000 characters max)*"></textarea>
+        </div>
+      </div>
+      <div class="col-12 form1 contact-input flex-box" data-form-contents="form1">
+        <input id="Field6" name="Field6" type="checkbox" class="field checkbox-square" value="Yes, I would like Gaia Herbs to inform me about special offers and new products via email." tabindex="6">
+        <label class="choice contact-input__choice" for="Field6">
+          <span class="choice__text notranslate">Yes, I would like Gaia Herbs to inform me about special offers and new products via email.</span>
+        </label>
+      </div>
+
+      <div class="col-12 form1 contact-input" data-form-contents="form1">
+        <input id="saveForm" name="saveForm" type="submit" class="button button--primary" value="Submit">
+      </div>
+      <div class="hidden">
+        <label for="comment">Do Not Fill This Out</label>
+        <textarea name="comment" id="comment" rows="1" cols="1"></textarea>
+        <input type="hidden" id="idstamp" name="idstamp" value="v53bpjLLfaIHPuf8oB7s0OnJVM+BbOJUn5rQEEMPFOo=">
+      </div>
+    </div>
+  </form>
+  <div class="g-recaptcha" data-sitekey="6LeH8pYUAAAAAHWHSiLmb0uGy6enxlcMHFIF12gk" data-expired-callback="expCallback" data-callback="actCallback"></div>
+
+  <div class="form2 hidden" data-form-contents="form2">
+    <br/>
+    <ul>
+      <li id="fo2li318" class="notranslate">
+        <p>
+          We review monetary donations, sponsorships, and product donations based on their alignment with the mission of our social impact program and with our corporate sustainability mission that is guided by commitment to plants, people, place, and purpose.
+        </p>
+      </li>
+      <li id="fo2li213" class="notranslate">
+        <p>
+          <a href="https://app.smartsheet.com/b/form/ce808ad835464545a2a2a4f6e742345e" target="_blank" class="link">Click here if you are interested in funding or sponsorship</a>
+        </p>
+      </li>
+      <li id="fo2li215" class="notranslate">
+        <p>
+          <a href="https://app.smartsheet.com/b/form/34079b1440e54852b369ca9af774e1d2" target="_blank" class="link">Click here if you are interested in product donations</a>
+        </p>
+      </li>
+    </ul>
+  </div>
+</section>
+
+{%- if _section.settings.add_section_divider != blank -%}
+  <div class="ccontain"><hr></div>
+{%- endif -%}

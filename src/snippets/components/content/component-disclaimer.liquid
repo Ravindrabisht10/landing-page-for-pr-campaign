@@ -1,0 +1,11 @@
+<section class="disclaimer-callout">
+    <div class="content">
+        {% if disclaimer_settings.disclaimer_title != blank %}
+            <h5>{{disclaimer_settings.disclaimer_title }}</h5>
+        {% endif %}
+
+        {% if disclaimer_settings.disclaimer_copy != blank %}
+            <p>{{ disclaimer_settings.disclaimer_copy }}</p>
+        {% endif %}
+    </div>
+</section>

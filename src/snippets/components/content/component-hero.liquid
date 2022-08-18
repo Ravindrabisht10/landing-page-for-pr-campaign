@@ -1,0 +1,28 @@
+<section class="row component-hero-container">
+  <div class="col-12">
+    <section class="component-hero {{ herosize }}">
+      {%- assign img_url = herosettings.hero_image | img_url:'1920x1280' -%}
+      <img loading="lazy" src="{{ img_url }}" alt="">
+
+      <div class="component-hero__inner">
+        <div class="component-hero__content {{ herosettings.hero_copy_color}}" style="max-width: {{ herosettings.content_max_width }}px">
+          {% if herosettings.hero_subtitle != blank %}
+            <h4 class="sub-title">{{ herosettings.hero_subtitle}}</h4>
+          {% endif %}
+
+          {%- if herosettings.title != blank -%}
+            <h1 class="component-hero__title">{{ herosettings.title}}</h1>
+          {%- endif -%}
+
+          {%- if herosettings.hero_copy != blank -%}
+            <div class="component-hero__copy">{{ herosettings.hero_copy}}</div>
+          {%- endif -%}
+
+          {%- if herosettings.button_link != blank and herosettings.button_label != blank -%}
+            <a href="{{ herosettings.button_link }}" class="button button--{{ herosettings.button_type }} component-hero__cta">{{ herosettings.button_label }}</a>
+          {%- endif -%}
+        </div>
+      </div>
+    </section>
+  </div>
+</section>

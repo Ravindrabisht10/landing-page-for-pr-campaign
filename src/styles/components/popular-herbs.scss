@@ -1,0 +1,153 @@
+.popular-herbs {
+  position: relative;
+  margin: rem(30) auto;
+  overflow: hidden;
+
+  @include mq($large) {
+    @include maxed(1196);
+    margin: rem(80) auto;
+    padding: 0;
+  }
+}
+
+.popular-herbs__slider {
+  width: 100%;
+}
+
+.popular-herbs__description {
+  margin: $gutter auto 2 * $gutter;
+  max-width: rem(600);
+  text-align: center;
+  font-weight: 300;
+}
+
+.herb-tile__image-wrap {
+  padding-bottom: 100%;
+  height: 0;
+  width: 100%;
+  overflow: hidden;
+
+  img {
+    width: 100%;
+    transform: scale(1);
+    transition: transform .2s;
+
+    .herb-tile:hover & {
+      transform: scale(1.2);
+    }
+  }
+}
+
+.herb-tile__title {
+  @include font(18, 24, 400);
+  margin-top: $gutter;
+
+  &:hover {
+    color: $color-teal-500;
+  }
+}
+
+.herb-guide {
+  position: relative;
+  margin-top: rem(30);
+  margin-bottom: rem(30);
+  overflow: hidden;
+
+  @include mq($large) {
+    margin-top: rem(80);
+    margin-bottom: rem(80);
+  }
+
+  .swiper-container-initialized .herb-tile.swiper-slide.swiper-slide-next {
+    opacity: 1;
+  }
+}
+
+.herb-guide__description {
+  margin-top: rem(16);
+  max-width: rem(600);
+  text-align: center;
+  font-weight: 300;
+}
+
+.popular-herbs__pagination {
+  display: none;
+
+  @include mq($large) {
+    display: flex;
+    position: absolute;
+    bottom: rem(345);
+    right: rem(-26);
+    display: flex;
+
+    .swiper-pagination-fraction {
+      display: flex;
+    }
+  }
+}
+
+.related-herb__pagination {
+  @include mq($large) {
+    bottom: rem(440);
+  }
+}
+
+.herb-guide__description--padded {
+  margin: rem(16) auto rem(32);
+}
+
+.herb-guide__related-cta {
+  margin-top: rem(42);
+}
+
+.herb-guide__herbs {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-column-gap: $gutter;
+  grid-row-gap: 2 * $gutter;
+
+  @include mq($small) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  @include mq($medium) {
+    grid-template-columns: repeat(4, 1fr);
+  }
+  @include mq($large) {
+    grid-template-columns: repeat(6, 1fr);
+  }
+}
+
+.herb-guide__letters {
+  margin: rem(40) 0;
+  border-bottom: rem(1) solid $color-grey-200;
+  width: 100%;
+  overflow: auto;
+
+  @include mq($large) {
+    justify-content: center;
+  }
+}
+
+.herb-guide__letter {
+  @include font(14, 22, 500, 0.5);
+  border: none;
+  border-bottom: rem(4) solid $color-white;
+  padding: rem(12) rem(12) rem(13);
+  background-color: transparent;
+  text-transform: uppercase;
+  cursor: pointer;
+  appearance: none;
+  -webkit-appearance: none;
+
+  &.active {
+    border-bottom-color: $color-dust-orange-500;
+  }
+}
+
+.disclaimer {
+  @include font(14, 22, 400);
+  margin: rem(100) 0 rem(40);
+  padding: rem(13) 0;
+  background-color: $color-grey-100;
+}

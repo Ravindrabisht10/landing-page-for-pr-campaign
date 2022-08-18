@@ -1,0 +1,334 @@
+.template-title {
+  @extend .h3;
+  margin-bottom: rem(30);
+}
+
+.form-elements {
+  margin-bottom: rem(50);
+  width: 100%;
+  max-width: rem(400);
+  display: flex;
+  flex-direction: column;
+
+  .text-input__wrap {
+    margin: rem(16) 0;
+
+    &:not(:first-of-type) {
+      margin-top: 0;
+    }
+  }
+
+  .forgot-password {
+    display: inline-block;
+    margin-top: rem(16);
+  }
+}
+
+.account-form {
+  padding: rem(40) 0;
+  width: rem(450);
+  max-width: calc(100vw - #{rem(80)});
+
+  @include mq($large) {
+    padding: rem(80) 0;
+    max-width: 90vw;
+  }
+}
+
+.sign-in-button {
+  margin-top: rem(24);
+}
+
+.new-address__ctas,
+.edit-address__ctas,
+.account-form__buttons {
+  display: grid;
+  grid-row-gap: rem(16);
+
+  @include mq($medium) {
+    grid-template-columns: repeat(2, 1fr);
+    grid-column-gap: rem(16);
+  }
+}
+
+.button.address-edit-toggle {
+  @extend .button--tertiary;
+}
+
+.default-checkbox {
+  display: flex;
+  align-items: center;
+}
+
+.default-checkbox input[type="checkbox"] {
+  display: block;
+  border-radius: rem(2);
+  border: rem(1) solid $color-primary;
+  margin-right: rem(12);
+  width: rem(20);
+  height: rem(20);
+  appearance: none;
+}
+.default-checkbox input[type="checkbox"]:checked {
+  background-color: $color-primary;
+
+  &::before {
+    content: '\2713';
+    position: relative;
+    display: block;
+    width: 20px;
+    height: 20px;
+    z-index: 1;
+    text-align: center;
+    color: $color-white
+  }
+}
+
+.form-success {
+  margin-top: rem(16);
+}
+
+.modal__recover-password {
+  text-align: center;
+
+  .template-title,
+  .new-account-link__container {
+    margin-bottom: rem(12);
+  }
+
+  .account-form__buttons {
+    margin-top: rem(16);
+  }
+}
+
+.account-form {
+  .template-title {
+    margin-bottom: rem(20);
+  }
+
+  .new-account-link__container {
+    margin-bottom: rem(24);
+  }
+}
+
+.new-account-link__container a {
+  margin-left: rem(8);
+}
+
+.orders-addresses-template {
+  padding-top: rem(40);
+  padding-bottom: rem(40);
+
+  @include mq($large) {
+    padding-top: rem(100);
+    padding-bottom: rem(100);
+  }
+
+  .item-images {
+    width: rem(198);
+    display: grid;
+    grid-template-columns: repeat(4,1fr);
+    grid-gap: rem(10);
+  }
+
+  th {
+    @include font(14, 18, 500, 0.75);
+    text-transform: uppercase;
+    color: $color-deep-green;
+  }
+
+  table tr:first-of-type {
+    background-color: $color-grey-100;
+  }
+  thead tr:first-of-type {
+    background-color: $color-white;
+  }
+
+  thead {
+    display: none;
+
+    @include mq($large) {
+      display: table-header-group;
+    }
+  }
+}
+
+.template__inner {
+  display: grid;
+  grid-row-gap: rem(40);
+
+  @include mq($large) {
+    grid-template-columns: rem(230) 1fr;
+    grid-column-gap: rem(100);
+  }
+}
+
+.account-navigation__header {
+  margin-bottom: rem(40);
+
+  @include mq($large) {
+    padding: 0 rem(16);
+  }
+}
+
+.nav-link {
+  padding: rem(16);
+  list-style: none;
+
+  &.active {
+    background-color: $color-grey-100;
+  }
+}
+
+.responsive-table-row {
+  margin-top: rem(30);
+  display: flex;
+  flex-direction: column;
+
+  @include mq-max($large) {
+    background-color: $color-grey-100;
+  }
+
+  td {
+    font-weight: 300;
+  }
+
+  td:not(:last-of-type) {
+    border-bottom: rem(1) solid $color-grey-200;
+    display: flex;
+    justify-content: space-between;
+
+    &::before {
+      content: attr(data-label);
+      text-transform: uppercase;
+    }
+
+    @include mq($large) {
+      border-bottom: 0;
+      display: table-cell;
+
+      &::before {
+        display: none;
+      }
+    }
+  }
+
+  @include mq($large) {
+    margin-top: 0;
+    display: table-row;
+  }
+}
+
+.form__inner {
+  display: grid;
+  grid-row-gap: rem(24);
+
+  @include mq($large) {
+    grid-template-columns: repeat(2, 1fr);
+    grid-column-gap: rem(16);
+  }
+}
+
+.tooltip-container {
+  display: none;
+}
+.tooltip-container svg {
+  position: absolute;
+  right: rem(15);
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.po-box-tooltip {
+  position: absolute;
+  right: rem(15);
+  bottom: 100%;
+  transform: translateX(-50%);
+}
+
+.default-checkbox {
+  margin: rem(16) 0;
+}
+
+.saved-addresses__inner {
+  margin-bottom: rem(30);
+  display: grid;
+  grid-row-gap: rem(30);
+  grid-column-gap: rem(30);
+
+  @include mq($large) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.saved-addresses__container .template-title {
+  margin-bottom: rem(30);
+}
+
+.saved-address {
+  padding: rem(40);
+  display: flex;
+  flex-direction: column;
+  background-color: $color-grey-100;
+
+  p {
+    flex-grow: 1;
+  }
+
+  .address__ctas {
+    margin-top: rem(12);
+
+    .address-edit-toggle {
+      margin-right: rem(12);
+    }
+  }
+}
+
+.template__content {
+  .pagination {
+    margin-top: rem(30);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    &.hidden {
+      display: none;
+      overflow: hidden;
+    }
+
+    & a,
+    & span,
+    & div.disabled {
+      padding: rem(5) rem(10);
+    }
+
+    a {
+      border-bottom: rem(3) solid $color-white;
+      font-weight: 700;
+    }
+
+    span.active {
+      border-bottom: rem(3) solid $color-dust-orange-300;
+      font-weight: 700;
+      color: $color-dust-orange-300;
+    }
+
+    div.disabled {
+      opacity: 0.3;
+    }
+  }
+}
+
+#address_form_new .default-checkbox,
+.edit__address .default-checkbox {
+  margin-top: rem(32);
+  margin-bottom: rem(32);
+}
+
+.new-address__ctas .address-new-toggle {
+  @extend .button--tertiary;
+}
+
+.saved-address.has-default {
+  order: -1;
+}

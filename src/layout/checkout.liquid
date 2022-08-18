@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="{{ locale }}" dir="{{ direction }}" class="{{ checkout_html_classes }}">
+  <head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, height=device-height, minimum-scale=1.0, user-scalable=0">
+    <meta name="referrer" content="origin">
+
+    <title>{{ page_title }}</title>
+
+    {% comment %}
+    {% include 'sentry' %}
+    {% endcomment %}
+    {% include 'wunderkind' %}
+
+    {{ content_for_header }}
+
+    {{ checkout_stylesheets }}
+    {{ checkout_scripts }}
+
+    {% include 'google-drm' %}
+
+    <script async src="https://d3ox8tdk614ykk.cloudfront.net/pobox_checker.js"></script>
+  </head>
+  <body>
+    {{ skip_to_content_link }}
+
+    <header class="banner" data-header role="banner">
+      <div class="wrap">
+        {{ content_for_logo }}
+      </div>
+    </header>
+
+    {{ order_summary_toggle }}
+    <div class="content" data-content>
+      <div class="wrap">
+        <div class="main">
+          <header class="main__header" role="banner">
+            {{ content_for_logo }}
+            {{ breadcrumb }}
+            {{ alternative_payment_methods }}
+          </header>
+          <main class="main__content" role="main">
+            {{ content_for_layout }}
+          </main>
+          <footer class="main__footer" role="contentinfo">
+            {{ content_for_footer }}
+          </footer>
+        </div>
+        <aside class="sidebar" role="complementary">
+          <div class="sidebar__header">
+            {{ content_for_logo }}
+          </div>
+          <div class="sidebar__content">
+            {{ content_for_order_summary }}
+          </div>
+          <div>
+            {%- render "checkout-upsells" -%}
+          </div>
+        </aside>
+      </div>
+    </div>
+
+    <script>
+      var ca_prop_arr = []
+      var compare_at_price_arr = []
+    </script>
+    {% for line_item in checkout.line_items %}
+      {% if line_item.product.tags contains 'caProp65' %}
+        <script>
+          var ca_prop_html = `<tr><td colspan="4"><div class="ca-prop65-Warning {% if checkout.shipping_address.province_code == 'CA' %}show{% endif %}"><p><strong>WARNING: </strong>Consuming this product can expose you to lead, which is known to the State of California to cause birth defects or other reproductive harm. For more information, go to: <a href="https://www.p65warnings.ca.gov/products/food" target="_blank">www.p65warnings.ca.gov/products/food</a></p></div></td></tr>`;
+          ca_prop_arr.push({
+            html: ca_prop_html,
+            el: 'tr.product[data-product-id="{{ line_item.product.id }}"]'
+          })
+        </script>
+      {% endif %}
+      {% if line_item.product.tags contains 'badge-final-sale' %}
+      <script>
+        var ca_prop_html = `<tr><td colspan="4"><div class="badge-final-sale"><p><strong>REMINDER: </strong>All outlet items are final sale and cannot be returned or exchanged.</p></div></td></tr>`;
+        ca_prop_arr.push({
+          html: ca_prop_html,
+          el: 'tr.product[data-product-id="{{ line_item.product.id }}"]'
+        })
+      </script>
+    {% endif %}
+      {% if line_item.variant.compare_at_price != blank %}
+        <script>
+          compare_at_price_arr.push({variant_id: {{ line_item.variant_id}}, compare_at_price:  {{ line_item.variant.compare_at_price | times: line_item.quantity }} })
+        </script>
+      {% endif %}
+    {% endfor %}
+
+    {{ tracking_code }}
+
+
+<script>
+  (function($) {
+    $(document).on('page:load page:change', function() {
+      const outletTile = document.querySelector('.badge-final-sale')
+      if(outletTile == null){
+        for (prop of ca_prop_arr) {
+          var ca_prop_element = document.body.querySelector(prop.el);
+          ca_prop_element.insertAdjacentHTML('afterend', prop.html);
+        }
+      }
+      $('[data-address-field="address1"]').find('.field__input-wrapper').append(`
+        <div class="tooltip-container">
+          <svg height="16px" version="1.1" viewBox="0 0 20 20" width="20px" xmlns="https://www.w3.org/2000/svg" xmlns:sketch="https://www.bohemiancoding.com/sketch/ns" xmlns:xlink="https://www.w3.org/1999/xlink"><title/><desc/><defs/><g fill="none" fill-rule="evenodd" id="Page-1" stroke="none" stroke-width="1"><g fill="#000000" id="Core" transform="translate(-86.000000, -296.000000)"><g id="info-outline" transform="translate(86.000000, 296.000000)"><path d="M9,15 L11,15 L11,9 L9,9 L9,15 L9,15 Z M10,0 C4.5,0 0,4.5 0,10 C0,15.5 4.5,20 10,20 C15.5,20 20,15.5 20,10 C20,4.5 15.5,0 10,0 L10,0 Z M10,18 C5.6,18 2,14.4 2,10 C2,5.6 5.6,2 10,2 C14.4,2 18,5.6 18,10 C18,14.4 14.4,18 10,18 L10,18 Z M9,7 L11,7 L11,5 L9,5 L9,7 L9,7 Z" id="Shape"/></g></g></g></svg>
+          <div class="po-box-tooltip">
+            <p>We are unable to ship to P.O. Boxes or military addresses.</p>
+          </div>
+        </div>`
+      );
+
+      var selectors = {
+        container: document.querySelector('.order-summary__sections'),
+        state: document.querySelector('#checkout_shipping_address_province'),
+        warning: document.querySelector('.ca-prop65-Warning'),
+        address: document.querySelector('#checkout_shipping_address_address1'),
+        tooltip: document.querySelector('.tooltip-container'),
+        shipping_first_name: document.querySelector('#checkout_shipping_address_first_name'),
+        shipping_last_name: document.querySelector('#checkout_shipping_address_last_name'),
+        discount_code_el: document.querySelector('.order-summary__section--discount')
+      }
+
+      var regex = new RegExp(
+        /**
+         *  e.g. "FPO AP 123" / "Apo, AE, 123" / "FPOffice AP 123" / FPO 112
+         */
+        '(\\b[F|f|D|d|A|a][P|p][O|o|0]*(ffice|FFICE)*[\\s|,]*\\d*([a-zA-Z][a-zA-Z][\\s|,])?\\d*[\\d]\\b)' +
+
+        /**
+         * or
+         */
+        '|' +
+
+        /**
+         *  e.g. PO Box 123 / Po Bx 123 / PO 123 Box / FPOffice Box 123
+         */
+        '(\\b[F|f|D|d|A|a]*?[P|p]*(OST|ost)*\\.*\\s*[O|o|0]*(ffice|FFICE)*\\.*\\s*\\d*?\\s*[B|b][O|o|0]?[X|x]*\\.*\\s*\\d*\\b)'
+      );
+
+      // Discount Code Message
+      let ds_cd_el = document.createElement("p");
+      ds_cd_el.classList.add("order-summary__small-text");
+      ds_cd_el.id = "discount-code-message";
+      ds_cd_el.textContent = "Discounts cannot be combined";
+      if(!document.body.contains(document.getElementById('discount-code-message'))){ // no repeats
+        selectors.discount_code_el.append(ds_cd_el);
+      };
+
+      // append tooltip
+      selectors.address.parentNode.append(selectors.tooltip);
+
+      // CA Prop 65 Warning
+      caProp65Warning(selectors.warning, selectors.state);
+
+      // P.O. Box Validator
+      poBoxValidator(selectors.address, regex, selectors.tooltip);
+
+      // Remove emoji
+      removeEmoji(selectors);
+
+      //var removeStateArr = ['America Samoa','Federated States of Micronesia','Guam','Marshall Islands','Northern Mariana Islands','Palau','Puerto Rico','Virgin Islands','Armed Forces Americas','Armed Forces Europe','Armed Forces Pacific'];
+      var removeStateArr = ['AS','FM','GU','MH','MP','PW','PR','VI','AA','AE','AP'];
+      // remove states in list
+      for (ii = 0; ii <= selectors.state.length-1; ii++) {
+        var elem = selectors.state[ii];
+        if (removeStateArr.indexOf(elem.value) !== -1) {
+          elem.classList.add('hide');
+        }
+      }
+
+      $('form option.hide').remove();
+      $('[data-order-summary-section="line-items"] .product').each(function() {
+        var variantId = $(this).data("variant-id");
+        var compareAtPrice = compare_at_price_arr.find(function(p) {
+          return p.variant_id == variantId
+        })
+        if (typeof compareAtPrice !== 'undefined') {
+          $(this).find(".product__price").append('<s>$' + (parseInt(compareAtPrice.compare_at_price) / 100).toFixed(2) + '</s>')
+        }
+      })
+
+
+      var ordersummarycontent = $('.order-summary__section__content'),
+          tbody = ordersummarycontent.find('.product-table tbody'),
+          tr = tbody.find('tr');
+
+      $.each( tr, function( i, val ) {
+        var _this = $(this);
+        var productDescription = _this.find('.product__description__property.order-summary__small-text');
+        if($.trim(productDescription.text())=='oneTime: One-Time'){
+          productDescription.text('One-Time');
+        }
+      });
+      {% for line_item in checkout.line_items %}
+        {% if line_item.product.id == 2211154853999 or line_item.product.id == 2211137912943 %}
+          var dynamicButtonsLoopCount = 0;
+          var dynamicAmazonPayButton = ".dynamic-checkout__buttons form[action='https://payments.amazon.com/checkout/signin']";
+          var checkDynamicButtons = setInterval(function() {
+              if ($(dynamicAmazonPayButton).length) {
+                $(dynamicAmazonPayButton).parent().hide();
+                dynamicButtonCleanup()
+              }
+              else if (dynamicButtonsLoopCount > 100) { /* 30 second load buffer */
+                dynamicButtonCleanup()
+              }
+              dynamicButtonsLoopCount += 1;
+          }, 300); // check every 300ms
+          function dynamicButtonCleanup() {
+            var visibleButtons = $(".dynamic-checkout__buttons ul > li:visible");
+            if (visibleButtons.length === 1) {
+              visibleButtons.first().addClass("one-visible-dynamic-button");
+            }
+            clearInterval(checkDynamicButtons);
+          }
+          {% break %}
+        {% endif %}
+      {% endfor %}
+
+
+    });
+  })(Checkout.$);
+
+  function poBoxValidator(address, regex, tooltip) {
+    if(regex.test(address.value)) {
+      tooltip.classList.add('hover-trigered-js');
+      address.style.color = 'red';
+      var btn = document.querySelector('#continue_button');
+      btn.disabled = true;
+      btn.style.background = 'lightgrey';
+      setTimeout(function(){
+        address.value = '';
+        tooltip.classList.remove('hover-trigered-js');
+        address.style.color = '#333333';
+        btn.disabled = false;
+        btn.style.background = '#53ac28';
+      }, 3000);
+    }
+
+    function validateAddress(e) {
+      /**
+       * Only trigger on space or blur to avoid triggering while typing something like 'boxcar'
+       */
+      if(regex.test(address.value) && ((e && e.data === ' ') || !e)) {
+
+        /**
+         *  Ignore things like 'music box'
+         */
+        var matches = regex.exec(address.value)
+        if (!matches) { return }
+        var poRegex = new RegExp('\\b[F|f|D|d|A|a]?[P|p]*(OST|ost)*\\.*\\s*[O|o|0]*(ffice|FFICE)*\\b');
+        var poMatches = poRegex.exec(matches[0])
+        if (matches[0].split(' ').length > 1 && (!poMatches || !poMatches[0])) { return }
+
+        tooltip.classList.add('hover-trigered-js');
+        address.style.color = 'red';
+        var btn = document.querySelector('#continue_button');
+        btn.disabled = true;
+        btn.style.background = 'lightgrey';
+        var autoSuggestions = document.querySelector('#checkout_shipping_address_address1-autocomplete')
+        autoSuggestions.style.display = 'none';
+
+        setTimeout(function(){
+          address.value = '';
+          tooltip.classList.remove('hover-trigered-js');
+          address.style.color = '#333333';
+          btn.disabled = false;
+          btn.style.background = '#53ac28';
+          autoSuggestions.style.display = 'block';
+        }, 3000);
+      }
+    }
+
+    address.addEventListener('input', function(e) {
+      validateAddress(e)
+    }, false);
+
+    address.addEventListener('blur', function(e) {
+      validateAddress(null)
+    }, false);
+  }
+
+  function caProp65Warning(warning, state) {
+    var warning2 = document.querySelectorAll(".ca-prop65-Warning");
+    var mobileorderBTN = document.querySelector('button.order-summary-toggle.shown-if-js.order-summary-toggle--show');
+    if(warning) {
+      if(state.value !== 'CA') {
+        warning.classList.remove('show');
+          warning2.forEach(function (warning2) {
+            warning2.classList.remove('show');
+          });
+      } else {
+        warning.classList.add('show');
+        warning2.forEach(function (warning2) {
+          warning2.classList.add('show');
+        });
+        if (mobileorderBTN)
+          mobileorderBTN.click();
+      }
+    }
+
+    state.addEventListener('change', function() {
+      var warning2 = document.querySelectorAll(".ca-prop65-Warning");
+      var mobileorderBTN = document.querySelector('button.order-summary-toggle.shown-if-js.order-summary-toggle--show');
+      if(warning) {
+        if(state.value !== 'CA') {
+          warning.classList.remove('show');
+          warning2.forEach(function (warning2) {
+            warning2.classList.remove('show');
+          });
+        } else {
+          warning.classList.add('show');
+            warning2.forEach(function (warning2) {
+              warning2.classList.add('show');
+            });
+          if (mobileorderBTN)
+            mobileorderBTN.click();
+        }
+      }
+    });
+  }
+
+  function removeEmoji(selectors) {
+    function filterInput(input) {
+      input.value = input.value.replace(/\p{Emoji_Presentation}/gu,'');
+    }
+    selectors.shipping_first_name.addEventListener('blur', function(e) {
+      filterInput(selectors.shipping_first_name)
+    }, false);
+    selectors.shipping_last_name.addEventListener('blur', function(e) {
+      filterInput(selectors.shipping_last_name)
+    }, false);
+  }
+
+</script>
+
+<style>
+  .badge-final-sale,
+  .ca-prop65-Warning {
+    padding: .5rem;
+    border: 1px solid;
+    visibility: hidden;
+    opacity: 0;
+    transition: all .25s ease-in-out;
+    height: 0;
+    text-align: left;
+  }
+  .badge-final-sale p,
+  .ca-prop65-Warning p {
+    font-size: 12px;
+  }
+  .badge-final-sale,
+  .ca-prop65-Warning.show {
+      margin-top: 1rem;
+      visibility: visible;
+      opacity: 1;
+      transition: all .25s ease-in-out;
+      height: auto;
+  }
+  /* P.O. Box Tooltip */
+  .tooltip-container {
+    width: 16px;
+    height: 16px;
+    position: absolute;
+    right: -24px;
+    top: 16px;
+    cursor: pointer;
+  }
+  .tooltip-container svg g {
+    fill: #B7BDBB;
+    transition: all .25s ease-in-out;
+  }
+  .tooltip-container .po-box-tooltip {
+    position: absolute;
+    bottom: 30px;
+    left: -110px;
+    color: #fff;
+    background: #000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px;
+    z-index: 9;
+    width: 220px;
+    height: 60px;
+    visibility: hidden;
+    opacity: 0;
+    transition: all .25s ease-in-out;
+    text-align: center;
+  }
+  .tooltip-container .po-box-tooltip:after {
+    content: '';
+    border-radius: 2px;
+    transform: rotate(-45deg);
+    display: flex;
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    bottom: -7px;
+    left: 112px;
+    background: #000;
+    z-index: 9;
+  }
+  .tooltip-container:hover .po-box-tooltip,
+  .tooltip-container.hover-trigered-js .po-box-tooltip{
+    visibility: visible;
+    opacity: 1;
+    transition: all .25s ease-in-out;
+  }
+
+
+  .tooltip-container:hover svg g {
+    fill: #000;
+    transition: all .25s ease-in-out;
+  }
+
+  /* form.edit_checkout option.hide{
+    display:none;
+  } */
+
+  @media (max-width: 768px) {
+    .tooltip-container {
+      width: 30px;
+      height: 45px;
+      top: 0;
+      right: 0;
+      display: flex;
+      align-items: center;
+    }
+    .tooltip-container .po-box-tooltip {
+      bottom: 40px;
+      left: -205px;
+      width: 200px;
+      height: 60px;
+      padding: 0 1rem;
+    }
+    .po-box-tooltip p {
+      font-size: 12px;
+    z-index: 10;
+    }
+    .tooltip-container .po-box-tooltip:after {
+      left: 207px;
+      bottom: -4px;
+    }
+  }
+  {% for line_item in checkout.line_items %}
+    {% if line_item.product.id == 2211154853999 or line_item.product.id == 2211137912943 %}
+      .dynamic-checkout__buttons form[action='https://payments.amazon.com/checkout/signin'] {
+        display: none;
+      }
+      @media(min-width: 750px) {
+        .shopify-cleanslate .one-visible-dynamic-button {
+          margin-left: auto !important;
+          margin-right: auto !important;
+        }
+      }
+      {% break %}
+    {% endif %}
+  {% endfor %}
+
+</style>
+
+    {% include 'scarab_purchase' %}
+    <script src="https://rebuyengine.com/js/rebuy/1627931691?shop=gh-test-site.myshopify.com"></script>
+</body>
+</html>

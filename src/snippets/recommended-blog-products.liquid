@@ -1,0 +1,34 @@
+
+   {% assign related = article.metafields.Additional['RelatedProducts'] | split: ',' %}
+   {% capture related_items %}
+     {% paginate collections['all'].products by 1000 %}
+       {% for relatedItemSku in related %}
+         {% for product in collections['all'].products %}
+           {% if relatedItemSku contains product.first_available_variant.sku%}
+           {%- render 'product-recommended', _product: product -%}
+           {% endif %}
+         {% endfor %}
+       {% endfor %}
+     {% endpaginate %}
+   {% endcapture %}
+
+   {% unless related_items == blank %}
+        <div class="mobile-recommendation-product-container mobile-only ccontain">
+            <div class="ccontain flex-box flex-box--vertical">
+                <h2 class="featured-product__title">{{relatedproductsettings.related_title }}</h2>
+            </div>
+            <div class="articles product-suggestion" data-slides-group="false" data-slides-loop="false" data-slides-per-view-mobile="1" data-slides-per-view-tablet="2" data-slides-per-view="2" data-slides-speed="300" data-swiper-slider>
+                <div class="swiper-wrapper">
+                    {{- related_items -}}
+                </div>
+                <div class="swiper-button-prev mobile-only">
+                  {%- render 'icon-chevron-left' -%}
+                </div>
+                <div class="swiper-button-next mobile-only">
+                  {%- render 'icon-chevron-right' -%}
+                </div>
+                <div class="swiper-scrollbar"></div>
+            </div>
+        </div>
+   {% endunless %}
+

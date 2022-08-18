@@ -1,0 +1,70 @@
+
+
+  {%- if paginate.pages > 1 -%}
+      <div class="pagination">
+        {%- if paginate.previous-%}
+          <div class="prev-arrow">
+            <a href="{{ paginate.previous.url }}" class="prev">
+                {% include 'icon-chevron-left' %}
+            </a>
+        </div>
+        {%- else -%}
+          <div class="disabled prev-arrow">
+            {% include 'icon-chevron-left' %}
+          </div>
+        {%- endif -%}
+
+        {%- for part in paginate.parts -%}
+          {%- if part.is_link -%}
+
+              <a href="{{ part.url }}">
+                <span class="visuallyhidden">page</span> {{ part.title }}
+              </a>
+
+          {%- else -%}
+            {%- if part.title == paginate.current_page -%}
+              <span class="active" aria-current="page">
+                {{ part.title }}
+              </span>
+            {%- else -%}
+              <span>
+                {{ part.title }}
+              </span>
+            {%- endif -%}
+          {%- endif -%}
+        {%- endfor -%}
+
+        {%- if paginate.next -%}
+          <div class="next-arrow">
+            <a href="{{ paginate.next.url }}">
+                {% include 'icon-chevron-right' %}
+            </a>
+        </div>
+        {%- else -%}
+          <div class="disabled next-arrow">
+            {% include 'icon-chevron-right' %}
+          </div>
+        {%- endif -%}
+        </div>
+
+  {%- endif -%}
+
+<style>
+.visuallyhidden {
+  border: 0;
+  clip: rect(0 0 0 0);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  width: 1px;
+  white-space: nowrap;
+}
+  
+.pagination li {
+  display: inline; 
+  margin: 0 5px;
+}
+</style>
+  

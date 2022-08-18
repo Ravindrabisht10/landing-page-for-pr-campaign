@@ -1,0 +1,53 @@
+.page-banner {
+  background: #f9f9f9;
+  bottom: -20rem;
+  left: 0;
+  position: fixed;
+  transition: bottom 0.33s ease-in-out;
+  width: 100%;
+  z-index: 99;
+
+  &.visible {
+    bottom: 0;
+  }
+
+  .content {
+    margin: 0 auto;
+    max-width: 90rem;
+    padding: 1.25rem;
+
+    @media all and (min-width: 992px) {
+      display: table;
+    }
+
+    p {
+      font-size: 0.875rem;
+      margin: 0;
+
+      @media all and (min-width: 992px) {
+        display: table-cell;
+        font-size: 1rem;
+        vertical-align: top;
+      }
+    }
+    .accept {
+      margin: 1.25rem 0 0;
+      @media all and (min-width: 992px) {
+        margin: 0 0 0 3.75rem;
+      }
+    }
+  }
+
+  .close {
+    position: absolute;
+    right: 1.25rem;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 0.875rem;
+
+    svg {
+      display: block;
+      width: 100%;
+    }
+  }
+}

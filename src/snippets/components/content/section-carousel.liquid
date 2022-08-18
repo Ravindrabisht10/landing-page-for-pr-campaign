@@ -1,0 +1,118 @@
+{% comment %}
+  Carousel
+  - Section Sub Heading
+  - Section Heading
+  - Carousel Item
+    - Sub Title
+    - Title
+    - Description
+    - Action
+{% endcomment %}
+
+{%- assign block_count = 9 -%}
+{%- assign item_count = 0 -%}
+{%- for i in (1 .. block_count) -%}
+  {%- assign title = 'title_' | append: i -%}
+  {%- if _section.settings[title] == blank -%}
+    {%- continue -%}
+  {%- endif -%}
+  {%- assign item_count = item_count | plus: 1 -%}
+{%- endfor -%}
+
+<section class="section section--carousel section--carousel--{{ _section.settings.slides_per_view }}
+  {% if _section.settings.no_pt != blank %}pt-0{% endif %} {% if _section.settings.no_pb != blank %}pb-0{% endif %}"
+  data-section-id="{{ _section.id }}" data-section-type="{{ _section.type }}"
+  {%- if _section.settings.section_background_color != blank -%}
+    style="background-color: {{ _section.settings.section_background_color }};"
+  {%- endif -%}>
+
+  <div class="section__inner ccontain">
+    {%- if _section.settings.sub_title != blank -%}
+      <span class="section__sub-title sub-title">{{ _section.settings.sub_title }}</span>
+    {%- endif -%}
+
+    {%- if _section.settings.title != blank -%}
+      <h2 class="section__title">{{ _section.settings.title }}</h2>
+    {%- endif -%}
+
+    {%- if _section.settings.content != blank -%}
+      <div class="section__carousel-content">{{ _section.settings.content }}</div>
+    {%- endif -%}
+
+    <div class="section__grid"
+      {%- if item_count > _section.settings.slides_per_view -%}
+        data-swiper-slider
+        data-slides-speed="{{ _section.settings.slides_speed | default: 300 }}"
+        data-slides-per-view="{{ _section.settings.slides_per_view | default: 4 }}"
+        data-slides-per-view-tablet="{{ _section.settings.slides_per_view | minus: 1 }}"
+        data-slides-per-view-mobile="1"
+        data-slides-group="{{ _section.settings.slides_group | default: 'false' }}"
+        data-slides-loop="{{ _section.settings.slides_loop | default: 'false' }}"
+      {%- endif -%}
+      >
+
+      <div class="swiper-wrapper swiper-wrapper-{{ _section.id }}">
+        {%- for i in (1 .. block_count) -%}
+          {%- assign image = 'image_' | append: i -%}
+          {%- assign sub_title = 'sub_title_' | append: i -%}
+          {%- assign title = 'title_' | append: i -%}
+          {%- assign description = 'description_' | append: i -%}
+
+          {%- assign button_label = 'button_label_' | append: i -%}
+          {%- assign button_link = 'button_link_' | append: i -%}
+          {%- assign button_type = 'button_type_' | append: i -%}
+
+          {%- if _section.settings[image] == blank and _section.settings[title] == blank -%}
+            {%- continue -%}
+          {%- endif -%}
+
+          {%-
+            render 'block-carousel-card',
+            item_class: 'swiper-slide',
+            image: _section.settings[image],
+            sub_title: _section.settings[sub_title],
+            title: _section.settings[title],
+            description: _section.settings[description],
+            button_label: _section.settings[button_label],
+            button_link: _section.settings[button_link],
+            button_type: _section.settings[button_type],
+          -%}
+
+        {%- endfor -%}
+      </div>
+
+      {%- if item_count > _section.settings.slides_per_view -%}
+        <!-- If we need pagination -->
+        <div class="swiper-pagination swiper-component-{{ _section.id }}"></div>
+
+        <!-- If we need navigation buttons -->
+        <div class="swiper-button-prev swiper-component-{{ _section.id }}">
+          {%- render 'icon-chevron-left' -%}
+        </div>
+        <div class="swiper-button-next swiper-component-{{ _section.id }}">
+          {%- render 'icon-chevron-right' -%}
+        </div>
+        <style>
+          @media (min-width: 1038px) {
+            .swiper-component-{{ _section.id }} {
+              top: {{ _section.settings.position }}px !important;
+            }
+          }
+
+          @media (min-width: 750px) {
+            .swiper-wrapper-{{ _section.id }} .swiper-slide {
+              opacity: 1 !important;
+            }
+          }
+        </style>
+
+        <!-- If we need scrollbar -->
+        <div class="swiper-scrollbar"></div>
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+{%- if _section.settings.add_section_divider != blank -%}
+  <div class="ccontain"><hr></div>
+{%- endif -%}

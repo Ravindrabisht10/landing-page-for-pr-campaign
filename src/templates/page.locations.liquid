@@ -1,0 +1,49 @@
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+
+{% section 'location-hero' %}
+{% section 'locations' %}
+{% section 'location-footer' %} 
+
+
+<script>
+
+const locationspage = '/apps/where-to-buy';
+$.ajax(locationspage, {
+  success(response) {
+    getPosts(response);
+  },
+});
+function getPosts(data) {
+  data = data.replace('set_stores(data){',
+    `set_stores(data){
+      var tmp_stores = data.stores
+      for (var i = 0; i < tmp_stores.length; i++) {
+        var text = tmp_stores[i][4];
+        var zip = $("<div>" + text + "</div>").find(".postal_zip").html().trim();
+        if (zip.toString().length === 4) {
+          tmp_stores[i]['summary'] = text.replace('> ' + zip + '<', '> 0' + zip + '<');
+          tmp_stores[i]['postal_zip'] = '0' + zip
+        }
+      }
+      data.stores = tmp_stores
+    `
+  );
+
+  data = data.replace(`infoPopup.setContent("<div class='gm_popup'>"+data.data + directions +"</div>");`,
+    `var text = data.data;
+     var zip = $("<div>" + text + "</div>").find(".postal_zip").html().trim();
+     if (zip.toString().length === 4) {
+      data.data = text.replace('> ' + zip + '<', '> 0' + zip + '<');
+     }
+     infoPopup.setContent("<div class='gm_popup'>"+data.data + directions +"</div>");
+    `
+  );
+
+  const $additional = $(data).find('#col-main');
+  $($additional).find('div, h2').remove();
+  $('.locations-list .map-container').append($additional.html());
+  $('.locations-list .map-container .addresses').html($(data).find('#addresses_list').html());
+}
+
+</script>

@@ -1,0 +1,44 @@
+<div class="pre-footer__icons">
+  {%- for block in section.blocks -%}
+    <figure class="pre-footer__icon">
+      <img io-img-src="{{- block.settings.icon | img_url: '100x' -}}"
+           alt="{{- block.settings.icon.alt -}}" />
+      <figcaption class="pre-footer__icon-caption">
+        <p class="pre-footer__icon-title">{{- block.settings.title -}}</p>
+        <div class="pre-footer__icon-content">{{- block.settings.content -}}</div>
+      </figcaption>
+    </figure>
+  {%- endfor -%}
+</div>
+
+
+{% schema %}
+  {
+    "name": "Site Pre-Footer",
+    "class": "pre-footer",
+    "settings": [],
+    "blocks": [
+      {
+        "type": "prefooter-icon",
+        "name": "Pre-Footer Icon",
+        "settings": [
+          {
+            "type": "text",
+            "id": "title",
+            "label": "Title"
+          },
+          {
+            "type": "image_picker",
+            "id": "icon",
+            "label": "Icon"
+          },
+          {
+            "type": "richtext",
+            "label": "Content",
+            "id": "content"
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}

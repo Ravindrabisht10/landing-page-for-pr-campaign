@@ -1,0 +1,103 @@
+<link href="{{ 'lity.css' | asset_url }}" rel="stylesheet">
+
+{% if herosettings.hero_image %}
+  {%- assign video_img = herosettings.hero_image | img_url:'1920x' -%}
+{% endif %}
+{% if herosettings.video_clip %}
+  {%- assign video_clip = herosettings.video_clip -%}
+{% endif %}
+
+<section class="component-hero--video">
+    {% if video_clip != blank %}
+        <div class="video-container">
+            <video src="{{ video_clip }}" preload="metadata" loop autoplay muted="muted" playsinline></video>
+        </div>
+    {% else %}
+        <img src="{{ video_img }}" alt="">
+    {% endif %}
+    <div class="component-hero__content">
+        <h1 style="color: {{ herosettings.text_color }}">{{ herosettings.hero_title}}</h1>
+        <div class="component-hero__copy">
+            <p style="color: {{ herosettings.text_color }}">
+                {{ herosettings.hero_copy}}
+            </p>
+        </div>
+        {% if herosettings.video_link != blank %}
+            <a class="video-hero-link" href="{{ herosettings.video_link }}" data-lity style="color: {{ herosettings.text_color }}">
+                {% render 'icon-video' %}
+                {% if herosettings.video_copy != blank %}
+                    {{ herosettings.video_copy }}
+                {% endif %}
+            </a>
+        {% endif %}
+    </div>
+</section>
+
+<style type="text/css">
+    .video-hero-link path,
+    .video-hero-link g {
+        fill: {{- herosettings.text_color -}};
+    }
+</style>
+
+
+</div>
+<script src="https://player.vimeo.com/api/player.js"></script>
+<script>
+    const videoLink = document.getElementsByClassName('video-hero-link');
+    const videoToggle = videoLink[0];
+    const videoContainerNode = document.getElementsByClassName('video-container');
+    const videoContainer = videoContainerNode[0];
+    const preview = videoContainer.children;
+    const previewVideo = preview[0];
+    const previewText = document.getElementsByClassName('component-hero__content');
+    const content = document.getElementsByClassName('component-hero__content');
+    const vimeoEmbedContainer = document.createElement('div');
+    vimeoEmbedContainer.setAttribute('class', 'hidden')
+    vimeoEmbedContainer.innerHTML = '<div style="padding:42.5% 0 0 0;position:relative;">\
+                                        <iframe id="vimeo-embed" src="https://player.vimeo.com/video/363639489?h=ffa145b07a&title=0&byline=0&portrait=0" style="position:absolute;top:0;left:0;width:100%;height:100%;" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>\
+                                    </div>'
+    videoContainer.appendChild(vimeoEmbedContainer);
+
+    let player;
+    let iframeID;
+    let videoHasPlayed = false;
+
+    videoToggle.addEventListener('click', (e) => {
+        e.preventDefault();
+        swapVideos();
+        setVideoHooks(player);
+    });
+
+    const swapVideos = () => {
+        videoContainer.classList.remove('video-container');
+        videoContainer.classList.add('vimeo-container');
+        vimeoEmbedContainer.setAttribute('class', 'vimeo-container');
+        videoContainer.removeChild(previewVideo);
+        vimeoEmbedContainer.classList.remove('hidden');
+        content[0].classList.add('hidden');
+        iframeID = document.querySelector('#vimeo-embed');
+        player = new Vimeo.Player(iframeID);
+        player.play();
+        videoHasPlayed = true;
+        return iframeID;
+    }
+
+    const onVideoEnd = () => {
+        vimeoEmbedContainer.removeAttribute('class');
+        content[0].classList.remove('hidden');
+        videoContainer.classList.remove('vimeo-container');
+        videoContainer.classList.add('video-container');
+        //videoContainer.removeChild(vimeoEmbedContainer);
+        vimeoEmbedContainer.setAttribute('class', 'hidden');
+        videoContainer.appendChild(previewVideo);
+    }
+
+    const setVideoHooks = (player) => {
+        player.on('ended', () => {
+            onVideoEnd()
+        })
+
+    }
+    
+</script>

@@ -1,0 +1,274 @@
+.buybox {
+  margin-bottom: 2 * $gutter;
+
+  .line-item__quantity {
+    margin-right: $gutter;
+  }
+
+}
+
+.button.buybox__variant {
+  position: relative;
+  border-color: rgba($color-deep-green, 0.5);
+  padding-right: rem(24);
+  padding-left: rem(24);
+  min-width: rem(100);
+  overflow: hidden;
+
+  &.selected {
+    border-width: rem(2);
+    border-color: $color-deep-green;
+    background-color: $color-secondary;
+  }
+
+  & + & {
+    margin-left: rem(12);
+  }
+
+  &[disabled]::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 200%;
+    border-top: 1px solid rgba($color-deep-green, 0.5);
+    transform: rotate(-20deg);
+    transform-origin: bottom left;
+  }
+}
+
+div.buybox__badges {
+  position: static;
+  margin-bottom: rem(6);
+  justify-content: flex-start;
+}
+
+.buybox__title {
+  margin-right: 2 * $gutter;
+}
+
+.buybox__main-price {
+  @include font(18, 18, 500);
+  display: flex;
+  color: $color-deep-green;
+
+  .price {
+    font-size: inherit;
+
+    &:not(:first-of-type) {
+      margin-left: rem(5);
+    }
+  }
+}
+
+.product-image-modal,
+.buybox__supplements {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  opacity: 0;
+  background-color: rgba($color-black, 0.4);
+  z-index: 1000;
+  transition: opacity .3s;
+
+  &.open {
+    display: flex;
+    opacity: 1;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+.product-image-modal-close,
+.buybox__supplements-close {
+  position: absolute;
+  top: rem(9);
+  right: rem(9);
+
+  svg {
+    width: rem(14);
+  }
+}
+
+.product-image-modal__backdrop,
+.buybox__supplements-backdrop {
+  position: relative;
+  padding: rem(30);
+  max-height: 90vh;
+  max-width: 90vw;
+  background-color: $color-white;
+}
+
+.product-image-modal__image,
+.buybox__supplement-image {
+  display: block;
+  max-height: calc(90vh - #{rem(60)});
+  max-width: calc(90vw - #{rem(60)});
+}
+
+.buybox__description {
+  @include font(14, 22, 400);
+  margin: rem(12) 0 2 * $gutter;
+
+  *:not(:first-child) {
+    display: none;
+  }
+}
+
+.buybox__size {
+  margin-top: 2 * $gutter;
+  margin-bottom: rem(10);
+}
+
+.buybox__size-label {
+  @include font(14, 18, 500, 0.75);
+  color: $color-deep-green;
+}
+
+.buybox__supplement-trigger {
+  border: 0;
+  background: transparent;
+  appearance: none;
+  -webkit-appearance: none;
+}
+
+.buybox__option {
+  margin-top: $gutter * 2;
+
+  & + & {
+    margin-top: rem(17);
+    border-top: rem(1) solid $color-grey-300;
+    padding-top: rem(17);
+  }
+}
+
+.buybox__label {
+  @include font(14, 18, 400);
+  margin-left: rem(12);
+  width: 100%;
+  color: $color-deep-green;
+  cursor: pointer;
+}
+
+.buybox__label-price {
+  margin-left: auto;
+  font-weight: 500;
+}
+
+.buybox__highlights-list {
+  margin-bottom: $gutter;
+  list-style-type: none;
+}
+
+.buybox__highlights-title {
+  @include font(14, 22, 500, 0.75);
+  margin-bottom: rem(4);
+  text-transform: uppercase;
+  color: $color-deep-green;
+}
+
+.buybox__highlights-item {
+  @include font(14, 22, 400);
+  border-bottom: rem(1) solid $color-grey-300;
+  padding: rem(8) 0;
+}
+
+.buybox__benefits {
+  @include font(12, 22);
+  margin-top: rem(12);
+}
+
+.buybox__frequency {
+  margin-top: rem(24);
+}
+
+.buybox__ctas {
+  margin: rem(26) 0;
+}
+
+.buybox__ctas--quickshop {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: 0;
+  box-shadow: 0 rem(-1) rem(4) 0 rgba($color-black, 0.1);
+  padding: $gutter rem(20);
+  background-color: $color-white;
+
+  @include mq($large) {
+    padding-left: rem(36);
+    padding-right: rem(36);
+  }
+}
+
+.buybox__shipping-wrapper {
+  margin-top: $gutter;
+}
+
+.buybox__shipping {
+  @include font(12, 15, 400);
+  margin-left: rem(8);
+}
+
+.buybox__size-value {
+  @include font(14, 22, 400);
+}
+
+.widget-atc {
+  margin-top: 1rem;
+}
+
+#bundle-supplement-titles {
+  // display: flex;
+  // flex-direction: column;
+  // flex-basis: 25%;
+  margin-bottom: 1em;
+}
+
+@media only screen and (min-width: 500px) {
+  #bundle-supplement-image {
+    width: 75%;
+    margin: auto !important;
+  }
+}
+
+#bundle-supplement-image {
+
+  img {
+    overflow-y: scroll;
+  }
+}
+
+#bundle-supplement-container {
+  overflow-y: scroll;
+  max-height: 80vh;
+
+}
+#arrow-down {
+  width: 1em;
+  height: 1em;
+  background-color: black;
+  margin-left: 5em;
+}
+
+#down-arrow-select {
+  width: 1.5em;
+  margin-left: auto;
+  transform: translateY(-3em);
+  z-index: 100;
+}
+
+@media only screen and (min-width: 600px){
+  #down-arrow-select {
+    width: 2em;
+    transform: translateY(-2.9em);
+  }
+}
+
+#pdp-oos-btn {
+  margin-top: 2em;
+}

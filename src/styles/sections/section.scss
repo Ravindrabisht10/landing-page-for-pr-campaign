@@ -1,0 +1,63 @@
+.section {
+  padding-top: rem(60);
+  padding-bottom: rem(60);
+
+  &:last-child {
+    padding-bottom: rem(60);
+  }
+
+  &__inner {
+    position: relative;
+    overflow: hidden;
+  }
+
+  &__sub-title {
+    color: $color-deep-green;
+  }
+
+  .section__carousel-content {
+    margin: rem(16) auto;
+    max-width: rem(800);
+    text-align: center;
+    font-weight: 300;
+  }
+
+  &__grid {
+    overflow: hidden;
+    margin-top: rem(24);
+    margin-bottom: rem(24);
+  }
+
+  .swiper-container-initialized {
+    .swiper-wrapper {
+      display: flex;
+      grid-gap: 0;
+    }
+  }
+
+  .swiper-pagination {
+    display: none;
+  }
+
+  @include mq($medium) {
+    padding-top: rem(80);
+    padding-bottom: rem(80);
+
+    &__grid {
+      margin-top: rem(40);
+      margin-bottom: rem(40);
+    }
+
+    .swiper-wrapper {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr 1fr; //repeat(4, 1fr): doesn't work in IE.
+      grid-gap: rem(20);
+    }
+
+    .swiper-pagination,
+    .swiper-button-prev,
+    .swiper-button-next {
+      display: block;
+    }
+  }
+}

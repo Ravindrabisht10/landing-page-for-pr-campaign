@@ -1,0 +1,92 @@
+.meet-herbs__fiftyfifty {
+  margin-bottom: rem(42);
+
+  @include mq($large) {
+    margin-bottom: rem(100);
+    align-items: center;
+  }
+}
+
+.meet-herbs__section-title,
+.meet-herbs__intro {
+  text-align: center;
+}
+
+.meet-herbs__intro {
+  @include font(16, 24);
+  @include maxed(640);
+  margin-top: rem(16);
+  margin-bottom: rem(24);
+
+  @include mq($large) {
+    margin-bottom: rem(40);
+  }
+}
+
+.meet-herbs__title {
+  @include font(18, 22, 500);
+  text-align: center;
+
+  @include mq($large) {
+    text-align: left;
+  }
+}
+
+.meet-herbs__button {
+  margin: auto;
+
+  @include mq($large) {
+    margin: 0;
+  }
+}
+
+.meet-herbs__image-wrap {
+  position: relative;
+  margin-top: rem(36);
+  margin-bottom: rem(74);
+  height: rem(335);
+  width: 100%;
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  @include mq($large) {
+    margin-top: 0;
+    margin-bottom: 0;
+    height: rem(540);
+  }
+}
+
+.meet-herbs__image {
+  position: absolute;
+  left: 50%;
+  bottom: rem(-40);
+  max-height: 100%;
+  transform: translateX(-50%);
+}
+
+.meet-herbs__results {
+  margin: $gutter 0 2 * $gutter;
+}
+
+.meet-herbs__result:nth-child(2n + 1) {
+  background-color: $color-secondary;
+}
+
+.meet-herbs__result {
+  color: $color-black;
+
+  .score {
+    @include font(14, 18, 500);
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    color: $color-deep-green;
+
+    svg {
+      margin-right: rem(12);
+      width: rem(20);
+      height: rem(20);
+    }
+  }
+}

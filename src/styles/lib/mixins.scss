@@ -1,0 +1,54 @@
+// --------------------------------
+// SIZING & SPACING
+// --------------------------------
+
+@mixin mq ($breakpoint) {
+  @media (min-width: #{$breakpoint}) {
+    @content;
+  }
+}
+
+@mixin mq-max ($breakpoint) {
+  @media (max-width: #{$breakpoint}) {
+    @content;
+  }
+}
+
+@function rem ($size) {
+  $remSize: $size / 16;
+  @return #{$remSize}rem;
+}
+
+
+// --------------------------------
+// LAYOUT
+// --------------------------------
+
+@mixin center-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@mixin guttered {
+  margin: auto;
+  padding-left: $gutter * 1.5;
+  padding-right: $gutter  * 1.5;
+}
+
+@mixin maxed ($max-width: 1248) {
+  @include guttered;
+  max-width: rem($max-width);
+  width: 100%;
+}
+
+// --------------------------------
+// FONTS
+// --------------------------------
+
+@mixin font ($font-size, $line-height, $font-weight: 300, $letter-spacing: 0) {
+  font-size: rem($font-size);
+  line-height: rem($line-height);
+  font-weight: $font-weight;
+  letter-spacing: rem($letter-spacing);
+}

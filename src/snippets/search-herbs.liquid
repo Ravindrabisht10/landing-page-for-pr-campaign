@@ -1,0 +1,56 @@
+{%- capture _default_list_content -%}
+  <ul>
+    <li>Locate your Herb ID on the product’s packaging</li>
+    <li>Enter an Herb ID to search for your product’s batch</li>
+    <li>Discover Industry-leading Herbal Transparency</li>
+  </ul>
+{%- endcapture -%}
+
+<section class="section {% if _section.settings.no_pt != blank %}pt-0{% endif %} {% if _section.settings.no_pb != blank %}pb-0{% endif %}">
+  <div class="myh-search herb-search-form">
+    <div class="row contain">
+      <div class="col-12">
+        <form class="myh-search herb-search-form__form flex-box"
+              action="/pages/meet-your-herbs-results">
+          <div class="relative herb-search-form__input-wrap">
+            <input type="text" id="id" name="id" class="input input--wide  search herb-nav-search herb-search-form__input" placeholder="Enter your Herb ID" autocomplete="on" data-search-input />
+            <div class="clear-search icon-button" data-clear-search>
+              {%- render 'icon-close' -%}
+            </div>
+          </div>
+          <button type="submit"
+                  class="button button--primary button--icon">
+            {% render 'icon-search-white' %} Search
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+  <div class="myh-help myh-help-page">
+    <div class="row contain flex-box--aligned">
+      {%- assign img_url = _section.settings.meet-herb-bottom-image | img_url:'1920x1280' -%}
+      {%- if _section.settings.meet-herb-bottom-image == blank -%}
+        {%- assign img_url = '//cdn.shopify.com/s/files/1/0058/0252/4783/files/gaia-myh-help-image-v3_800w_1920x1280.jpg?v=1590072151' -%}
+      {%- endif -%}
+      <div class="col-12 col-lg-2">
+        <img loading="lazy" src="{{ img_url }}" />
+      </div>
+      <div class="col-12 col-lg-4 image-text-content">
+          <h5 class="myh-help__title">
+            {{- settings.search_title -}}
+          </h5>
+          <div class="myh-help__content">
+            {{- settings.search_content -}}
+          </div>
+      </div>
+      <div class="col-1 col-lg-2 d-none d-lg-block"></div>
+      <div class="col-12 col-lg-4 copy-additional myh-help__additional">
+        {{ _section.settings.search_copy_additional | default: _default_list_content }}
+      </div>
+    </div>
+  </div>
+</section>
+
+{%- if _section.settings.add_section_divider != blank -%}
+  <div class="ccontain"><hr></div>
+{%- endif -%}

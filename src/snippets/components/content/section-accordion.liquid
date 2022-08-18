@@ -1,0 +1,44 @@
+{% comment %}
+  Accordion
+  - Section Sub Heading
+  - Section Heading
+  - Accordion Item
+    - Question
+    - Answer
+{% endcomment %}
+
+{%- assign block_count = 10 -%}
+
+<section class="section section--accordion text-center {% if _section.settings.no_pt != blank %}pt-0{% endif %} {% if _section.settings.no_pb != blank %}pb-0{% endif %}"
+  data-section-id="{{ _section.id }}" data-section-type="{{ _section.type }}"
+  {%- if _section.settings.section_background_color != blank -%}
+    style="background-color: {{ _section.settings.section_background_color }};"
+  {%- endif -%}>
+
+  <div class="section__inner ccontain">
+    {%- if _section.settings.sub_title != blank -%}
+      <span class="section__sub-title sub-title">{{ _section.settings.sub_title }}</span>
+    {%- endif -%}
+
+    {%- if _section.settings.title != blank -%}
+      <h2 class="section__title">{{ _section.settings.title }}</h2>
+    {%- endif -%}
+
+    <div class="section__grid">
+      {%- for i in (1 .. block_count) -%}
+        {%- assign title = 'title_' | append: i -%}
+        {%- assign description = 'description_' | append: i -%}
+
+        {%-
+          render 'block-accordion',
+          summary: _section.settings[title],
+          content: _section.settings[description]
+        -%}
+        
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+{%- if _section.settings.add_section_divider != blank -%}
+  <div class="ccontain"><hr></div>
+{%- endif -%}
