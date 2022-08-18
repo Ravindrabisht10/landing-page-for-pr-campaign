@@ -14,15 +14,26 @@ const dom = {
 
 const initSwiper = (slider) => {
 
-  const { swiperDestroy, slidesPerView, slidesPerViewTablet, slidesPerViewMobile, slidesGroup, slidesSpeed, slidesSpeedMobile, slidesLoop, sliderThumbs, allowTouchMove, paginationType , initialSlide, centeredSlides, arrows} = slider.dataset;
+  const { swiperDestroy, slidesPerView, slidesPerViewTablet, slidesPerViewMobile, slidesGroup, slidesSpeed, slidesSpeedMobile, slidesLoop, sliderThumbs, allowTouchMove, paginationType , initialSlide, centeredSlides, arrows, paginationText} = slider.dataset;
   const pagination = slider.querySelector('.swiper-pagination');
   let nextBtn = slider.querySelector('.swiper-button-next');
   let prevBtn = slider.querySelector('.swiper-button-prev');
+  let paginationArray = [];
 
   if(arrows == "false"){
     prevBtn = undefined;
     nextBtn = undefined;
   }
+
+  if(paginationText){
+    paginationArray = paginationText.split('/')
+  }
+
+  // const renderPaginations = function(){
+  //   (index, className) {
+  //     return '<span class="' + className + '">' + (menu[index]) + '</span>';
+  //   }
+  // }
 
   //parent slider
   const parentSlider = sliderThumbs && document.querySelector("["+sliderThumbs+"]")
@@ -64,7 +75,15 @@ const initSwiper = (slider) => {
     pagination: {
       el: pagination,
       type: paginationType ? paginationType  : 'fraction',
-      clickable: true
+      clickable: true,
+      renderBullet: paginationArray.length > 0 ? function (index, className) {
+        console.log(className)
+        let paginationConent = '<span class="' + className + '">' + (paginationArray[index]) + '</span>';
+        if(index > 0){
+          paginationConent = '/<span class="' + className + '">' + (paginationArray[index]) + '</span>';
+        }
+        return paginationConent;
+      }: ""
     },
 
     // Navigation arrows

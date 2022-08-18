@@ -64,7 +64,9 @@ body {
 .bm-banner-section {
   background-color: #eaefec;
   padding: 3em 0;
-
+  .swiper{
+    padding-bottom: 30px;
+  }
   h1 {
     font-weight: 700;
     line-height: 55px;
@@ -219,14 +221,15 @@ body {
     }
   }
 
-  .visual-treatment {
+  .visual-treatment,
+  .swiper-pagination-bullet {
     font-weight: 500;
     font-size: 13px;
     line-height: 12px;
     text-align: center;
     color: #16402D;
-    width: 100%;
-
+    width:auto;
+    background: transparent;
     @media (max-width:1024px) {
       margin-top: 44px;
     }
@@ -611,6 +614,12 @@ body {
     @media (max-width:$breakpoint-mobile) {
       padding: 0;
       margin-top: 20px;
+    }
+  }
+
+  @media screen and (max-width:767px) {
+    .section-img{
+      order: -1;
     }
   }
 }
